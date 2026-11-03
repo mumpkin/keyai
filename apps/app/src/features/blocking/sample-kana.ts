@@ -1,4 +1,4 @@
-export type KanaState = 'locked' | 'learning' | 'mastered' | 'latest';
+export type KanaState = 'locked' | 'learning' | 'mastered' | 'latest' | 'next';
 
 export interface KanaSlot {
 	readonly id: string;
@@ -14,10 +14,14 @@ export interface SampleKana {
 const MASTERED = new Set(['い', 'し', 'の', 'に', 'か', 'た']);
 const LEARNING = new Set(['ね', 'す', 'る', 'こ', 'き', 'さ', 'ぬ']);
 const LATEST = 'く';
+const NEXT = 'て';
 
 function stateOf(kana: string): KanaState {
 	if (kana === LATEST) {
 		return 'latest';
+	}
+	if (kana === NEXT) {
+		return 'next';
 	}
 	if (MASTERED.has(kana)) {
 		return 'mastered';
