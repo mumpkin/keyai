@@ -30,7 +30,7 @@ case-insensitive.
 | を / は / へ                                              | wo / ha / he                             | を: also o                                     |
 | しゃ / ちゃ / じゃ                                        | sha / cha / ja                           | also sya / tya, cya / zya, jya                 |
 | ん at the end of a word or before a consonant             | n                                        | n, nn, n'                                      |
-| ん before a vowel, `y` or `n`                             | n'                                       | nn, n' (a single `n` would be ambiguous)       |
+| ん before a vowel or `y`                                  | n'                                       | nn, n' (a single `n` would be ambiguous)       |
 | っ before a consonant                                     | doubled consonant                        | っち: tchi or cchi                             |
 | ー                                                        | -                                        | `-` or the repeated previous vowel             |
 | ティ / ディ / トゥ                                        | ti / di / tu                             | also thi / dhi / twu                           |
@@ -38,11 +38,13 @@ case-insensitive.
 
 - **Input follows the writing, not the pronunciation**: the particle は is
   typed `ha`, へ is typed `he` (see architecture, A3).
-- **ん before a vowel, `y` or `n`** — or before a kana that can be typed
-  starting with one of them, such as `を` (`o`) — must be typed `nn` or `n'`.
-  The displayed reading uses `n'` in these cases (こんにちは →
-  `kon'nichiha`), so that the displayed form is always typeable; this
-  departs from strict Hepburn, which writes `konnichiwa`.
+- **ん before a vowel or `y`** — or before a kana that can be typed starting
+  with one of them, such as `を` (`o`) — must be typed `nn` or `n'`, and is
+  displayed `n'` (きんえん → `kin'en`).
+- **ん before `n`** accepts a single `n`: こんにちは is displayed
+  `konnichiha` and accepts `konnichiha`, `konnnichiha` and `kon'nichiha`.
+  The word being known, the input engine follows every reading the keys
+  still allow and settles once the next keys remove the ambiguity.
 - **Combinations cannot be typed in two parts** (`きゃ` as `ki` + `xya`): the
   point is to learn `きゃ` as a whole.
 - **A standalone small `っ`** (`xtsu`, `ltu`) is not accepted; the pipeline
