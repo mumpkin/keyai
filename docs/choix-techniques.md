@@ -32,6 +32,8 @@ Toute la logique métier (saisie romaji, sélection des mots, statistiques, prog
 | 11  | Tests                     | **Vitest 4**, **fast-check**, **Vitest Browser Mode** (`vitest-browser-react`), **Playwright** (Chromium/Firefox/WebKit), **WebdriverIO + `@wdio/tauri-service`** (plus tard)                                                                           | jsdom                                                                                                                                          |
 | 12  | CI / distribution         | **GitHub + GitHub Actions**, **GitHub Pages** (`*.github.io`), **tauri-action** (NSIS `.exe`, AppImage, `.deb`), **`plugin-updater`** signé ; V1 non signée pour Windows, demande à **SignPath Foundation** ; détection de code dupliqué avec **jscpd** | Cloudflare Workers, Azure Artifact Signing (réservé US/Canada), SonarQube Cloud (redondant avec Biome/TS/Vitest, plan gratuit limité à `main`) |
 
+**Ajout (conception C3) :** graphiques du bilan avec **shadcn/ui Charts** (basé sur **Recharts 3**, SVG, compatible React 19) ; écartés : ECharts, Chart.js, visx.
+
 ## Points de vigilance
 
 - **Linux / WebKitGTK :** le rendu et la gestion du clavier peuvent différer de Chromium. Tester sous Linux ; les tests Playwright WebKit servent d’indicateur.

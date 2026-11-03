@@ -132,4 +132,18 @@ one, exactly like a cell of the reference table.
 
 Speed, accuracy, error count, the five most faulty kana, kana unlocked during
 the session, words encountered with their translation, skipped words with
-their Hepburn reading. Charts: see below (pending).
+their Hepburn reading.
+
+### Summary charts
+
+Built with shadcn/ui Charts (Recharts 3).
+
+| Chart                  | Content                                                      |
+| ---------------------- | ------------------------------------------------------------ |
+| Speed over the session | One point per word, with the speed threshold as a line       |
+| Session kana           | Speed per kana as bars, coloured by accuracy, threshold line |
+| Overall progress       | Locked / learning / mastered kana, for hiragana and katakana |
+| Progress over time     | Speed and accuracy over the last sessions (light history)    |
+
+The light history keeps one record per session (date, speed, accuracy, word
+count, unlocked kana) for the last 100 sessions; see architecture, A3.

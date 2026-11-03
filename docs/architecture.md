@@ -171,13 +171,25 @@ interface SaveFile {
 	savedAt: string;
 	settings: Settings;
 	progress: Progress;
+	history: SessionRecord[]; // last 100 sessions, oldest dropped first
+}
+
+interface SessionRecord {
+	date: string; // ISO date
+	kanaPerMinute: number;
+	accuracy: number; // 0 to 1
+	wordCount: number;
+	unlocked: string[]; // kana unlocked at the end of this session
 }
 ```
 
 - Unlocked kana are stored as an explicit list so that a new unlock order in
   a later vocabulary release never changes what a user has already unlocked.
 - The same `SaveFile` format is used for local storage and for export/import.
-- Not persisted: in-session keystrokes, session history (out of scope).
+- A **light history** (one `SessionRecord` per session, capped at 100,
+  about 10 KB) feeds the progress-over-time chart. Detailed history (per word
+  or per keystroke) stays out of scope.
+- Not persisted: in-session keystrokes.
 
 ## A4 — Session flow
 
