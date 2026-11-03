@@ -191,3 +191,41 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
 | Required clean ratio | 90 %      |
 | Speed statistic      | median    |
 | Unlocks per session  | at most 1 |
+
+## C5 — Session word selection
+
+`generateSession(vocab, progress, settings, random)` with a seeded random
+generator.
+
+- **Eligible words**: every unit is unlocked (hiragana and katakana mix
+  naturally once both progressions allow it).
+- **Priority kana**: the **featured kana** (last unlocked, one per script)
+  and the **weak kana** (unlocked but not mastered, weakest first by display
+  score).
+
+### Three passes
+
+1. **Coverage**: for each weak kana, draw one word containing it.
+2. **Featured**: add words containing the featured kana until they make up
+   about **50 %** of the session.
+3. **Fill**: weighted draw among all eligible words; the weight grows with the
+   number of weak kana in the word and, slightly, with its frequency.
+
+The word order is then shuffled.
+
+### Variety rules
+
+- No duplicate within a session while unused eligible words remain; when
+  repetitions become necessary, never the same word twice in a row.
+- Single-unit words are capped at about **20 %** of the session, so that
+  early sessions are not reduced to typing one letter per word.
+- When the vocabulary is too small, constraints are relaxed in this order:
+  the single-unit cap, then the featured share, then the no-duplicate rule.
+  A session always has the requested number of words.
+
+### Constants (`core/selection`)
+
+| Constant             | Value |
+| -------------------- | ----- |
+| Featured kana share  | 50 %  |
+| Single-unit word cap | 20 %  |
