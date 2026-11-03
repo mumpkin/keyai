@@ -1,0 +1,34 @@
+{
+	"name": "keyai",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Learn to read Japanese kana by typing them",
+	"license": "MIT",
+	"type": "module",
+	"packageManager": "pnpm@12.16.1",
+	"engines": {
+		"node": ">=24"
+	},
+	"scripts": {
+		"dev": "pnpm --filter @keyai/app dev",
+		"dev:tauri": "pnpm --filter @keyai/app tauri dev",
+		"build:web": "pnpm --filter @keyai/app build",
+		"build:tauri": "pnpm --filter @keyai/app tauri build",
+		"check": "biome check .",
+		"typecheck": "pnpm --recursive typecheck && tsc --project tools/tsconfig.json",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"duplicates": "jscpd",
+		"prepare": "lefthook install"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.4",
+		"@types/node": "^24.19.2",
+		"@vitest/coverage-v8": "^5.0.5",
+		"jscpd": "^5.4.2",
+		"lefthook": "^2.2.2",
+		"typescript": "^7.0.2",
+		"vitest": "^5.0.5"
+	}
+}

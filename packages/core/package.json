@@ -1,0 +1,17 @@
+{
+	"name": "@keyai/core",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Pure TypeScript engine of keyai",
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		"./kana": "./src/kana/index.ts"
+	},
+	"scripts": {
+		"typecheck": "tsc --project tsconfig.json"
+	},
+	"dependencies": {
+		"zod": "^4.6.7"
+	}
+}
