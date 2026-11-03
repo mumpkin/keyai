@@ -3,6 +3,31 @@
 Everything in this repository is written in English: code, comments, commit
 messages, branch names, changelog and technical documentation.
 
+## Development setup
+
+Requirements: Node.js 24 or later, pnpm (version pinned in `package.json`),
+Rust stable, and the
+[Tauri system dependencies](https://v2.tauri.app/start/prerequisites/).
+
+```bash
+pnpm install          # also installs the git hooks (lefthook)
+pnpm dev              # web app on http://localhost:1420
+pnpm dev:tauri        # desktop app
+```
+
+| Command              | Purpose                             |
+| -------------------- | ----------------------------------- |
+| `pnpm check`         | Lint and format check (Biome)       |
+| `pnpm typecheck`     | Type checking of every package      |
+| `pnpm test`          | Unit tests (Vitest)                 |
+| `pnpm test:coverage` | Unit tests with coverage thresholds |
+| `pnpm duplicates`    | Duplicate code detection (jscpd)    |
+| `pnpm build:web`     | Production web build                |
+| `pnpm build:tauri`   | Desktop installers                  |
+
+Git hooks run Biome and `cargo fmt` on staged files, check the commit message
+and, before pushing, the branch name. The CI runs the same checks.
+
 ## Clean Code
 
 The code follows the rules of _Clean Code_ (Robert C. Martin).
@@ -18,6 +43,8 @@ The code follows the rules of _Clean Code_ (Robert C. Martin).
 - **Comments explain why, not what.** If code needs a comment to explain
   what it does, rename or extract instead.
 - **Tests are first-class code** and follow the same rules.
+- Library conventions do not override these rules: import Zod as
+  `import * as zod from 'zod'`, not `import { z } from 'zod'`.
 
 Biome enforces what can be automated (`biome.json`):
 
