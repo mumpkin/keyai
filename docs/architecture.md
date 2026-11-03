@@ -146,7 +146,7 @@ interface Progress {
 interface KanaStats {
 	seen: number;
 	errors: number;
-	recent: Sample[]; // sliding window of the last N attempts
+	recent: Sample[]; // sliding window of the last 10 attempts
 }
 
 interface Sample {

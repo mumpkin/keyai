@@ -147,3 +147,47 @@ Built with shadcn/ui Charts (Recharts 3).
 
 The light history keeps one record per session (date, speed, accuracy, word
 count, unlocked kana) for the last 100 sessions; see architecture, A3.
+
+## C4 — Mastery and unlocking
+
+### Mastery of a kana
+
+Computed from the **last 10 attempts** of the kana. A kana is **mastered**
+when:
+
+1. it has at least **5 attempts**;
+2. the **median** speed of these attempts reaches the user's speed
+   threshold (the median absorbs abnormally long attempts, see C3);
+3. at least **90 %** of these attempts are clean (at most one faulty attempt
+   out of ten; none with fewer than ten attempts).
+
+Mastery is never stored: it is recomputed, so a mastered kana can fall back
+to unmastered when its recent attempts degrade.
+
+A **display score** from 0 to 100 % feeds the reference table and the charts:
+the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
+100 %.
+
+### Unlocking
+
+- The next kana of a script is unlocked only when **every** unlocked kana of
+  that script is mastered.
+- Unlocking happens at the end of a session, **at most one kana per
+  session**, and is announced in the summary.
+- Hiragana and katakana progress independently, each with its own unlock
+  order; when katakana start is settled in C7.
+- An unlocked kana is never locked again; if it regresses, it delays the next
+  unlock until it is mastered again.
+- Rare kana are protected by word selection (C5), which favours unmastered
+  kana, and by allowed word repetitions. The pipeline report flags kana that
+  open very few words.
+
+### Constants (`core/progression`)
+
+| Constant             | Value     |
+| -------------------- | --------- |
+| Attempt window       | 10        |
+| Minimum attempts     | 5         |
+| Required clean ratio | 90 %      |
+| Speed statistic      | median    |
+| Unlocks per session  | at most 1 |
