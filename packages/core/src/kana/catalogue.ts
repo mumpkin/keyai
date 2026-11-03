@@ -9,12 +9,11 @@ import type { KanaUnit, Romaji, Script } from './types.ts';
 /** Distance between a hiragana and its katakana in Unicode. */
 const KATAKANA_CODE_OFFSET = 0x60;
 
+const HIRAGANA_RANGE = /[\u3041-\u3096]/g;
+
 export function toKatakana(hiragana: string): string {
-	return String.fromCodePoint(
-		...[...hiragana].map(
-			(character) =>
-				(character.codePointAt(0) ?? 0) + KATAKANA_CODE_OFFSET,
-		),
+	return hiragana.replace(HIRAGANA_RANGE, (character) =>
+		String.fromCharCode(character.charCodeAt(0) + KATAKANA_CODE_OFFSET),
 	);
 }
 

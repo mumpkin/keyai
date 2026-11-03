@@ -46,7 +46,8 @@ export function tokenize(word: string): KanaUnit[] {
 	while (position < characters.length) {
 		const unit = longestUnitAt(characters, position);
 		if (!unit) {
-			throw new UnknownKanaError(characters[position] ?? '', position);
+			const character = characters.slice(position, position + 1).join('');
+			throw new UnknownKanaError(character, position);
 		}
 		units.push(unit);
 		position += [...unit.text].length;

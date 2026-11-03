@@ -28,6 +28,8 @@ describe('spellingsOf', () => {
 	it('accepts - or the previous vowel for ー', () => {
 		expect(spellingsAt('コーヒー', 1)).toEqual(['-', 'o']);
 		expect(spellingsAt('コーヒー', 3)).toEqual(['-', 'i']);
+		expect(spellingsAt('ー', 0)).toEqual(['-']);
+		expect(spellingsAt('ンー', 1)).toEqual(['-']);
 	});
 
 	it('marks words ending with っ as not typeable', () => {
@@ -50,6 +52,7 @@ describe('toHepburn', () => {
 		['コーヒー', 'ko-hi-'],
 		['は', 'ha'],
 		['を', 'wo'],
+		['あっ', 'a'],
 	])('reads %s as %s', (word, reading) => {
 		expect(toHepburn(tokenize(word))).toBe(reading);
 	});

@@ -10,7 +10,7 @@ function displayAt(units: readonly KanaUnit[], index: number): string {
 		case 'nasal':
 			return isAmbiguousAfterNasal(next) ? "n'" : 'n';
 		case 'sokuon':
-			return nextDisplay.startsWith('ch') ? 't' : (nextDisplay[0] ?? '');
+			return nextDisplay.startsWith('ch') ? 't' : nextDisplay.charAt(0);
 		default:
 			return unit.romaji.display;
 	}

@@ -25,7 +25,12 @@ export default defineConfig({
 			provider: 'v8',
 			reporter: ['text', 'lcov'],
 			include: ['packages/core/src/**/*.ts'],
-			exclude: ['**/*.test.ts', '**/index.ts', '**/types.ts'],
+			exclude: [
+				'**/*.test.ts',
+				'**/test-helpers.ts',
+				'**/index.ts',
+				'**/types.ts',
+			],
 			thresholds: {
 				lines: CORE_COVERAGE_THRESHOLD,
 				functions: CORE_COVERAGE_THRESHOLD,
