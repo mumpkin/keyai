@@ -158,7 +158,7 @@ interface KanaStats {
 }
 
 interface Sample {
-	ms: number;
+	ms: number | null; // null when the unit was not timed
 	error: boolean;
 }
 
