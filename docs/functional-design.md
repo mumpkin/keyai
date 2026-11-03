@@ -88,3 +88,48 @@ About **six hiragana** are unlocked from the start, chosen with the same
 method under a constraint of at least ~15 typeable words. Single-kana
 particles (の, に, は, か, と…) help reach that quickly. The exact size and
 minimum are tuned from the pipeline report, on real data.
+
+## C3 — Measurements
+
+### Counting unit
+
+One **catalogue unit** counts as one kana: `きゃ`, `っ` and `ー` each count for
+one, exactly like a cell of the reference table.
+
+### Speed (kana per minute)
+
+- **Session**: completed units ÷ elapsed time from the first key to the end
+  of the session. Units of skipped words do not count.
+- **Per kana**: each attempt gives 60,000 ÷ duration in milliseconds, compared
+  with the user's speed threshold (see C4).
+- **No pause detection**: all elapsed time counts. A user who needs a real
+  break aborts the session with Escape. Per-kana outliers are handled by the
+  mastery formula (C4), not by discarding time.
+
+### Accuracy
+
+- A unit is **clean** when it was typed without any wrong key.
+- Accuracy = clean units ÷ attempted units (the unit on which a word was
+  skipped counts as attempted). Corrected errors therefore lower accuracy.
+- Several wrong keys on the same unit lower accuracy once: a keystroke-based
+  measure would penalise kana with long romaji (`shi`, `tsu`).
+
+### Errors
+
+- The error count shown in the summary is the number of **wrong keys**.
+- Frequent errors: the **five kana** with the most faulty units in the
+  session.
+
+### Timing rules (from A4)
+
+- The timer starts on the first key; the first unit of a session only counts
+  for accuracy.
+- A unit's time starts at the completion of the previous unit, or at the
+  space that starts the word.
+- When returning to a skipped word, the current unit's timer restarts.
+
+### Summary content
+
+Speed, accuracy, error count, the five most faulty kana, kana unlocked during
+the session, words encountered with their translation, skipped words with
+their Hepburn reading. Charts: see below (pending).
