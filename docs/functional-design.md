@@ -10,12 +10,13 @@ validated one at a time:
 | #   | Topic                                           | Status   |
 | --- | ----------------------------------------------- | -------- |
 | C1  | Romaji tables                                   | Approved |
-| C2  | Kana catalogue, reference table, initial group  | Pending  |
-| C3  | Measurements: speed, accuracy, pause threshold  | Pending  |
-| C4  | Mastery and unlocking                           | Pending  |
-| C5  | Session word selection                          | Pending  |
-| C6  | Settings: speed presets, default session length | Pending  |
-| C7  | V1 corpus: size, filters, katakana introduction | Pending  |
+| C2  | Kana catalogue, reference table, initial group  | Approved |
+| C3  | Measurements: speed, accuracy, errors           | Approved |
+| C4  | Mastery and unlocking                           | Approved |
+| C5  | Session word selection                          | Approved |
+| C6  | Settings: speed presets, default session length | Approved |
+| C7  | V1 corpus: size, filters, katakana introduction | Approved |
+| C8  | Screens and series flow                         | Approved |
 
 ## C1 — Romaji tables
 
@@ -144,9 +145,10 @@ one, exactly like a cell of the reference table.
 
 Speed, accuracy, error count, the five most faulty kana, kana unlocked during
 the session, words encountered with their translation, skipped words with
-their Hepburn reading.
+their Hepburn reading. There is no summary screen: series follow each other
+and this content lives in the statistics screen (see C8).
 
-### Summary charts
+### Statistics charts
 
 Built with shadcn/ui Charts (Recharts 3).
 
@@ -266,6 +268,7 @@ The word order is then shuffled.
 | Words per session | 20                            | 5 to 100         |
 | Language          | browser language, else French | French / English |
 | Error sound       | off                           | on / off         |
+| Kana size         | 24 px                         | 16 to 64 px      |
 
 ### Data management
 
@@ -315,3 +318,52 @@ The word order is then shuffled.
 - **Particles**: は, が, を, に, へ, で, と, も, の, か, や, よ, ね, から, まで,
   より, だけ, しか, など, each with a hand-written card in
   `particles.yaml`.
+
+## C8 — Screens and series flow
+
+Agreed during the blocking session (pull request #5).
+
+### Series flow
+
+- There is **no summary screen**. When a series ends, the next one starts
+  immediately; its results are saved and shown in the statistics bar and the
+  statistics screen.
+- The first launch shows a short animated title: `hayai` (速い, _fast_) turns
+  into `keyai` as `ha` slides into `ke`. Any key or click skips it; it is
+  reduced to an instant swap under `prefers-reduced-motion`.
+
+### Screens
+
+| Screen     | Content                                                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Training   | Statistics bar, word line, last word zone, Japanese input warning, kana table                                                                    |
+| Statistics | Last series (figures, speed per word, faulty kana, words, skipped words), progress (mastery per script, kana table coloured by mastery), history |
+| Settings   | Language, session, speed, feedback, display, data, about                                                                                         |
+
+Navigation: header with Training, Statistics and Settings (icons only on
+mobile).
+
+### Training screen
+
+- **Statistics bar** (replaces the unlock banner): progress of the current
+  series (`5/20` with a gauge), live speed, accuracy and errors, previous
+  series figures, and a _new_ chip when a kana was just unlocked.
+- **Word line**: words separated by a normal space. **No romaji is shown
+  under the words**: as in Keybr or Monkeytype, typing fills the kana in
+  place. Typed units turn to the main colour, the unit being typed is shown
+  as partially filled, the next one is underlined. Skipped words are struck
+  through.
+- **Last word zone** below the line: kana, Hepburn reading and translation of
+  the last finished (or skipped) word, with a preview of its card. This is
+  where the translation appears.
+- **Word card** on hover, keyboard focus or touch of a finished word.
+- **Kana table**: one script at a time; the last unlocked kana carries a
+  _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
+  Romaji is shown under unmastered, new and next kana, and only on hover,
+  focus or touch for mastered kana.
+- **Kana size** is a setting, in pixels (default 24 px, 16 to 64 px).
+
+### Mobile
+
+The kana table moves to a bottom sheet opened by a button, because the
+virtual keyboard takes the bottom of the screen. The word line wraps.

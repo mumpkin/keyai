@@ -162,6 +162,7 @@ interface Settings {
 		kanaPerMinute: number;
 	};
 	feedback: { sound: boolean };
+	display: { kanaSizePx: number };
 }
 
 interface SaveFile {
@@ -194,22 +195,22 @@ interface SessionRecord {
 ## A4 — Session flow
 
 ```
-ready ──first key──► typing ──last word done──► finished ──► summary
+ready ──first key──► typing ──last word done──► finished ──► next series
                        │
                        └──Escape──► aborted (nothing is saved)
 ```
 
 A single pure reducer in `core/session`.
 
-| Situation                        | Behaviour                                                                 |
-| -------------------------------- | ------------------------------------------------------------------------- |
-| Correct key                      | Input advances; a completed unit records a `{ ms, error }` sample         |
-| Wrong key                        | Rejected (nothing displayed); one error recorded on the current unit      |
-| Space, word complete             | Word validated, its translation appears, next word                        |
-| Space, word incomplete           | Word skipped (greyed out); one error on the current unit, no speed sample |
-| Backspace at the start of a word | Back to the previous word if it was skipped, where it was left            |
-| Backspace on a completed word    | No effect                                                                 |
-| End of session                   | Last word validated or skipped; summary lists skipped words with reading  |
+| Situation                        | Behaviour                                                                                       |
+| -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Correct key                      | Input advances; a completed unit records a `{ ms, error }` sample                               |
+| Wrong key                        | Rejected (nothing displayed); one error recorded on the current unit                            |
+| Space, word complete             | Word validated, its translation appears, next word                                              |
+| Space, word incomplete           | Word skipped (greyed out); one error on the current unit, no speed sample                       |
+| Backspace at the start of a word | Back to the previous word if it was skipped, where it was left                                  |
+| Backspace on a completed word    | No effect                                                                                       |
+| End of series                    | Last word validated or skipped; the series is saved and the next one starts (no summary screen) |
 
 - Timer starts on the first key. Unit time runs from the previous unit's
   completion; the first unit of a session only counts for accuracy.
@@ -230,19 +231,19 @@ A single pure reducer in `core/session`.
 main.tsx            bootstrap: platform → save → i18n → render
 platform/           types.ts · web/ · tauri/
 stores/             progress-store.ts · ui-store.ts
-features/           training/ · kana-table/ · summary/ · settings/ · about/
+features/           training/ · kana-table/ · statistics/ · settings/ · splash/
 components/ui/      shadcn components
 vocab/              JSON loading and index
 i18n/               configuration and locales
 styles/app.css      Tailwind and theme
 ```
 
-| State                   | Location                     | Notes                                                |
-| ----------------------- | ---------------------------- | ---------------------------------------------------- |
-| Settings, progress      | `progress-store` (Zustand)   | Actions call `core`, then save immediately           |
-| Current screen, summary | `ui-store` (Zustand)         | Replaces a router                                    |
-| Running session         | `useReducer(sessionReducer)` | Result handed to `progress-store.applySessionResult` |
-| Vocabulary and index    | Loaded once at startup       | Read-only                                            |
+| State                       | Location                     | Notes                                                |
+| --------------------------- | ---------------------------- | ---------------------------------------------------- |
+| Settings, progress          | `progress-store` (Zustand)   | Actions call `core`, then save immediately           |
+| Current screen, last series | `ui-store` (Zustand)         | Replaces a router                                    |
+| Running session             | `useReducer(sessionReducer)` | Result handed to `progress-store.applySessionResult` |
+| Vocabulary and index        | Loaded once at startup       | Read-only                                            |
 
 - The platform is selected **at build time** (`VITE_PLATFORM=web|tauri`): the
   web build contains no Tauri code, the Tauri build contains no service
