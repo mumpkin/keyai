@@ -229,3 +229,41 @@ The word order is then shuffled.
 | -------------------- | ----- |
 | Featured kana share  | 50 %  |
 | Single-unit word cap | 20 %  |
+
+## C6 — Settings
+
+### Speed threshold (kana per minute)
+
+| Preset         | Value             | Time per kana | Profile                              |
+| -------------- | ----------------- | ------------- | ------------------------------------ |
+| Easy (default) | 30                | 2 s           | Recognised after a short hesitation  |
+| Normal         | 45                | ~1.3 s        | Fluent but deliberate reading        |
+| Hard           | 60                | 1 s           | Near-instant recognition             |
+| Custom         | 10 to 150, step 5 |               | Free value or adjusted from a preset |
+
+- Editing the value after picking a preset switches to _custom_.
+- Changes apply immediately: mastery is recomputed (C4), so raising the
+  threshold may unmaster kana and lowering it may speed up unlocking (still
+  at most one per session).
+- Values are estimates, to be tuned after the first real tests.
+
+### Other settings
+
+| Setting           | Default                       | Range            |
+| ----------------- | ----------------------------- | ---------------- |
+| Words per session | 20                            | 5 to 100         |
+| Language          | browser language, else French | French / English |
+| Error sound       | off                           | on / off         |
+
+### Data management
+
+- **Export** the progress (`keyai-save` file).
+- **Import**: a preview (file date, unlocked kana, number of sessions) is
+  shown first; after confirmation the file **replaces** the current progress
+  entirely. No merging.
+- **Reset** the progress, with an explicit confirmation.
+
+### Not in settings (V1)
+
+- Light and dark themes follow the system (`prefers-color-scheme`).
+- Choosing which kana to practise: progression stays automatic.
