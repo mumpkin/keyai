@@ -18,6 +18,8 @@ describe('matcher', () => {
 		['コーヒー', 'koohii'],
 		['を', 'o'],
 		['ほん', 'hon'],
+		['さんぽ', 'sanpo'],
+		['ほんや', "hon'ya"],
 		['パーティー', 'pa-ti-'],
 	])('accepts %s typed as %s', (word, keys) => {
 		const outcome = typeWord(word, keys);

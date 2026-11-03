@@ -27,25 +27,21 @@ function nasalSpellings(unit: KanaUnit, next: KanaUnit | undefined): string[] {
 		: [...unit.romaji.accepted];
 }
 
-function doubledConsonantOf(spelling: string): string | undefined {
-	const first = spelling[0];
-	if (!first || VOWELS.has(first) || first === 'n') {
-		return undefined;
-	}
-	return spelling.startsWith('ch') ? 't' : first;
+/** Letters that can start the next kana: っち may be typed 'tchi' or 'cchi'. */
+function leadingLettersOf(spelling: string): string[] {
+	return spelling.startsWith('ch') ? ['t', 'c'] : [spelling.charAt(0)];
+}
+
+function isDoublingConsonant(letter: string): boolean {
+	return letter !== '' && letter !== 'n' && !VOWELS.has(letter);
 }
 
 /** っ doubles the first consonant of the next kana ('kitte', 'matcha'). */
 function sokuonSpellings(next: KanaUnit | undefined): string[] {
 	const nextSpellings = next?.romaji.accepted ?? [];
-	const firstLetters = nextSpellings.map((spelling) => spelling[0] ?? '');
-	const doubled = nextSpellings
-		.map(doubledConsonantOf)
-		.filter((consonant) => consonant !== undefined);
-	const accepted = [...doubled, ...firstLetters].filter(
-		(letter) => letter !== '' && !VOWELS.has(letter) && letter !== 'n',
+	return unique(
+		nextSpellings.flatMap(leadingLettersOf).filter(isDoublingConsonant),
 	);
-	return unique(accepted);
 }
 
 /** ー is typed '-' or as the repeated vowel of the previous kana. */
