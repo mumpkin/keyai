@@ -90,7 +90,15 @@ identifiers that end up in saves never change.
 interface KanaUnit {
 	text: string; // 'き', 'きゃ', 'っ', 'ー' — also the identifier
 	script: 'hiragana' | 'katakana';
-	kind: 'base' | 'voiced' | 'semivoiced' | 'combo' | 'sokuon' | 'choon';
+	kind:
+		| 'base'
+		| 'nasal' // ん, ン
+		| 'voiced'
+		| 'semivoiced'
+		| 'combo'
+		| 'extended' // katakana-only combinations (ティ, ファ…)
+		| 'sokuon'
+		| 'choon';
 	gojuon: number;
 	counterpart?: string;
 	romaji: { display: string; accepted: string[] };

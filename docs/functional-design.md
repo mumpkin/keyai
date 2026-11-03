@@ -38,6 +38,11 @@ case-insensitive.
 
 - **Input follows the writing, not the pronunciation**: the particle は is
   typed `ha`, へ is typed `he` (see architecture, A3).
+- **ん before a vowel, `y` or `n`** — or before a kana that can be typed
+  starting with one of them, such as `を` (`o`) — must be typed `nn` or `n'`.
+  The displayed reading uses `n'` in these cases (こんにちは →
+  `kon'nichiha`), so that the displayed form is always typeable; this
+  departs from strict Hepburn, which writes `konnichiwa`.
 - **Combinations cannot be typed in two parts** (`きゃ` as `ki` + `xya`): the
   point is to learn `きゃ` as a whole.
 - **A standalone small `っ`** (`xtsu`, `ltu`) is not accepted; the pipeline
