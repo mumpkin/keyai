@@ -17,6 +17,8 @@
 	"dependencies": {
 		"@base-ui/react": "^1.9.0",
 		"@fontsource-variable/geist": "^5.3.0",
+		"@fontsource-variable/noto-sans-jp": "^5.3.1",
+		"@keyai/core": "workspace:*",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.5.2",
 		"lucide-react": "^1.66.0",
