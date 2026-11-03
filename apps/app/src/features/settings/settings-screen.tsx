@@ -1,4 +1,5 @@
 import { Placeholder } from '@/features/blocking/placeholder';
+import { KanaSizeSetting } from './kana-size-setting';
 
 interface SettingRow {
 	readonly section: string;
@@ -32,6 +33,7 @@ export function SettingsScreen({ onReplaySplash }: SettingsScreenProps) {
 					<p className="text-sm text-muted-foreground">{control}</p>
 				</Placeholder>
 			))}
+			<KanaSizeSetting />
 			<Placeholder label="about">
 				<p className="font-medium">À propos</p>
 				<p className="text-sm text-muted-foreground">

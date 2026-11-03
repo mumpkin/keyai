@@ -18,7 +18,11 @@ export function LastWordZone({ word }: LastWordZoneProps) {
 						<span className="font-mono text-sm text-muted-foreground">
 							{word.romaji}
 						</span>
-						<span className="font-medium">{word.gloss}</span>
+						<span className="font-medium">
+							{word.status === 'skipped'
+								? `passé · ${word.gloss}`
+								: word.gloss}
+						</span>
 					</span>
 					<span className="ml-auto text-xs text-muted-foreground">
 						kanji · nature · note (aperçu de la fiche)
