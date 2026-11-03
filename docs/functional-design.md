@@ -351,8 +351,9 @@ mobile).
 - **Word line**: words separated by a normal space. **No romaji is shown
   under the words**: as in Keybr or Monkeytype, typing fills the kana in
   place. Typed units turn to the main colour, the unit being typed is shown
-  as partially filled, the next one is underlined. Skipped words are struck
-  through.
+  as partially filled, the next one is underlined. A unit on which a wrong
+  key was typed turns **red** and stays red once the word is done, in the
+  word line and in the recap. Skipped words are struck through.
 - **Series words recap** below the line: every finished word of the current
   series, newest first (the newest is highlighted, so the latest translation
   always sits at the same place), with its kana, Hepburn reading and
