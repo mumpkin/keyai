@@ -28,6 +28,9 @@
 	"css": {
 		"formatter": {
 			"quoteStyle": "single"
+		},
+		"parser": {
+			"tailwindDirectives": true
 		}
 	},
 	"yaml": {
@@ -36,7 +39,8 @@
 		}
 	},
 	"tailwind": {
-		"mergeFunctions": ["clsx", "cn", "cva", "tw", "twMerge", "twJoin"]
+		"mergeFunctions": ["clsx", "cn", "cva", "tw", "twMerge", "twJoin"],
+		"stylesheet": "./apps/app/src/styles/app.css"
 	},
 	"linter": {
 		"enabled": true,
@@ -128,6 +132,32 @@
 					},
 					"style": {
 						"noMagicNumbers": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["packages/core/**"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"patterns": [
+									{
+										"group": [
+											"*",
+											"!zod",
+											"!zod/**",
+											"!./**",
+											"!../**"
+										],
+										"message": "@keyai/core must stay pure: only `zod` and relative imports are allowed (see docs/architecture.md, A1)."
+									}
+								]
+							}
+						}
 					}
 				}
 			}
