@@ -1,4 +1,4 @@
-# Dépendances
+# Dependencies
 node_modules/
 
 # Builds
@@ -11,7 +11,7 @@ coverage/
 src-tauri/target/
 target/
 
-# Données sources brutes du pipeline de vocabulaire (retéléchargées)
+# Raw vocabulary sources (downloaded again by the pipeline)
 packages/vocab/.cache/
 
 # Tests
@@ -19,11 +19,9 @@ playwright-report/
 test-results/
 __screenshots__/
 
-# Environnement
-.env
-.env.*
-!.env.example
+# Environment (local overrides only; .env and .env.<mode> are committed)
+*.local
 
-# Divers
+# Misc
 .DS_Store
 *.log
