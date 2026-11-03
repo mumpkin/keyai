@@ -103,8 +103,8 @@ interface KanaUnit {
 interface VocabFile {
 	schemaVersion: 1;
 	sources: { jmdict: string; wordfreq: string };
-	unlockOrder: { hiragana: string[]; katakana: string[] };
-	initialUnlocked: { hiragana: number; katakana: number };
+	unlockOrder: string[]; // single order mixing both scripts
+	initialUnlocked: number; // size of the initial group
 	words: VocabWord[];
 }
 
@@ -116,7 +116,7 @@ interface VocabWord {
 }
 
 interface Sense {
-	gloss: { fr: string; en: string };
+	gloss: { en: string; fr?: string }; // French falls back to English
 	pos: PartOfSpeech[];
 	kanji?: string;
 	note?: { fr?: string; en?: string };
@@ -139,7 +139,7 @@ interface Sense {
 
 ```ts
 interface Progress {
-	unlocked: { hiragana: string[]; katakana: string[] };
+	unlocked: string[]; // in unlock order; script comes from the catalogue
 	kana: Record<string, KanaStats>;
 }
 
@@ -272,6 +272,8 @@ data/vocab.json     output (committed)
 7. Compute the unlock order with `core/progression`.
 8. Emit a deterministic file (stable ordering, no timestamps).
 
+- JMdict glosses are used as is; a missing French gloss falls back to
+  English in the interface.
 - Each override carries `reviewed: true | false`. Draft translations are
   written during working sessions (no API in the pipeline) with
   `reviewed: false`. `pnpm vocab:check --strict` rejects any unreviewed entry

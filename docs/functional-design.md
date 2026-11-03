@@ -71,8 +71,9 @@ Excluded: ゐ and ゑ (archaic), ぢゃ, ぢゅ, ぢょ (virtually unused), hira
 
 ### Unlock order (computed by the pipeline)
 
-Greedy selection: at each step, pick the kana that makes the most new
-frequent words typeable.
+A **single order mixing hiragana and katakana**, so that both scripts are
+practised in parallel from the start. Greedy selection: at each step, pick
+the kana (of either script) that makes the most new frequent words typeable.
 
 1. **Weight**: each word counts for its log-scale frequency (wordfreq Zipf
    value). Raw frequency would let particles dominate everything.
@@ -80,11 +81,22 @@ frequent words typeable.
    combination after both components (きゃ after き and や); っ only when it
    opens words; an extended combination after its components (ティ after テ
    and イ).
-3. **Ties** are broken by gojūon order.
+   A katakana comes after its hiragana counterpart (カ after か), so that
+   corresponding katakana are introduced after the hiragana, as the
+   specification requires, without waiting for the whole hiragana set.
+3. **Usefulness**: a candidate must make at least one new word typeable;
+   otherwise it could never be practised, hence never mastered, and would
+   block the progression.
+4. **Balance**: if one script has had **three unlocks in a row** while the
+   other has a useful candidate, the next unlock goes to the other script.
+   Frequency drives the order; this rule only prevents one script from
+   starving the other.
+5. **Ties** are broken by gojūon order (hiragana first).
 
 ### Initial group
 
-About **six hiragana** are unlocked from the start, chosen with the same
+About **six hiragana** (no katakana: the default path starts with
+hiragana) are unlocked from the start, chosen with the same
 method under a constraint of at least ~15 typeable words. Single-kana
 particles (の, に, は, か, と…) help reach that quickly. The exact size and
 minimum are tuned from the pipeline report, on real data.
@@ -170,12 +182,12 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
 
 ### Unlocking
 
-- The next kana of a script is unlocked only when **every** unlocked kana of
-  that script is mastered.
+- The next kana in the unlock order is unlocked only when **every** unlocked
+  kana, of both scripts, is mastered.
 - Unlocking happens at the end of a session, **at most one kana per
   session**, and is announced in the summary.
-- Hiragana and katakana progress independently, each with its own unlock
-  order; when katakana start is settled in C7.
+- Hiragana and katakana share a single unlock order (C2) but keep distinct
+  mastery figures and progress displays.
 - An unlocked kana is never locked again; if it regresses, it delays the next
   unlock until it is mastered again.
 - Rare kana are protected by word selection (C5), which favours unmastered
@@ -199,7 +211,7 @@ generator.
 
 - **Eligible words**: every unit is unlocked (hiragana and katakana mix
   naturally once both progressions allow it).
-- **Priority kana**: the **featured kana** (last unlocked, one per script)
+- **Priority kana**: the **featured kana** (the last unlocked one)
   and the **weak kana** (unlocked but not mastered, weakest first by display
   score).
 
@@ -267,3 +279,39 @@ The word order is then shuffled.
 
 - Light and dark themes follow the system (`prefers-color-scheme`).
 - Choosing which kana to practise: progression stays automatic.
+
+## C7 — V1 corpus
+
+### Size
+
+- **2,000 to 3,000 kana spellings** (target 2,500, tuned from the pipeline
+  report), taken by frequency, plus the coverage additions below.
+- **Missing French translations fall back to English**, marked with an `EN`
+  badge in the interface. French translations are completed in later data
+  releases; a vocabulary update needs no code change.
+- Glosses coming from JMdict are used as is. Only editorial overrides written
+  by us carry the `reviewed` flag checked by `vocab:check --strict`.
+
+### Coverage
+
+- The pipeline adds the most frequent words containing each kana until every
+  kana has **at least five words**.
+- A kana with fewer than five words in the whole of JMdict is flagged in the
+  report and decided case by case: excluded from the catalogue or accepted
+  with few words.
+
+### Filters
+
+| Excluded                                                 | Reason                 |
+| -------------------------------------------------------- | ---------------------- |
+| Archaic, obsolete and rare words (`arch`, `obs`, `rare`) | Not current Japanese   |
+| Discriminatory and sensitive terms (`derog`, `sens`)     | Slurs targeting people |
+| Readings flagged as rare or search-only                  | Not usual readings     |
+| Words longer than **8 units**                            | Too long for beginners |
+| Words ending with `っ` or containing an excluded kana    | Not typeable (C1, C2)  |
+
+- **Kept**: vulgar words and insults (`vulg`, `X`), with their register
+  shown in the word card (_vulgar_, _familiar_); common onomatopoeia.
+- **Particles**: は, が, を, に, へ, で, と, も, の, か, や, よ, ね, から, まで,
+  より, だけ, しか, など, each with a hand-written card in
+  `particles.yaml`.
