@@ -13,7 +13,7 @@ export function WordLine({ words }: WordLineProps) {
 			<Placeholder label="word line">
 				<div className="flex flex-wrap items-baseline gap-x-[0.5em] gap-y-2">
 					{words.map((word) => (
-						<WordView key={word.kana} word={word} />
+						<WordView key={word.id} word={word} />
 					))}
 				</div>
 			</Placeholder>

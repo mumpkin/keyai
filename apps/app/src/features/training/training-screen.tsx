@@ -1,16 +1,29 @@
+import { useState } from 'react';
 import { Placeholder } from '@/features/blocking/placeholder';
-import { SAMPLE_WORDS } from '@/features/blocking/sample-words';
+import { buildSampleSeries } from '@/features/blocking/sample-words';
 import { KanaTable } from '@/features/kana-table/kana-table';
 import { MobileKanaSheet } from '@/features/kana-table/mobile-kana-sheet';
 import { SessionStatsBar } from './session-stats-bar';
 import { WordLine } from './word-line';
 
+const DEFAULT_SERIES_LENGTH = 20;
+
 export function TrainingScreen() {
+	const [seriesLength, setSeriesLength] = useState(DEFAULT_SERIES_LENGTH);
+	const words = buildSampleSeries(seriesLength);
+	const completed = words.filter(
+		(word) => word.status === 'done' || word.status === 'skipped',
+	).length;
+
 	return (
 		<div className="flex flex-1 flex-col gap-4">
-			<SessionStatsBar />
+			<SessionStatsBar
+				completed={completed}
+				length={seriesLength}
+				onLengthChange={setSeriesLength}
+			/>
 			<div className="flex flex-1 flex-col justify-center gap-4 py-6">
-				<WordLine words={SAMPLE_WORDS} />
+				<WordLine words={words} />
 				<Placeholder
 					label="japanese input warning"
 					className="text-sm text-muted-foreground"

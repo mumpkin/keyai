@@ -71,7 +71,7 @@ export function SeriesWordsRecap({ words }: SeriesWordsRecapProps) {
 			<ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-4">
 				{finishedWords.map((word, position) => (
 					<RecapEntry
-						key={word.kana}
+						key={word.id}
 						word={word}
 						isLatest={position === 0}
 					/>
