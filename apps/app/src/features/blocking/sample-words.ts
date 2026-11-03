@@ -7,6 +7,7 @@ export interface SampleWord {
 	readonly status: WordStatus;
 	readonly kanji?: string;
 	readonly otherSenses?: readonly string[];
+	readonly faultyUnits?: readonly number[];
 	readonly completedUnits?: number;
 	readonly hasPartialInput?: boolean;
 }
@@ -19,7 +20,13 @@ export const SAMPLE_WORDS: readonly SampleWord[] = [
 		kanji: '犬',
 		status: 'done',
 	},
-	{ kana: 'くに', romaji: 'kuni', gloss: 'pays', status: 'done' },
+	{
+		kana: 'くに',
+		romaji: 'kuni',
+		gloss: 'pays',
+		status: 'done',
+		faultyUnits: [1],
+	},
 	{ kana: 'すし', romaji: 'sushi', gloss: 'sushi', status: 'skipped' },
 	{
 		kana: 'いる',
@@ -35,6 +42,7 @@ export const SAMPLE_WORDS: readonly SampleWord[] = [
 		gloss: 'chat',
 		status: 'current',
 		completedUnits: 1,
+		faultyUnits: [0],
 		hasPartialInput: true,
 	},
 	{ kana: 'きく', romaji: 'kiku', gloss: 'écouter', status: 'pending' },
