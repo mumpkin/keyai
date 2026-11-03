@@ -7,21 +7,64 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--animate-syllable-swap: syllable-swap 0.5s ease-in-out 0.9s both;
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+	--animate-title-rise: title-rise 0.8s var(--ease-out-expo) both;
+	--animate-syllable-out: syllable-out 0.7s var(--ease-in-out-smooth) 1s both;
+	--animate-syllable-in: syllable-in 0.8s var(--ease-out-expo) 1.15s both;
+	--animate-subtitle-reveal: subtitle-reveal 0.9s var(--ease-out-expo) 1.7s
+		both;
+	--animate-splash-leave: splash-leave 0.45s var(--ease-in-out-smooth) both;
 
-	@keyframes syllable-swap {
+	@keyframes title-rise {
 		from {
-			transform: translateY(0);
+			opacity: 0;
+			transform: translateY(12px) scale(0.96);
+			filter: blur(6px);
 		}
+	}
+
+	@keyframes syllable-out {
 		to {
-			transform: translateY(-100%);
+			opacity: 0;
+			transform: translateY(-70%);
+			filter: blur(6px);
+		}
+	}
+
+	@keyframes syllable-in {
+		from {
+			opacity: 0;
+			transform: translateY(70%);
+			filter: blur(6px);
+		}
+	}
+
+	@keyframes subtitle-reveal {
+		from {
+			opacity: 0;
+			transform: translateY(6px);
+			letter-spacing: 0.3em;
+		}
+	}
+
+	@keyframes splash-leave {
+		to {
+			opacity: 0;
+			transform: scale(1.02);
+			filter: blur(4px);
 		}
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.animate-syllable-swap {
+	.animate-title-rise,
+	.animate-syllable-out,
+	.animate-syllable-in,
+	.animate-subtitle-reveal,
+	.animate-splash-leave {
 		animation-duration: 1ms;
+		animation-delay: 0ms;
 	}
 }
 
