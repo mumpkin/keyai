@@ -237,7 +237,8 @@ The word order is then shuffled.
 ### Variety rules
 
 - No duplicate within a session while unused eligible words remain; when
-  repetitions become necessary, never the same word twice in a row.
+  repetitions become necessary, the least used words are drawn first, so
+  that repetitions stay balanced and never the same word twice in a row.
 - Single-unit words are capped at about **20 %** of the session, so that
   early sessions are not reduced to typing one letter per word.
 - When the vocabulary is too small, constraints are relaxed in this order:

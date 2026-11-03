@@ -14,6 +14,8 @@ and this project adheres to
   validating keystrokes, not yet connected to the interface
 - Series measurements (speed, accuracy, errors) and kana mastery and
   unlocking rules, not yet connected to the interface
+- Vocabulary format and word selection for a series, not yet connected to
+  the interface
 - Functional specification, technical choices and architecture documents
 - README and MIT license
 - Contributing guide with Clean Code, branch and commit conventions
