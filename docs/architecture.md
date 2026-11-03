@@ -289,11 +289,11 @@ tsconfig.base.json    strict, erasableSyntaxOnly, verbatimModuleSyntax,
 | `pnpm test` / `pnpm test:e2e`                     | Vitest / Playwright         |
 | `pnpm vocab:fetch` · `build` · `report` · `check` | Vocabulary pipeline         |
 
-| Workflow      | Trigger            | Steps                                                                                                                                                                                                         |
-| ------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ci.yml`      | push, pull request | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (3 browsers), SonarQube Cloud; Rust `fmt` and `clippy` when `src-tauri/` changes |
-| `release.yml` | tag `v*`           | Version consistency (tag, `package.json`, changelog), `vocab:check --strict`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog             |
-| `pages.yml`   | release published  | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                      |
+| Workflow      | Trigger            | Steps                                                                                                                                                                                                                       |
+| ------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ci.yml`      | push, pull request | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (3 browsers), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
+| `release.yml` | tag `v*`           | Version consistency (tag, `package.json`, changelog), `vocab:check --strict`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog                           |
+| `pages.yml`   | release published  | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                    |
 
 CI tuning: parallel jobs, pnpm/Cargo/Playwright caches, `concurrency` with
 `cancel-in-progress`, path filters, actions pinned by commit SHA (updated by
@@ -302,3 +302,8 @@ thresholds (high on `core`), Biome warnings fail the build.
 
 The web app is deployed on release only, so the web and desktop versions
 always match.
+
+No external code quality service (SonarQube Cloud was considered and
+rejected): Biome, strict TypeScript, Vitest coverage thresholds and Clippy
+already cover its rules, and its free plan only analyses the main branch.
+`jscpd` fills the only gap, duplicate code detection.
