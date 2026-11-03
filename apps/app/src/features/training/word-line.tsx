@@ -1,18 +1,10 @@
 import { Placeholder } from '@/features/blocking/placeholder';
 import type { SampleWord } from '@/features/blocking/sample-words';
-import { LastWordZone } from './last-word-zone';
+import { SeriesWordsRecap } from './series-words-recap';
 import { WordView } from './word-view';
 
 interface WordLineProps {
 	readonly words: readonly SampleWord[];
-}
-
-function lastFinishedWord(
-	words: readonly SampleWord[],
-): SampleWord | undefined {
-	return words.findLast(
-		(word) => word.status === 'done' || word.status === 'skipped',
-	);
 }
 
 export function WordLine({ words }: WordLineProps) {
@@ -25,7 +17,7 @@ export function WordLine({ words }: WordLineProps) {
 					))}
 				</div>
 			</Placeholder>
-			<LastWordZone word={lastFinishedWord(words)} />
+			<SeriesWordsRecap words={words} />
 		</div>
 	);
 }

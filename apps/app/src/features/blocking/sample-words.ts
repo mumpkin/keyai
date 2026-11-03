@@ -5,15 +5,30 @@ export interface SampleWord {
 	readonly romaji: string;
 	readonly gloss: string;
 	readonly status: WordStatus;
+	readonly kanji?: string;
+	readonly otherSenses?: readonly string[];
 	readonly completedUnits?: number;
 	readonly hasPartialInput?: boolean;
 }
 
 export const SAMPLE_WORDS: readonly SampleWord[] = [
-	{ kana: 'いぬ', romaji: 'inu', gloss: 'chien', status: 'done' },
+	{
+		kana: 'いぬ',
+		romaji: 'inu',
+		gloss: 'chien',
+		kanji: '犬',
+		status: 'done',
+	},
 	{ kana: 'くに', romaji: 'kuni', gloss: 'pays', status: 'done' },
 	{ kana: 'すし', romaji: 'sushi', gloss: 'sushi', status: 'skipped' },
-	{ kana: 'いる', romaji: 'iru', gloss: 'être, exister', status: 'done' },
+	{
+		kana: 'いる',
+		romaji: 'iru',
+		gloss: 'être, exister',
+		kanji: '居る',
+		otherSenses: ['avoir besoin de (要る)', 'entrer (入る)'],
+		status: 'done',
+	},
 	{
 		kana: 'ねこ',
 		romaji: 'neko',
