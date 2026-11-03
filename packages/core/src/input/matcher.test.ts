@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { createMatcher, feedKey, finishWord } from './matcher.ts';
+import {
+	createMatcher,
+	feedKey,
+	finishWord,
+	isWordComplete,
+	progressOf,
+} from './matcher.ts';
 import { rejectionsOf, typeWord } from './test-helpers.ts';
 
 describe('matcher', () => {
@@ -12,6 +18,7 @@ describe('matcher', () => {
 		['まっちゃ', 'maccha'],
 		['きんえん', 'kinnenn'],
 		['きんえん', "kin'en"],
+		['こんにちは', 'konnichiha'],
 		['こんにちは', 'konnnichiha'],
 		['こんにちは', "kon'nichiha"],
 		['コーヒー', 'ko-hi-'],
@@ -53,8 +60,11 @@ describe('matcher', () => {
 
 	it('completes units as soon as their spelling is unambiguous', () => {
 		const result = feedKey(feedKey(createMatcher('いぬ'), 'i').state, 'n');
-		expect(result.state.unitIndex).toBe(1);
-		expect(result.state.typed).toBe('n');
+		expect(progressOf(result.state)).toEqual({
+			completedUnits: 1,
+			typed: 'n',
+		});
+		expect(result.events).toEqual([]);
 	});
 
 	it('waits for space to complete a final ん typed n', () => {
@@ -62,8 +72,12 @@ describe('matcher', () => {
 		for (const key of 'hon') {
 			state = feedKey(state, key).state;
 		}
-		expect(state.unitIndex).toBe(1);
-		expect(finishWord(state)?.state.unitIndex).toBe(2);
+		expect(isWordComplete(state)).toBe(false);
+		const finished = finishWord(state);
+		expect(finished && isWordComplete(finished.state)).toBe(true);
+		expect(finished?.events).toEqual([
+			{ kind: 'unitCompleted', unitIndex: 1 },
+		]);
 	});
 
 	it('does not finish an incomplete word', () => {
@@ -78,10 +92,25 @@ describe('matcher', () => {
 	});
 });
 
-describe('matcher with a single n before n', () => {
-	it('reads konnichiha as こん + いちは and rejects it', () => {
-		expect(rejectionsOf(typeWord('こんにちは', 'konnichiha'))).not.toEqual(
-			[],
-		);
+describe('matcher with ambiguous keys', () => {
+	it('confirms ん only once the keys prove how it was typed', () => {
+		const events = typeWord('こんにちは', 'konnichiha').events;
+		const completed = events.map((event) => event.unitIndex);
+		expect(completed).toEqual([0, 1, 2, 3, 4]);
+	});
+
+	it('displays the most advanced reading', () => {
+		let state = createMatcher('こんにちは');
+		for (const key of 'kon') {
+			state = feedKey(state, key).state;
+		}
+		expect(progressOf(state)).toEqual({ completedUnits: 2, typed: '' });
+		state = feedKey(state, 'n').state;
+		expect(progressOf(state)).toEqual({ completedUnits: 2, typed: 'n' });
+	});
+
+	it('blames ん when the keys contradict every reading', () => {
+		expect(rejectionsOf(typeWord('こんにちは', 'konni')).length).toBe(0);
+		expect(rejectionsOf(typeWord('こんにちは', 'konnnn'))).toEqual([2]);
 	});
 });

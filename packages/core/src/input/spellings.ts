@@ -1,8 +1,12 @@
 import type { KanaUnit } from '../kana/types.ts';
 
 const VOWELS = new Set(['a', 'i', 'u', 'e', 'o']);
-/** Starts after which a single 'n' would be read as part of the next kana. */
-const AMBIGUOUS_AFTER_NASAL = /^[aiueoyn]/;
+/**
+ * Starts after which a single 'n' would change the reading ('kinen' reads
+ * きねん). Before another n, 'konnichiha' stays readable: the matcher
+ * resolves it.
+ */
+const AMBIGUOUS_AFTER_NASAL = /^[aiueoy]/;
 const NASAL_BEFORE_AMBIGUOUS = ['nn', "n'"];
 
 function unique(spellings: readonly string[]): string[] {
