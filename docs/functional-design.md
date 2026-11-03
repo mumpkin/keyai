@@ -354,10 +354,14 @@ mobile).
   as partially filled, the next one is underlined. A unit on which a wrong
   key was typed turns **red** and stays red once the word is done, in the
   word line and in the recap. Skipped words are struck through.
+  The word line shows **three lines** at most and scrolls as typing
+  progresses, keeping the current line in the middle, so the layout does not
+  change with the series length.
 - **Series words recap** below the line: every finished word of the current
   series, newest first (the newest is highlighted, so the latest translation
   always sits at the same place), with its kana, Hepburn reading and
   translation; skipped words are marked. This is where translations appear.
+  It shows two rows (about eight words) and scrolls for the rest.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).
@@ -366,6 +370,8 @@ mobile).
   Romaji is shown under unmastered, new and next kana, and only on hover,
   focus or touch for mastered kana.
 - **Kana size** is a setting, in pixels (default 24 px, 16 to 64 px).
+- **Series length picker** in the statistics bar: 10, 20, 50, 100 or a
+  custom value, also available in the settings.
 
 ### Mobile
 
