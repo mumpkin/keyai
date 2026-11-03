@@ -1,6 +1,6 @@
 # Functional design
 
-**Status:** in progress
+**Status:** approved on 2026-11-03
 **Related:** [architecture](./architecture.md) ·
 [functional specification (FR)](./cahier-des-charges.md)
 
