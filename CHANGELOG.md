@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- Kana catalogue (105 hiragana, 126 katakana units) and romaji input engine
+  validating keystrokes, not yet connected to the interface
 - Functional specification, technical choices and architecture documents
 - README and MIT license
 - Contributing guide with Clean Code, branch and commit conventions
