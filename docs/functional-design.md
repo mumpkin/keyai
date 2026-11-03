@@ -336,7 +336,7 @@ Agreed during the blocking session (pull request #5).
 
 | Screen     | Content                                                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Training   | Statistics bar, word line, last word zone, Japanese input warning, kana table                                                                    |
+| Training   | Statistics bar, word line, series words recap, Japanese input warning, kana table                                                                |
 | Statistics | Last series (figures, speed per word, faulty kana, words, skipped words), progress (mastery per script, kana table coloured by mastery), history |
 | Settings   | Language, session, speed, feedback, display, data, about                                                                                         |
 
@@ -353,10 +353,13 @@ mobile).
   place. Typed units turn to the main colour, the unit being typed is shown
   as partially filled, the next one is underlined. Skipped words are struck
   through.
-- **Last word zone** below the line: kana, Hepburn reading and translation of
-  the last finished (or skipped) word, with a preview of its card. This is
-  where the translation appears.
-- **Word card** on hover, keyboard focus or touch of a finished word.
+- **Series words recap** below the line: every finished word of the current
+  series, newest first (the newest is highlighted, so the latest translation
+  always sits at the same place), with its kana, Hepburn reading and
+  translation; skipped words are marked. This is where translations appear.
+- **Word card** on hover, keyboard focus or touch of a finished word, in the
+  word line or in the recap: kana, usual kanji, reading, primary sense,
+  grammatical nature, register, note and **other senses** (homographs).
 - **Kana table**: one script at a time; the last unlocked kana carries a
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
   Romaji is shown under unmastered, new and next kana, and only on hover,
