@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { Placeholder } from '@/features/blocking/placeholder';
 import type { SampleWord } from '@/features/blocking/sample-words';
+import { KanaUnits } from './kana-units';
 import { WordCard } from './word-card';
 
 const entryVariants = cva(
@@ -44,7 +45,7 @@ function RecapEntry({
 						isSkipped ? 'font-kana line-through' : 'font-kana'
 					}
 				>
-					{word.kana}
+					<KanaUnits word={word} />
 				</span>
 				<span className="font-mono text-xs text-muted-foreground">
 					{word.romaji}
