@@ -1,0 +1,29 @@
+# Dépendances
+node_modules/
+
+# Builds
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Tauri / Rust
+src-tauri/target/
+target/
+
+# Données sources brutes du pipeline de vocabulaire (retéléchargées)
+packages/vocab/.cache/
+
+# Tests
+playwright-report/
+test-results/
+__screenshots__/
+
+# Environnement
+.env
+.env.*
+!.env.example
+
+# Divers
+.DS_Store
+*.log
