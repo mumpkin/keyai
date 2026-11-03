@@ -1,24 +1,22 @@
 import { useState } from 'react';
+import { BlockingControls } from '@/features/blocking/blocking-controls';
+import { DEFAULT_BLOCKING_OPTIONS } from '@/features/blocking/blocking-options';
 import { Placeholder } from '@/features/blocking/placeholder';
 import { SAMPLE_WORDS } from '@/features/blocking/sample-words';
 import { KanaTable } from '@/features/kana-table/kana-table';
 import { MobileKanaSheet } from '@/features/kana-table/mobile-kana-sheet';
-import { SessionSummaryLine } from './session-summary-line';
-import type { TranslationLayout } from './translation-layout';
-import { TranslationLayoutSwitch } from './translation-layout-switch';
-import { UnlockBanner } from './unlock-banner';
+import { SessionStatsBar } from './session-stats-bar';
 import { WordLine } from './word-line';
 
 export function TrainingScreen() {
-	const [layout, setLayout] = useState<TranslationLayout>('lastWord');
+	const [options, setOptions] = useState(DEFAULT_BLOCKING_OPTIONS);
 
 	return (
 		<div className="flex flex-1 flex-col gap-4">
-			<TranslationLayoutSwitch layout={layout} onChange={setLayout} />
-			<SessionSummaryLine />
-			<UnlockBanner />
-			<div className="flex flex-1 flex-col justify-center gap-4 py-8">
-				<WordLine words={SAMPLE_WORDS} layout={layout} />
+			<BlockingControls options={options} onChange={setOptions} />
+			<SessionStatsBar />
+			<div className="flex flex-1 flex-col justify-center gap-4 py-6">
+				<WordLine words={SAMPLE_WORDS} options={options} />
 				<Placeholder
 					label="japanese input warning"
 					className="text-sm text-muted-foreground"
