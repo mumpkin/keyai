@@ -1,0 +1,23 @@
+# Git hooks, installed by `pnpm install` (see CONTRIBUTING.md)
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: biome
+      glob: "*.{js,ts,tsx,json,jsonc,css,md,yml,yaml,grit}"
+      run: pnpm exec biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+
+    - name: rustfmt
+      root: apps/app/src-tauri/
+      glob: "*.rs"
+      run: cargo fmt --check
+
+commit-msg:
+  jobs:
+    - name: commit message
+      run: node tools/git/check-commit-message.ts {1} --allow-autosquash
+
+pre-push:
+  jobs:
+    - name: branch name
+      run: node tools/git/check-branch-name.ts
