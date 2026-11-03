@@ -6,6 +6,10 @@ updates:
     schedule:
       interval: weekly
     labels: [no-changelog]
+    ignore:
+      # Node.js types must match the minimum supported runtime (Node 24)
+      - dependency-name: "@types/node"
+        update-types: [version-update:semver-major]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
