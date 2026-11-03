@@ -1,4 +1,3 @@
-import type { BlockingOptions } from '@/features/blocking/blocking-options';
 import { Placeholder } from '@/features/blocking/placeholder';
 import type { SampleWord } from '@/features/blocking/sample-words';
 import { LastWordZone } from './last-word-zone';
@@ -6,34 +5,27 @@ import { WordView } from './word-view';
 
 interface WordLineProps {
 	readonly words: readonly SampleWord[];
-	readonly options: BlockingOptions;
 }
 
 function lastFinishedWord(
 	words: readonly SampleWord[],
 ): SampleWord | undefined {
-	return words.findLast((word) => word.status === 'done');
+	return words.findLast(
+		(word) => word.status === 'done' || word.status === 'skipped',
+	);
 }
 
-export function WordLine({ words, options }: WordLineProps) {
-	const usesZone = options.translationLayout === 'zone';
-
+export function WordLine({ words }: WordLineProps) {
 	return (
 		<div className="flex flex-col gap-4">
 			<Placeholder label="word line">
-				<div className="flex flex-wrap items-start gap-x-3 gap-y-3 md:gap-y-5">
+				<div className="flex flex-wrap items-baseline gap-x-[0.5em] gap-y-2">
 					{words.map((word) => (
-						<WordView
-							key={word.kana}
-							word={word}
-							showGloss={!usesZone}
-							romajiDisplay={options.romajiDisplay}
-							kanaSize={options.kanaSize}
-						/>
+						<WordView key={word.kana} word={word} />
 					))}
 				</div>
 			</Placeholder>
-			{usesZone && <LastWordZone word={lastFinishedWord(words)} />}
+			<LastWordZone word={lastFinishedWord(words)} />
 		</div>
 	);
 }

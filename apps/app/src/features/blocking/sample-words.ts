@@ -5,7 +5,8 @@ export interface SampleWord {
 	readonly romaji: string;
 	readonly gloss: string;
 	readonly status: WordStatus;
-	readonly typed?: string;
+	readonly completedUnits?: number;
+	readonly hasPartialInput?: boolean;
 }
 
 export const SAMPLE_WORDS: readonly SampleWord[] = [
@@ -18,7 +19,8 @@ export const SAMPLE_WORDS: readonly SampleWord[] = [
 		romaji: 'neko',
 		gloss: 'chat',
 		status: 'current',
-		typed: 'ne',
+		completedUnits: 1,
+		hasPartialInput: true,
 	},
 	{ kana: 'きく', romaji: 'kiku', gloss: 'écouter', status: 'pending' },
 	{ kana: 'のこす', romaji: 'nokosu', gloss: 'laisser', status: 'pending' },

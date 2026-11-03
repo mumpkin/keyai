@@ -1,9 +1,20 @@
 import { useEffect } from 'react';
 
-const SPLASH_DURATION_MS = 1500;
+const SPLASH_DURATION_MS = 2600;
 
 interface SplashScreenProps {
 	readonly onDone: () => void;
+}
+
+function SwappingSyllable() {
+	return (
+		<span className="relative inline-flex h-[1.2em] flex-col overflow-hidden align-bottom">
+			<span className="animate-syllable-swap leading-[1.2em]">ha</span>
+			<span className="animate-syllable-swap leading-[1.2em] text-primary">
+				ke
+			</span>
+		</span>
+	);
 }
 
 export function SplashScreen({ onDone }: SplashScreenProps) {
@@ -20,13 +31,14 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
 		<button
 			type="button"
 			onClick={onDone}
-			className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-2 bg-background"
+			className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-background"
 		>
-			<span className="animate-in text-6xl font-bold tracking-tight duration-700 zoom-in-50 fade-in motion-reduce:zoom-in-100">
-				keyai
+			<span className="animate-in text-6xl font-bold tracking-tight duration-500 fade-in">
+				<SwappingSyllable />
+				yai
 			</span>
-			<span className="animate-in font-kana text-xl text-muted-foreground delay-300 duration-700 fill-mode-backwards fade-in">
-				かなを よもう
+			<span className="animate-in font-kana text-xl text-muted-foreground delay-1000 duration-700 fill-mode-backwards fade-in">
+				はやい — rapide
 			</span>
 		</button>
 	);
