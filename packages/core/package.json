@@ -7,7 +7,9 @@
 	"type": "module",
 	"exports": {
 		"./input": "./src/input/index.ts",
-		"./kana": "./src/kana/index.ts"
+		"./kana": "./src/kana/index.ts",
+		"./progression": "./src/progression/index.ts",
+		"./stats": "./src/stats/index.ts"
 	},
 	"scripts": {
 		"typecheck": "tsc --project tsconfig.json"
