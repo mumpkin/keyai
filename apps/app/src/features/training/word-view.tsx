@@ -3,7 +3,7 @@ import type { SampleWord } from '@/features/blocking/sample-words';
 import { KanaUnits } from './kana-units';
 import { WordCard } from './word-card';
 
-const wordVariants = cva('font-kana leading-tight', {
+const wordVariants = cva('font-kana', {
 	variants: {
 		status: {
 			done: 'text-foreground',
@@ -25,6 +25,7 @@ export function WordView({ word }: WordViewProps) {
 		<span
 			className="group relative inline-block"
 			tabIndex={isFinished ? 0 : undefined}
+			data-word-id={word.id}
 		>
 			<span
 				className={wordVariants({ status: word.status })}
