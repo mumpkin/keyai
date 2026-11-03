@@ -1,0 +1,6 @@
+language js
+
+JsIdentifierBinding() as $binding where {
+	$binding <: r"^[A-Za-z]$",
+	register_diagnostic(span=$binding, message="Use a descriptive name: single-letter identifiers are not allowed (Clean Code).", severity="error")
+}
