@@ -54,6 +54,7 @@ progression/   per-kana mastery, unlocking, unlock order algorithm
 session/       session state machine (combines input + stats)
 settings/      settings schema, defaults, speed presets
 save/          versioned save format, migrations, import parsing
+random/        seeded random generator, weighted draw, shuffle
 ```
 
 | Module        | Responsibility                                                                                                            | Depends on                |
