@@ -68,7 +68,7 @@ export function SeriesWordsRecap({ words }: SeriesWordsRecapProps) {
 
 	return (
 		<Placeholder label="series words">
-			<ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-4">
+			<ul className="grid max-h-[4.75rem] gap-1 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
 				{finishedWords.map((word, position) => (
 					<RecapEntry
 						key={word.id}
