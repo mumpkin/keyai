@@ -137,7 +137,7 @@
 			}
 		},
 		{
-			"includes": ["packages/core/**"],
+			"includes": ["packages/core/**", "!**/*.test.ts"],
 			"linter": {
 				"rules": {
 					"style": {
