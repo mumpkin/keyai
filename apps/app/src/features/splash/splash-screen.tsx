@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
-const SPLASH_DURATION_MS = 2600;
+const SPLASH_DURATION_MS = 3000;
+const LEAVE_DURATION_MS = 450;
 
 interface SplashScreenProps {
 	readonly onDone: () => void;
@@ -8,37 +10,58 @@ interface SplashScreenProps {
 
 function SwappingSyllable() {
 	return (
-		<span className="relative inline-flex h-[1.2em] flex-col overflow-hidden align-bottom">
-			<span className="animate-syllable-swap leading-[1.2em]">ha</span>
-			<span className="animate-syllable-swap leading-[1.2em] text-primary">
+		<span className="inline-grid justify-items-end">
+			<span className="animate-syllable-out [grid-area:1/1]">ha</span>
+			<span className="animate-syllable-in text-primary [grid-area:1/1]">
 				ke
 			</span>
 		</span>
 	);
 }
 
-export function SplashScreen({ onDone }: SplashScreenProps) {
+function useSplashLifecycle(onDone: () => void) {
+	const [isLeaving, setIsLeaving] = useState(false);
+
+	const leave = useCallback(() => setIsLeaving(true), []);
+
 	useEffect(() => {
-		const timer = setTimeout(onDone, SPLASH_DURATION_MS);
-		window.addEventListener('keydown', onDone, { once: true });
+		const timer = setTimeout(leave, SPLASH_DURATION_MS);
+		window.addEventListener('keydown', leave, { once: true });
 		return () => {
 			clearTimeout(timer);
-			window.removeEventListener('keydown', onDone);
+			window.removeEventListener('keydown', leave);
 		};
-	}, [onDone]);
+	}, [leave]);
+
+	useEffect(() => {
+		if (!isLeaving) {
+			return;
+		}
+		const timer = setTimeout(onDone, LEAVE_DURATION_MS);
+		return () => clearTimeout(timer);
+	}, [isLeaving, onDone]);
+
+	return { isLeaving, leave };
+}
+
+export function SplashScreen({ onDone }: SplashScreenProps) {
+	const { isLeaving, leave } = useSplashLifecycle(onDone);
 
 	return (
 		<button
 			type="button"
-			onClick={onDone}
-			className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-background"
+			onClick={leave}
+			className={cn(
+				'fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-background',
+				isLeaving && 'animate-splash-leave',
+			)}
 		>
-			<span className="animate-in text-6xl font-bold tracking-tight duration-500 fade-in">
+			<span className="animate-title-rise text-7xl font-bold tracking-tight">
 				<SwappingSyllable />
 				yai
 			</span>
-			<span className="animate-in font-kana text-xl text-muted-foreground delay-1000 duration-700 fill-mode-backwards fade-in">
-				はやい — rapide
+			<span className="animate-subtitle-reveal font-kana text-lg text-muted-foreground">
+				はやい · rapide
 			</span>
 		</button>
 	);
