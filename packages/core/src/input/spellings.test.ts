@@ -14,9 +14,12 @@ describe('spellingsOf', () => {
 		expect(spellingsAt('ほん', 1)).toEqual(['n', 'nn', "n'"]);
 	});
 
-	it("requires nn or n' for ん before a vowel, y or n", () => {
+	it("requires nn or n' for ん before a vowel or y", () => {
 		expect(spellingsAt('きんえん', 1)).toEqual(['nn', "n'"]);
-		expect(spellingsAt('こんにちは', 1)).toEqual(['nn', "n'"]);
+	});
+
+	it('accepts a single n for ん before another n', () => {
+		expect(spellingsAt('こんにちは', 1)).toEqual(['n', 'nn', "n'"]);
 	});
 
 	it('doubles the next consonant for っ', () => {
@@ -44,8 +47,8 @@ describe('toHepburn', () => {
 		['まっちゃ', 'matcha'],
 		['きんえん', "kin'en"],
 		['ほんや', "hon'ya"],
-		['こんにちは', "kon'nichiha"],
-		['んんあ', "n'n'a"],
+		['こんにちは', 'konnichiha'],
+		['んんあ', "nn'a"],
 		['ンヲ', "n'wo"],
 		['さんぽ', 'sanpo'],
 		['しゃしん', 'shashin'],
