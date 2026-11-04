@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { recordAttempts } from './record.ts';
 import { cleanAttempts, ONE_SECOND } from './test-helpers.ts';
-import { applySeries, createProgress, nextKanaOf } from './unlock.ts';
+import {
+	alignProgress,
+	applySeries,
+	createProgress,
+	nextKanaOf,
+} from './unlock.ts';
 
 const ORDER = ['い', 'の', 'に', 'か', 'く'];
 const RULES = { unlockOrder: ORDER, thresholdKanaPerMinute: 30 };
@@ -12,6 +17,23 @@ describe('createProgress', () => {
 			unlocked: ['い', 'の'],
 			kana: {},
 		});
+	});
+});
+
+describe('alignProgress', () => {
+	it('unlocks the start of the order up to the last unlocked kana', () => {
+		const stale = { unlocked: ['い', 'か'], kana: {} };
+		expect(alignProgress(stale, ORDER, 2).unlocked).toEqual([
+			'い',
+			'の',
+			'に',
+			'か',
+		]);
+	});
+
+	it('always keeps the initial group and drops kana out of the order', () => {
+		const stale = { unlocked: ['ヲ'], kana: {} };
+		expect(alignProgress(stale, ORDER, 2).unlocked).toEqual(['い', 'の']);
 	});
 });
 

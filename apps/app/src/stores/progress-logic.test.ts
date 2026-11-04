@@ -54,6 +54,17 @@ describe('loadedSaveOf', () => {
 		);
 	});
 
+	it('aligns a stored save with the unlock order', () => {
+		const stale = freshSave(CONTEXT, ['fr']);
+		const stored = serializeSave({
+			...stale,
+			progress: { ...stale.progress, unlocked: ['い', 'く'] },
+		});
+		expect(
+			loadedSaveOf(stored, CONTEXT, ['fr']).save.progress.unlocked,
+		).toEqual(['い', 'ぬ', 'く']);
+	});
+
 	it('starts fresh and reports why when the stored data is unreadable', () => {
 		const loaded = loadedSaveOf('{broken', CONTEXT, ['fr']);
 		expect(loaded.loadIssue).toBe('invalidJson');
@@ -100,17 +111,13 @@ describe('saveAfterSeries', () => {
 		expect(update.result.unlockedKana).toBeUndefined();
 	});
 
-	it('does not wait for kana that no word can practise yet', () => {
-		const withTe = {
-			...save,
-			progress: { ...save.progress, unlocked: ['い', 'ぬ', 'く', 'テ'] },
-		};
-		const attempts = [...record.attempts, ...cleanAttempts('く', 5)];
+	it('waits until every unlocked kana is mastered', () => {
+		const attempts = cleanAttempts('い', 5);
 		const update = saveAfterSeries(
-			withTe,
+			save,
 			{ record: { ...record, attempts }, wordCount: 5 },
 			CONTEXT,
 		);
-		expect(update.result.unlockedKana).toBe('ス');
+		expect(update.result.unlockedKana).toBeUndefined();
 	});
 });

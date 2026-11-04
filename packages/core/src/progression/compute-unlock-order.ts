@@ -5,6 +5,7 @@ import {
 	candidatesOf,
 	DEFAULT_UNLOCK_ORDER_OPTIONS,
 	isTypeableWith,
+	katakanaGroupCandidatesOf,
 	type OrderState,
 	scriptStreak,
 	type UnlockOrder,
@@ -19,55 +20,86 @@ interface OrderInputs {
 	readonly options: UnlockOrderOptions;
 }
 
-function typeableCount(inputs: OrderInputs, state: OrderState): number {
-	return inputs.words.filter((word) => isTypeableWith(word, state.unlocked))
-		.length;
+interface GroupLimits {
+	readonly size: number;
+	readonly minimumWords: number;
+	readonly maximumSize: number;
 }
 
-function needsMoreInitialKana(inputs: OrderInputs, state: OrderState) {
-	const { options } = inputs;
-	const size = state.order.length;
-	return (
-		size < options.maximumInitialGroupSize &&
-		(size < options.initialGroupSize ||
-			typeableCount(inputs, state) < options.minimumInitialWords)
-	);
+function typeableWords(inputs: OrderInputs, unlocked: ReadonlySet<string>) {
+	return inputs.words.filter((word) => isTypeableWith(word, unlocked));
 }
 
-/** Initial group: hiragana only, enough to type a few frequent words. */
-function buildInitialGroup(inputs: OrderInputs, state: OrderState): void {
-	while (needsMoreInitialKana(inputs, state)) {
-		const [best] = candidatesOf(
-			state,
-			inputs.words,
-			inputs.catalogue,
-		).filter(({ unit }) => unit.script === 'hiragana');
+function buildGroup(
+	inputs: OrderInputs,
+	limits: GroupLimits,
+	nextCandidate: (state: OrderState) => Candidate | undefined,
+): string[] {
+	const state: OrderState = { order: [], unlocked: new Set() };
+	const needsMore = () =>
+		state.order.length < limits.maximumSize &&
+		(state.order.length < limits.size ||
+			typeableWords(inputs, state.unlocked).length < limits.minimumWords);
+	while (needsMore()) {
+		const best = nextCandidate(state);
 		if (!best) {
-			return;
+			break;
 		}
 		unlockInto(state, best.unit);
 	}
+	const practicable = new Set(
+		typeableWords(inputs, state.unlocked).flatMap((word) => word.units),
+	);
+	return state.order.filter((kana) => practicable.has(kana));
 }
 
-function isWorthwhile(candidate: Candidate): boolean {
-	return candidate.gain > 0 || candidate.progress > 0;
+function hiraganaGroup(inputs: OrderInputs): string[] {
+	const { options, words, catalogue } = inputs;
+	return buildGroup(
+		inputs,
+		{
+			size: options.initialGroupSize,
+			minimumWords: options.minimumInitialWords,
+			maximumSize: options.maximumInitialGroupSize,
+		},
+		(state) =>
+			candidatesOf(state, words, catalogue).find(
+				({ unit }) => unit.script === 'hiragana',
+			),
+	);
+}
+
+function katakanaGroup(inputs: OrderInputs): string[] {
+	const { options, words, catalogue } = inputs;
+	return buildGroup(
+		inputs,
+		{
+			size: options.initialKatakanaGroupSize,
+			minimumWords: options.minimumInitialKatakanaWords,
+			maximumSize: options.maximumInitialKatakanaGroupSize,
+		},
+		(state) => katakanaGroupCandidatesOf(state, words, catalogue)[0],
+	);
 }
 
 /**
- * Best candidate, unless one script has had too many unlocks in a row
- * while the other has a worthwhile candidate (balance rule of C2).
+ * Best kana opening a new word, unless one script has had too many unlocks
+ * in a row while the other can open a word (balance rule of C2). A kana
+ * that opens no word could not be practised, so it is never chosen.
  */
 function nextUnit(
 	inputs: OrderInputs,
 	state: OrderState,
 ): KanaUnit | undefined {
-	const candidates = candidatesOf(state, inputs.words, inputs.catalogue);
+	const candidates = candidatesOf(
+		state,
+		inputs.words,
+		inputs.catalogue,
+	).filter((candidate) => candidate.gain > 0);
 	const streak = scriptStreak(state.order, inputs.catalogue);
 	if (streak.length >= inputs.options.maximumConsecutiveUnlocks) {
 		const other = candidates.find(
-			(candidate) =>
-				candidate.unit.script !== streak.script &&
-				isWorthwhile(candidate),
+			(candidate) => candidate.unit.script !== streak.script,
 		);
 		if (other) {
 			return other.unit;
@@ -77,23 +109,31 @@ function nextUnit(
 }
 
 /**
- * Unlock order of every kana (C2): greedy on the frequent words each kana
- * opens, then on the words it brings closer to completion, with
- * prerequisites, a balance between scripts and gojūon tie-breaks.
+ * Unlock order (C2): an initial group in each script, then the kana opening
+ * the most frequent words, with prerequisites, a balance between scripts
+ * and gojūon tie-breaks. Every kana of the order can be practised as soon
+ * as it is unlocked; kana that appear in no word are left out.
  */
 export function computeUnlockOrder(
 	words: readonly WeightedWord[],
 	options: UnlockOrderOptions = DEFAULT_UNLOCK_ORDER_OPTIONS,
 	catalogue: readonly KanaUnit[] = KANA_CATALOGUE,
 ): UnlockOrder {
-	const inputs = { words, catalogue, options };
-	const state: OrderState = { order: [], unlocked: new Set() };
-	buildInitialGroup(inputs, state);
-	const initialUnlocked = state.order.length;
+	const usedKana = new Set(words.flatMap((word) => word.units));
+	const inputs = {
+		words,
+		catalogue: catalogue.filter((unit) => usedKana.has(unit.text)),
+		options,
+	};
+	const initial = [...hiraganaGroup(inputs), ...katakanaGroup(inputs)];
+	const state: OrderState = {
+		order: [...initial],
+		unlocked: new Set(initial),
+	};
 	let next = nextUnit(inputs, state);
 	while (next) {
 		unlockInto(state, next);
 		next = nextUnit(inputs, state);
 	}
-	return { order: state.order, initialUnlocked };
+	return { order: state.order, initialUnlocked: initial.length };
 }

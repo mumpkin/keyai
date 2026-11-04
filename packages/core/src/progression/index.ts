@@ -18,6 +18,7 @@ export {
 	SampleSchema,
 } from './schema.ts';
 export {
+	alignProgress,
 	applySeries,
 	areAllUnlockedMastered,
 	createProgress,
