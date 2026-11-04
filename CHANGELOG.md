@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- Unlock order computation mixing hiragana and katakana, and unlocking that
+  ignores kana without any typeable word yet
 - Settings with speed presets and versioned save format with validation and
   migrations, not yet connected to the interface
 - Kana catalogue (105 hiragana, 126 katakana units) and romaji input engine
