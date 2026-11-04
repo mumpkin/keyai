@@ -382,7 +382,7 @@ mobile).
   translation; skipped words are marked. This is where translations appear.
   It shows two rows (about eight words) and scrolls for the rest.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
-  word line or in the recap: kana, usual kanji, reading, primary sense,
+  word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).
 - **Kana table**: one script at a time; the last unlocked kana carries a
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
