@@ -313,6 +313,9 @@ original colour fails WCAG AA, it is adjusted as little as possible, and
 - **Import**: a preview (file date, unlocked kana, number of sessions) is
   shown first; after confirmation the file **replaces** the current progress
   entirely. No merging.
+- **Unreadable save**: a stored save that cannot be read, or that comes from a
+  newer version, is set aside before anything replaces it. A notice says so at
+  launch, and the copy can be exported from there or from the settings.
 - **Reset** the progress and the history, with an explicit confirmation. The
   settings are kept.
 

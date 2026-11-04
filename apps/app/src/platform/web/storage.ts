@@ -1,6 +1,7 @@
 import type { SaveStorage } from '../types.ts';
 
 export const SAVE_KEY = 'keyai.save';
+export const UNREADABLE_SAVE_KEY = 'keyai.save.unreadable';
 
 /**
  * Browser storage: localStorage, after asking the browser not to evict the
@@ -14,5 +15,11 @@ export function createWebStorage(storage: Storage = localStorage): SaveStorage {
 			storage.setItem(SAVE_KEY, content);
 			return Promise.resolve();
 		},
+		keepUnreadable: (content) => {
+			storage.setItem(UNREADABLE_SAVE_KEY, content);
+			return Promise.resolve();
+		},
+		loadUnreadable: () =>
+			Promise.resolve(storage.getItem(UNREADABLE_SAVE_KEY)),
 	};
 }

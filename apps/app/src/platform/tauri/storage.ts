@@ -3,6 +3,7 @@ import type { SaveStorage } from '../types.ts';
 
 const STORE_FILE = 'keyai-save.json';
 const SAVE_ENTRY = 'save';
+const UNREADABLE_SAVE_ENTRY = 'unreadableSave';
 
 /**
  * Desktop storage: a JSON file in the app data folder. Unlike the webview
@@ -10,11 +11,15 @@ const SAVE_ENTRY = 'save';
  */
 export async function createTauriStorage(): Promise<SaveStorage> {
 	const store = await load(STORE_FILE, { defaults: {}, autoSave: false });
+	const write = async (entry: string, content: string) => {
+		await store.set(entry, content);
+		await store.save();
+	};
 	return {
 		load: async () => (await store.get<string>(SAVE_ENTRY)) ?? null,
-		save: async (content) => {
-			await store.set(SAVE_ENTRY, content);
-			await store.save();
-		},
+		save: (content) => write(SAVE_ENTRY, content),
+		keepUnreadable: (content) => write(UNREADABLE_SAVE_ENTRY, content),
+		loadUnreadable: async () =>
+			(await store.get<string>(UNREADABLE_SAVE_ENTRY)) ?? null,
 	};
 }
