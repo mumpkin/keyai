@@ -217,15 +217,15 @@ A single pure reducer in `core/session`: `createSeries(words)`,
 `backspace`, `abort`), and `seriesRecordOf(state)` handing the attempts,
 wrong key count and elapsed time to `core/stats` and `core/progression`.
 
-| Situation                        | Behaviour                                                                                       |
-| -------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Correct key                      | Input advances; a completed unit records a `{ ms, error }` sample                               |
-| Wrong key                        | Rejected (nothing displayed); one error recorded on the current unit                            |
-| Space, word complete             | Word validated, its translation appears, next word                                              |
-| Space, word incomplete           | Word skipped (greyed out); one error on the current unit, no speed sample                       |
-| Backspace at the start of a word | Back to the previous word if it was skipped, where it was left                                  |
-| Backspace on a completed word    | No effect                                                                                       |
-| End of series                    | Last word validated or skipped; the series is saved and the next one starts (no summary screen) |
+| Situation                           | Behaviour                                                                                                        |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Correct key                         | Input advances; a completed unit records a `{ ms, error }` sample                                                |
+| Wrong key                           | Rejected (nothing displayed); one error recorded on the current unit                                             |
+| Space, word complete (not the last) | Word validated, its translation appears, next word                                                               |
+| Space, word incomplete              | Word skipped (greyed out); one error on the current unit, no speed sample                                        |
+| Backspace at the start of a word    | Back to the previous word if it was skipped, where it was left                                                   |
+| Backspace on a completed word       | No effect                                                                                                        |
+| End of series                       | Last key of the last word, or last word skipped; the series is saved and the next one starts (no summary screen) |
 
 - Timer starts on the first key. Unit time runs from the previous unit's
   completion; the first unit of a session only counts for accuracy.
