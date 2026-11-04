@@ -22,7 +22,7 @@ function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
 	const isSkipped = word.status === 'skipped';
 	const [primary] = entry.word.senses;
 	return (
-		<li>
+		<li className="min-w-0">
 			<WordCard entry={entry} locale={locale}>
 				<span
 					className={cn(
@@ -32,14 +32,17 @@ function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
 					)}
 				>
 					<span
-						className={cn('font-kana', isSkipped && 'line-through')}
+						className={cn(
+							'shrink-0 font-kana whitespace-nowrap',
+							isSkipped && 'line-through',
+						)}
 					>
 						<KanaUnits units={word.units} />
 					</span>
-					<span className="font-mono text-xs text-muted-foreground">
+					<span className="shrink-0 font-mono text-xs whitespace-nowrap text-muted-foreground">
 						{toHepburn(tokenize(entry.word.kana))}
 					</span>
-					<span className="truncate text-sm">
+					<span className="min-w-0 truncate text-sm">
 						{isSkipped && `${translate('training.skipped')} · `}
 						{primary && (
 							<GlossText gloss={glossOf(primary, locale)} />
