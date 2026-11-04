@@ -14,6 +14,9 @@ and this project adheres to
   kana size, progress reset and about section
 - French and English interface, following the language of the settings
 - Custom series length typed directly in the statistics bar
+- Desktop app without a system title bar: window buttons in the header, which
+  also moves the window
+- Favicon: the kana `け` on a key with the typing cursor
 - Training screen: series of real words typed in place, recap of the series
   with word cards, live statistics, kana table with mastery, error feedback
 - Vocabulary pipeline building 2,720 frequent words from JMdict and wordfreq,

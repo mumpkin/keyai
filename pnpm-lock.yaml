@@ -208,6 +208,9 @@ importers:
       '@keyai/vocab':
         specifier: workspace:*
         version: link:../../packages/vocab
+      '@tauri-apps/api':
+        specifier: ~2.12.4
+        version: 2.12.4
       '@tauri-apps/plugin-store':
         specifier: ~2.5.0
         version: 2.5.0

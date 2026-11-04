@@ -1,7 +1,9 @@
 import { ChartColumn, Keyboard, type LucideIcon, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { useWindowControls } from '@/stores/app-context.tsx';
 import type { Screen } from './screen';
+import { WindowControls } from './window-controls.tsx';
 
 interface NavigationItem {
 	readonly screen: Screen;
@@ -21,10 +23,22 @@ interface AppHeaderProps {
 
 export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 	const { t: translate } = useTranslation();
+	const windowControls = useWindowControls();
 	return (
-		<header className="flex items-center justify-between border-b px-4 py-3">
+		<header
+			// Without a system title bar, the whole header moves the window.
+			data-tauri-drag-region={windowControls ? 'deep' : undefined}
+			className="grid grid-cols-[1fr_auto_1fr] items-center border-b px-4 py-3 select-none"
+		>
 			<span className="text-xl font-bold tracking-tight">keyai</span>
-			<nav className="flex gap-1">
+			<nav
+				className={cn(
+					'flex gap-1',
+					windowControls
+						? 'col-start-2'
+						: 'col-start-3 justify-self-end',
+				)}
+			>
 				{NAVIGATION.map(({ screen, icon: Icon }) => (
 					<button
 						key={screen}
@@ -48,6 +62,11 @@ export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 					</button>
 				))}
 			</nav>
+			{windowControls && (
+				<div className="col-start-3 justify-self-end">
+					<WindowControls controls={windowControls} />
+				</div>
+			)}
 		</header>
 	);
 }

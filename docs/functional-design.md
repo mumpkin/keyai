@@ -384,6 +384,11 @@ Agreed during the blocking session (pull request #5).
 Navigation: header with Training, Statistics and Settings (icons only on
 mobile).
 
+The desktop app has no system title bar: the navigation moves to the middle of
+the header and minimize, maximize and close buttons take its place on the
+right. The header moves the window when dragged and maximizes it on a double
+click.
+
 ### Training screen
 
 - **Statistics bar** (replaces the unlock banner): progress of the current

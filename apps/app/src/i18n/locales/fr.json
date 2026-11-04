@@ -8,6 +8,12 @@
 		"statistics": "Statistiques",
 		"settings": "Réglages"
 	},
+	"window": {
+		"minimize": "Réduire",
+		"maximize": "Agrandir",
+		"restore": "Restaurer",
+		"close": "Fermer"
+	},
 	"splash": {
 		"meaning": "rapide"
 	},

@@ -6,5 +6,6 @@ export function createPlatform(): Platform {
 		name: 'web',
 		storage: createWebStorage(),
 		playsSplashOnEveryLaunch: false,
+		windowControls: null,
 	};
 }

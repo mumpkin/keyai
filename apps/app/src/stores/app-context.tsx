@@ -1,6 +1,7 @@
 import { createContext, type ReactNode, useContext } from 'react';
 import { useStore } from 'zustand';
 import type { AppDependencies } from '@/bootstrap.ts';
+import type { WindowControls } from '@/platform/index.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import type { ProgressState, ProgressStore } from './progress-store.ts';
 
@@ -40,6 +41,10 @@ export function useVocabulary(): Vocabulary {
 
 export function useStartsWithSplash(): boolean {
 	return useAppDependencies().startsWithSplash;
+}
+
+export function useWindowControls(): WindowControls | null {
+	return useAppDependencies().windowControls;
 }
 
 /** The store itself, for event handlers that need the latest state. */
