@@ -394,8 +394,8 @@ mobile).
   The word line shows **three lines** at most and scrolls as typing
   progresses, keeping the current line in the middle, so the layout does not
   change with the series length.
-- **Series words recap** below the line: every finished word of the current
-  series, newest first (the newest is highlighted, so the latest translation
+- **Series words recap** below the line: each finished word of the current
+  series once, newest first (the newest is highlighted, so the latest translation
   always sits at the same place), with its kana, Hepburn reading and
   translation; skipped words are marked. This is where translations appear.
   It stays on the finished series until the first key of the next one, so

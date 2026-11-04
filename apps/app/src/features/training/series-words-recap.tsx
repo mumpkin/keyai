@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils.ts';
 import { GlossText } from './gloss-text.tsx';
 import { glossOf } from './glosses.ts';
 import { KanaUnits } from './kana-units.tsx';
-import { finishedWordIndexes, type WordView } from './series-view.ts';
+import { recapWordIndexes, type WordView } from './series-view.ts';
 import { WordCard } from './word-card.tsx';
 
 interface RecapEntryProps {
@@ -56,14 +56,14 @@ interface SeriesWordsRecapProps {
 	readonly locale: Locale;
 }
 
-/** Every finished word of the series, the most recent first (C8). */
+/** Each finished word of the series once, the most recent first (C8). */
 export function SeriesWordsRecap({
 	series,
 	words,
 	entries,
 	locale,
 }: SeriesWordsRecapProps) {
-	const indexes = finishedWordIndexes(series);
+	const indexes = recapWordIndexes(series);
 	return (
 		<ul className="grid max-h-[4.75rem] min-h-[4.75rem] gap-1 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
 			{indexes.map((index, position) => {
