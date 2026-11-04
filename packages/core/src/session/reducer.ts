@@ -1,4 +1,4 @@
-import { pressBackspace, pressSpace } from './navigation.ts';
+import { finishLastWord, pressBackspace, pressSpace } from './navigation.ts';
 import type { SeriesAction, SeriesState } from './types.ts';
 import { typeKey } from './typing.ts';
 
@@ -25,9 +25,16 @@ export function seriesReducer(
 		case 'abort':
 			return { ...state, phase: 'aborted' };
 		case 'key':
-			return typeKey(started(state, action.at), action.key, action.at);
+			return finishLastWord(
+				typeKey(started(state, action.at), action.key, action.at),
+				action.at,
+			);
 		case 'space':
-			return pressSpace(started(state, action.at), action.at);
+			// A space typed out of habit after the last word must not skip
+			// the first word of the next series.
+			return state.phase === 'ready'
+				? state
+				: pressSpace(state, action.at);
 		case 'backspace':
 			return pressBackspace(state, action.at);
 	}
