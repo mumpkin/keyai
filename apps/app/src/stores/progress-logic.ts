@@ -1,4 +1,8 @@
-import { applySeries, createProgress } from '@keyai/core/progression';
+import {
+	alignProgress,
+	applySeries,
+	createProgress,
+} from '@keyai/core/progression';
 import {
 	createSave,
 	parseSave,
@@ -6,7 +10,6 @@ import {
 	type SaveFile,
 	withSessionRecord,
 } from '@keyai/core/save';
-import { practicableKanaOf } from '@keyai/core/selection';
 import {
 	defaultSettings,
 	preferredLocale,
@@ -45,6 +48,14 @@ export function freshSave(
 	});
 }
 
+function alignedSave(save: SaveFile, context: SaveContext): SaveFile {
+	const { unlockOrder, initialUnlocked } = context.vocabulary.file;
+	return {
+		...save,
+		progress: alignProgress(save.progress, unlockOrder, initialUnlocked),
+	};
+}
+
 /**
  * The stored save, or a fresh one when nothing is stored or the stored data
  * cannot be read; the app never fails to start because of its data.
@@ -59,7 +70,7 @@ export function loadedSaveOf(
 	}
 	const parsed = parseSave(stored);
 	return parsed.ok
-		? { save: parsed.save, loadIssue: null }
+		? { save: alignedSave(parsed.save, context), loadIssue: null }
 		: { save: freshSave(context, languages), loadIssue: parsed.error };
 }
 
@@ -80,14 +91,10 @@ export function saveAfterSeries(
 	context: SaveContext,
 ): SeriesUpdate {
 	const measurements = measureSeries(series.record);
-	const { file, entries } = context.vocabulary;
+	const { file } = context.vocabulary;
 	const outcome = applySeries(save.progress, series.record.attempts, {
 		unlockOrder: file.unlockOrder,
 		thresholdKanaPerMinute: save.settings.speed.kanaPerMinute,
-		practicableKana: practicableKanaOf(
-			entries,
-			new Set(save.progress.unlocked),
-		),
 	});
 	const updated = withSessionRecord(
 		{

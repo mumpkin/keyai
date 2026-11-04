@@ -7,12 +7,6 @@ export interface UnlockRules {
 	/** Unlock order computed by the vocabulary pipeline. */
 	readonly unlockOrder: readonly string[];
 	readonly thresholdKanaPerMinute: number;
-	/**
-	 * Kana that appear in at least one typeable word. An unlocked kana
-	 * outside this set cannot be practised yet, so it does not hold back
-	 * the next unlock. Every kana is practicable when omitted.
-	 */
-	readonly practicableKana?: ReadonlySet<string>;
 }
 
 export interface SeriesOutcome {
@@ -29,23 +23,31 @@ export function createProgress(
 	return { unlocked: unlockOrder.slice(0, initialCount), kana: {} };
 }
 
-/**
- * Whether every unlocked kana that can be practised is mastered; kana
- * without any typeable word yet do not count (C4).
- */
 export function areAllUnlockedMastered(
 	progress: Progress,
-	rules: Omit<UnlockRules, 'unlockOrder'>,
+	thresholdKanaPerMinute: number,
 ): boolean {
-	const isPracticable = (kana: string) =>
-		rules.practicableKana?.has(kana) ?? true;
-	return progress.unlocked
-		.filter(isPracticable)
-		.every(
-			(kana) =>
-				masteryOf(progress.kana[kana], rules.thresholdKanaPerMinute)
-					.isMastered,
-		);
+	return progress.unlocked.every(
+		(kana) =>
+			masteryOf(progress.kana[kana], thresholdKanaPerMinute).isMastered,
+	);
+}
+
+/**
+ * Keeps a save consistent with the unlock order, which a new vocabulary can
+ * change: the unlocked kana become the start of the order, up to the last
+ * kana already unlocked. Nothing is locked again, and every unlocked kana
+ * can be practised, so progress can never get stuck.
+ */
+export function alignProgress(
+	progress: Progress,
+	unlockOrder: readonly string[],
+	initialCount: number,
+): Progress {
+	const unlocked = new Set(progress.unlocked);
+	const lastIndex = unlockOrder.findLastIndex((kana) => unlocked.has(kana));
+	const count = Math.max(initialCount, lastIndex + 1);
+	return { ...progress, unlocked: unlockOrder.slice(0, count) };
 }
 
 /** The next kana of the order that is not unlocked yet. */
@@ -69,7 +71,8 @@ export function applySeries(
 	const recorded = recordAttempts(progress, attempts);
 	const nextKana = nextKanaOf(recorded, rules.unlockOrder);
 	const canUnlock =
-		nextKana !== undefined && areAllUnlockedMastered(recorded, rules);
+		nextKana !== undefined &&
+		areAllUnlockedMastered(recorded, rules.thresholdKanaPerMinute);
 	if (!canUnlock) {
 		return { progress: recorded, unlockedKana: undefined };
 	}

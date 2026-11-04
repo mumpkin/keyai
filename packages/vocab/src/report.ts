@@ -1,5 +1,5 @@
 import { tokenize } from '@keyai/core/input';
-import { findKana } from '@keyai/core/kana';
+import { findKana, KANA_CATALOGUE } from '@keyai/core/kana';
 import type { VocabFile, VocabWord } from '@keyai/core/vocab';
 import { MIN_WORDS_PER_KANA } from './stages/select.ts';
 
@@ -89,6 +89,21 @@ function sparseKanaSection(vocabulary: VocabFile): string[] {
 	];
 }
 
+function excludedKanaSection(vocabulary: VocabFile): string[] {
+	const order = new Set(vocabulary.unlockOrder);
+	const excluded = KANA_CATALOGUE.filter((unit) => !order.has(unit.text));
+	return [
+		'## Kana outside the progression',
+		'',
+		'No word can practise them, so they stay locked in the table.',
+		'',
+		excluded.length > 0
+			? excluded.map((unit) => unit.text).join(' · ')
+			: 'None.',
+		'',
+	];
+}
+
 function homographsSection(tiedHomographs: readonly string[]): string[] {
 	return [
 		'## Homographs to review',
@@ -127,6 +142,7 @@ export function reportOf(inputs: ReportInputs): string {
 		...summarySection(inputs),
 		...orderSection(inputs.vocabulary),
 		...sparseKanaSection(inputs.vocabulary),
+		...excludedKanaSection(inputs.vocabulary),
 		...homographsSection(inputs.tiedHomographs),
 		...topWordsSection(inputs.vocabulary.words),
 	].join('\n');

@@ -12,6 +12,9 @@ export interface UnlockOrderOptions {
 	readonly minimumInitialWords: number;
 	readonly maximumInitialGroupSize: number;
 	readonly maximumConsecutiveUnlocks: number;
+	readonly initialKatakanaGroupSize: number;
+	readonly minimumInitialKatakanaWords: number;
+	readonly maximumInitialKatakanaGroupSize: number;
 }
 
 export const DEFAULT_UNLOCK_ORDER_OPTIONS: UnlockOrderOptions = {
@@ -19,6 +22,9 @@ export const DEFAULT_UNLOCK_ORDER_OPTIONS: UnlockOrderOptions = {
 	minimumInitialWords: 15,
 	maximumInitialGroupSize: 10,
 	maximumConsecutiveUnlocks: 3,
+	initialKatakanaGroupSize: 6,
+	minimumInitialKatakanaWords: 5,
+	maximumInitialKatakanaGroupSize: 8,
 };
 
 export interface UnlockOrder {
@@ -77,6 +83,16 @@ export interface OrderState {
 	readonly unlocked: Set<string>;
 }
 
+/** Prerequisites that can be met: kana without any word never unlock. */
+function reachablePrerequisitesOf(
+	unit: KanaUnit,
+	catalogue: readonly KanaUnit[],
+): string[] {
+	return prerequisitesOf(unit).filter((kana) =>
+		catalogue.some((candidate) => candidate.text === kana),
+	);
+}
+
 export function candidatesOf(
 	state: OrderState,
 	words: readonly WeightedWord[],
@@ -86,7 +102,31 @@ export function candidatesOf(
 		.filter(
 			(unit) =>
 				!state.unlocked.has(unit.text) &&
-				prerequisitesOf(unit).every((kana) => state.unlocked.has(kana)),
+				reachablePrerequisitesOf(unit, catalogue).every((kana) =>
+					state.unlocked.has(kana),
+				),
+		)
+		.map((unit) => scoreOf(unit, words, state.unlocked))
+		.sort(compareCandidates);
+}
+
+/**
+ * Candidates of the katakana group, available from the start: only the
+ * prerequisites within katakana apply, not the hiragana counterpart.
+ */
+export function katakanaGroupCandidatesOf(
+	state: OrderState,
+	words: readonly WeightedWord[],
+	catalogue: readonly KanaUnit[],
+): Candidate[] {
+	const katakana = catalogue.filter((unit) => unit.script === 'katakana');
+	return katakana
+		.filter(
+			(unit) =>
+				!state.unlocked.has(unit.text) &&
+				reachablePrerequisitesOf(unit, katakana).every((kana) =>
+					state.unlocked.has(kana),
+				),
 		)
 		.map((unit) => scoreOf(unit, words, state.unlocked))
 		.sort(compareCandidates);
