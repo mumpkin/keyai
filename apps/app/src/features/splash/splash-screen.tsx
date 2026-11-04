@@ -14,21 +14,16 @@ function SwappingSyllable() {
 	return (
 		<span className="inline-grid justify-items-end overflow-clip">
 			<span className="animate-syllable-out [grid-area:1/1]">ha</span>
-			<span className="animate-syllable-in text-foreground [grid-area:1/1]">
-				ke
-			</span>
+			<span className="animate-syllable-in [grid-area:1/1]">ke</span>
 		</span>
 	);
 }
 
-/** The title fills in like a word of the training line (C8). */
 function AnimatedTitle() {
 	return (
 		<span className="animate-title-rise text-7xl font-bold tracking-tight">
-			<span className="animate-title-fill text-muted-foreground">
-				<SwappingSyllable />
-				yai
-			</span>
+			<SwappingSyllable />
+			yai
 		</span>
 	);
 }

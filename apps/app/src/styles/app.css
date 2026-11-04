@@ -10,7 +10,6 @@
 	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 	--ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 	--animate-title-rise: title-rise 0.5s var(--ease-out-expo) both;
-	--animate-title-fill: title-fill 0.4s ease-out 1.2s both;
 	--animate-syllable-out: syllable-out 0.45s var(--ease-in-out-smooth) 1s both;
 	--animate-syllable-in: syllable-in 0.45s var(--ease-in-out-smooth) 1s both;
 	--animate-subtitle-reveal: subtitle-reveal 0.5s var(--ease-out-expo) 0.15s
@@ -22,12 +21,6 @@
 		from {
 			opacity: 0;
 			transform: translateY(8px);
-		}
-	}
-
-	@keyframes title-fill {
-		to {
-			color: var(--foreground);
 		}
 	}
 
@@ -74,7 +67,6 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.animate-title-rise,
-	.animate-title-fill,
 	.animate-syllable-out,
 	.animate-syllable-in,
 	.animate-subtitle-reveal,
