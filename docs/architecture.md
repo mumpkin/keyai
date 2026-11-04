@@ -209,7 +209,10 @@ ready ──first key──► typing ──last word done──► finished ─
                        └──Escape──► aborted (nothing is saved)
 ```
 
-A single pure reducer in `core/session`.
+A single pure reducer in `core/session`: `createSeries(words)`,
+`seriesReducer(state, action)` with timestamped actions (`key`, `space`,
+`backspace`, `abort`), and `seriesRecordOf(state)` handing the attempts,
+wrong key count and elapsed time to `core/stats` and `core/progression`.
 
 | Situation                        | Behaviour                                                                                       |
 | -------------------------------- | ----------------------------------------------------------------------------------------------- |
