@@ -121,3 +121,8 @@ The history of `main` is linear: no merge commits.
   tooling) carry the `no-changelog` label.
 - A release moves `[Unreleased]` to a new `[X.Y.Z] - YYYY-MM-DD` section and
   tags `vX.Y.Z`. The GitHub Release notes are taken from that section.
+- The tag starts `release.yml`, which builds the installers into a draft
+  release; publishing that draft stays a manual step. The version lives in the
+  root `package.json` and in `apps/app/package.json`.
+- The web app does not wait for a release: it deploys after every green CI on
+  `main`.
