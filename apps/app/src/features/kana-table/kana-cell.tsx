@@ -1,6 +1,10 @@
 import { findKana } from '@keyai/core/kana';
 import { cva } from 'class-variance-authority';
-import { type KanaDisplayState, masteryColorOf } from './kana-states.ts';
+import {
+	type KanaDisplayState,
+	masteryColorOf,
+	masteryTextColorOf,
+} from './kana-states.ts';
 
 const cellVariants = cva(
 	'group relative flex size-11 flex-col items-center justify-center rounded-md border font-kana text-lg focus-visible:outline-2',
@@ -17,8 +21,12 @@ const cellVariants = cva(
 	},
 );
 
-const romajiVariants = cva('font-sans text-[10px] text-muted-foreground', {
+const romajiVariants = cva('font-sans text-[10px]', {
 	variants: {
+		isColoured: {
+			true: '',
+			false: 'text-muted-foreground',
+		},
 		visibility: {
 			always: 'visible',
 			onHover:
@@ -73,14 +81,18 @@ export function KanaCell({ kana, state, score }: KanaCellProps) {
 		return <span className="size-11" />;
 	}
 	const badge = STATE_BADGES[state];
+	const isColoured = COLOURED_STATES.has(state);
 	return (
 		<button
 			type="button"
 			className={cellVariants({ state })}
 			title={titleOf(kana, state, score)}
 			style={
-				COLOURED_STATES.has(state)
-					? { backgroundColor: masteryColorOf(score) }
+				isColoured
+					? {
+							backgroundColor: masteryColorOf(score),
+							color: masteryTextColorOf(score),
+						}
 					: undefined
 			}
 		>
@@ -92,6 +104,7 @@ export function KanaCell({ kana, state, score }: KanaCellProps) {
 			{kana}
 			<span
 				className={romajiVariants({
+					isColoured,
 					visibility: ROMAJI_ALWAYS_VISIBLE.has(state)
 						? 'always'
 						: 'onHover',
