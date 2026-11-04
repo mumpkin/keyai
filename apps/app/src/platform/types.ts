@@ -24,6 +24,8 @@ export interface Platform {
 	/** Otherwise the splash only plays on the first launch (C8). */
 	readonly playsSplashOnEveryLaunch: boolean;
 	readonly windowControls: WindowControls | null;
+	/** Calls back with the way to apply a new version, once one is ready. */
+	readonly watchForUpdate: (onReady: (apply: () => void) => void) => void;
 	/** Resolves to `false` when the user cancels. */
 	readonly exportFile: (
 		fileName: string,

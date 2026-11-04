@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- Installable web app that works offline, offering new versions without
+  forcing them
 - Header that stays visible while scrolling
 - Warning and a kept copy when the stored save cannot be read
 - Dark theme, with a setting to follow the system or force dark or light
