@@ -11,10 +11,14 @@ const PERCENT = 100;
 
 /** Share of the mastery colour in the background of a kana. */
 const BACKGROUND_TINT = 15;
+/** Same border opacity as the next kana, which has no background. */
+const BORDER_OPACITY = 60;
 
 export interface MasteryColors {
 	readonly borderColor: string;
 	readonly backgroundColor: string;
+	/** Keeps the tint out of the gaps of the dashed border. */
+	readonly backgroundClip: 'padding-box';
 }
 
 /** Border and light tint of a kana, from dark red to green (C8). */
@@ -22,8 +26,9 @@ export function masteryColorsOf(score: number): MasteryColors {
 	const low = Math.round((1 - score) * PERCENT);
 	const color = `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
 	return {
-		borderColor: color,
+		borderColor: `color-mix(in oklch, ${color} ${BORDER_OPACITY}%, transparent)`,
 		backgroundColor: `color-mix(in oklch, ${color} ${BACKGROUND_TINT}%, transparent)`,
+		backgroundClip: 'padding-box',
 	};
 }
 
