@@ -1,13 +1,14 @@
 import { ChevronUp } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { KanaTable } from './kana-table';
+import { Button } from '@/components/ui/button.tsx';
+import { KanaTable } from './kana-table.tsx';
 
+/** On mobile, the virtual keyboard takes the bottom: the table is a sheet. */
 export function MobileKanaSheet() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className="md:hidden">
+		<div className="md:hidden" data-keeps-focus>
 			<Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
 				Table des kana <ChevronUp data-icon="inline-end" />
 			</Button>

@@ -1,8 +1,9 @@
+import { findKana } from '@keyai/core/kana';
 import { cva } from 'class-variance-authority';
-import type { KanaState, SampleKana } from '@/features/blocking/sample-kana';
+import type { KanaDisplayState } from './kana-states.ts';
 
 const cellVariants = cva(
-	'group relative flex h-12 w-12 flex-col items-center justify-center rounded-md border font-kana text-xl focus-visible:outline-2',
+	'group relative flex size-11 flex-col items-center justify-center rounded-md border font-kana text-lg focus-visible:outline-2',
 	{
 		variants: {
 			state: {
@@ -26,43 +27,56 @@ const romajiVariants = cva('font-sans text-[10px] text-muted-foreground', {
 	},
 });
 
-const ROMAJI_ALWAYS_VISIBLE = new Set<KanaState>([
+/** Romaji helps while a kana is learned; it hides once mastered (C8). */
+const ROMAJI_ALWAYS_VISIBLE = new Set<KanaDisplayState>([
 	'learning',
 	'latest',
 	'next',
 ]);
 
-const STATE_BADGES: Partial<Record<KanaState, string>> = {
+const STATE_BADGES: Partial<Record<KanaDisplayState, string>> = {
 	latest: 'nouveau',
 	next: 'suivant',
 };
 
-interface KanaCellProps {
-	readonly cell: SampleKana | null;
+function romajiOf(kana: string): string {
+	const unit = findKana(kana);
+	if (unit?.kind === 'sokuon') {
+		return '(×2)';
+	}
+	return unit?.romaji.display ?? '';
 }
 
-export function KanaCell({ cell }: KanaCellProps) {
-	if (!cell) {
-		return <span className="h-12 w-12" />;
-	}
-	const romajiVisibility = ROMAJI_ALWAYS_VISIBLE.has(cell.state)
-		? 'always'
-		: 'onHover';
+interface KanaCellProps {
+	readonly kana: string | null;
+	readonly state: KanaDisplayState;
+}
 
+export function KanaCell({ kana, state }: KanaCellProps) {
+	if (!kana) {
+		return <span className="size-11" />;
+	}
+	const badge = STATE_BADGES[state];
 	return (
 		<button
 			type="button"
-			className={cellVariants({ state: cell.state })}
-			title={cell.romaji}
+			className={cellVariants({ state })}
+			title={romajiOf(kana)}
 		>
-			{STATE_BADGES[cell.state] && (
+			{badge && (
 				<span className="absolute -top-2 rounded bg-primary px-1 font-sans text-[8px] text-primary-foreground">
-					{STATE_BADGES[cell.state]}
+					{badge}
 				</span>
 			)}
-			{cell.kana}
-			<span className={romajiVariants({ visibility: romajiVisibility })}>
-				{cell.romaji}
+			{kana}
+			<span
+				className={romajiVariants({
+					visibility: ROMAJI_ALWAYS_VISIBLE.has(state)
+						? 'always'
+						: 'onHover',
+				})}
+			>
+				{romajiOf(kana)}
 			</span>
 		</button>
 	);
