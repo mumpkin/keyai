@@ -2,6 +2,7 @@ import { ChartColumn, Keyboard, type LucideIcon, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { useWindowControls } from '@/stores/app-context.tsx';
+import { DownloadMenu } from './download-menu.tsx';
 import type { Screen } from './screen';
 import { WindowControls } from './window-controls.tsx';
 
@@ -39,6 +40,7 @@ export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 						: 'col-start-3 justify-self-end',
 				)}
 			>
+				{!windowControls && <DownloadMenu />}
 				{NAVIGATION.map(({ screen, icon: Icon }) => (
 					<button
 						key={screen}

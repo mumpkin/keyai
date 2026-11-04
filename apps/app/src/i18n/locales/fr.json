@@ -20,6 +20,10 @@
 		"exportCopy": "Exporter la copie de la sauvegarde",
 		"dismiss": "Fermer"
 	},
+	"download": {
+		"title": "Télécharger",
+		"unsignedNote": "L’application n’est pas encore signée : Windows peut afficher un avertissement à l’installation."
+	},
 	"update": {
 		"ready": "Une nouvelle version de keyai est prête.",
 		"apply": "Mettre à jour",
