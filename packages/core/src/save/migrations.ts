@@ -26,7 +26,7 @@ export function migrateToCurrent(
 		if (!migration) {
 			return { ok: false, reason: 'unsupportedVersion' };
 		}
-		migrated = migration(migrated);
+		migrated = { ...migration(migrated), schemaVersion: from + 1 };
 	}
 	return version > CURRENT_SCHEMA_VERSION
 		? { ok: false, reason: 'unsupportedVersion' }

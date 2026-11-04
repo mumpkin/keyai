@@ -90,7 +90,7 @@ describe('migrateToCurrent', () => {
 		]);
 		expect(migrateToCurrent({ legacy: 1 }, 0, migrations)).toEqual({
 			ok: true,
-			data: { legacy: 1, upgraded: true },
+			data: { legacy: 1, upgraded: true, schemaVersion: 1 },
 		});
 	});
 
