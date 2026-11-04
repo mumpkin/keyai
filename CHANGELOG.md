@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-04
+
 ### Added
 
 - Download button for the desktop app on the web version
@@ -46,4 +48,5 @@ and this project adheres to
 - Biome configuration with Clean Code rules and a single-letter identifier
   check
 
-[Unreleased]: https://github.com/mumpkin/keyai/commits/main
+[Unreleased]: https://github.com/mumpkin/keyai/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/mumpkin/keyai/releases/tag/v0.1.0
