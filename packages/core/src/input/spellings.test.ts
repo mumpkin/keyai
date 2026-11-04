@@ -35,6 +35,29 @@ describe('spellingsOf', () => {
 		expect(spellingsAt('ンー', 1)).toEqual(['-']);
 	});
 
+	it('accepts the long vowel reading of う after an o sound', () => {
+		expect(spellingsAt('こう', 1)).toEqual(['u', 'o']);
+		expect(spellingsAt('きょう', 1)).toEqual(['u', 'o']);
+		expect(spellingsAt('ごう', 1)).toEqual(['u', 'o']);
+	});
+
+	it('accepts the long vowel reading of い after an e sound', () => {
+		expect(spellingsAt('せんせい', 3)).toEqual(['i', 'e']);
+		expect(spellingsAt('けいかく', 1)).toEqual(['i', 'e']);
+	});
+
+	it('keeps う and い as they are after any other sound', () => {
+		expect(spellingsAt('かう', 1)).toEqual(['u']);
+		expect(spellingsAt('ふう', 1)).toEqual(['u']);
+		expect(spellingsAt('かい', 1)).toEqual(['i']);
+		expect(spellingsAt('こい', 1)).toEqual(['i']);
+		expect(spellingsAt('う', 0)).toEqual(['u']);
+	});
+
+	it('only applies to hiragana', () => {
+		expect(spellingsAt('コウ', 1)).toEqual(['u']);
+	});
+
 	it('marks words ending with っ as not typeable', () => {
 		expect(isTypeable(tokenize('あっ'))).toBe(false);
 		expect(isTypeable(tokenize('きって'))).toBe(true);

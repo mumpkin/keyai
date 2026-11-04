@@ -24,6 +24,11 @@ describe('matcher', () => {
 		['コーヒー', 'ko-hi-'],
 		['コーヒー', 'koohii'],
 		['を', 'o'],
+		['こうこう', 'koukou'],
+		['こうこう', 'kooko' + 'o'],
+		['こうこう', 'koukoo'],
+		['きょう', 'kyoo'],
+		['せんせい', 'sensee'],
 		['ほん', 'hon'],
 		['さんぽ', 'sanpo'],
 		['ほんや', "hon'ya"],
@@ -32,6 +37,10 @@ describe('matcher', () => {
 		const outcome = typeWord(word, keys);
 		expect(rejectionsOf(outcome)).toEqual([]);
 		expect(outcome.isFinished).toBe(true);
+	});
+
+	it('refuses a long vowel reading after another sound', () => {
+		expect(rejectionsOf(typeWord('かう', 'kao'))).toEqual([1]);
 	});
 
 	it('ignores the case of the keys', () => {

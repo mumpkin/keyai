@@ -54,6 +54,25 @@ function choonSpellings(previous: KanaUnit | undefined): string[] {
 	return VOWELS.has(lastLetter) ? ['-', lastLetter] : ['-'];
 }
 
+/**
+ * Vowels that lengthen the previous sound in hiragana, with the sound they
+ * follow: こう reads koo, せんせい reads sensee (C1).
+ */
+const LONG_VOWELS: ReadonlyMap<string, string> = new Map([
+	['う', 'o'],
+	['い', 'e'],
+]);
+
+function regularSpellings(unit: KanaUnit, previous: KanaUnit | undefined) {
+	const lengthened = LONG_VOWELS.get(unit.text);
+	const isLong =
+		lengthened !== undefined &&
+		previous?.romaji.display.at(-1) === lengthened;
+	return isLong
+		? [...unit.romaji.accepted, lengthened]
+		: [...unit.romaji.accepted];
+}
+
 function spellingsAt(units: readonly KanaUnit[], index: number): string[] {
 	const unit = units[index] as KanaUnit;
 	const previous = units[index - 1];
@@ -67,7 +86,7 @@ function spellingsAt(units: readonly KanaUnit[], index: number): string[] {
 		case 'choon':
 			return choonSpellings(previous);
 		default:
-			return [...unit.romaji.accepted];
+			return regularSpellings(unit, previous);
 	}
 }
 

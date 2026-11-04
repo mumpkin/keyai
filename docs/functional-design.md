@@ -46,6 +46,12 @@ case-insensitive.
   `konnichiha` and accepts `konnichiha`, `konnnichiha` and `kon'nichiha`.
   The word being known, the input engine follows every reading the keys
   still allow and settles once the next keys remove the ambiguity.
+- **Long vowels in hiragana**: `う` after an o sound also accepts `o` (こう:
+  `kou` or `koo`, きょう: `kyou` or `kyoo`) and `い` after an e sound also
+  accepts `e` (せんせい: `sensei` or `sensee`). After any other sound they
+  keep their own reading (かう is only `kau`). The displayed form stays
+  `kou`. The rule follows the spelling: without word boundaries, it also
+  applies where the sounds are separate in speech (おもう accepts `omoo`).
 - **Combinations cannot be typed in two parts** (`きゃ` as `ki` + `xya`): the
   point is to learn `きゃ` as a whole.
 - **A standalone small `っ`** (`xtsu`, `ltu`) is not accepted; the pipeline
@@ -209,6 +215,8 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
   mastery figures and progress displays.
 - An unlocked kana is never locked again; if it regresses, it delays the next
   unlock until it is mastered again.
+- **A series with a skipped word unlocks nothing**: holding space must never
+  lead to an unlock.
 - **No exception**: every unlocked kana must be mastered before the next one
   unlocks. The unlock order guarantees that each of them can be practised
   (C2).
