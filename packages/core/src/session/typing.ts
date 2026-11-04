@@ -31,7 +31,11 @@ function applyEvent(
 				...new Set([...current.faultyUnits, event.unitIndex]),
 			],
 		}));
-		return { ...faulty, wrongKeyCount: state.wrongKeyCount + 1 };
+		return {
+			...faulty,
+			wrongKeyCount: state.wrongKeyCount + 1,
+			currentWordErrors: state.currentWordErrors + 1,
+		};
 	}
 	const word = currentWordOf(state) as SeriesWord;
 	return {

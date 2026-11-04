@@ -44,6 +44,13 @@ describe('seriesReducer', () => {
 		expect(state.attempts[1]?.hadError).toBe(true);
 	});
 
+	it('counts the wrong keys of the current word only', () => {
+		expect(play(['いぬ', 'くに'], 'xix').currentWordErrors).toBe(2);
+		expect(play(['いぬ', 'くに'], 'xinu ').currentWordErrors).toBe(0);
+		expect(play(['いぬ', 'くに'], 'x ').currentWordErrors).toBe(0);
+		expect(play(['いぬ', 'くに'], 'x <').currentWordErrors).toBe(0);
+	});
+
 	it('waits for space before moving to the next word', () => {
 		const state = play(['いぬ', 'くに'], 'inu');
 		expect(state.currentIndex).toBe(0);

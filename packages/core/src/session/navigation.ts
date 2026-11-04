@@ -12,6 +12,7 @@ function moveToNextWord(state: SeriesState, at: number): SeriesState {
 		...withWordStatus(state, nextIndex, 'current'),
 		currentIndex: nextIndex,
 		unitStartedAt: at,
+		currentWordErrors: 0,
 	};
 }
 
@@ -82,5 +83,6 @@ export function pressBackspace(state: SeriesState, at: number): SeriesState {
 		...withWordStatus(reset, previousIndex, 'current'),
 		currentIndex: previousIndex,
 		unitStartedAt: at,
+		currentWordErrors: 0,
 	};
 }
