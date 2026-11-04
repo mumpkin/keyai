@@ -47,7 +47,7 @@ export function SeriesLengthPicker({
 	}
 
 	return (
-		<span className="flex items-center gap-1 text-xs" data-keeps-focus>
+		<span className="flex h-6 items-center gap-1 text-xs" data-keeps-focus>
 			{SERIES_LENGTH_PRESETS.map((preset) => (
 				<button
 					key={preset}
@@ -58,26 +58,29 @@ export function SeriesLengthPicker({
 					{preset}
 				</button>
 			))}
-			{isEditing ? (
-				<NumberField
-					label={translate('settings.session.wordsPerSeries')}
-					value={length}
-					limits={WORDS_PER_SESSION_LIMITS}
-					onCommit={commit}
-					onCancel={dismiss}
-					opensFocused
-					className="h-6 w-14 px-1.5 text-xs md:text-xs"
-				/>
-			) : (
-				<button
-					type="button"
-					onClick={() => setIsEditing(true)}
-					className={lengthButtonClass(isCustom)}
-				>
-					{translate('training.customLength')}
-					{isCustom && ` · ${length}`}
-				</button>
-			)}
+			{/* A fixed slot: the field and the button take the same room. */}
+			<span className="flex w-18 justify-end">
+				{isEditing ? (
+					<NumberField
+						label={translate('settings.session.wordsPerSeries')}
+						value={length}
+						limits={WORDS_PER_SESSION_LIMITS}
+						onCommit={commit}
+						onCancel={dismiss}
+						opensFocused
+						className="h-6! w-full! px-1.5 text-xs md:text-xs"
+					/>
+				) : (
+					<button
+						type="button"
+						onClick={() => setIsEditing(true)}
+						className={lengthButtonClass(isCustom)}
+					>
+						{translate('training.customLength')}
+						{isCustom && ` · ${length}`}
+					</button>
+				)}
+			</span>
 		</span>
 	);
 }

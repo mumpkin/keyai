@@ -388,7 +388,7 @@ Agreed during the blocking session (pull request #5).
 | Settings   | Language, session, speed, feedback, display, data, about                                                                                         |
 
 Navigation: header with Training, Statistics and Settings (icons only on
-mobile).
+mobile). It always stays visible: only the content below it scrolls.
 
 The desktop app has no system title bar: the navigation moves to the middle of
 the header and minimize, maximize and close buttons take its place on the
@@ -415,7 +415,8 @@ click.
   translation; skipped words are marked. This is where translations appear.
   It stays on the finished series until the first key of the next one, so
   that the translations can still be read.
-  It shows two rows (about eight words) and scrolls for the rest.
+  It shows two rows (about eight words) and scrolls for the rest, one row per
+  wheel step so that no row is jumped over.
 - **The last word needs no space**: the series ends with its last key (a
   final ん ends it as soon as `n` spells it). Space does nothing before the
   first key of a series, so a space typed out of habit skips nothing.
@@ -433,6 +434,12 @@ click.
   which opens a small field for any length from 5 to 100 (Enter confirms,
   Escape cancels) and shows the current length when it is not one of the four.
   The same setting is available in the settings.
+
+### Stable layout
+
+An interaction never moves what surrounds it: changing figures have a reserved
+width, the previous series has its own line, and messages and details either
+have a reserved place or float above the page.
 
 ### Mobile
 

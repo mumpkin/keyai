@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { ConfirmDialog } from './confirm-dialog.tsx';
+import type { DataMessage } from './data-message.tsx';
 
 function ImportPreviewText({ save }: { readonly save: SaveFile }) {
 	const { t: translate } = useTranslation();
@@ -39,9 +40,8 @@ function ImportPreviewText({ save }: { readonly save: SaveFile }) {
 	);
 }
 
-function useSaveImport() {
+function useSaveImport(onError: (error: SaveError | null) => void) {
 	const [candidate, setCandidate] = useState<SaveFile | null>(null);
-	const [error, setError] = useState<SaveError | null>(null);
 	const replaceSave = useProgress((state) => state.replaceSave);
 	const clearSeriesResult = useUiStore((state) => state.clearSeriesResult);
 
@@ -53,7 +53,7 @@ function useSaveImport() {
 		}
 		const parsed = parseSave(await file.text());
 		input.value = '';
-		setError(parsed.ok ? null : parsed.error);
+		onError(parsed.ok ? null : parsed.error);
 		setCandidate(parsed.ok ? parsed.save : null);
 	}
 
@@ -67,17 +67,27 @@ function useSaveImport() {
 
 	return {
 		candidate,
-		error,
 		readFile,
 		confirm,
 		cancel: () => setCandidate(null),
 	};
 }
 
-export function ImportSave() {
+export function ImportSave({
+	onMessage,
+}: {
+	readonly onMessage: (message: DataMessage | null) => void;
+}) {
 	const { t: translate } = useTranslation();
 	const fileInput = useRef<HTMLInputElement>(null);
-	const { candidate, error, readFile, confirm, cancel } = useSaveImport();
+	const { candidate, readFile, confirm, cancel } = useSaveImport((error) =>
+		onMessage(
+			error && {
+				text: translate(`settings.data.importErrors.${error}`),
+				isError: true,
+			},
+		),
+	);
 
 	return (
 		<>
@@ -95,11 +105,6 @@ export function ImportSave() {
 				onChange={(event) => void readFile(event)}
 				className="hidden"
 			/>
-			{error && (
-				<p role="alert" className="w-full text-sm text-destructive">
-					{translate(`settings.data.importErrors.${error}`)}
-				</p>
-			)}
 			<ConfirmDialog
 				isOpen={candidate !== null}
 				title={translate('settings.data.importTitle')}

@@ -38,8 +38,9 @@ export function KanaSizeSetting() {
 					px
 				</span>
 			</SettingRow>
+			{/* As tall as the largest size: the page does not move with it. */}
 			<p
-				className="truncate font-kana"
+				className="flex h-24 items-center font-kana"
 				style={{ fontSize: 'var(--kana-size)' }}
 			>
 				あいう

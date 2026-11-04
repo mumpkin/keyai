@@ -15,7 +15,7 @@ export function SaveIssueNotice() {
 	return (
 		<div
 			role="alert"
-			className="flex flex-wrap items-center gap-x-4 gap-y-2 bg-destructive/10 px-4 py-2 text-sm"
+			className="fixed inset-x-4 bottom-4 z-30 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg bg-popover px-4 py-2 text-sm shadow-lg ring-1 ring-destructive/40"
 		>
 			<p className="flex-1 text-destructive">
 				{translate(
