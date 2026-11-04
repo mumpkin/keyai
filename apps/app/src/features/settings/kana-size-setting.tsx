@@ -2,7 +2,7 @@ import { KANA_SIZE_LIMITS, withKanaSize } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
 import { Slider } from '@/components/ui/slider.tsx';
-import { SettingRow, SettingSection } from './setting-section.tsx';
+import { SettingRow } from './setting-section.tsx';
 import { useSettings } from './use-settings.ts';
 
 export function KanaSizeSetting() {
@@ -15,7 +15,7 @@ export function KanaSizeSetting() {
 	}
 
 	return (
-		<SettingSection title={translate('settings.display.title')}>
+		<>
 			<SettingRow label={translate('settings.display.kanaSize')}>
 				<span className="flex items-center gap-3">
 					<span className="w-40">
@@ -44,6 +44,6 @@ export function KanaSizeSetting() {
 			>
 				あいう
 			</p>
-		</SettingSection>
+		</>
 	);
 }

@@ -8,6 +8,7 @@ import {
 	withKanaSize,
 	withLocale,
 	withSpeedPreset,
+	withTheme,
 	withWordsPerSession,
 } from './settings.ts';
 
@@ -20,7 +21,7 @@ describe('settings', () => {
 			wordsPerSession: 20,
 			speed: { preset: 'easy', kanaPerMinute: 30 },
 			feedback: { sound: false },
-			display: { kanaSizePx: 24 },
+			display: { kanaSizePx: 24, theme: 'system' },
 		});
 		expect(SettingsSchema.parse(DEFAULTS)).toEqual(DEFAULTS);
 	});
@@ -33,6 +34,15 @@ describe('settings', () => {
 		[[], 'fr'],
 	] as const)('picks the locale from %j', (languages, locale) => {
 		expect(preferredLocale(languages)).toBe(locale);
+	});
+
+	it('keeps the theme and the kana size apart', () => {
+		const dark = withTheme(DEFAULTS, 'dark');
+		expect(dark.display.theme).toBe('dark');
+		expect(withKanaSize(dark, 40).display).toEqual({
+			kanaSizePx: 40,
+			theme: 'dark',
+		});
 	});
 
 	it('changes the locale', () => {

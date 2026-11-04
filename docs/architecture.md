@@ -171,7 +171,7 @@ interface Settings {
 		kanaPerMinute: number;
 	};
 	feedback: { sound: boolean };
-	display: { kanaSizePx: number };
+	display: { kanaSizePx: number; theme: 'system' | 'dark' | 'light' };
 }
 
 interface SaveFile {

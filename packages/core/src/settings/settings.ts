@@ -5,6 +5,7 @@ import {
 	type Settings,
 	SPEED_LIMITS,
 	SPEED_PRESETS,
+	type Theme,
 	WORDS_PER_SESSION_LIMITS,
 } from './schema.ts';
 
@@ -30,7 +31,7 @@ export function defaultSettings(locale: Locale): Settings {
 		wordsPerSession: DEFAULT_WORDS_PER_SESSION,
 		speed: { preset: 'easy', kanaPerMinute: SPEED_PRESETS.easy },
 		feedback: { sound: false },
-		display: { kanaSizePx: DEFAULT_KANA_SIZE_PX },
+		display: { kanaSizePx: DEFAULT_KANA_SIZE_PX, theme: 'system' },
 	};
 }
 
@@ -89,7 +90,12 @@ export function withKanaSize(settings: Settings, kanaSizePx: number): Settings {
 	return {
 		...settings,
 		display: {
+			...settings.display,
 			kanaSizePx: clamp(Math.round(kanaSizePx), KANA_SIZE_LIMITS),
 		},
 	};
+}
+
+export function withTheme(settings: Settings, theme: Theme): Settings {
+	return { ...settings, display: { ...settings.display, theme } };
 }

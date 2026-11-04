@@ -60,7 +60,7 @@ export function WindowControls({ controls }: { readonly controls: Controls }) {
 			<WindowButton
 				aria-label={translate('window.close')}
 				onClick={() => void controls.close()}
-				className="hover:bg-destructive hover:text-white"
+				className="hover:bg-destructive hover:text-background"
 			>
 				<CloseIcon className="size-4" />
 			</WindowButton>

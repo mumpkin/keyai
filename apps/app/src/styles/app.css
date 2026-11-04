@@ -125,28 +125,33 @@
 	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * Tokyo Night Light and Tokyo Night. Text, field and mastery colours are
+ * adjusted from the originals to pass WCAG AA: see theme-contrast.test.ts.
+ */
 :root {
+	color-scheme: light;
 	--kana-size: 24px;
-	--mastery-low: oklch(0.46 0.11 25);
-	--mastery-high: oklch(0.62 0.1 150);
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
-	--card: oklch(1 0 0);
-	--card-foreground: oklch(0.145 0 0);
-	--popover: oklch(1 0 0);
-	--popover-foreground: oklch(0.145 0 0);
-	--primary: oklch(0.205 0 0);
-	--primary-foreground: oklch(0.985 0 0);
-	--secondary: oklch(0.97 0 0);
-	--secondary-foreground: oklch(0.205 0 0);
-	--muted: oklch(0.97 0 0);
-	--muted-foreground: oklch(0.556 0 0);
-	--accent: oklch(0.97 0 0);
-	--accent-foreground: oklch(0.205 0 0);
-	--destructive: oklch(0.577 0.245 27.325);
-	--border: oklch(0.922 0 0);
-	--input: oklch(0.922 0 0);
-	--ring: oklch(0.708 0 0);
+	--mastery-low: #942f2f;
+	--mastery-high: #668f33;
+	--background: #e6e7ed;
+	--foreground: #343b59;
+	--card: #e6e7ed;
+	--card-foreground: #343b59;
+	--popover: #e6e7ed;
+	--popover-foreground: #343b59;
+	--primary: #2959aa;
+	--primary-foreground: #e6e7ed;
+	--secondary: #d6d8df;
+	--secondary-foreground: #343b59;
+	--muted: #d6d8df;
+	--muted-foreground: #565c79;
+	--accent: #d6d8df;
+	--accent-foreground: #343b59;
+	--destructive: #942f2f;
+	--border: #c1c2c7;
+	--input: #80838e;
+	--ring: #2959aa;
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -164,24 +169,27 @@
 }
 
 .dark {
-	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
-	--card: oklch(0.205 0 0);
-	--card-foreground: oklch(0.985 0 0);
-	--popover: oklch(0.205 0 0);
-	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.922 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
-	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.269 0 0);
-	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.269 0 0);
-	--accent-foreground: oklch(0.985 0 0);
-	--destructive: oklch(0.704 0.191 22.216);
-	--border: oklch(1 0 0 / 10%);
-	--input: oklch(1 0 0 / 15%);
-	--ring: oklch(0.556 0 0);
+	color-scheme: dark;
+	--mastery-low: #c53b53;
+	--mastery-high: #75a33e;
+	--background: #1a1b26;
+	--foreground: #c0caf5;
+	--card: #1a1b26;
+	--card-foreground: #c0caf5;
+	--popover: #1f2335;
+	--popover-foreground: #c0caf5;
+	--primary: #7aa2f7;
+	--primary-foreground: #1a1b26;
+	--secondary: #292e42;
+	--secondary-foreground: #c0caf5;
+	--muted: #292e42;
+	--muted-foreground: #8e96bc;
+	--accent: #292e42;
+	--accent-foreground: #c0caf5;
+	--destructive: #f7768e;
+	--border: #3b4261;
+	--input: #737aa2;
+	--ring: #7aa2f7;
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -206,6 +214,7 @@
 	}
 	html {
 		@apply font-sans;
+		scrollbar-color: var(--input) transparent;
 	}
 }
 

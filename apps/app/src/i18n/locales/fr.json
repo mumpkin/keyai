@@ -114,6 +114,10 @@
 		},
 		"display": {
 			"title": "Affichage",
+			"theme": "Thème",
+			"themeSystem": "Système",
+			"themeDark": "Sombre",
+			"themeLight": "Clair",
 			"kanaSize": "Taille des kana",
 			"kanaSizePx": "Taille des kana en pixels"
 		},

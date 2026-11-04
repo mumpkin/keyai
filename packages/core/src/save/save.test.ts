@@ -82,16 +82,40 @@ describe('migrateToCurrent', () => {
 	it('applies every migration from an older version', () => {
 		const migrations = new Map([
 			[
-				0,
+				1,
 				(data: Record<string, unknown>) => ({
 					...data,
 					upgraded: true,
 				}),
 			],
 		]);
-		expect(migrateToCurrent({ legacy: 1 }, 0, migrations)).toEqual({
+		expect(migrateToCurrent({ legacy: 1 }, 1, migrations)).toEqual({
 			ok: true,
-			data: { legacy: 1, upgraded: true, schemaVersion: 1 },
+			data: { legacy: 1, upgraded: true, schemaVersion: 2 },
+		});
+	});
+
+	it('adds the theme to a save of version 1', () => {
+		const { display } = SAVE.settings;
+		const version1 = {
+			...SAVE,
+			schemaVersion: 1,
+			settings: {
+				...SAVE.settings,
+				display: { kanaSizePx: display.kanaSizePx },
+			},
+		};
+		expect(parseSave(JSON.stringify(version1))).toEqual({
+			ok: true,
+			save: SAVE,
+		});
+	});
+
+	it('still rejects a damaged save of version 1', () => {
+		const damaged = { ...SAVE, schemaVersion: 1, settings: undefined };
+		expect(parseSave(JSON.stringify(damaged))).toEqual({
+			ok: false,
+			error: 'invalidContent',
 		});
 	});
 

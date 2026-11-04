@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { AppHeader } from '@/features/layout/app-header';
 import type { Screen } from '@/features/layout/screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
 import { TrainingScreen } from '@/features/training/training-screen';
 import { applyLocale } from '@/i18n/index.ts';
+import { isDarkTheme } from '@/lib/theme.ts';
 import { useProgress, useStartsWithSplash } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 
@@ -48,6 +49,22 @@ function useKanaSize() {
 	}, [kanaSizePx]);
 }
 
+/** Before the first paint, and again when the system theme changes (C6). */
+function useTheme() {
+	const theme = useProgress((state) => state.save.settings.display.theme);
+	useLayoutEffect(() => {
+		const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+		const apply = () =>
+			document.documentElement.classList.toggle(
+				'dark',
+				isDarkTheme(theme, systemDark.matches),
+			);
+		apply();
+		systemDark.addEventListener('change', apply);
+		return () => systemDark.removeEventListener('change', apply);
+	}, [theme]);
+}
+
 /** Follows the language of the settings, whatever changed it (C6). */
 function useInterfaceLanguage() {
 	const locale = useProgress((state) => state.save.settings.locale);
@@ -62,6 +79,7 @@ export function App() {
 	);
 	useKanaSize();
 	useInterfaceLanguage();
+	useTheme();
 
 	return (
 		<div className="flex min-h-dvh flex-col">

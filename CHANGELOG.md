@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Added
 
+- Dark theme, with a setting to follow the system or force dark or light
 - Statistics screen: last series with the speed of each word, progress per
   script and history of the last series
 - Export and import of the progress, with a preview before replacing it
