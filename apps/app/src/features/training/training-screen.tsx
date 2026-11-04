@@ -4,7 +4,7 @@ import { KanaTable } from '@/features/kana-table/kana-table.tsx';
 import { MobileKanaSheet } from '@/features/kana-table/mobile-kana-sheet.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
-import { wordViewsOf } from './series-view.ts';
+import { recapSourceOf, wordViewsOf } from './series-view.ts';
 import { SeriesWordsRecap } from './series-words-recap.tsx';
 import { SessionStatsBar } from './session-stats-bar.tsx';
 import { TypingFocusContext } from './typing-focus.tsx';
@@ -44,6 +44,7 @@ export function TrainingScreen() {
 	const updateSettings = useProgress((state) => state.updateSettings);
 	const previous = useUiStore((state) => state.lastSeries);
 	const words = wordViewsOf(series.state);
+	const recap = recapSourceOf(series);
 
 	function changeLength(length: number) {
 		updateSettings((settings) => withWordsPerSession(settings, length));
@@ -74,9 +75,9 @@ export function TrainingScreen() {
 						errorCount={series.state.currentWordErrors}
 					/>
 					<SeriesWordsRecap
-						series={series.state}
-						words={words}
-						entries={series.entries}
+						series={recap.state}
+						words={wordViewsOf(recap.state)}
+						entries={recap.entries}
 						locale={locale}
 					/>
 					{isComposing && <JapaneseInputWarning />}
