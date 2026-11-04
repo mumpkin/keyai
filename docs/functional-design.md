@@ -401,6 +401,9 @@ mobile).
   It stays on the finished series until the first key of the next one, so
   that the translations can still be read.
   It shows two rows (about eight words) and scrolls for the rest.
+- **The last word needs no space**: the series ends with its last key (a
+  final ん ends it as soon as `n` spells it). Space does nothing before the
+  first key of a series, so a space typed out of habit skips nothing.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).
@@ -408,6 +411,8 @@ mobile).
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
   Romaji is shown under unmastered, new and next kana, and only on hover,
   focus or touch for mastered kana.
+- **Mastery colours**: unlocked kana go from orange to green with their
+  mastery score, the percentage being shown in the cell title.
 - **Kana size** is a setting, in pixels (default 24 px, 16 to 64 px).
 - **Series length picker** in the statistics bar: 10, 20, 50, 100 or a
   custom value, also available in the settings.
