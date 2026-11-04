@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { kanaLayoutOf } from './kana-layout.ts';
-import {
-	kanaStatesOf,
-	masteryColorOf,
-	masteryTextColorOf,
-} from './kana-states.ts';
+import { kanaStatesOf, masteryColorsOf } from './kana-states.ts';
 
 const FAST = { ms: 1000, error: false };
 const ORDER = ['い', 'か', 'く', 'こ'];
@@ -39,16 +35,23 @@ describe('kanaStatesOf', () => {
 	});
 });
 
-describe('masteryColorOf', () => {
-	it('keeps the text readable on dark and light backgrounds', () => {
-		expect(masteryTextColorOf(0)).toContain('light');
-		expect(masteryTextColorOf(1)).toContain('dark');
+describe('masteryColorsOf', () => {
+	it('goes from dark red to green with the mastery score', () => {
+		expect(masteryColorsOf(0).borderColor).toContain(
+			'var(--mastery-low) 100%',
+		);
+		expect(masteryColorsOf(0.25).borderColor).toContain(
+			'var(--mastery-low) 75%',
+		);
+		expect(masteryColorsOf(1).borderColor).toContain(
+			'var(--mastery-low) 0%',
+		);
 	});
 
-	it('goes from dark red to green with the mastery score', () => {
-		expect(masteryColorOf(0)).toContain('var(--mastery-low) 100%');
-		expect(masteryColorOf(0.25)).toContain('var(--mastery-low) 75%');
-		expect(masteryColorOf(1)).toContain('var(--mastery-low) 0%');
+	it('uses a light tint of the same colour as background', () => {
+		const { borderColor, backgroundColor } = masteryColorsOf(0.5);
+		expect(backgroundColor).toContain(borderColor);
+		expect(backgroundColor).toContain('transparent');
 	});
 });
 

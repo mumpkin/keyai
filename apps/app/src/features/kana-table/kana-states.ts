@@ -9,19 +9,22 @@ export type KanaDisplayState =
 
 const PERCENT = 100;
 
-/** Below this score, light text has the better contrast on the background. */
-const LIGHT_TEXT_MAX_SCORE = 0.45;
+/** Share of the mastery colour in the background of a kana. */
+const BACKGROUND_TINT = 15;
 
-/** Background of a kana, from dark red to green with its mastery (C8). */
-export function masteryColorOf(score: number): string {
-	const low = Math.round((1 - score) * PERCENT);
-	return `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+export interface MasteryColors {
+	readonly borderColor: string;
+	readonly backgroundColor: string;
 }
 
-export function masteryTextColorOf(score: number): string {
-	return score < LIGHT_TEXT_MAX_SCORE
-		? 'var(--mastery-text-light)'
-		: 'var(--mastery-text-dark)';
+/** Border and light tint of a kana, from dark red to green (C8). */
+export function masteryColorsOf(score: number): MasteryColors {
+	const low = Math.round((1 - score) * PERCENT);
+	const color = `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+	return {
+		borderColor: color,
+		backgroundColor: `color-mix(in oklch, ${color} ${BACKGROUND_TINT}%, transparent)`,
+	};
 }
 
 export interface KanaStateContext {
