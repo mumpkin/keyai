@@ -2,7 +2,7 @@
 
 **Status:** approved on 2026-11-03
 **Related:** [architecture](./architecture.md) ·
-[functional specification (FR)](./cahier-des-charges.md)
+[functional specification](./functional-specification.md)
 
 This document settles the points left open by the specification. Topics are
 validated one at a time:

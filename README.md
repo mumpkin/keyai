@@ -24,8 +24,8 @@ short translation in French or English.
 
 ## Documentation
 
-- [Functional specification (FR)](./docs/cahier-des-charges.md)
-- [Technical choices (FR)](./docs/choix-techniques.md)
+- [Functional specification](./docs/functional-specification.md)
+- [Technical choices](./docs/technical-choices.md)
 - [Architecture](./docs/architecture.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
