@@ -19,7 +19,7 @@ function JapaneseInputWarning() {
 	return (
 		<p
 			role="alert"
-			className="rounded-md bg-destructive/10 p-2 text-sm text-destructive"
+			className="absolute inset-x-0 bottom-2 z-10 rounded-md bg-popover p-2 text-sm text-destructive shadow-md ring-1 ring-destructive/40"
 		>
 			⚠ {translate('training.japaneseInputWarning')}
 		</p>
@@ -69,7 +69,7 @@ export function TrainingScreen() {
 					onLengthChange={changeLength}
 					onLengthDismiss={focus}
 				/>
-				<div className="flex flex-1 flex-col justify-center gap-4 py-6">
+				<div className="relative flex flex-1 flex-col justify-center gap-4 py-6">
 					<WordLine
 						words={words}
 						entries={series.entries}

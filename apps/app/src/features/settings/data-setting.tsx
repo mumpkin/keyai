@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { ConfirmDialog } from './confirm-dialog.tsx';
+import { type DataMessage, DataMessageLine } from './data-message.tsx';
 import { ExportSave } from './export-save.tsx';
 import { ExportUnreadableSave } from './export-unreadable-save.tsx';
 import { ImportSave } from './import-save.tsx';
@@ -41,14 +42,16 @@ function ResetProgress() {
 
 export function DataSetting() {
 	const { t: translate } = useTranslation();
+	const [message, setMessage] = useState<DataMessage | null>(null);
 	return (
 		<SettingSection title={translate('settings.data.title')}>
 			<div className="flex flex-wrap gap-2">
-				<ExportSave />
-				<ImportSave />
+				<ExportSave onMessage={setMessage} />
+				<ImportSave onMessage={setMessage} />
 				<ResetProgress />
 				<ExportUnreadableSave />
 			</div>
+			<DataMessageLine message={message} />
 		</SettingSection>
 	);
 }

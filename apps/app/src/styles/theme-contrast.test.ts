@@ -54,6 +54,7 @@ const TEXT_PAIRS = [
 	['muted-foreground', 'background'],
 	['muted-foreground', 'muted'],
 	['muted-foreground', 'popover'],
+	['destructive', 'popover'],
 	['popover-foreground', 'popover'],
 	['primary', 'background'],
 	['primary-foreground', 'primary'],

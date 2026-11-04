@@ -1,16 +1,17 @@
 import { saveFileNameOf, serializeSave } from '@keyai/core/save';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button.tsx';
 import { useExportFile, useProgressStore } from '@/stores/app-context.tsx';
+import type { DataMessage } from './data-message.tsx';
 
-type ExportStatus = 'idle' | 'done' | 'failed';
-
-export function ExportSave() {
+export function ExportSave({
+	onMessage,
+}: {
+	readonly onMessage: (message: DataMessage | null) => void;
+}) {
 	const { t: translate } = useTranslation();
 	const store = useProgressStore();
 	const exportFile = useExportFile();
-	const [status, setStatus] = useState<ExportStatus>('idle');
 
 	async function exportSave() {
 		const content = serializeSave(store.getState().save);
@@ -19,29 +20,22 @@ export function ExportSave() {
 				saveFileNameOf(new Date()),
 				content,
 			);
-			setStatus(isExported ? 'done' : 'idle');
+			onMessage(
+				isExported
+					? { text: translate('settings.data.exportDone') }
+					: null,
+			);
 		} catch {
-			setStatus('failed');
+			onMessage({
+				text: translate('settings.data.exportFailed'),
+				isError: true,
+			});
 		}
 	}
 
 	return (
-		<>
-			<Button variant="outline" onClick={() => void exportSave()}>
-				{translate('settings.data.export')}
-			</Button>
-			{status !== 'idle' && (
-				<p
-					role="status"
-					className="w-full text-sm text-muted-foreground"
-				>
-					{translate(
-						status === 'done'
-							? 'settings.data.exportDone'
-							: 'settings.data.exportFailed',
-					)}
-				</p>
-			)}
-		</>
+		<Button variant="outline" onClick={() => void exportSave()}>
+			{translate('settings.data.export')}
+		</Button>
 	);
 }

@@ -216,11 +216,21 @@
 		@apply font-sans;
 		scrollbar-color: var(--input) transparent;
 	}
+	input[type='number'] {
+		appearance: textfield;
+	}
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		appearance: none;
+		margin: 0;
+	}
 }
 
 /* Keeps the content clear of the scrollbar, even when it floats above it. */
 @utility scroll-y {
+	overflow-x: hidden;
 	overflow-y: auto;
 	padding-right: 0.75rem;
+	scrollbar-gutter: stable;
 	scrollbar-width: thin;
 }

@@ -23,7 +23,9 @@ function SeriesProgress({
 					style={{ width: `${progress}%` }}
 				/>
 			</span>
-			{completed}/{length}
+			<span className="min-w-12">
+				{completed}/{length}
+			</span>
 		</span>
 	);
 }
@@ -71,32 +73,47 @@ export function SessionStatsBar({
 	const live = liveMeasurementsOf(series, performance.now());
 	const hasStarted = series.startedAt !== null;
 	return (
-		<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-			<SeriesProgress
-				completed={finishedWordCount(series)}
-				length={series.words.length}
-			/>
-			<span className={cn(!hasStarted && 'text-muted-foreground')}>
-				{translate('common.speed', {
-					value: Math.round(live.kanaPerMinute),
-				})}
-			</span>
-			<span className={cn(!hasStarted && 'text-muted-foreground')}>
-				{translate('common.percent', {
-					value: Math.round(live.accuracy * PERCENT),
-				})}
-			</span>
-			<span>
-				{translate('training.errors', { count: live.errorCount })}
-			</span>
-			{previous && <PreviousSeries result={previous} />}
-			<span className="ml-auto">
-				<SeriesLengthPicker
+		<div className="flex flex-col gap-1 text-sm">
+			<div className="flex flex-wrap items-center gap-x-4 gap-y-1 tabular-nums">
+				<SeriesProgress
+					completed={finishedWordCount(series)}
 					length={series.words.length}
-					onChange={onLengthChange}
-					onDismiss={onLengthDismiss}
 				/>
-			</span>
+				<span
+					className={cn(
+						'min-w-24',
+						!hasStarted && 'text-muted-foreground',
+					)}
+				>
+					{translate('common.speed', {
+						value: Math.round(live.kanaPerMinute),
+					})}
+				</span>
+				<span
+					className={cn(
+						'min-w-11',
+						!hasStarted && 'text-muted-foreground',
+					)}
+				>
+					{translate('common.percent', {
+						value: Math.round(live.accuracy * PERCENT),
+					})}
+				</span>
+				<span className="min-w-20">
+					{translate('training.errors', { count: live.errorCount })}
+				</span>
+				<span className="ml-auto">
+					<SeriesLengthPicker
+						length={series.words.length}
+						onChange={onLengthChange}
+						onDismiss={onLengthDismiss}
+					/>
+				</span>
+			</div>
+			{/* Its own line, always there: nothing moves when it fills in. */}
+			<div className="flex h-5 items-center gap-4 overflow-hidden whitespace-nowrap">
+				{previous && <PreviousSeries result={previous} />}
+			</div>
 		</div>
 	);
 }
