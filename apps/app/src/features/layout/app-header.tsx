@@ -28,7 +28,7 @@ export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 		<header
 			// Without a system title bar, the whole header moves the window.
 			data-tauri-drag-region={windowControls ? 'deep' : undefined}
-			className="grid grid-cols-[1fr_auto_1fr] items-center border-b px-4 py-3 select-none"
+			className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b px-4 py-3 select-none"
 		>
 			<span className="text-xl font-bold tracking-tight">keyai</span>
 			<nav
@@ -49,9 +49,9 @@ export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 						}
 						onClick={() => onNavigate(screen)}
 						className={cn(
-							'flex items-center gap-2 rounded-md px-3 py-1.5 text-sm',
+							'flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium',
 							screen === currentScreen
-								? 'bg-muted font-medium'
+								? 'bg-muted'
 								: 'text-muted-foreground',
 						)}
 					>

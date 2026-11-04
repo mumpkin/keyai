@@ -83,18 +83,21 @@ export function App() {
 	useTheme();
 
 	return (
-		<div className="flex min-h-dvh flex-col">
+		<div className="flex h-dvh flex-col">
 			{isSplashVisible && (
 				<SplashScreen onDone={() => setIsSplashVisible(false)} />
 			)}
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<SaveIssueNotice />
-			<main className="mx-auto flex w-full max-w-6xl flex-1 flex-col p-4">
-				<CurrentScreen
-					screen={screen}
-					onReplaySplash={() => setIsSplashVisible(true)}
-				/>
-			</main>
+			{/* Only the content scrolls: the header and its scrollbar never meet. */}
+			<div className="min-h-0 flex-1 [scrollbar-width:thin] [scrollbar-gutter:stable] overflow-y-auto">
+				<main className="mx-auto flex min-h-full w-full max-w-6xl flex-col p-4">
+					<CurrentScreen
+						screen={screen}
+						onReplaySplash={() => setIsSplashVisible(true)}
+					/>
+				</main>
+			</div>
 		</div>
 	);
 }
