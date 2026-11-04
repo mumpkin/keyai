@@ -2,7 +2,7 @@ import { createContext, type ReactNode, useContext } from 'react';
 import { useStore } from 'zustand';
 import type { AppDependencies } from '@/bootstrap.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
-import type { ProgressState } from './progress-store.ts';
+import type { ProgressState, ProgressStore } from './progress-store.ts';
 
 const AppContext = createContext<AppDependencies | null>(null);
 
@@ -36,4 +36,9 @@ export function useProgress<Selected>(
 
 export function useVocabulary(): Vocabulary {
 	return useAppDependencies().vocabulary;
+}
+
+/** The store itself, for event handlers that need the latest state. */
+export function useProgressStore(): ProgressStore {
+	return useAppDependencies().progressStore;
 }

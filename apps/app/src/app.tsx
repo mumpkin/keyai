@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppHeader } from '@/features/layout/app-header';
 import type { Screen } from '@/features/layout/screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
 import { StatisticsScreen } from '@/features/statistics/statistics-screen';
 import { TrainingScreen } from '@/features/training/training-screen';
+import { useProgress } from '@/stores/app-context.tsx';
+import { useUiStore } from '@/stores/ui-store.ts';
 
 function CurrentScreen({
 	screen,
@@ -23,16 +25,31 @@ function CurrentScreen({
 	}
 }
 
+/** Applies the kana size of the settings to the whole interface (C8). */
+function useKanaSize() {
+	const kanaSizePx = useProgress(
+		(state) => state.save.settings.display.kanaSizePx,
+	);
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			'--kana-size',
+			`${kanaSizePx}px`,
+		);
+	}, [kanaSizePx]);
+}
+
 export function App() {
-	const [screen, setScreen] = useState<Screen>('training');
+	const screen = useUiStore((state) => state.screen);
+	const navigate = useUiStore((state) => state.navigate);
 	const [isSplashVisible, setIsSplashVisible] = useState(true);
+	useKanaSize();
 
 	return (
 		<div className="flex min-h-dvh flex-col">
 			{isSplashVisible && (
 				<SplashScreen onDone={() => setIsSplashVisible(false)} />
 			)}
-			<AppHeader currentScreen={screen} onNavigate={setScreen} />
+			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<main className="mx-auto flex w-full max-w-6xl flex-1 flex-col p-4">
 				<CurrentScreen
 					screen={screen}

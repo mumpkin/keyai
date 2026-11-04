@@ -1,20 +1,19 @@
+import type { Locale } from '@keyai/core/settings';
+import type { VocabEntry } from '@keyai/core/vocab';
 import { useLayoutEffect, useRef } from 'react';
-import { Placeholder } from '@/features/blocking/placeholder';
-import type { SampleWord } from '@/features/blocking/sample-words';
-import { SeriesWordsRecap } from './series-words-recap';
-import { WordView } from './word-view';
+import type { WordView as WordViewModel } from './series-view.ts';
+import { WordView } from './word-view.tsx';
 
 const LINE_HEIGHT = 'calc(var(--kana-size) * 1.6)';
 const VISIBLE_LINES = 3;
 
-function useKeepCurrentLineCentered(words: readonly SampleWord[]) {
+function useKeepCurrentLineCentered(currentIndex: number) {
 	const viewportRef = useRef<HTMLDivElement>(null);
-	const currentWordId = words.find((word) => word.status === 'current')?.id;
 
 	useLayoutEffect(() => {
 		const viewport = viewportRef.current;
 		const currentWord = viewport?.querySelector<HTMLElement>(
-			`[data-word-id="${currentWordId}"]`,
+			`[data-word-index="${currentIndex}"]`,
 		);
 		if (!(viewport && currentWord)) {
 			return;
@@ -24,37 +23,49 @@ function useKeepCurrentLineCentered(words: readonly SampleWord[]) {
 			top: currentWord.offsetTop - lineHeight,
 			behavior: 'smooth',
 		});
-	}, [currentWordId]);
+	}, [currentIndex]);
 
 	return viewportRef;
 }
 
 interface WordLineProps {
-	readonly words: readonly SampleWord[];
+	readonly words: readonly WordViewModel[];
+	readonly entries: readonly VocabEntry[];
+	readonly currentIndex: number;
+	readonly locale: Locale;
+	readonly errorCount: number;
 }
 
-export function WordLine({ words }: WordLineProps) {
-	const viewportRef = useKeepCurrentLineCentered(words);
-
+/** Three lines at most, scrolling with the current word (C8). */
+export function WordLine({
+	words,
+	entries,
+	currentIndex,
+	locale,
+	errorCount,
+}: WordLineProps) {
+	const viewportRef = useKeepCurrentLineCentered(currentIndex);
 	return (
-		<div className="flex flex-col gap-4">
-			<Placeholder label="word line">
-				<div
-					ref={viewportRef}
-					className="relative overflow-hidden"
-					style={{
-						lineHeight: LINE_HEIGHT,
-						height: `calc(${LINE_HEIGHT} * ${VISIBLE_LINES})`,
-					}}
-				>
-					<div className="flex flex-wrap gap-x-[0.5em]">
-						{words.map((word) => (
-							<WordView key={word.id} word={word} />
-						))}
-					</div>
-				</div>
-			</Placeholder>
-			<SeriesWordsRecap words={words} />
+		<div
+			ref={viewportRef}
+			className="relative overflow-hidden"
+			style={{
+				fontSize: 'var(--kana-size)',
+				lineHeight: LINE_HEIGHT,
+				height: `calc(${LINE_HEIGHT} * ${VISIBLE_LINES})`,
+			}}
+		>
+			<div className="flex flex-wrap gap-x-[0.5em]">
+				{words.map((word) => (
+					<WordView
+						key={word.index}
+						word={word}
+						entry={entries[word.index]}
+						locale={locale}
+						errorCount={errorCount}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }

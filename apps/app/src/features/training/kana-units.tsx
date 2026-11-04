@@ -1,7 +1,5 @@
 import { cva } from 'class-variance-authority';
-import type { SampleWord } from '@/features/blocking/sample-words';
-
-type UnitState = 'typed' | 'faulty' | 'partial' | 'next' | 'pending';
+import type { UnitView } from './series-view.ts';
 
 const unitVariants = cva('', {
 	variants: {
@@ -16,49 +14,10 @@ const unitVariants = cva('', {
 	},
 });
 
-function currentUnitState(word: SampleWord, unitIndex: number): UnitState {
-	const completedUnits = word.completedUnits ?? 0;
-	if (unitIndex > completedUnits) {
-		return 'pending';
-	}
-	if (unitIndex === completedUnits) {
-		return word.hasPartialInput ? 'partial' : 'next';
-	}
-	return 'typed';
-}
-
-function unitStateOf(word: SampleWord, unitIndex: number): UnitState {
-	if (word.faultyUnits?.includes(unitIndex)) {
-		return 'faulty';
-	}
-	if (word.status === 'current') {
-		return currentUnitState(word, unitIndex);
-	}
-	return word.status === 'done' ? 'typed' : 'pending';
-}
-
-interface UnitView {
-	readonly id: string;
-	readonly unit: string;
-	readonly state: UnitState;
-}
-
-function unitViewsOf(word: SampleWord): UnitView[] {
-	return [...word.kana].map((unit, unitIndex) => ({
-		id: `${unitIndex}:${unit}`,
-		unit,
-		state: unitStateOf(word, unitIndex),
-	}));
-}
-
-interface KanaUnitsProps {
-	readonly word: SampleWord;
-}
-
-export function KanaUnits({ word }: KanaUnitsProps) {
-	return unitViewsOf(word).map(({ id, unit, state }) => (
-		<span key={id} className={unitVariants({ state })}>
-			{unit}
+export function KanaUnits({ units }: { readonly units: readonly UnitView[] }) {
+	return units.map((unit) => (
+		<span key={unit.id} className={unitVariants({ state: unit.state })}>
+			{unit.kana}
 		</span>
 	));
 }

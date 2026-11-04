@@ -1,7 +1,10 @@
+import type { Locale } from '@keyai/core/settings';
+import type { VocabEntry } from '@keyai/core/vocab';
 import { cva } from 'class-variance-authority';
-import type { SampleWord } from '@/features/blocking/sample-words';
-import { KanaUnits } from './kana-units';
-import { WordCard } from './word-card';
+import { cn } from '@/lib/utils.ts';
+import { KanaUnits } from './kana-units.tsx';
+import type { WordView as WordViewModel } from './series-view.ts';
+import { WordCard } from './word-card.tsx';
 
 const wordVariants = cva('font-kana', {
 	variants: {
@@ -15,25 +18,36 @@ const wordVariants = cva('font-kana', {
 });
 
 interface WordViewProps {
-	readonly word: SampleWord;
+	readonly word: WordViewModel;
+	readonly entry: VocabEntry | undefined;
+	readonly locale: Locale;
+	/** Changes on every wrong key to replay the shake animation. */
+	readonly errorCount: number;
 }
 
-export function WordView({ word }: WordViewProps) {
+export function WordView({ word, entry, locale, errorCount }: WordViewProps) {
 	const isFinished = word.status === 'done' || word.status === 'skipped';
-
-	return (
+	const shakes = word.status === 'current' && errorCount > 0;
+	const kana = (
 		<span
-			className="group relative inline-block"
-			tabIndex={isFinished ? 0 : undefined}
-			data-word-id={word.id}
+			key={shakes ? errorCount : undefined}
+			className={cn(
+				wordVariants({ status: word.status }),
+				shakes && 'inline-block animate-shake',
+			)}
 		>
-			<span
-				className={wordVariants({ status: word.status })}
-				style={{ fontSize: 'var(--kana-size)' }}
-			>
-				<KanaUnits word={word} />
-			</span>
-			{isFinished && <WordCard word={word} />}
+			<KanaUnits units={word.units} />
+		</span>
+	);
+	return (
+		<span className="inline-block" data-word-index={word.index}>
+			{isFinished && entry ? (
+				<WordCard entry={entry} locale={locale}>
+					{kana}
+				</WordCard>
+			) : (
+				kana
+			)}
 		</span>
 	);
 }
