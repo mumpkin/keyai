@@ -9,10 +9,19 @@ export type KanaDisplayState =
 
 const PERCENT = 100;
 
-/** Background of a kana, from orange to green with its mastery (C8). */
+/** Below this score, light text has the better contrast on the background. */
+const LIGHT_TEXT_MAX_SCORE = 0.45;
+
+/** Background of a kana, from dark red to green with its mastery (C8). */
 export function masteryColorOf(score: number): string {
 	const low = Math.round((1 - score) * PERCENT);
 	return `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+}
+
+export function masteryTextColorOf(score: number): string {
+	return score < LIGHT_TEXT_MAX_SCORE
+		? 'var(--mastery-text-light)'
+		: 'var(--mastery-text-dark)';
 }
 
 export interface KanaStateContext {

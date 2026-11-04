@@ -411,7 +411,7 @@ mobile).
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
   Romaji is shown under unmastered, new and next kana, and only on hover,
   focus or touch for mastered kana.
-- **Mastery colours**: unlocked kana go from orange to green with their
+- **Mastery colours**: unlocked kana go from dark red to green with their
   mastery score, the percentage being shown in the cell title.
 - **Kana size** is a setting, in pixels (default 24 px, 16 to 64 px).
 - **Series length picker** in the statistics bar: 10, 20, 50, 100 or a
