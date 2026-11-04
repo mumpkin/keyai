@@ -14,8 +14,6 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
-    outputs:
-      release-id: ${{ steps.draft.outputs.release-id }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
@@ -30,7 +28,6 @@ jobs:
       - name: Vocabulary
         run: pnpm vocab:check --strict
       - name: Create the draft release
-        id: draft
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -43,9 +40,6 @@ jobs:
           ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
           gh release create "$GITHUB_REF_NAME" --draft \
             --title "keyai $version" --notes-file "$RUNNER_TEMP/notes.md"
-          id="$(gh api "repos/$GITHUB_REPOSITORY/releases" \
-            --jq ".[] | select(.tag_name == \"$GITHUB_REF_NAME\") | .id")"
-          echo "release-id=$id" >> "$GITHUB_OUTPUT"
 
   build:
     name: Build (${{ matrix.platform }})
@@ -73,7 +67,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          releaseId: ${{ needs.prepare.outputs.release-id }}
+          # The action finds the draft of `prepare` from its tag
+          tagName: ${{ github.ref_name }}
+          releaseDraft: true
+          uploadUpdaterJson: false
           projectPath: apps/app
           tauriScript: pnpm tauri
 
