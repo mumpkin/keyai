@@ -15,6 +15,13 @@ export default defineConfig({
 			},
 			{
 				test: {
+					name: 'vocab',
+					root: './packages/vocab',
+					environment: 'node',
+				},
+			},
+			{
+				test: {
 					name: 'tools',
 					root: './tools',
 					environment: 'node',

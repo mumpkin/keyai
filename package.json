@@ -20,7 +20,10 @@
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"duplicates": "jscpd",
-		"prepare": "lefthook install"
+		"prepare": "lefthook install",
+		"vocab:fetch": "pnpm --filter @keyai/vocab fetch-sources",
+		"vocab:build": "pnpm --filter @keyai/vocab build-vocabulary",
+		"vocab:check": "pnpm --filter @keyai/vocab check-vocabulary"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.6.4",
