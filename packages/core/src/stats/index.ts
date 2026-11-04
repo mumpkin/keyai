@@ -1,6 +1,13 @@
-export { kanaPerMinuteOf, MS_PER_MINUTE, measureSeries } from './measure.ts';
+export {
+	kanaPerMinuteOf,
+	kanaSpeedsOf,
+	MS_PER_MINUTE,
+	measureSeries,
+	wordSpeedsOf,
+} from './measure.ts';
 export type {
 	FaultyKana,
+	KanaSpeed,
 	SeriesMeasurements,
 	SeriesRecord,
 	UnitAttempt,

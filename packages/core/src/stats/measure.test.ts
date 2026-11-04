@@ -1,9 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { kanaPerMinuteOf, measureSeries } from './measure.ts';
+import {
+	kanaPerMinuteOf,
+	kanaSpeedsOf,
+	measureSeries,
+	wordSpeedsOf,
+} from './measure.ts';
 import type { UnitAttempt } from './types.ts';
 
 function attempt(kana: string, overrides: Partial<UnitAttempt> = {}) {
 	return {
+		wordIndex: 0,
 		kana,
 		durationMs: 1000,
 		hadError: false,
@@ -16,6 +22,55 @@ describe('kanaPerMinuteOf', () => {
 	it('converts a duration into a speed', () => {
 		expect(kanaPerMinuteOf(2000)).toBe(30);
 		expect(kanaPerMinuteOf(0)).toBe(0);
+	});
+});
+
+describe('wordSpeedsOf', () => {
+	it('measures each word from its timed units', () => {
+		const speeds = wordSpeedsOf(
+			[
+				attempt('い', { durationMs: null }),
+				attempt('ぬ', { durationMs: 2000 }),
+				attempt('ね', { wordIndex: 1, durationMs: 1000 }),
+				attempt('こ', { wordIndex: 1, durationMs: 3000 }),
+			],
+			2,
+		);
+		expect(speeds).toEqual([30, 30]);
+	});
+
+	it('has no speed for a word without timed units', () => {
+		const skipped = attempt('い', { durationMs: null, skipped: true });
+		expect(wordSpeedsOf([skipped], 2)).toEqual([null, null]);
+	});
+});
+
+describe('kanaSpeedsOf', () => {
+	it('gives the speed and accuracy of each kana, the slowest first', () => {
+		const speeds = kanaSpeedsOf([
+			attempt('い', { durationMs: 1000 }),
+			attempt('い', { durationMs: 1000, hadError: true }),
+			attempt('ぬ', { durationMs: 2000 }),
+		]);
+		expect(speeds).toEqual([
+			{ kana: 'ぬ', kanaPerMinute: 30, accuracy: 1 },
+			{ kana: 'い', kanaPerMinute: 60, accuracy: 0.5 },
+		]);
+	});
+
+	it('leaves out a kana that was never timed', () => {
+		const untimed = attempt('い', { durationMs: null });
+		expect(kanaSpeedsOf([untimed])).toEqual([]);
+	});
+
+	it('counts a skip against accuracy, not speed', () => {
+		const speeds = kanaSpeedsOf([
+			attempt('い', { durationMs: 2000 }),
+			attempt('い', { durationMs: null, skipped: true }),
+		]);
+		expect(speeds).toEqual([
+			{ kana: 'い', kanaPerMinute: 30, accuracy: 0.5 },
+		]);
 	});
 });
 

@@ -41,7 +41,13 @@ describe('recordAttempts', () => {
 	it('counts attempts and errors and keeps the last ten samples', () => {
 		const attempts = [
 			...cleanAttempts('い', 12),
-			{ kana: 'い', durationMs: null, hadError: false, skipped: true },
+			{
+				wordIndex: 0,
+				kana: 'い',
+				durationMs: null,
+				hadError: false,
+				skipped: true,
+			},
 		];
 		const stats = recordAttempts(createProgress(ORDER, 1), attempts).kana
 			.い;
@@ -67,6 +73,7 @@ describe('applySeries', () => {
 			...cleanAttempts('の', 10),
 		]);
 		const skipped = {
+			wordIndex: 0,
 			kana: 'い',
 			durationMs: null,
 			hadError: true,
