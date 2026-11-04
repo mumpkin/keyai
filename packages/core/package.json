@@ -10,8 +10,10 @@
 		"./kana": "./src/kana/index.ts",
 		"./progression": "./src/progression/index.ts",
 		"./random": "./src/random/index.ts",
+		"./save": "./src/save/index.ts",
 		"./selection": "./src/selection/index.ts",
 		"./session": "./src/session/index.ts",
+		"./settings": "./src/settings/index.ts",
 		"./stats": "./src/stats/index.ts",
 		"./vocab": "./src/vocab/index.ts"
 	},
