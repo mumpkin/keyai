@@ -18,6 +18,7 @@ export function statsOf(recent: Sample[]): KanaStats {
 
 export function cleanAttempts(kana: string, count: number): UnitAttempt[] {
 	return Array.from({ length: count }, () => ({
+		wordIndex: 0,
 		kana,
 		durationMs: ONE_SECOND,
 		hadError: false,

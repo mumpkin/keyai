@@ -4,16 +4,16 @@ import type { SeriesState, SeriesWord } from './types.ts';
 import { currentWordOf, withCurrentWord } from './words.ts';
 
 function attemptOf(
-	word: SeriesWord,
+	state: SeriesState,
 	unitIndex: number,
-	timing: { readonly at: number; readonly unitStartedAt: number | null },
+	at: number,
 ): UnitAttempt {
+	const word = currentWordOf(state) as SeriesWord;
+	const { unitStartedAt } = state;
 	return {
+		wordIndex: state.currentIndex,
 		kana: word.units[unitIndex] ?? '',
-		durationMs:
-			timing.unitStartedAt === null
-				? null
-				: timing.at - timing.unitStartedAt,
+		durationMs: unitStartedAt === null ? null : at - unitStartedAt,
 		hadError: word.faultyUnits.includes(unitIndex),
 		skipped: false,
 	};
@@ -37,16 +37,9 @@ function applyEvent(
 			currentWordErrors: state.currentWordErrors + 1,
 		};
 	}
-	const word = currentWordOf(state) as SeriesWord;
 	return {
 		...state,
-		attempts: [
-			...state.attempts,
-			attemptOf(word, event.unitIndex, {
-				at,
-				unitStartedAt: state.unitStartedAt,
-			}),
-		],
+		attempts: [...state.attempts, attemptOf(state, event.unitIndex, at)],
 		unitStartedAt: at,
 	};
 }

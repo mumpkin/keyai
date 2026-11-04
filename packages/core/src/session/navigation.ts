@@ -25,6 +25,7 @@ function skipCurrentWord(state: SeriesState, word: SeriesWord): SeriesState {
 		attempts: [
 			...state.attempts,
 			{
+				wordIndex: state.currentIndex,
 				kana: word.units[unitIndex] ?? '',
 				durationMs: null,
 				hadError: true,

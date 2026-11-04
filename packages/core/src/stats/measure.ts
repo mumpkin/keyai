@@ -1,5 +1,6 @@
 import type {
 	FaultyKana,
+	KanaSpeed,
 	SeriesMeasurements,
 	SeriesRecord,
 	UnitAttempt,
@@ -26,6 +27,49 @@ function faultyKanaOf(attempts: readonly UnitAttempt[]): FaultyKana[] {
 		.map(([kana, faultyAttempts]) => ({ kana, faultyAttempts }))
 		.sort((first, second) => second.faultyAttempts - first.faultyAttempts)
 		.slice(0, SHOWN_FAULTY_KANA);
+}
+
+/**
+ * Speed of each word of a series, from its timed units; `null` for a word
+ * without any, such as a word skipped at once.
+ */
+export function wordSpeedsOf(
+	attempts: readonly UnitAttempt[],
+	wordCount: number,
+): (number | null)[] {
+	return Array.from({ length: wordCount }, (_unused, wordIndex) =>
+		speedOf(attempts.filter((attempt) => attempt.wordIndex === wordIndex)),
+	);
+}
+
+function speedOf(attempts: readonly UnitAttempt[]): number | null {
+	const durations = attempts.flatMap((attempt) =>
+		attempt.skipped || attempt.durationMs === null
+			? []
+			: [attempt.durationMs],
+	);
+	const totalMs = durations.reduce((sum, ms) => sum + ms, 0);
+	return totalMs > 0 ? (durations.length * MS_PER_MINUTE) / totalMs : null;
+}
+
+/** Speed and accuracy of each timed kana of a series, the slowest first. */
+export function kanaSpeedsOf(attempts: readonly UnitAttempt[]): KanaSpeed[] {
+	const byKana = Map.groupBy(attempts, (attempt) => attempt.kana);
+	return [...byKana]
+		.flatMap(([kana, kanaAttempts]) => {
+			const kanaPerMinute = speedOf(kanaAttempts);
+			const clean = kanaAttempts.filter(isClean).length;
+			return kanaPerMinute === null
+				? []
+				: [
+						{
+							kana,
+							kanaPerMinute,
+							accuracy: clean / kanaAttempts.length,
+						},
+					];
+		})
+		.sort((first, second) => first.kanaPerMinute - second.kanaPerMinute);
 }
 
 /** Measurements of a finished series (see functional design, C3). */

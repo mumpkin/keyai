@@ -1,5 +1,7 @@
 /** One unit of a word as it was typed during a series. */
 export interface UnitAttempt {
+	/** Position in the series of the word this unit belongs to. */
+	readonly wordIndex: number;
 	/** Kana text of the unit ('き', 'きゃ'). */
 	readonly kana: string;
 	/**
@@ -24,6 +26,13 @@ export interface SeriesRecord {
 export interface FaultyKana {
 	readonly kana: string;
 	readonly faultyAttempts: number;
+}
+
+export interface KanaSpeed {
+	readonly kana: string;
+	readonly kanaPerMinute: number;
+	/** Clean attempts ÷ attempts, from 0 to 1. */
+	readonly accuracy: number;
 }
 
 export interface SeriesMeasurements {

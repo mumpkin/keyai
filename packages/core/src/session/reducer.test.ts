@@ -26,8 +26,15 @@ describe('seriesReducer', () => {
 		const state = play(['いぬ'], 'inu');
 		expect(state.phase).toBe('finished');
 		expect(state.attempts).toEqual([
-			{ kana: 'い', durationMs: null, hadError: false, skipped: false },
 			{
+				wordIndex: 0,
+				kana: 'い',
+				durationMs: null,
+				hadError: false,
+				skipped: false,
+			},
+			{
+				wordIndex: 0,
 				kana: 'ぬ',
 				durationMs: 2 * KEY_INTERVAL_MS,
 				hadError: false,
@@ -96,6 +103,7 @@ describe('seriesReducer', () => {
 			'current',
 		]);
 		expect(state.attempts.at(-1)).toEqual({
+			wordIndex: 0,
 			kana: 'ぬ',
 			durationMs: null,
 			hadError: true,
