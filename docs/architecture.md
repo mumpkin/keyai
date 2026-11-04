@@ -315,22 +315,23 @@ tsconfig.base.json    strict, erasableSyntaxOnly, verbatimModuleSyntax,
 - TypeScript 7 for type checking only (`tsc --noEmit`). No Turborepo or Nx.
 - Single application version, read by `tauri.conf.json` from `package.json`.
 
-| Script                                            | Purpose                     |
-| ------------------------------------------------- | --------------------------- |
-| `pnpm dev` / `pnpm dev:tauri`                     | Development (web / desktop) |
-| `pnpm build:web` / `pnpm build:tauri`             | Production builds           |
-| `pnpm check`                                      | Biome                       |
-| `pnpm typecheck`                                  | Type checking               |
-| `pnpm test` / `pnpm test:e2e`                     | Vitest / Playwright         |
-| `pnpm vocab:fetch` · `build` · `report` · `check` | Vocabulary pipeline         |
+| Script                                 | Purpose                     |
+| -------------------------------------- | --------------------------- |
+| `pnpm dev` / `pnpm dev:tauri`          | Development (web / desktop) |
+| `pnpm build:web` / `pnpm build:tauri`  | Production builds           |
+| `pnpm check`                           | Biome                       |
+| `pnpm typecheck`                       | Type checking               |
+| `pnpm test`                            | Vitest                      |
+| `pnpm vocab:fetch` · `build` · `check` | Vocabulary pipeline         |
+| `pnpm preview:web`                     | Web build on the network    |
 
-| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                       |
-| ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (3 browsers), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
-| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check --strict`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog                           |
-| `pages.yml`   | CI green on `main`, or by hand | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                    |
+| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                                              |
+| ------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes                                                 |
+| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check --strict`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names |
+| `pages.yml`   | CI green on `main`, or by hand | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                                           |
 
-CI tuning: parallel jobs, pnpm/Cargo/Playwright caches, `concurrency` with
+CI tuning: parallel jobs, pnpm and Cargo caches, `concurrency` with
 `cancel-in-progress`, path filters, actions pinned by commit SHA (updated by
 Dependabot), minimal `permissions`, `timeout-minutes` on every job, coverage
 thresholds (high on `core`), Biome warnings fail the build.
