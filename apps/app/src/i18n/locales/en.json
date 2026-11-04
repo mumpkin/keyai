@@ -70,8 +70,9 @@
 		"honorific": "honorific"
 	},
 	"kanaTable": {
-		"title": "Kana table",
-		"close": "Close",
+		"focusTitle": "Kana to work on",
+		"masteredCount_one": "{{count}} mastered",
+		"masteredCount_other": "{{count}} mastered",
 		"latest": "new",
 		"next": "next"
 	},

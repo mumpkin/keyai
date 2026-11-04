@@ -70,8 +70,9 @@
 		"honorific": "honorifique"
 	},
 	"kanaTable": {
-		"title": "Table des kana",
-		"close": "Fermer",
+		"focusTitle": "Kana à travailler",
+		"masteredCount_one": "{{count}} maîtrisé",
+		"masteredCount_other": "{{count}} maîtrisés",
 		"latest": "nouveau",
 		"next": "suivant"
 	},

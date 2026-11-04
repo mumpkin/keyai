@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
 import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import {
@@ -69,7 +70,12 @@ export function ProgressSection() {
 					<ScriptBar key={breakdown.script} breakdown={breakdown} />
 				))}
 			</div>
-			<KanaTable />
+			<div className="hidden md:block">
+				<KanaTable />
+			</div>
+			<div className="md:hidden">
+				<KanaFocusList />
+			</div>
 		</StatisticsSection>
 	);
 }
