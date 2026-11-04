@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
 	finishedWordIndexes,
 	liveMeasurementsOf,
+	recapSourceOf,
 	wordViewsOf,
 } from './series-view.ts';
 
@@ -58,5 +59,28 @@ describe('liveMeasurementsOf', () => {
 		expect(liveMeasurementsOf(createSeries(['い']), 0).kanaPerMinute).toBe(
 			0,
 		);
+	});
+});
+
+describe('recapSourceOf', () => {
+	const finished = { entries: [], state: typed(['い'], 'i ') };
+
+	function seriesWith(keys: string) {
+		const state = typed(['く'], keys);
+		return { id: 1, entries: [], state, previous: finished };
+	}
+
+	it('keeps the finished series until the first key of the next one', () => {
+		expect(recapSourceOf(seriesWith(''))).toBe(finished);
+	});
+
+	it('switches to the current series on the first key', () => {
+		const series = seriesWith('k');
+		expect(recapSourceOf(series)).toBe(series);
+	});
+
+	it('shows the current series when there is no previous one', () => {
+		const series = { ...seriesWith(''), previous: null };
+		expect(recapSourceOf(series)).toBe(series);
 	});
 });

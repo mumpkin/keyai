@@ -1,6 +1,28 @@
 import { progressOf } from '@keyai/core/input';
 import type { SeriesState, SeriesWord, WordStatus } from '@keyai/core/session';
 import { measureSeries, type SeriesMeasurements } from '@keyai/core/stats';
+import type { VocabEntry } from '@keyai/core/vocab';
+
+export interface SeriesWords {
+	readonly entries: readonly VocabEntry[];
+	readonly state: SeriesState;
+}
+
+export interface Series extends SeriesWords {
+	readonly id: number;
+	/** The series just finished, kept for its recap. */
+	readonly previous: SeriesWords | null;
+}
+
+/**
+ * The recap keeps showing the finished series until the first key of the
+ * next one, so that its translations can still be read (C8).
+ */
+export function recapSourceOf(series: Series): SeriesWords {
+	return series.state.phase === 'ready' && series.previous
+		? series.previous
+		: series;
+}
 
 export type UnitDisplayState =
 	| 'typed'

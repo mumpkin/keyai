@@ -7,23 +7,21 @@ import {
 	seriesRecordOf,
 	seriesReducer,
 } from '@keyai/core/session';
-import type { VocabEntry } from '@keyai/core/vocab';
 import { useRef, useState } from 'react';
 import { useProgressStore, useVocabulary } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import { createErrorSound } from './error-sound.ts';
-
-export interface Series {
-	readonly id: number;
-	readonly entries: readonly VocabEntry[];
-	readonly state: SeriesState;
-}
+import type { Series, SeriesWords } from './series-view.ts';
 
 let seriesCount = 0;
 
-function newSeries(store: ProgressStore, vocabulary: Vocabulary): Series {
+function newSeries(
+	store: ProgressStore,
+	vocabulary: Vocabulary,
+	previous: SeriesWords | null = null,
+): Series {
 	const { save } = store.getState();
 	const context = selectionContextOf(
 		vocabulary.entries,
@@ -41,6 +39,7 @@ function newSeries(store: ProgressStore, vocabulary: Vocabulary): Series {
 		id: seed,
 		entries,
 		state: createSeries(entries.map((entry) => entry.word.kana)),
+		previous,
 	};
 }
 
@@ -82,9 +81,13 @@ export function useSeries() {
 		}
 		if (state.phase === 'finished') {
 			finish(current, state);
+			const { entries } = current;
+			replace(newSeries(store, vocabulary, { entries, state }));
+		} else if (state.phase === 'aborted') {
+			replace(newSeries(store, vocabulary));
+		} else {
+			replace({ ...current, state });
 		}
-		const isOver = state.phase === 'finished' || state.phase === 'aborted';
-		replace(isOver ? newSeries(store, vocabulary) : { ...current, state });
 	}
 
 	return {
