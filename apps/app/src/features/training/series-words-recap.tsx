@@ -1,82 +1,84 @@
-import { cva } from 'class-variance-authority';
-import { Placeholder } from '@/features/blocking/placeholder';
-import type { SampleWord } from '@/features/blocking/sample-words';
-import { KanaUnits } from './kana-units';
-import { WordCard } from './word-card';
+import { toHepburn, tokenize } from '@keyai/core/input';
+import type { SeriesState } from '@keyai/core/session';
+import type { Locale } from '@keyai/core/settings';
+import type { VocabEntry } from '@keyai/core/vocab';
+import { cn } from '@/lib/utils.ts';
+import { GlossText } from './gloss-text.tsx';
+import { glossOf } from './glosses.ts';
+import { KanaUnits } from './kana-units.tsx';
+import { finishedWordIndexes, type WordView } from './series-view.ts';
+import { WordCard } from './word-card.tsx';
 
-const entryVariants = cva(
-	'group relative flex w-full items-baseline gap-2 rounded-md px-2 py-1 focus-visible:outline-2',
-	{
-		variants: {
-			isLatest: {
-				true: 'bg-primary/10',
-				false: '',
-			},
-			isSkipped: {
-				true: 'text-muted-foreground',
-				false: '',
-			},
-		},
-	},
-);
-
-function finishedWordsNewestFirst(words: readonly SampleWord[]): SampleWord[] {
-	return words
-		.filter((word) => word.status === 'done' || word.status === 'skipped')
-		.reverse();
+interface RecapEntryProps {
+	readonly word: WordView;
+	readonly entry: VocabEntry;
+	readonly locale: Locale;
+	readonly isLatest: boolean;
 }
 
-function RecapEntry({
-	word,
-	isLatest,
-}: {
-	readonly word: SampleWord;
-	readonly isLatest: boolean;
-}) {
+function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
 	const isSkipped = word.status === 'skipped';
+	const [primary] = entry.word.senses;
 	return (
 		<li>
-			<button
-				type="button"
-				className={entryVariants({ isLatest, isSkipped })}
-			>
+			<WordCard entry={entry} locale={locale}>
 				<span
-					className={
-						isSkipped ? 'font-kana line-through' : 'font-kana'
-					}
+					className={cn(
+						'flex w-full items-baseline gap-2 rounded-md px-2 py-1',
+						isLatest && 'bg-primary/10',
+						isSkipped && 'text-muted-foreground',
+					)}
 				>
-					<KanaUnits word={word} />
+					<span
+						className={cn('font-kana', isSkipped && 'line-through')}
+					>
+						<KanaUnits units={word.units} />
+					</span>
+					<span className="font-mono text-xs text-muted-foreground">
+						{toHepburn(tokenize(entry.word.kana))}
+					</span>
+					<span className="truncate text-sm">
+						{isSkipped && 'passé · '}
+						{primary && (
+							<GlossText gloss={glossOf(primary, locale)} />
+						)}
+					</span>
 				</span>
-				<span className="font-mono text-xs text-muted-foreground">
-					{word.romaji}
-				</span>
-				<span className="truncate text-sm">
-					{isSkipped ? `passé · ${word.gloss}` : word.gloss}
-				</span>
-				<WordCard word={word} />
-			</button>
+			</WordCard>
 		</li>
 	);
 }
 
 interface SeriesWordsRecapProps {
-	readonly words: readonly SampleWord[];
+	readonly series: SeriesState;
+	readonly words: readonly WordView[];
+	readonly entries: readonly VocabEntry[];
+	readonly locale: Locale;
 }
 
-export function SeriesWordsRecap({ words }: SeriesWordsRecapProps) {
-	const finishedWords = finishedWordsNewestFirst(words);
-
+/** Every finished word of the series, the most recent first (C8). */
+export function SeriesWordsRecap({
+	series,
+	words,
+	entries,
+	locale,
+}: SeriesWordsRecapProps) {
+	const indexes = finishedWordIndexes(series);
 	return (
-		<Placeholder label="series words">
-			<ul className="grid max-h-[4.75rem] gap-1 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
-				{finishedWords.map((word, position) => (
+		<ul className="grid max-h-[4.75rem] min-h-[4.75rem] gap-1 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
+			{indexes.map((index, position) => {
+				const word = words[index];
+				const entry = entries[index];
+				return word && entry ? (
 					<RecapEntry
-						key={word.id}
+						key={index}
 						word={word}
+						entry={entry}
+						locale={locale}
 						isLatest={position === 0}
 					/>
-				))}
-			</ul>
-		</Placeholder>
+				) : null;
+			})}
+		</ul>
 	);
 }
