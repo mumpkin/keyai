@@ -9,6 +9,8 @@ export async function createPlatform(): Promise<Platform> {
 		storage: await createTauriStorage(),
 		playsSplashOnEveryLaunch: true,
 		windowControls: createTauriWindowControls(),
+		// The updater comes with the desktop release.
+		watchForUpdate: () => undefined,
 		exportFile: saveFileWithDialog,
 	};
 }

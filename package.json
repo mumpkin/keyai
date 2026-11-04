@@ -13,6 +13,7 @@
 		"dev": "pnpm --filter @keyai/app dev",
 		"dev:tauri": "pnpm --filter @keyai/app tauri dev",
 		"build:web": "pnpm --filter @keyai/app build",
+		"preview:web": "pnpm --filter @keyai/app preview --host",
 		"build:tauri": "pnpm --filter @keyai/app tauri build",
 		"check": "biome check .",
 		"typecheck": "pnpm --recursive typecheck && tsc --project tools/tsconfig.json",

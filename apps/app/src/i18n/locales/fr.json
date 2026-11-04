@@ -20,6 +20,11 @@
 		"exportCopy": "Exporter la copie de la sauvegarde",
 		"dismiss": "Fermer"
 	},
+	"update": {
+		"ready": "Une nouvelle version de keyai est prête.",
+		"apply": "Mettre à jour",
+		"later": "Plus tard"
+	},
 	"splash": {
 		"meaning": "rapide"
 	},

@@ -2,11 +2,12 @@ import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { AppHeader } from '@/features/layout/app-header';
 import { SaveIssueNotice } from '@/features/layout/save-issue-notice.tsx';
 import type { Screen } from '@/features/layout/screen';
+import { UpdateNotice } from '@/features/layout/update-notice.tsx';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
 import { TrainingScreen } from '@/features/training/training-screen';
 import { applyLocale } from '@/i18n/index.ts';
-import { isDarkTheme } from '@/lib/theme.ts';
+import { applyTheme, isDarkTheme } from '@/lib/theme.ts';
 import { useProgress, useStartsWithSplash } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 
@@ -55,11 +56,7 @@ function useTheme() {
 	const theme = useProgress((state) => state.save.settings.display.theme);
 	useLayoutEffect(() => {
 		const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-		const apply = () =>
-			document.documentElement.classList.toggle(
-				'dark',
-				isDarkTheme(theme, systemDark.matches),
-			);
+		const apply = () => applyTheme(isDarkTheme(theme, systemDark.matches));
 		apply();
 		systemDark.addEventListener('change', apply);
 		return () => systemDark.removeEventListener('change', apply);
@@ -89,6 +86,7 @@ export function App() {
 			)}
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<SaveIssueNotice />
+			<UpdateNotice />
 			{/* Only the content scrolls: the header and its scrollbar never meet. */}
 			<div className="min-h-0 flex-1 [scrollbar-width:thin] [scrollbar-gutter:stable] overflow-y-auto">
 				<main className="mx-auto flex min-h-full w-full max-w-6xl flex-col p-4">

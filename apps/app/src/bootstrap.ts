@@ -5,6 +5,7 @@ import {
 	type WindowControls,
 } from '@/platform/index.ts';
 import { createProgressStore } from '@/stores/progress-store.ts';
+import { useUiStore } from '@/stores/ui-store.ts';
 import { loadVocabulary, type Vocabulary } from '@/vocab/vocabulary.ts';
 import type { ProgressStore } from './stores/progress-store.ts';
 
@@ -30,6 +31,7 @@ export async function bootstrap(): Promise<AppDependencies> {
 		now: () => new Date(),
 	});
 	await initTranslations(progressStore.getState().save.settings.locale);
+	platform.watchForUpdate(useUiStore.getState().offerUpdate);
 	const { isFirstLaunch } = progressStore.getState();
 	return {
 		progressStore,
