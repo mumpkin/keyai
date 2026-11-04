@@ -61,7 +61,8 @@ export function nextKanaOf(
 
 /**
  * Records a finished series, then unlocks at most one kana, only when every
- * unlocked kana is mastered (C4).
+ * unlocked kana is mastered and every word was typed: skipping words, even
+ * by holding space, never unlocks anything (C4).
  */
 export function applySeries(
 	progress: Progress,
@@ -70,8 +71,10 @@ export function applySeries(
 ): SeriesOutcome {
 	const recorded = recordAttempts(progress, attempts);
 	const nextKana = nextKanaOf(recorded, rules.unlockOrder);
+	const hasSkippedWord = attempts.some((attempt) => attempt.skipped);
 	const canUnlock =
 		nextKana !== undefined &&
+		!hasSkippedWord &&
 		areAllUnlockedMastered(recorded, rules.thresholdKanaPerMinute);
 	if (!canUnlock) {
 		return { progress: recorded, unlockedKana: undefined };
