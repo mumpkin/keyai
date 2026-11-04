@@ -6,6 +6,7 @@ import { createStore, type StoreApi } from 'zustand/vanilla';
 import type { SaveStorage } from '@/platform/index.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import {
+	alignedSave,
 	loadedSaveOf,
 	type SaveContext,
 	type SeriesResult,
@@ -71,7 +72,7 @@ export async function createProgressStore(
 					dependencies.now(),
 				),
 			})),
-		replaceSave: (save) => set({ save }),
+		replaceSave: (save) => set({ save: alignedSave(save, contextOf()) }),
 		resetProgress: () =>
 			set(({ save }) => ({ save: saveAfterReset(save, contextOf()) })),
 	}));

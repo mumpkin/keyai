@@ -64,8 +64,30 @@
 		"lastSeries": "Dernière série",
 		"progress": "Progression",
 		"history": "Évolution",
-		"words_one": "{{count}} mot",
-		"words_other": "{{count}} mots"
+		"noLastSeries": "Terminez une série pour voir son détail ici. Ce détail n’est gardé que jusqu’à la fermeture de l’application.",
+		"noHistory": "Il faut au moins deux séries pour voir une évolution.",
+		"speed": "Vitesse",
+		"accuracy": "Précision",
+		"errors": "Erreurs",
+		"wordCount": "Mots",
+		"speedPerWord": "Vitesse par mot",
+		"slowestKana": "Kana les plus lents",
+		"accuracyOf": "Précision de {{value}}",
+		"kana": "Kana",
+		"threshold": "Seuil : {{value}}",
+		"faultyKana": "Kana fautifs",
+		"noFaultyKana": "Aucun kana fautif.",
+		"words": "Mots rencontrés",
+		"noWords": "Aucun mot terminé.",
+		"skippedWords": "Mots passés",
+		"noSkippedWords": "Aucun mot passé.",
+		"mastered": "maîtrisés",
+		"learning": "en cours",
+		"locked": "verrouillés",
+		"speedOverTime": "Vitesse par série",
+		"accuracyOverTime": "Précision par série",
+		"showData": "Voir les données",
+		"date": "Date"
 	},
 	"settings": {
 		"language": {
@@ -97,11 +119,29 @@
 		},
 		"data": {
 			"title": "Données",
+			"export": "Exporter la progression",
+			"exportDone": "Progression exportée.",
+			"exportFailed": "L’export a échoué.",
+			"import": "Importer une progression",
+			"importTitle": "Remplacer la progression ?",
+			"importDate": "Fichier du {{date}}",
+			"importUnlocked_one": "{{count}} kana débloqué",
+			"importUnlocked_other": "{{count}} kana débloqués",
+			"importSeries_one": "{{count}} série dans l’historique",
+			"importSeries_other": "{{count}} séries dans l’historique",
+			"importWarning": "Ce fichier remplacera entièrement votre progression et vos réglages actuels.",
+			"importConfirm": "Remplacer",
+			"importErrors": {
+				"invalidJson": "Ce fichier n’est pas lisible.",
+				"notASave": "Ce fichier n’est pas une sauvegarde keyai.",
+				"unsupportedVersion": "Cette sauvegarde vient d’une version plus récente de keyai.",
+				"invalidContent": "Cette sauvegarde est abîmée."
+			},
 			"reset": "Réinitialiser la progression",
 			"resetTitle": "Réinitialiser la progression ?",
 			"resetDescription": "Les kana débloqués, leur maîtrise et l’historique seront effacés définitivement. Les réglages sont conservés.",
 			"resetConfirm": "Réinitialiser",
-			"resetCancel": "Annuler"
+			"cancel": "Annuler"
 		},
 		"about": {
 			"title": "À propos",

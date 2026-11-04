@@ -82,7 +82,7 @@ export function KanaTable() {
 	return (
 		<div className="flex flex-col gap-3">
 			<ScriptTabs script={script} onChange={setScript} />
-			<div className="flex items-start gap-6 overflow-x-auto pt-2 pb-1">
+			<div className="flex [scrollbar-width:thin] items-start gap-6 overflow-x-auto pt-2 pb-3">
 				<SlotGrid
 					slots={layout.base}
 					states={states}

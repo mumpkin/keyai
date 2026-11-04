@@ -92,6 +92,12 @@ export function withSessionRecord(
 	};
 }
 
+/** Name offered for an exported save, such as `keyai-save-2026-11-04.json`. */
+export function saveFileNameOf(date: Date): string {
+	const [day] = date.toISOString().split('T');
+	return `${SAVE_FORMAT}-${day}.json`;
+}
+
 export interface ImportPreview {
 	readonly savedAt: string;
 	readonly unlockedCount: number;

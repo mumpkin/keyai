@@ -59,7 +59,8 @@ export function saveAfterReset(save: SaveFile, context: SaveContext): SaveFile {
 	return blankSave(context, save.settings);
 }
 
-function alignedSave(save: SaveFile, context: SaveContext): SaveFile {
+/** Matches a stored or imported save with the current vocabulary. */
+export function alignedSave(save: SaveFile, context: SaveContext): SaveFile {
 	const { unlockOrder, initialUnlocked } = context.vocabulary.file;
 	return {
 		...save,

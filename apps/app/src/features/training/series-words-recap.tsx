@@ -70,7 +70,7 @@ export function SeriesWordsRecap({
 }: SeriesWordsRecapProps) {
 	const indexes = recapWordIndexes(series);
 	return (
-		<ul className="grid max-h-[4.75rem] min-h-[4.75rem] gap-1 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
+		<ul className="grid max-h-[4.75rem] min-h-[4.75rem] scroll-y gap-1 sm:grid-cols-2 lg:grid-cols-4">
 			{indexes.map((index, position) => {
 				const word = words[index];
 				const entry = entries[index];

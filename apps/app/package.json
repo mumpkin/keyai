@@ -21,6 +21,8 @@
 		"@keyai/core": "workspace:*",
 		"@keyai/vocab": "workspace:*",
 		"@tauri-apps/api": "~2.12.4",
+		"@tauri-apps/plugin-dialog": "^2.8.4",
+		"@tauri-apps/plugin-fs": "^2.7.1",
 		"@tauri-apps/plugin-store": "~2.5.0",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.5.2",
@@ -29,6 +31,7 @@
 		"react": "^19.3.1",
 		"react-dom": "^19.3.1",
 		"react-i18next": "^17.1.12",
+		"recharts": "3.8.0",
 		"shadcn": "^4.23.0",
 		"tw-animate-css": "^1.4.0",
 		"zustand": "^5.0.16"

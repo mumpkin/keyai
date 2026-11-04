@@ -64,8 +64,30 @@
 		"lastSeries": "Last series",
 		"progress": "Progress",
 		"history": "History",
-		"words_one": "{{count}} word",
-		"words_other": "{{count}} words"
+		"noLastSeries": "Finish a series to see its details here. They are only kept until the app is closed.",
+		"noHistory": "At least two series are needed to show a trend.",
+		"speed": "Speed",
+		"accuracy": "Accuracy",
+		"errors": "Errors",
+		"wordCount": "Words",
+		"speedPerWord": "Speed per word",
+		"slowestKana": "Slowest kana",
+		"accuracyOf": "{{value}} accuracy",
+		"kana": "Kana",
+		"threshold": "Threshold: {{value}}",
+		"faultyKana": "Faulty kana",
+		"noFaultyKana": "No faulty kana.",
+		"words": "Words encountered",
+		"noWords": "No finished word.",
+		"skippedWords": "Skipped words",
+		"noSkippedWords": "No skipped word.",
+		"mastered": "mastered",
+		"learning": "learning",
+		"locked": "locked",
+		"speedOverTime": "Speed per series",
+		"accuracyOverTime": "Accuracy per series",
+		"showData": "Show the data",
+		"date": "Date"
 	},
 	"settings": {
 		"language": {
@@ -97,11 +119,29 @@
 		},
 		"data": {
 			"title": "Data",
+			"export": "Export progress",
+			"exportDone": "Progress exported.",
+			"exportFailed": "The export failed.",
+			"import": "Import progress",
+			"importTitle": "Replace your progress?",
+			"importDate": "File from {{date}}",
+			"importUnlocked_one": "{{count}} unlocked kana",
+			"importUnlocked_other": "{{count}} unlocked kana",
+			"importSeries_one": "{{count}} series in the history",
+			"importSeries_other": "{{count}} series in the history",
+			"importWarning": "This file will fully replace your current progress and settings.",
+			"importConfirm": "Replace",
+			"importErrors": {
+				"invalidJson": "This file cannot be read.",
+				"notASave": "This file is not a keyai save.",
+				"unsupportedVersion": "This save comes from a newer version of keyai.",
+				"invalidContent": "This save is damaged."
+			},
 			"reset": "Reset progress",
 			"resetTitle": "Reset your progress?",
 			"resetDescription": "Unlocked kana, their mastery and the history will be permanently erased. Your settings are kept.",
 			"resetConfirm": "Reset",
-			"resetCancel": "Cancel"
+			"cancel": "Cancel"
 		},
 		"about": {
 			"title": "About",

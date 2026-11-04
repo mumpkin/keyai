@@ -11,6 +11,7 @@ export {
 	parseSave,
 	type SaveContent,
 	type SaveError,
+	saveFileNameOf,
 	serializeSave,
 	withSessionRecord,
 } from './save.ts';

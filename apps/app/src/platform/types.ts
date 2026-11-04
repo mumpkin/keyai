@@ -21,4 +21,9 @@ export interface Platform {
 	/** Otherwise the splash only plays on the first launch (C8). */
 	readonly playsSplashOnEveryLaunch: boolean;
 	readonly windowControls: WindowControls | null;
+	/** Resolves to `false` when the user cancels. */
+	readonly exportFile: (
+		fileName: string,
+		content: string,
+	) => Promise<boolean>;
 }

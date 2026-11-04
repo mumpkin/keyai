@@ -32,7 +32,7 @@ All the domain logic (romaji input, word selection, statistics, progression) liv
 | 11  | Tests                 | **Vitest 4**, **fast-check**, **Vitest Browser Mode** (`vitest-browser-react`), **Playwright** (Chromium/Firefox/WebKit), **WebdriverIO + `@wdio/tauri-service`** (later)                                                                         | jsdom                                                                                                                                      |
 | 12  | CI / distribution     | **GitHub + GitHub Actions**, **GitHub Pages** (`*.github.io`), **tauri-action** (NSIS `.exe`, AppImage, `.deb`), signed **`plugin-updater`**; V1 unsigned for Windows, application to **SignPath Foundation**; duplicate detection with **jscpd** | Cloudflare Workers, Azure Artifact Signing (US/Canada only), SonarQube Cloud (redundant with Biome/TS/Vitest, free plan limited to `main`) |
 
-**Addition (design C3):** summary charts with **shadcn/ui Charts** (based on **Recharts 3**, SVG, compatible with React 19); rejected: ECharts, Chart.js, visx.
+**Addition (design C3):** statistics charts with **Recharts 3** (SVG, compatible with React 19), used directly because the `chart` component of shadcn/ui breaks the Biome rules; rejected: ECharts, Chart.js, visx.
 
 ## Points of attention
 
