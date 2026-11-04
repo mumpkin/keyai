@@ -92,24 +92,32 @@ the kana (of either script) that makes the most new frequent words typeable.
    A katakana comes after its hiragana counterpart (カ after か), so that
    corresponding katakana are introduced after the hiragana, as the
    specification requires, without waiting for the whole hiragana set.
-3. **Words closer to completion**: when no candidate opens a word — typically
-   when katakana start, since most katakana words need several new kana —
-   the candidate that brings the most frequent words closer to completion
-   wins (each word counts for its weight times the share of its kana already
-   unlocked).
+3. **Usefulness**: a kana must make at least one new word typeable, so that
+   it can be practised as soon as it is unlocked. On the V1 vocabulary, none
+   of the 209 kana of the order is unlocked without a word.
 4. **Balance**: if one script has had **three unlocks in a row** while the
-   other has a candidate that opens or advances words, the next unlock goes to the other script.
+   other has a kana opening a word, the next unlock goes to the other script.
    Frequency drives the order; this rule only prevents one script from
    starving the other.
 5. **Ties** are broken by gojūon order (hiragana first).
 
 ### Initial group
 
-About **six hiragana** (no katakana: the default path starts with
-hiragana) are unlocked from the start, chosen with the same
-method under a constraint of at least ~15 typeable words. Single-kana
-particles (の, に, は, か, と…) help reach that quickly. The exact size and
-minimum are tuned from the pipeline report, on real data.
+Most katakana words need several new kana, so katakana could not start one
+kana at a time: the app starts with **a group in each script**.
+
+- About **six hiragana**, opening at least ~15 words.
+- About **six katakana**, opening at least ~5 words; only the prerequisites
+  within katakana apply to this group, not the hiragana counterpart.
+
+Each group only keeps kana that appear in a typeable word. On the V1
+vocabulary: は こ い う か つ and マ ン イ ラ ト ド, opening 46 words.
+
+### Kana outside the progression
+
+A kana that appears in no word can never be practised, hence never mastered:
+it stays out of the unlock order and locked in the table (22 kana in the V1,
+listed in the pipeline report). Prerequisites on such kana are ignored.
 
 ## C3 — Measurements
 
@@ -201,10 +209,12 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
   mastery figures and progress displays.
 - An unlocked kana is never locked again; if it regresses, it delays the next
   unlock until it is mastered again.
-- **Kana that cannot be practised yet do not hold back unlocking**: an
-  unlocked kana that appears in no typeable word (テ before ス and ト make
-  テスト typeable) is left out of the "every unlocked kana is mastered" rule
-  until a word makes it practicable.
+- **No exception**: every unlocked kana must be mastered before the next one
+  unlocks. The unlock order guarantees that each of them can be practised
+  (C2).
+- A loaded save is aligned with the unlock order, which a new vocabulary can
+  change: the unlocked kana become the start of the order, up to the last one
+  already unlocked. Nothing is locked again and progress cannot get stuck.
 - Rare kana are protected by word selection (C5), which favours unmastered
   kana, and by allowed word repetitions. The pipeline report flags kana that
   open very few words.
@@ -370,7 +380,7 @@ mobile).
 - **Word line**: words separated by a normal space. **No romaji is shown
   under the words**: as in Keybr or Monkeytype, typing fills the kana in
   place. Typed units turn to the main colour, the unit being typed is shown
-  as partially filled, the next one is underlined. A unit on which a wrong
+  as partially filled, and a single cursor glides under the unit being typed. A unit on which a wrong
   key was typed turns **red** and stays red once the word is done, in the
   word line and in the recap. Skipped words are struck through.
   The word line shows **three lines** at most and scrolls as typing
@@ -380,6 +390,8 @@ mobile).
   series, newest first (the newest is highlighted, so the latest translation
   always sits at the same place), with its kana, Hepburn reading and
   translation; skipped words are marked. This is where translations appear.
+  It stays on the finished series until the first key of the next one, so
+  that the translations can still be read.
   It shows two rows (about eight words) and scrolls for the rest.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,

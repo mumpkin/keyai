@@ -14,8 +14,8 @@ and this project adheres to
   with word cards, live statistics, kana table with mastery, error feedback
 - Vocabulary pipeline building 2,720 frequent words from JMdict and wordfreq,
   with the unlock order and a review report
-- Unlock order computation mixing hiragana and katakana, and unlocking that
-  ignores kana without any typeable word yet
+- Unlock order mixing hiragana and katakana, starting with a group in each
+  script, in which every kana opens at least one word
 - Settings with speed presets and versioned save format with validation and
   migrations
 - Kana catalogue (105 hiragana, 126 katakana units) and romaji input engine
