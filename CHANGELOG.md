@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- Vocabulary pipeline building 2,720 frequent words from JMdict and wordfreq,
+  with the unlock order and a review report
 - Unlock order computation mixing hiragana and katakana, and unlocking that
   ignores kana without any typeable word yet
 - Settings with speed presets and versioned save format with validation and
