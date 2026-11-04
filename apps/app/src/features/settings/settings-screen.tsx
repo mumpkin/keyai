@@ -1,7 +1,7 @@
 import { AboutSection } from './about-section.tsx';
 import { DataSetting } from './data-setting.tsx';
+import { DisplaySetting } from './display-setting.tsx';
 import { FeedbackSetting } from './feedback-setting.tsx';
-import { KanaSizeSetting } from './kana-size-setting.tsx';
 import { LanguageSetting } from './language-setting.tsx';
 import { SessionSetting } from './session-setting.tsx';
 import { SpeedSetting } from './speed-setting.tsx';
@@ -17,7 +17,7 @@ export function SettingsScreen({ onReplaySplash }: SettingsScreenProps) {
 			<SessionSetting />
 			<SpeedSetting />
 			<FeedbackSetting />
-			<KanaSizeSetting />
+			<DisplaySetting />
 			<DataSetting />
 			<AboutSection onReplaySplash={onReplaySplash} />
 		</div>

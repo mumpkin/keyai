@@ -8,7 +8,7 @@ const cellVariants = cva(
 	{
 		variants: {
 			state: {
-				locked: 'border-transparent text-muted-foreground/30',
+				locked: 'border-transparent text-muted-foreground/50',
 				learning: 'border-2 border-dashed',
 				mastered: 'border-2 border-dashed',
 				latest: 'border-2 border-dashed ring-2 ring-primary',

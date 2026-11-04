@@ -3,7 +3,7 @@ import { ProgressSchema } from '../progression/schema.ts';
 import { SettingsSchema } from '../settings/schema.ts';
 
 export const SAVE_FORMAT = 'keyai-save';
-export const CURRENT_SCHEMA_VERSION = 1;
+export const CURRENT_SCHEMA_VERSION = 2;
 /** Light history: one record per series, the last 100 only (A3). */
 export const HISTORY_LIMIT = 100;
 

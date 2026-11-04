@@ -10,7 +10,7 @@ const wordVariants = cva('font-kana', {
 	variants: {
 		status: {
 			done: 'text-foreground',
-			skipped: 'text-muted-foreground/60 line-through',
+			skipped: 'text-muted-foreground line-through',
 			current: 'text-muted-foreground',
 			pending: 'text-muted-foreground',
 		},

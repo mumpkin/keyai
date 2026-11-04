@@ -1,6 +1,7 @@
 import * as zod from 'zod';
 
 export const LOCALES = ['fr', 'en'] as const;
+export const THEMES = ['system', 'dark', 'light'] as const;
 export const SPEED_PRESET_NAMES = ['easy', 'normal', 'hard', 'custom'] as const;
 
 /** Speed thresholds in kana per minute (C6). */
@@ -33,9 +34,11 @@ export const SettingsSchema = zod.object({
 			.int()
 			.min(KANA_SIZE_LIMITS.min)
 			.max(KANA_SIZE_LIMITS.max),
+		theme: zod.enum(THEMES),
 	}),
 });
 
 export type Locale = (typeof LOCALES)[number];
+export type Theme = (typeof THEMES)[number];
 export type SpeedPresetName = (typeof SPEED_PRESET_NAMES)[number];
 export type Settings = zod.infer<typeof SettingsSchema>;

@@ -8,6 +8,8 @@ export {
 	SPEED_PRESET_NAMES,
 	SPEED_PRESETS,
 	type SpeedPresetName,
+	THEMES,
+	type Theme,
 	WORDS_PER_SESSION_LIMITS,
 } from './schema.ts';
 export {
@@ -18,5 +20,6 @@ export {
 	withKanaSize,
 	withLocale,
 	withSpeedPreset,
+	withTheme,
 	withWordsPerSession,
 } from './settings.ts';

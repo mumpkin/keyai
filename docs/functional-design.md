@@ -173,14 +173,14 @@ and this content lives in the statistics screen (see C8).
 
 ### Statistics charts
 
-Built with shadcn/ui Charts (Recharts 3).
+Built with Recharts 3.
 
-| Chart                  | Content                                                      |
-| ---------------------- | ------------------------------------------------------------ |
-| Speed over the session | One point per word, with the speed threshold as a line       |
-| Session kana           | Speed per kana as bars, coloured by accuracy, threshold line |
-| Overall progress       | Locked / learning / mastered kana, for hiragana and katakana |
-| Progress over time     | Speed and accuracy over the last sessions (light history)    |
+| Chart                  | Content                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| Speed over the session | One point per word, with the speed threshold as a line                                                 |
+| Slowest kana           | Speed of the 15 slowest kana as bars, coloured by accuracy, threshold line, with every kana in a table |
+| Overall progress       | Locked / learning / mastered kana, for hiragana and katakana                                           |
+| Progress over time     | Speed and accuracy over the last sessions (light history)                                              |
 
 The light history keeps one record per session (date, speed, accuracy, word
 count, unlocked kana) for the last 100 sessions; see architecture, A3.
@@ -295,12 +295,17 @@ The word order is then shuffled.
 
 ### Other settings
 
-| Setting           | Default                       | Range            |
-| ----------------- | ----------------------------- | ---------------- |
-| Words per session | 20                            | 5 to 100         |
-| Language          | browser language, else French | French / English |
-| Error sound       | off                           | on / off         |
-| Kana size         | 24 px                         | 16 to 64 px      |
+| Setting           | Default                       | Range                 |
+| ----------------- | ----------------------------- | --------------------- |
+| Words per session | 20                            | 5 to 100              |
+| Language          | browser language, else French | French / English      |
+| Error sound       | off                           | on / off              |
+| Kana size         | 24 px                         | 16 to 64 px           |
+| Theme             | system                        | system / dark / light |
+
+The themes use the Tokyo Night Light and Tokyo Night colours. Where an
+original colour fails WCAG AA, it is adjusted as little as possible, and
+`theme-contrast.test.ts` keeps it that way.
 
 ### Data management
 
@@ -313,7 +318,6 @@ The word order is then shuffled.
 
 ### Not in settings (V1)
 
-- Light and dark themes follow the system (`prefers-color-scheme`).
 - Choosing which kana to practise: progression stays automatic.
 
 ## C7 — V1 corpus
@@ -369,8 +373,7 @@ Agreed during the blocking session (pull request #5).
 - A short animated title opens the app: on the web only at the first launch
   (nothing stored yet), on the desktop app at every launch. It can be replayed
   from the settings: `hayai` (速い, _fast_) turns
-  into `keyai`. The title behaves like a word of the training line: it starts
-  grey, `ha` rolls up into `ke` and the word fills in. Any key or click skips it without reaching the
+  into `keyai` as `ha` rolls up into `ke`. Any key or click skips it without reaching the
   series; it is reduced to an instant swap under `prefers-reduced-motion`.
 
 ### Screens

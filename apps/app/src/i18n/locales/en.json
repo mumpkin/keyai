@@ -114,6 +114,10 @@
 		},
 		"display": {
 			"title": "Display",
+			"theme": "Theme",
+			"themeSystem": "System",
+			"themeDark": "Dark",
+			"themeLight": "Light",
 			"kanaSize": "Kana size",
 			"kanaSizePx": "Kana size in pixels"
 		},
