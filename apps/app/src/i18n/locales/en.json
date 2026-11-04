@@ -14,6 +14,12 @@
 		"restore": "Restore",
 		"close": "Close"
 	},
+	"saveIssue": {
+		"unreadable": "Your save could not be read: keyai starts over. A copy has been kept.",
+		"newerVersion": "Your save comes from a newer version of keyai: this one starts over. A copy has been kept.",
+		"exportCopy": "Export the copy of the save",
+		"dismiss": "Dismiss"
+	},
 	"splash": {
 		"meaning": "fast"
 	},

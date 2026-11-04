@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Added
 
+- Warning and a kept copy when the stored save cannot be read
 - Dark theme, with a setting to follow the system or force dark or light
 - Statistics screen: last series with the speed of each word, progress per
   script and history of the last series

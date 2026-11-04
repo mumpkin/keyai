@@ -24,4 +24,12 @@ describe('createWebStorage', () => {
 		expect(backing.getItem(SAVE_KEY)).toBe('{"format":"keyai-save"}');
 		expect(await storage.load()).toBe('{"format":"keyai-save"}');
 	});
+
+	it('keeps an unreadable save apart from the save file', async () => {
+		const storage = createWebStorage(memoryStorage());
+		expect(await storage.loadUnreadable()).toBeNull();
+		await storage.keepUnreadable('{broken');
+		await storage.save('{"format":"keyai-save"}');
+		expect(await storage.loadUnreadable()).toBe('{broken');
+	});
 });

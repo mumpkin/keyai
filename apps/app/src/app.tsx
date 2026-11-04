@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { AppHeader } from '@/features/layout/app-header';
+import { SaveIssueNotice } from '@/features/layout/save-issue-notice.tsx';
 import type { Screen } from '@/features/layout/screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
@@ -87,6 +88,7 @@ export function App() {
 				<SplashScreen onDone={() => setIsSplashVisible(false)} />
 			)}
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
+			<SaveIssueNotice />
 			<main className="mx-auto flex w-full max-w-6xl flex-1 flex-col p-4">
 				<CurrentScreen
 					screen={screen}

@@ -27,6 +27,8 @@ export interface ProgressState {
 	readonly save: SaveFile;
 	readonly loadIssue: SaveError | null;
 	readonly isFirstLaunch: boolean;
+	/** Copy of a save that could not be read, as it was stored. */
+	readonly unreadableCopy: string | null;
 	readonly applySeriesResult: (
 		record: SeriesRecord,
 		wordCount: number,
@@ -37,6 +39,21 @@ export interface ProgressState {
 }
 
 export type ProgressStore = StoreApi<ProgressState>;
+
+/**
+ * Sets a save that cannot be read aside before anything replaces it. If even
+ * that fails, the copy stays in memory: the app must start anyway.
+ */
+async function unreadableCopyOf(
+	storage: SaveStorage,
+	unreadable: string | null,
+): Promise<string | null> {
+	if (unreadable === null) {
+		return storage.loadUnreadable();
+	}
+	await storage.keepUnreadable(unreadable).catch(() => undefined);
+	return unreadable;
+}
 
 /**
  * Settings and progress (A5). Every change is saved immediately through
@@ -53,8 +70,14 @@ export async function createProgressStore(
 	const stored = await dependencies.storage.load();
 	const loaded = loadedSaveOf(stored, contextOf(), dependencies.languages);
 
+	const unreadableCopy = await unreadableCopyOf(
+		dependencies.storage,
+		loaded.loadIssue ? stored : null,
+	);
+
 	const store = createStore<ProgressState>()((set, get) => ({
 		...loaded,
+		unreadableCopy,
 		applySeriesResult: (record, wordCount) => {
 			const update = saveAfterSeries(
 				get().save,

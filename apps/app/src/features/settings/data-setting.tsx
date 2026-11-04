@@ -5,6 +5,7 @@ import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { ConfirmDialog } from './confirm-dialog.tsx';
 import { ExportSave } from './export-save.tsx';
+import { ExportUnreadableSave } from './export-unreadable-save.tsx';
 import { ImportSave } from './import-save.tsx';
 import { SettingSection } from './setting-section.tsx';
 
@@ -46,6 +47,7 @@ export function DataSetting() {
 				<ExportSave />
 				<ImportSave />
 				<ResetProgress />
+				<ExportUnreadableSave />
 			</div>
 		</SettingSection>
 	);

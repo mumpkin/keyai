@@ -2,6 +2,9 @@
 export interface SaveStorage {
 	readonly load: () => Promise<string | null>;
 	readonly save: (content: string) => Promise<void>;
+	/** Sets aside a save that cannot be read, before it gets replaced. */
+	readonly keepUnreadable: (content: string) => Promise<void>;
+	readonly loadUnreadable: () => Promise<string | null>;
 }
 
 /** The window of the desktop app, which has no system title bar. */
