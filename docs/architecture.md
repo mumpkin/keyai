@@ -196,6 +196,9 @@ interface SessionRecord {
 - Unlocked kana are stored as an explicit list so that a new unlock order in
   a later vocabulary release never changes what a user has already unlocked.
 - The same `SaveFile` format is used for local storage and for export/import.
+- `parseSave` never throws: it reports `invalidJson`, `notASave`,
+  `unsupportedVersion` or `invalidContent`, after migrating older versions
+  through a registry of one migration per version (`core/save`).
 - A **light history** (one `SessionRecord` per session, capped at 100,
   about 10 KB) feeds the progress-over-time chart. Detailed history (per word
   or per keystroke) stays out of scope.
