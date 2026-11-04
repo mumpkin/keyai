@@ -6,9 +6,6 @@ on:
     workflows: [CI]
     types: [completed]
     branches: [main]
-  # A new release makes the download button appear
-  release:
-    types: [published]
   workflow_dispatch:
 
 concurrency:
