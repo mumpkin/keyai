@@ -71,7 +71,7 @@ export function TrainingScreen() {
 						entries={series.entries}
 						currentIndex={series.state.currentIndex}
 						locale={locale}
-						errorCount={series.state.wrongKeyCount}
+						errorCount={series.state.currentWordErrors}
 					/>
 					<SeriesWordsRecap
 						series={series.state}

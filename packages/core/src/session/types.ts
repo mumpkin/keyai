@@ -26,6 +26,8 @@ export interface SeriesState {
 	readonly unitStartedAt: number | null;
 	readonly attempts: readonly UnitAttempt[];
 	readonly wrongKeyCount: number;
+	/** Wrong keys on the current word; drives the error feedback (A4). */
+	readonly currentWordErrors: number;
 }
 
 /** Keys and events coming from the interface, timestamped by the caller. */

@@ -23,5 +23,6 @@ export function createSeries(words: readonly string[]): SeriesState {
 		unitStartedAt: null,
 		attempts: [],
 		wrongKeyCount: 0,
+		currentWordErrors: 0,
 	};
 }
