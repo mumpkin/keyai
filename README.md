@@ -8,9 +8,9 @@ hiragana and katakana; you type their reading in romaji. Kana are unlocked
 one at a time, based on your speed and accuracy, and every word comes with a
 short translation in French or English.
 
-> **Status:** in design. No release yet.
+> **Status:** early version, [available on the web](https://mumpkin.github.io/keyai/).
 
-## Planned features
+## Features
 
 - Hiragana and katakana, including voiced kana, combinations (`きゃ`), small
   `っ`, long vowel mark `ー` and extended katakana (`ティ`, `ファ`…)
