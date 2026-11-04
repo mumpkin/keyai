@@ -306,6 +306,11 @@ The word order is then shuffled.
 - **Missing French translations fall back to English**, marked with an `EN`
   badge in the interface. French translations are completed in later data
   releases; a vocabulary update needs no code change.
+- JMdict keeps French glosses in separate senses that are not aligned with
+  the English ones (日 would read « dimanche »): a French gloss is only used
+  for entries with a single sense, about a third of the V1 words. The most
+  frequent polysemous words get their French translation in
+  `overrides/words.yaml`.
 - Glosses coming from JMdict are used as is. Only editorial overrides written
   by us carry the `reviewed` flag checked by `vocab:check --strict`.
 

@@ -294,8 +294,13 @@ data/vocab.json     output (committed)
   written during working sessions (no API in the pipeline) with
   `reviewed: false`. `pnpm vocab:check --strict` rejects any unreviewed entry
   and runs in the release workflow.
-- To verify when scaffolding: memory use of parsing the full JMdict file;
-  fall back to streaming (`stream-json`) if needed.
+- Measured on JMdict 3.6.2 (261 MB of JSON): the whole build takes about four
+  seconds; `JSON.parse` is enough, no streaming needed.
+- wordfreq counts strings, not words: only **common** JMdict forms are looked
+  up, otherwise a rare word written い would inherit the frequency of every
+  い. Entries that are only suffixes, prefixes or counters are left out.
+- Generated files (`data/vocab.json`, `report.md`) are deterministic and
+  excluded from Biome; the CI runs `pnpm vocab:check`.
 
 ## A7 — Build, configuration and CI
 
