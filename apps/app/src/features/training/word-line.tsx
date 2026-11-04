@@ -28,6 +28,32 @@ function useKeepCurrentLineCentered(currentIndex: number) {
 	return viewportRef;
 }
 
+/**
+ * One cursor for the whole line, placed under the unit being typed: moving
+ * it, rather than underlining each unit, lets it glide between kana (C8).
+ */
+function useGlidingCursor() {
+	const contentRef = useRef<HTMLDivElement>(null);
+	const cursorRef = useRef<HTMLSpanElement>(null);
+
+	useLayoutEffect(() => {
+		const content = contentRef.current;
+		const cursor = cursorRef.current;
+		const unit = content?.querySelector('[data-cursor]');
+		if (!(content && cursor && unit)) {
+			return;
+		}
+		const origin = content.getBoundingClientRect();
+		const target = unit.getBoundingClientRect();
+		const left = target.left - origin.left;
+		const top = target.bottom - origin.top;
+		cursor.style.transform = `translate(${left}px, ${top}px)`;
+		cursor.style.width = `${target.width}px`;
+	});
+
+	return { contentRef, cursorRef };
+}
+
 interface WordLineProps {
 	readonly words: readonly WordViewModel[];
 	readonly entries: readonly VocabEntry[];
@@ -45,6 +71,7 @@ export function WordLine({
 	errorCount,
 }: WordLineProps) {
 	const viewportRef = useKeepCurrentLineCentered(currentIndex);
+	const { contentRef, cursorRef } = useGlidingCursor();
 	return (
 		<div
 			ref={viewportRef}
@@ -55,7 +82,15 @@ export function WordLine({
 				height: `calc(${LINE_HEIGHT} * ${VISIBLE_LINES})`,
 			}}
 		>
-			<div className="flex flex-wrap gap-x-[0.5em]">
+			<div
+				ref={contentRef}
+				className="relative flex flex-wrap gap-x-[0.5em]"
+			>
+				<span
+					ref={cursorRef}
+					aria-hidden="true"
+					className="pointer-events-none absolute top-0 left-0 h-0.5 bg-primary transition-[transform,width] duration-100 ease-out motion-reduce:transition-none"
+				/>
 				{words.map((word) => (
 					<WordView
 						key={word.index}
