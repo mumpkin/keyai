@@ -136,9 +136,7 @@
 :root {
 	--kana-size: 24px;
 	--mastery-low: oklch(0.46 0.11 25);
-	--mastery-high: oklch(0.72 0.09 150);
-	--mastery-text-light: oklch(0.98 0 0);
-	--mastery-text-dark: oklch(0.2 0 0);
+	--mastery-high: oklch(0.62 0.1 150);
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
