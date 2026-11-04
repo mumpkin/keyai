@@ -14,6 +14,15 @@ export default defineConfig({
 				},
 			},
 			{
+				extends: './apps/app/vite.config.ts',
+				test: {
+					name: 'app',
+					root: './apps/app',
+					environment: 'node',
+					include: ['src/**/*.test.ts'],
+				},
+			},
+			{
 				test: {
 					name: 'vocab',
 					root: './packages/vocab',
