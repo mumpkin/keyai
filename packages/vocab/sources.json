@@ -1,0 +1,14 @@
+{
+	"jmdict": {
+		"version": "3.6.2+20261102210542",
+		"url": "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20261102210542/jmdict-all-3.6.2%2B20261102210542.json.tgz",
+		"file": "jmdict-all.json.tgz",
+		"sha256": "0f22ce9e807edf98c8711fc41006a3330abbccd506e9302d63b2b874b41b9224"
+	},
+	"wordfreq": {
+		"version": "3.2",
+		"url": "https://raw.githubusercontent.com/rspeer/wordfreq/42233e6c36ce792031bcccfa17cdd0cec9af5fa7/wordfreq/data/large_ja.msgpack.gz",
+		"file": "large_ja.msgpack.gz",
+		"sha256": "e6ab743b939c1802fc03791f1d58dee2861e822ceecdcdee3f0e05b863ef26d8"
+	}
+}
