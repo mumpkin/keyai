@@ -390,6 +390,9 @@ Agreed during the blocking session (pull request #5).
 Navigation: header with Training, Statistics and Settings (icons only on
 mobile). It always stays visible: only the content below it scrolls.
 
+On the web, from a desktop-sized screen, the header also offers the desktop
+app for Windows and Linux, once a release is published.
+
 The desktop app has no system title bar: the navigation moves to the middle of
 the header and minimize, maximize and close buttons take its place on the
 right. The header moves the window when dragged and maximizes it on a double

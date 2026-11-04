@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Added
 
+- Download button for the desktop app on the web version
 - Installable web app that works offline, offering new versions without
   forcing them
 - Header that stays visible while scrolling

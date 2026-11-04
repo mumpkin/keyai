@@ -20,6 +20,10 @@
 		"exportCopy": "Export the copy of the save",
 		"dismiss": "Dismiss"
 	},
+	"download": {
+		"title": "Download",
+		"unsignedNote": "The app is not signed yet: Windows may show a warning during installation."
+	},
 	"update": {
 		"ready": "A new version of keyai is ready.",
 		"apply": "Update",
