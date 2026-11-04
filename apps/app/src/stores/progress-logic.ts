@@ -32,20 +32,31 @@ export interface LoadedSave {
 	readonly save: SaveFile;
 	/** Why the stored data could not be used, if it could not. */
 	readonly loadIssue: SaveError | null;
+	/** Nothing was stored yet: not even a save that could not be read. */
+	readonly isFirstLaunch: boolean;
+}
+
+function blankSave(context: SaveContext, settings: Settings): SaveFile {
+	const { unlockOrder, initialUnlocked } = context.vocabulary.file;
+	return createSave({
+		appVersion: context.appVersion,
+		savedAt: context.now.toISOString(),
+		settings,
+		progress: createProgress(unlockOrder, initialUnlocked),
+		history: [],
+	});
 }
 
 export function freshSave(
 	context: SaveContext,
 	languages: readonly string[],
 ): SaveFile {
-	const { unlockOrder, initialUnlocked } = context.vocabulary.file;
-	return createSave({
-		appVersion: context.appVersion,
-		savedAt: context.now.toISOString(),
-		settings: defaultSettings(preferredLocale(languages)),
-		progress: createProgress(unlockOrder, initialUnlocked),
-		history: [],
-	});
+	return blankSave(context, defaultSettings(preferredLocale(languages)));
+}
+
+/** Resetting erases the progress and the history, not the settings (C6). */
+export function saveAfterReset(save: SaveFile, context: SaveContext): SaveFile {
+	return blankSave(context, save.settings);
 }
 
 function alignedSave(save: SaveFile, context: SaveContext): SaveFile {
@@ -66,12 +77,20 @@ export function loadedSaveOf(
 	languages: readonly string[],
 ): LoadedSave {
 	if (stored === null) {
-		return { save: freshSave(context, languages), loadIssue: null };
+		return {
+			save: freshSave(context, languages),
+			loadIssue: null,
+			isFirstLaunch: true,
+		};
 	}
 	const parsed = parseSave(stored);
-	return parsed.ok
-		? { save: alignedSave(parsed.save, context), loadIssue: null }
-		: { save: freshSave(context, languages), loadIssue: parsed.error };
+	return {
+		save: parsed.ok
+			? alignedSave(parsed.save, context)
+			: freshSave(context, languages),
+		loadIssue: parsed.ok ? null : parsed.error,
+		isFirstLaunch: false,
+	};
 }
 
 export interface SeriesResult {

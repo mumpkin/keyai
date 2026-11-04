@@ -10,6 +10,10 @@ and this project adheres to
 
 ### Added
 
+- Settings screen: language, words per series, speed threshold, error sound,
+  kana size, progress reset and about section
+- French and English interface, following the language of the settings
+- Custom series length typed directly in the statistics bar
 - Training screen: series of real words typed in place, recap of the series
   with word cards, live statistics, kana table with mastery, error feedback
 - Vocabulary pipeline building 2,720 frequent words from JMdict and wordfreq,

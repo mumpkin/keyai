@@ -13,8 +13,10 @@ export {
 export {
 	defaultSettings,
 	preferredLocale,
+	withErrorSound,
 	withKanaPerMinute,
 	withKanaSize,
+	withLocale,
 	withSpeedPreset,
 	withWordsPerSession,
 } from './settings.ts';

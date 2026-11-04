@@ -1,0 +1,108 @@
+{
+	"common": {
+		"percent": "{{value}} %",
+		"speed": "{{value}} kana/min"
+	},
+	"navigation": {
+		"training": "Entraînement",
+		"statistics": "Statistiques",
+		"settings": "Réglages"
+	},
+	"splash": {
+		"meaning": "rapide"
+	},
+	"training": {
+		"japaneseInputWarning": "Saisie japonaise active : désactivez-la pour taper en romaji.",
+		"errors_one": "{{count}} erreur",
+		"errors_other": "{{count}} erreurs",
+		"previousSeries": "précédente : {{speed}} · {{accuracy}}",
+		"unlocked": "nouveau :",
+		"customLength": "perso",
+		"typingArea": "Zone de frappe",
+		"skipped": "passé"
+	},
+	"wordCard": {
+		"otherSenses": "Autres sens"
+	},
+	"partOfSpeech": {
+		"noun": "nom",
+		"pronoun": "pronom",
+		"verb": "verbe",
+		"adjective": "adjectif",
+		"adverb": "adverbe",
+		"particle": "particule",
+		"conjunction": "conjonction",
+		"interjection": "interjection",
+		"counter": "compteur",
+		"prefix": "préfixe",
+		"suffix": "suffixe",
+		"auxiliary": "auxiliaire",
+		"expression": "expression",
+		"other": "autre"
+	},
+	"register": {
+		"familiar": "familier",
+		"slang": "argot",
+		"vulgar": "vulgaire",
+		"polite": "poli",
+		"humble": "humble",
+		"honorific": "honorifique"
+	},
+	"kanaTable": {
+		"title": "Table des kana",
+		"close": "Fermer",
+		"latest": "nouveau",
+		"next": "suivant"
+	},
+	"statistics": {
+		"lastSeries": "Dernière série",
+		"progress": "Progression",
+		"history": "Évolution",
+		"words_one": "{{count}} mot",
+		"words_other": "{{count}} mots"
+	},
+	"settings": {
+		"language": {
+			"title": "Langue",
+			"label": "Langue de l’interface et des traductions"
+		},
+		"session": {
+			"title": "Séance",
+			"wordsPerSeries": "Mots par série"
+		},
+		"speed": {
+			"title": "Vitesse",
+			"label": "Seuil de vitesse",
+			"threshold": "Kana par minute",
+			"hint": "Un kana est maîtrisé à partir de cette vitesse. Le changement s’applique tout de suite à toute la table.",
+			"easy": "Facile",
+			"normal": "Normal",
+			"hard": "Difficile",
+			"custom": "Perso"
+		},
+		"feedback": {
+			"title": "Retours",
+			"errorSound": "Son d’erreur"
+		},
+		"display": {
+			"title": "Affichage",
+			"kanaSize": "Taille des kana",
+			"kanaSizePx": "Taille des kana en pixels"
+		},
+		"data": {
+			"title": "Données",
+			"reset": "Réinitialiser la progression",
+			"resetTitle": "Réinitialiser la progression ?",
+			"resetDescription": "Les kana débloqués, leur maîtrise et l’historique seront effacés définitivement. Les réglages sont conservés.",
+			"resetConfirm": "Réinitialiser",
+			"resetCancel": "Annuler"
+		},
+		"about": {
+			"title": "À propos",
+			"version": "Version {{version}}",
+			"sourceCode": "Code source (licence MIT)",
+			"vocabulary": "Vocabulaire sous licence CC BY-SA 4.0, issu de :",
+			"replaySplash": "Rejouer l’animation de lancement"
+		}
+	}
+}

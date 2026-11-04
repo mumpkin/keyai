@@ -3,8 +3,10 @@ import { SettingsSchema } from './schema.ts';
 import {
 	defaultSettings,
 	preferredLocale,
+	withErrorSound,
 	withKanaPerMinute,
 	withKanaSize,
+	withLocale,
 	withSpeedPreset,
 	withWordsPerSession,
 } from './settings.ts';
@@ -31,6 +33,16 @@ describe('settings', () => {
 		[[], 'fr'],
 	] as const)('picks the locale from %j', (languages, locale) => {
 		expect(preferredLocale(languages)).toBe(locale);
+	});
+
+	it('changes the locale', () => {
+		expect(withLocale(DEFAULTS, 'en').locale).toBe('en');
+	});
+
+	it('switches the error sound', () => {
+		expect(withErrorSound(DEFAULTS, true).feedback).toEqual({
+			sound: true,
+		});
 	});
 
 	it('applies a speed preset', () => {

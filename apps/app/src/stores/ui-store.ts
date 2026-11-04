@@ -8,6 +8,7 @@ export interface UiState {
 	readonly lastSeries: SeriesResult | null;
 	readonly navigate: (screen: Screen) => void;
 	readonly showSeriesResult: (result: SeriesResult) => void;
+	readonly clearSeriesResult: () => void;
 }
 
 export const useUiStore = create<UiState>()((set) => ({
@@ -15,4 +16,5 @@ export const useUiStore = create<UiState>()((set) => ({
 	lastSeries: null,
 	navigate: (screen) => set({ screen }),
 	showSeriesResult: (lastSeries) => set({ lastSeries }),
+	clearSeriesResult: () => set({ lastSeries: null }),
 }));

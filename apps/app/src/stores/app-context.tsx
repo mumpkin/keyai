@@ -38,6 +38,10 @@ export function useVocabulary(): Vocabulary {
 	return useAppDependencies().vocabulary;
 }
 
+export function useStartsWithSplash(): boolean {
+	return useAppDependencies().startsWithSplash;
+}
+
 /** The store itself, for event handlers that need the latest state. */
 export function useProgressStore(): ProgressStore {
 	return useAppDependencies().progressStore;

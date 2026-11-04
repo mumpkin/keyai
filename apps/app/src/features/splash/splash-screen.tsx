@@ -1,19 +1,33 @@
-import { useCallback, useEffect, useState } from 'react';
+import { type MouseEvent, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
-const SPLASH_DURATION_MS = 3000;
-const LEAVE_DURATION_MS = 450;
+const SPLASH_DURATION_MS = 2400;
+const LEAVE_DURATION_MS = 300;
 
 interface SplashScreenProps {
 	readonly onDone: () => void;
 }
 
+/** `ha` rolls up and `ke` takes its place, clipped to the syllable. */
 function SwappingSyllable() {
 	return (
-		<span className="inline-grid justify-items-end">
+		<span className="inline-grid justify-items-end overflow-clip">
 			<span className="animate-syllable-out [grid-area:1/1]">ha</span>
-			<span className="animate-syllable-in text-primary [grid-area:1/1]">
+			<span className="animate-syllable-in text-foreground [grid-area:1/1]">
 				ke
+			</span>
+		</span>
+	);
+}
+
+/** The title fills in like a word of the training line (C8). */
+function AnimatedTitle() {
+	return (
+		<span className="animate-title-rise text-7xl font-bold tracking-tight">
+			<span className="animate-title-fill text-muted-foreground">
+				<SwappingSyllable />
+				yai
 			</span>
 		</span>
 	);
@@ -25,11 +39,17 @@ function useSplashLifecycle(onDone: () => void) {
 	const leave = useCallback(() => setIsLeaving(true), []);
 
 	useEffect(() => {
+		// The key that skips the splash must not reach the typing input.
+		const skip = (event: KeyboardEvent) => {
+			event.preventDefault();
+			event.stopPropagation();
+			leave();
+		};
 		const timer = setTimeout(leave, SPLASH_DURATION_MS);
-		window.addEventListener('keydown', leave, { once: true });
+		window.addEventListener('keydown', skip, { capture: true });
 		return () => {
 			clearTimeout(timer);
-			window.removeEventListener('keydown', leave);
+			window.removeEventListener('keydown', skip, { capture: true });
 		};
 	}, [leave]);
 
@@ -44,24 +64,29 @@ function useSplashLifecycle(onDone: () => void) {
 	return { isLeaving, leave };
 }
 
+/** The button must not take the focus away from the typing input. */
+function keepFocus(event: MouseEvent) {
+	event.preventDefault();
+}
+
 export function SplashScreen({ onDone }: SplashScreenProps) {
+	const { t: translate } = useTranslation();
 	const { isLeaving, leave } = useSplashLifecycle(onDone);
 
 	return (
 		<button
 			type="button"
+			tabIndex={-1}
+			onMouseDown={keepFocus}
 			onClick={leave}
 			className={cn(
-				'fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-background',
+				'fixed inset-0 z-50 flex cursor-default flex-col items-center justify-center gap-5 bg-background outline-none',
 				isLeaving && 'animate-splash-leave',
 			)}
 		>
-			<span className="animate-title-rise text-7xl font-bold tracking-tight">
-				<SwappingSyllable />
-				yai
-			</span>
+			<AnimatedTitle />
 			<span className="animate-subtitle-reveal font-kana text-lg text-muted-foreground">
-				はやい · rapide
+				はやい · {translate('splash.meaning')}
 			</span>
 		</button>
 	);

@@ -6,10 +6,10 @@ import { createStore, type StoreApi } from 'zustand/vanilla';
 import type { SaveStorage } from '@/platform/index.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import {
-	freshSave,
 	loadedSaveOf,
 	type SaveContext,
 	type SeriesResult,
+	saveAfterReset,
 	saveAfterSeries,
 	saveWithSettings,
 } from './progress-logic.ts';
@@ -25,6 +25,7 @@ export interface ProgressDependencies {
 export interface ProgressState {
 	readonly save: SaveFile;
 	readonly loadIssue: SaveError | null;
+	readonly isFirstLaunch: boolean;
 	readonly applySeriesResult: (
 		record: SeriesRecord,
 		wordCount: number,
@@ -72,9 +73,13 @@ export async function createProgressStore(
 			})),
 		replaceSave: (save) => set({ save }),
 		resetProgress: () =>
-			set({ save: freshSave(contextOf(), dependencies.languages) }),
+			set(({ save }) => ({ save: saveAfterReset(save, contextOf()) })),
 	}));
 
+	// Saved at once, so that the next launch is not a first one any more.
+	if (loaded.isFirstLaunch) {
+		void dependencies.storage.save(serializeSave(loaded.save));
+	}
 	store.subscribe((state, previous) => {
 		if (state.save !== previous.save) {
 			void dependencies.storage.save(serializeSave(state.save));

@@ -7,6 +7,7 @@ import {
 	freshSave,
 	loadedSaveOf,
 	type SaveContext,
+	saveAfterReset,
 	saveAfterSeries,
 	saveWithSettings,
 } from './progress-logic.ts';
@@ -38,13 +39,48 @@ function cleanAttempts(kana: string, count: number): UnitAttempt[] {
 	}));
 }
 
+describe('saveAfterReset', () => {
+	it('erases the progress and the history but keeps the settings', () => {
+		const save = freshSave(CONTEXT, ['fr']);
+		const settings = withKanaPerMinute(save.settings, 70);
+		const trained = saveAfterSeries(
+			{ ...save, settings },
+			{
+				record: {
+					attempts: cleanAttempts('い', 10),
+					wrongKeyCount: 0,
+					elapsedMs: 10 * ONE_SECOND,
+				},
+				wordCount: 5,
+			},
+			CONTEXT,
+		).save;
+
+		const reset = saveAfterReset(trained, CONTEXT);
+
+		expect(trained.history).toHaveLength(1);
+		expect(reset.history).toEqual([]);
+		expect(reset.progress).toEqual(save.progress);
+		expect(reset.settings).toEqual(settings);
+	});
+});
+
 describe('loadedSaveOf', () => {
 	it('starts a fresh save in the browser language', () => {
 		const loaded = loadedSaveOf(null, CONTEXT, ['en-US']);
 		expect(loaded.loadIssue).toBeNull();
+		expect(loaded.isFirstLaunch).toBe(true);
 		expect(loaded.save.settings.locale).toBe('en');
 		expect(loaded.save.progress.unlocked).toEqual(['い', 'ぬ']);
 		expect(loaded.save.history).toEqual([]);
+	});
+
+	it('is not a first launch once something is stored', () => {
+		const stored = serializeSave(freshSave(CONTEXT, ['fr']));
+		expect(loadedSaveOf(stored, CONTEXT, ['fr']).isFirstLaunch).toBe(false);
+		expect(loadedSaveOf('broken', CONTEXT, ['fr']).isFirstLaunch).toBe(
+			false,
+		);
 	});
 
 	it('reads a stored save', () => {

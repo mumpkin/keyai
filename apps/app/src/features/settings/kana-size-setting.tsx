@@ -1,49 +1,49 @@
-import { useState } from 'react';
-import { Placeholder } from '@/features/blocking/placeholder';
-
-const DEFAULT_KANA_SIZE_PX = 24;
-const MIN_KANA_SIZE_PX = 16;
-const MAX_KANA_SIZE_PX = 64;
+import { KANA_SIZE_LIMITS, withKanaSize } from '@keyai/core/settings';
+import { useTranslation } from 'react-i18next';
+import { NumberField } from '@/components/number-field.tsx';
+import { Slider } from '@/components/ui/slider.tsx';
+import { SettingRow, SettingSection } from './setting-section.tsx';
+import { useSettings } from './use-settings.ts';
 
 export function KanaSizeSetting() {
-	const [sizePx, setSizePx] = useState(DEFAULT_KANA_SIZE_PX);
+	const { t: translate } = useTranslation();
+	const { settings, updateSettings } = useSettings();
+	const sizePx = settings.display.kanaSizePx;
 
 	function applySize(nextSizePx: number) {
-		setSizePx(nextSizePx);
-		document.documentElement.style.setProperty(
-			'--kana-size',
-			`${nextSizePx}px`,
-		);
+		updateSettings((current) => withKanaSize(current, nextSizePx));
 	}
 
 	return (
-		<Placeholder label="Affichage">
-			<p className="font-medium">Affichage</p>
-			<label className="mt-1 flex items-center gap-3 text-sm">
-				Taille des kana
-				<input
-					type="range"
-					min={MIN_KANA_SIZE_PX}
-					max={MAX_KANA_SIZE_PX}
-					value={sizePx}
-					onChange={(event) => applySize(Number(event.target.value))}
-				/>
-				<input
-					type="number"
-					min={MIN_KANA_SIZE_PX}
-					max={MAX_KANA_SIZE_PX}
-					value={sizePx}
-					onChange={(event) => applySize(Number(event.target.value))}
-					className="w-16 rounded border px-1"
-				/>
-				px
-				<span
-					className="font-kana"
-					style={{ fontSize: 'var(--kana-size)' }}
-				>
-					あいう
+		<SettingSection title={translate('settings.display.title')}>
+			<SettingRow label={translate('settings.display.kanaSize')}>
+				<span className="flex items-center gap-3">
+					<span className="w-40">
+						<Slider
+							thumbLabel={translate('settings.display.kanaSize')}
+							min={KANA_SIZE_LIMITS.min}
+							max={KANA_SIZE_LIMITS.max}
+							value={sizePx}
+							onValueChange={(value) =>
+								applySize(value as number)
+							}
+						/>
+					</span>
+					<NumberField
+						label={translate('settings.display.kanaSizePx')}
+						value={sizePx}
+						limits={KANA_SIZE_LIMITS}
+						onCommit={applySize}
+					/>
+					px
 				</span>
-			</label>
-		</Placeholder>
+			</SettingRow>
+			<p
+				className="truncate font-kana"
+				style={{ fontSize: 'var(--kana-size)' }}
+			>
+				あいう
+			</p>
+		</SettingSection>
 	);
 }

@@ -1,4 +1,5 @@
 import type { SeriesState } from '@keyai/core/session';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
 import type { SeriesResult } from '@/stores/progress-logic.ts';
 import { SeriesLengthPicker } from './series-length-picker.tsx';
@@ -28,16 +29,23 @@ function SeriesProgress({
 }
 
 function PreviousSeries({ result }: { readonly result: SeriesResult }) {
+	const { t: translate } = useTranslation();
 	const { measurements, unlockedKana } = result;
 	return (
 		<>
 			<span className="text-muted-foreground">
-				précédente : {Math.round(measurements.kanaPerMinute)} kana/min ·{' '}
-				{Math.round(measurements.accuracy * PERCENT)} %
+				{translate('training.previousSeries', {
+					speed: translate('common.speed', {
+						value: Math.round(measurements.kanaPerMinute),
+					}),
+					accuracy: translate('common.percent', {
+						value: Math.round(measurements.accuracy * PERCENT),
+					}),
+				})}
 			</span>
 			{unlockedKana && (
 				<span className="rounded-full bg-primary/10 px-2">
-					✦ nouveau :{' '}
+					✦ {translate('training.unlocked')}{' '}
 					<span className="font-kana">{unlockedKana}</span>
 				</span>
 			)}
@@ -49,6 +57,7 @@ interface SessionStatsBarProps {
 	readonly series: SeriesState;
 	readonly previous: SeriesResult | null;
 	readonly onLengthChange: (length: number) => void;
+	readonly onLengthDismiss: () => void;
 }
 
 /** Live figures of the current series and the previous one (C8). */
@@ -56,7 +65,9 @@ export function SessionStatsBar({
 	series,
 	previous,
 	onLengthChange,
+	onLengthDismiss,
 }: SessionStatsBarProps) {
+	const { t: translate } = useTranslation();
 	const live = liveMeasurementsOf(series, performance.now());
 	const hasStarted = series.startedAt !== null;
 	return (
@@ -66,19 +77,24 @@ export function SessionStatsBar({
 				length={series.words.length}
 			/>
 			<span className={cn(!hasStarted && 'text-muted-foreground')}>
-				{Math.round(live.kanaPerMinute)} kana/min
+				{translate('common.speed', {
+					value: Math.round(live.kanaPerMinute),
+				})}
 			</span>
 			<span className={cn(!hasStarted && 'text-muted-foreground')}>
-				{Math.round(live.accuracy * PERCENT)} %
+				{translate('common.percent', {
+					value: Math.round(live.accuracy * PERCENT),
+				})}
 			</span>
 			<span>
-				{live.errorCount} erreur{live.errorCount > 1 ? 's' : ''}
+				{translate('training.errors', { count: live.errorCount })}
 			</span>
 			{previous && <PreviousSeries result={previous} />}
 			<span className="ml-auto">
 				<SeriesLengthPicker
 					length={series.words.length}
 					onChange={onLengthChange}
+					onDismiss={onLengthDismiss}
 				/>
 			</span>
 		</div>
