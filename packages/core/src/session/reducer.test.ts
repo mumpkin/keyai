@@ -22,8 +22,8 @@ describe('seriesReducer', () => {
 		expect(typing.startedAt).toBe(42);
 	});
 
-	it('records each unit, the first one untimed, and finishes on space', () => {
-		const state = play(['いぬ'], 'inu ');
+	it('records each unit, the first one untimed', () => {
+		const state = play(['いぬ'], 'inu');
 		expect(state.phase).toBe('finished');
 		expect(state.attempts).toEqual([
 			{ kana: 'い', durationMs: null, hadError: false, skipped: false },
@@ -34,7 +34,7 @@ describe('seriesReducer', () => {
 				skipped: false,
 			},
 		]);
-		expect(seriesRecordOf(state).elapsedMs).toBe(3 * KEY_INTERVAL_MS);
+		expect(seriesRecordOf(state).elapsedMs).toBe(2 * KEY_INTERVAL_MS);
 	});
 
 	it('counts a wrong key against the unit and marks it red', () => {
@@ -51,6 +51,24 @@ describe('seriesReducer', () => {
 		expect(play(['いぬ', 'くに'], 'x <').currentWordErrors).toBe(0);
 	});
 
+	it('finishes the series with the last key of the last word', () => {
+		const words = ['い', 'く'];
+		expect(play(words, 'i k').phase).toBe('typing');
+		expect(play(words, 'i ku').phase).toBe('finished');
+		expect(statusesOf(words, 'i ku')).toEqual(['done', 'done']);
+	});
+
+	it('does not finish a word that is not the last one on its last key', () => {
+		expect(play(['い', 'く'], 'i').phase).toBe('typing');
+	});
+
+	it('ignores space before the first key of a series', () => {
+		const state = play(['いぬ', 'くに'], '   ');
+		expect(state.phase).toBe('ready');
+		expect(state.currentIndex).toBe(0);
+		expect(state.attempts).toEqual([]);
+	});
+
 	it('waits for space before moving to the next word', () => {
 		const state = play(['いぬ', 'くに'], 'inu');
 		expect(state.currentIndex).toBe(0);
@@ -62,8 +80,8 @@ describe('seriesReducer', () => {
 		expect(state.attempts[1]?.durationMs).toBe(2 * KEY_INTERVAL_MS);
 	});
 
-	it('completes a final ん typed n on space', () => {
-		const state = play(['ほん'], 'hon ');
+	it('finishes on a final ん typed n', () => {
+		const state = play(['ほん'], 'hon');
 		expect(state.phase).toBe('finished');
 		expect(state.attempts.map((attempt) => attempt.kana)).toEqual([
 			'ほ',

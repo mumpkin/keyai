@@ -58,6 +58,18 @@ export function pressSpace(state: SeriesState, at: number): SeriesState {
 	);
 }
 
+/**
+ * The last word needs no space: the series ends with its last key (C8). A
+ * final ん ends the series as soon as `n` spells it.
+ */
+export function finishLastWord(state: SeriesState, at: number): SeriesState {
+	const word = currentWordOf(state);
+	const isLastWord = state.currentIndex === state.words.length - 1;
+	return isLastWord && word && finishWord(word.matcher)
+		? pressSpace(state, at)
+		: state;
+}
+
 function hasNoInput(word: SeriesWord): boolean {
 	const progress = progressOf(word.matcher);
 	return progress.completedUnits === 0 && progress.typed === '';
