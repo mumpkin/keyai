@@ -92,11 +92,13 @@ the kana (of either script) that makes the most new frequent words typeable.
    A katakana comes after its hiragana counterpart (カ after か), so that
    corresponding katakana are introduced after the hiragana, as the
    specification requires, without waiting for the whole hiragana set.
-3. **Usefulness**: a candidate must make at least one new word typeable;
-   otherwise it could never be practised, hence never mastered, and would
-   block the progression.
+3. **Words closer to completion**: when no candidate opens a word — typically
+   when katakana start, since most katakana words need several new kana —
+   the candidate that brings the most frequent words closer to completion
+   wins (each word counts for its weight times the share of its kana already
+   unlocked).
 4. **Balance**: if one script has had **three unlocks in a row** while the
-   other has a useful candidate, the next unlock goes to the other script.
+   other has a candidate that opens or advances words, the next unlock goes to the other script.
    Frequency drives the order; this rule only prevents one script from
    starving the other.
 5. **Ties** are broken by gojūon order (hiragana first).
@@ -199,6 +201,10 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
   mastery figures and progress displays.
 - An unlocked kana is never locked again; if it regresses, it delays the next
   unlock until it is mastered again.
+- **Kana that cannot be practised yet do not hold back unlocking**: an
+  unlocked kana that appears in no typeable word (テ before ス and ト make
+  テスト typeable) is left out of the "every unlocked kana is mastered" rule
+  until a word makes it practicable.
 - Rare kana are protected by word selection (C5), which favours unmastered
   kana, and by allowed word repetitions. The pipeline report flags kana that
   open very few words.
