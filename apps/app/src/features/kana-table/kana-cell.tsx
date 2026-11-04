@@ -1,6 +1,6 @@
 import { findKana } from '@keyai/core/kana';
 import { cva } from 'class-variance-authority';
-import type { KanaDisplayState } from './kana-states.ts';
+import { type KanaDisplayState, masteryColorOf } from './kana-states.ts';
 
 const cellVariants = cva(
 	'group relative flex size-11 flex-col items-center justify-center rounded-md border font-kana text-lg focus-visible:outline-2',
@@ -8,9 +8,9 @@ const cellVariants = cva(
 		variants: {
 			state: {
 				locked: 'border-transparent text-muted-foreground/30',
-				learning: 'border-border bg-card',
-				mastered: 'border-border bg-primary/10',
-				latest: 'border-primary bg-primary/20 ring-2 ring-primary',
+				learning: 'border-border',
+				mastered: 'border-border',
+				latest: 'border-primary ring-2 ring-primary',
 				next: 'border-2 border-dashed border-primary/60 text-muted-foreground',
 			},
 		},
@@ -50,9 +50,25 @@ function romajiOf(kana: string): string {
 interface KanaCellProps {
 	readonly kana: string | null;
 	readonly state: KanaDisplayState;
+	/** Mastery from 0 to 1. */
+	readonly score: number;
 }
 
-export function KanaCell({ kana, state }: KanaCellProps) {
+const PERCENT = 100;
+const COLOURED_STATES = new Set<KanaDisplayState>([
+	'learning',
+	'mastered',
+	'latest',
+]);
+
+function titleOf(kana: string, state: KanaDisplayState, score: number) {
+	const romaji = romajiOf(kana);
+	return COLOURED_STATES.has(state)
+		? `${romaji} · ${Math.round(score * PERCENT)} %`
+		: romaji;
+}
+
+export function KanaCell({ kana, state, score }: KanaCellProps) {
 	if (!kana) {
 		return <span className="size-11" />;
 	}
@@ -61,7 +77,12 @@ export function KanaCell({ kana, state }: KanaCellProps) {
 		<button
 			type="button"
 			className={cellVariants({ state })}
-			title={romajiOf(kana)}
+			title={titleOf(kana, state, score)}
+			style={
+				COLOURED_STATES.has(state)
+					? { backgroundColor: masteryColorOf(score) }
+					: undefined
+			}
 		>
 			{badge && (
 				<span className="absolute -top-2 rounded bg-primary px-1 font-sans text-[8px] text-primary-foreground">
