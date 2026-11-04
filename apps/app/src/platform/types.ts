@@ -8,4 +8,6 @@ export interface SaveStorage {
 export interface Platform {
 	readonly name: 'web' | 'tauri';
 	readonly storage: SaveStorage;
+	/** Otherwise the splash only plays on the first launch (C8). */
+	readonly playsSplashOnEveryLaunch: boolean;
 }

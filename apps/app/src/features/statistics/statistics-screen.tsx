@@ -1,13 +1,21 @@
+import { useTranslation } from 'react-i18next';
 import { Placeholder } from '@/features/blocking/placeholder';
 
-const KEY_FIGURES = ['42 kana/min', '94 %', '3 erreurs', '20 mots'];
-
 function LastSeriesSection() {
+	const { t: translate } = useTranslation();
+	const keyFigures = [
+		translate('common.speed', { value: 42 }),
+		translate('common.percent', { value: 94 }),
+		translate('training.errors', { count: 3 }),
+		translate('statistics.words', { count: 20 }),
+	];
 	return (
 		<Placeholder label="last series" className="flex flex-col gap-3">
-			<h2 className="text-lg font-semibold">Dernière série</h2>
+			<h2 className="text-lg font-semibold">
+				{translate('statistics.lastSeries')}
+			</h2>
 			<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-				{KEY_FIGURES.map((figure) => (
+				{keyFigures.map((figure) => (
 					<Placeholder
 						key={figure}
 						label="figure"
@@ -31,11 +39,14 @@ function LastSeriesSection() {
 }
 
 export function StatisticsScreen() {
+	const { t: translate } = useTranslation();
 	return (
 		<div className="flex flex-col gap-4">
 			<LastSeriesSection />
 			<Placeholder label="progress" className="flex flex-col gap-3">
-				<h2 className="text-lg font-semibold">Progression</h2>
+				<h2 className="text-lg font-semibold">
+					{translate('statistics.progress')}
+				</h2>
 				<Placeholder
 					label="chart · hiragana / katakana mastery"
 					className="h-20"
@@ -46,7 +57,9 @@ export function StatisticsScreen() {
 				/>
 			</Placeholder>
 			<Placeholder label="history" className="flex flex-col gap-3">
-				<h2 className="text-lg font-semibold">Évolution</h2>
+				<h2 className="text-lg font-semibold">
+					{translate('statistics.history')}
+				</h2>
 				<Placeholder
 					label="chart · speed and accuracy, last 100 series"
 					className="h-48"

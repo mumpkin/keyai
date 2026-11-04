@@ -1,5 +1,6 @@
 import { findKana } from '@keyai/core/kana';
 import { cva } from 'class-variance-authority';
+import { useTranslation } from 'react-i18next';
 import { type KanaDisplayState, masteryColorsOf } from './kana-states.ts';
 
 const cellVariants = cva(
@@ -34,10 +35,16 @@ const ROMAJI_ALWAYS_VISIBLE = new Set<KanaDisplayState>([
 	'next',
 ]);
 
-const STATE_BADGES: Partial<Record<KanaDisplayState, string>> = {
-	latest: 'nouveau',
-	next: 'suivant',
-};
+const STATE_BADGES = {
+	latest: 'kanaTable.latest',
+	next: 'kanaTable.next',
+} as const;
+
+function badgeOf(state: KanaDisplayState) {
+	return state === 'latest' || state === 'next'
+		? STATE_BADGES[state]
+		: undefined;
+}
 
 function romajiOf(kana: string): string {
 	const unit = findKana(kana);
@@ -61,29 +68,27 @@ const COLOURED_STATES = new Set<KanaDisplayState>([
 	'latest',
 ]);
 
-function titleOf(kana: string, state: KanaDisplayState, score: number) {
-	const romaji = romajiOf(kana);
-	return COLOURED_STATES.has(state)
-		? `${romaji} · ${Math.round(score * PERCENT)} %`
-		: romaji;
-}
-
 export function KanaCell({ kana, state, score }: KanaCellProps) {
+	const { t: translate } = useTranslation();
 	if (!kana) {
 		return <span className="size-11" />;
 	}
-	const badge = STATE_BADGES[state];
+	const badge = badgeOf(state);
 	const isColoured = COLOURED_STATES.has(state);
+	const romaji = romajiOf(kana);
+	const mastery = translate('common.percent', {
+		value: Math.round(score * PERCENT),
+	});
 	return (
 		<button
 			type="button"
 			className={cellVariants({ state })}
-			title={titleOf(kana, state, score)}
+			title={isColoured ? `${romaji} · ${mastery}` : romaji}
 			style={isColoured ? masteryColorsOf(score) : undefined}
 		>
 			{badge && (
 				<span className="absolute -top-2 rounded bg-primary px-1 font-sans text-[8px] text-primary-foreground">
-					{badge}
+					{translate(badge)}
 				</span>
 			)}
 			{kana}
@@ -94,7 +99,7 @@ export function KanaCell({ kana, state, score }: KanaCellProps) {
 						: 'onHover',
 				})}
 			>
-				{romajiOf(kana)}
+				{romaji}
 			</span>
 		</button>
 	);

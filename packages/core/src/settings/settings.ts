@@ -38,6 +38,14 @@ function clamp(value: number, limits: { min: number; max: number }): number {
 	return Math.min(limits.max, Math.max(limits.min, value));
 }
 
+export function withLocale(settings: Settings, locale: Locale): Settings {
+	return { ...settings, locale };
+}
+
+export function withErrorSound(settings: Settings, sound: boolean): Settings {
+	return { ...settings, feedback: { sound } };
+}
+
 export function withSpeedPreset(
 	settings: Settings,
 	preset: keyof typeof SPEED_PRESETS,

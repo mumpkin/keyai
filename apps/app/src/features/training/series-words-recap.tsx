@@ -2,6 +2,7 @@ import { toHepburn, tokenize } from '@keyai/core/input';
 import type { SeriesState } from '@keyai/core/session';
 import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
 import { GlossText } from './gloss-text.tsx';
 import { glossOf } from './glosses.ts';
@@ -17,6 +18,7 @@ interface RecapEntryProps {
 }
 
 function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
+	const { t: translate } = useTranslation();
 	const isSkipped = word.status === 'skipped';
 	const [primary] = entry.word.senses;
 	return (
@@ -38,7 +40,7 @@ function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
 						{toHepburn(tokenize(entry.word.kana))}
 					</span>
 					<span className="truncate text-sm">
-						{isSkipped && 'passé · '}
+						{isSkipped && `${translate('training.skipped')} · `}
 						{primary && (
 							<GlossText gloss={glossOf(primary, locale)} />
 						)}

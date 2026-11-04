@@ -2,18 +2,14 @@ import { toHepburn, tokenize } from '@keyai/core/input';
 import type { Locale } from '@keyai/core/settings';
 import type { Sense, VocabEntry } from '@keyai/core/vocab';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/popover.tsx';
 import { GlossText } from './gloss-text.tsx';
-import {
-	glossOf,
-	noteOf,
-	PART_OF_SPEECH_LABELS,
-	REGISTER_LABELS,
-} from './glosses.ts';
+import { glossOf, noteOf } from './glosses.ts';
 import { useTypingFocus } from './typing-focus.tsx';
 
 const HOVER_DELAY_MS = 150;
@@ -30,9 +26,10 @@ function SenseDetails({
 	readonly sense: Sense;
 	readonly locale: Locale;
 }) {
+	const { t: translate } = useTranslation();
 	const labels = [
-		...sense.pos.map((pos) => PART_OF_SPEECH_LABELS[pos]),
-		...(sense.register ? [REGISTER_LABELS[sense.register]] : []),
+		...sense.pos.map((pos) => translate(`partOfSpeech.${pos}`)),
+		...(sense.register ? [translate(`register.${sense.register}`)] : []),
 	];
 	const note = noteOf(sense, locale);
 	return (
@@ -52,9 +49,12 @@ function OtherSenses({
 	readonly senses: readonly Sense[];
 	readonly locale: Locale;
 }) {
+	const { t: translate } = useTranslation();
 	return (
 		<div className="mt-2 border-t pt-2">
-			<p className="text-xs text-muted-foreground">Autres sens</p>
+			<p className="text-xs text-muted-foreground">
+				{translate('wordCard.otherSenses')}
+			</p>
 			<ul className="text-sm">
 				{senses.map((sense) => (
 					<li key={`${sense.kanji ?? ''}-${sense.gloss.en}`}>

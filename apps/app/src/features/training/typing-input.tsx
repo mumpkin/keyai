@@ -1,4 +1,5 @@
 import type { RefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SENTINEL } from './use-typing-input.ts';
 
 /** The focused, invisible input that receives the keys (A4). */
@@ -7,10 +8,11 @@ export function TypingInput({
 }: {
 	readonly inputRef: RefObject<HTMLInputElement | null>;
 }) {
+	const { t: translate } = useTranslation();
 	return (
 		<input
 			ref={inputRef}
-			aria-label="Zone de frappe"
+			aria-label={translate('training.typingArea')}
 			defaultValue={SENTINEL}
 			autoComplete="off"
 			autoCorrect="off"

@@ -308,7 +308,8 @@ The word order is then shuffled.
 - **Import**: a preview (file date, unlocked kana, number of sessions) is
   shown first; after confirmation the file **replaces** the current progress
   entirely. No merging.
-- **Reset** the progress, with an explicit confirmation.
+- **Reset** the progress and the history, with an explicit confirmation. The
+  settings are kept.
 
 ### Not in settings (V1)
 
@@ -365,9 +366,12 @@ Agreed during the blocking session (pull request #5).
 - There is **no summary screen**. When a series ends, the next one starts
   immediately; its results are saved and shown in the statistics bar and the
   statistics screen.
-- The first launch shows a short animated title: `hayai` (速い, _fast_) turns
-  into `keyai` as `ha` slides into `ke`. Any key or click skips it; it is
-  reduced to an instant swap under `prefers-reduced-motion`.
+- A short animated title opens the app: on the web only at the first launch
+  (nothing stored yet), on the desktop app at every launch. It can be replayed
+  from the settings: `hayai` (速い, _fast_) turns
+  into `keyai`. The title behaves like a word of the training line: it starts
+  grey, `ha` rolls up into `ke` and the word fills in. Any key or click skips it without reaching the
+  series; it is reduced to an instant swap under `prefers-reduced-motion`.
 
 ### Screens
 
@@ -414,8 +418,10 @@ mobile).
 - **Mastery colours**: unlocked kana have a dashed border and a light tint going from dark red to green with their
   mastery score, the percentage being shown in the cell title.
 - **Kana size** is a setting, in pixels (default 24 px, 16 to 64 px).
-- **Series length picker** in the statistics bar: 10, 20, 50, 100 or a
-  custom value, also available in the settings.
+- **Series length picker** in the statistics bar: 10, 20, 50, 100 or _custom_,
+  which opens a small field for any length from 5 to 100 (Enter confirms,
+  Escape cancels) and shows the current length when it is not one of the four.
+  The same setting is available in the settings.
 
 ### Mobile
 

@@ -1,5 +1,6 @@
 import { withWordsPerSession } from '@keyai/core/settings';
 import type { MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
 import { MobileKanaSheet } from '@/features/kana-table/mobile-kana-sheet.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
@@ -14,12 +15,13 @@ import { useTypingInput } from './use-typing-input.ts';
 import { WordLine } from './word-line.tsx';
 
 function JapaneseInputWarning() {
+	const { t: translate } = useTranslation();
 	return (
 		<p
 			role="alert"
 			className="rounded-md bg-destructive/10 p-2 text-sm text-destructive"
 		>
-			⚠ Saisie japonaise active : désactivez-la pour taper en romaji.
+			⚠ {translate('training.japaneseInputWarning')}
 		</p>
 	);
 }
@@ -65,6 +67,7 @@ export function TrainingScreen() {
 					series={series.state}
 					previous={previous}
 					onLengthChange={changeLength}
+					onLengthDismiss={focus}
 				/>
 				<div className="flex flex-1 flex-col justify-center gap-4 py-6">
 					<WordLine

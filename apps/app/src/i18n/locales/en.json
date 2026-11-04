@@ -1,0 +1,108 @@
+{
+	"common": {
+		"percent": "{{value}}%",
+		"speed": "{{value}} kana/min"
+	},
+	"navigation": {
+		"training": "Training",
+		"statistics": "Statistics",
+		"settings": "Settings"
+	},
+	"splash": {
+		"meaning": "fast"
+	},
+	"training": {
+		"japaneseInputWarning": "Japanese input is on: turn it off to type in romaji.",
+		"errors_one": "{{count}} error",
+		"errors_other": "{{count}} errors",
+		"previousSeries": "previous: {{speed}} · {{accuracy}}",
+		"unlocked": "new:",
+		"customLength": "custom",
+		"typingArea": "Typing area",
+		"skipped": "skipped"
+	},
+	"wordCard": {
+		"otherSenses": "Other meanings"
+	},
+	"partOfSpeech": {
+		"noun": "noun",
+		"pronoun": "pronoun",
+		"verb": "verb",
+		"adjective": "adjective",
+		"adverb": "adverb",
+		"particle": "particle",
+		"conjunction": "conjunction",
+		"interjection": "interjection",
+		"counter": "counter",
+		"prefix": "prefix",
+		"suffix": "suffix",
+		"auxiliary": "auxiliary",
+		"expression": "expression",
+		"other": "other"
+	},
+	"register": {
+		"familiar": "familiar",
+		"slang": "slang",
+		"vulgar": "vulgar",
+		"polite": "polite",
+		"humble": "humble",
+		"honorific": "honorific"
+	},
+	"kanaTable": {
+		"title": "Kana table",
+		"close": "Close",
+		"latest": "new",
+		"next": "next"
+	},
+	"statistics": {
+		"lastSeries": "Last series",
+		"progress": "Progress",
+		"history": "History",
+		"words_one": "{{count}} word",
+		"words_other": "{{count}} words"
+	},
+	"settings": {
+		"language": {
+			"title": "Language",
+			"label": "Language of the interface and translations"
+		},
+		"session": {
+			"title": "Session",
+			"wordsPerSeries": "Words per series"
+		},
+		"speed": {
+			"title": "Speed",
+			"label": "Speed threshold",
+			"threshold": "Kana per minute",
+			"hint": "A kana is mastered from this speed. The change applies to the whole table right away.",
+			"easy": "Easy",
+			"normal": "Normal",
+			"hard": "Hard",
+			"custom": "Custom"
+		},
+		"feedback": {
+			"title": "Feedback",
+			"errorSound": "Error sound"
+		},
+		"display": {
+			"title": "Display",
+			"kanaSize": "Kana size",
+			"kanaSizePx": "Kana size in pixels"
+		},
+		"data": {
+			"title": "Data",
+			"reset": "Reset progress",
+			"resetTitle": "Reset your progress?",
+			"resetDescription": "Unlocked kana, their mastery and the history will be permanently erased. Your settings are kept.",
+			"resetConfirm": "Reset",
+			"resetCancel": "Cancel"
+		},
+		"about": {
+			"title": "About",
+			"version": "Version {{version}}",
+			"sourceCode": "Source code (MIT license)",
+			"vocabulary": "Vocabulary under the CC BY-SA 4.0 license, based on:",
+			"replaySplash": "Replay the launch animation"
+		}
+	}
+}

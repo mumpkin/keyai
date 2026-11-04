@@ -5,7 +5,8 @@ import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
 import { StatisticsScreen } from '@/features/statistics/statistics-screen';
 import { TrainingScreen } from '@/features/training/training-screen';
-import { useProgress } from '@/stores/app-context.tsx';
+import { applyLocale } from '@/i18n/index.ts';
+import { useProgress, useStartsWithSplash } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 
 function CurrentScreen({
@@ -38,11 +39,20 @@ function useKanaSize() {
 	}, [kanaSizePx]);
 }
 
+/** Follows the language of the settings, whatever changed it (C6). */
+function useInterfaceLanguage() {
+	const locale = useProgress((state) => state.save.settings.locale);
+	useEffect(() => applyLocale(locale), [locale]);
+}
+
 export function App() {
 	const screen = useUiStore((state) => state.screen);
 	const navigate = useUiStore((state) => state.navigate);
-	const [isSplashVisible, setIsSplashVisible] = useState(true);
+	const [isSplashVisible, setIsSplashVisible] = useState(
+		useStartsWithSplash(),
+	);
 	useKanaSize();
+	useInterfaceLanguage();
 
 	return (
 		<div className="flex min-h-dvh flex-col">
