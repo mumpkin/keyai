@@ -216,3 +216,10 @@
 		@apply font-sans;
 	}
 }
+
+/* Keeps the content clear of the scrollbar, even when it floats above it. */
+@utility scroll-y {
+	overflow-y: auto;
+	padding-right: 0.75rem;
+	scrollbar-width: thin;
+}

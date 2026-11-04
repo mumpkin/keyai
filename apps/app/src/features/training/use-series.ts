@@ -8,6 +8,7 @@ import {
 	seriesReducer,
 } from '@keyai/core/session';
 import { useRef, useState } from 'react';
+import { seriesSummaryOf } from '@/features/statistics/series-summary.ts';
 import { useProgressStore, useVocabulary } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
@@ -69,7 +70,7 @@ export function useSeries() {
 				seriesRecordOf(finished),
 				current.entries.length,
 			);
-		showSeriesResult(result);
+		showSeriesResult(seriesSummaryOf(result, current.entries, finished));
 	}
 
 	function dispatch(action: SeriesAction) {

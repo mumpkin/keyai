@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { AppHeader } from '@/features/layout/app-header';
 import type { Screen } from '@/features/layout/screen';
 import { SettingsScreen } from '@/features/settings/settings-screen';
 import { SplashScreen } from '@/features/splash/splash-screen';
-import { StatisticsScreen } from '@/features/statistics/statistics-screen';
 import { TrainingScreen } from '@/features/training/training-screen';
 import { applyLocale } from '@/i18n/index.ts';
 import { useProgress, useStartsWithSplash } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
+
+/** The charts weigh more than the rest of the app: loaded when needed. */
+const StatisticsScreen = lazy(async () => {
+	const module = await import('@/features/statistics/statistics-screen.tsx');
+	return { default: module.StatisticsScreen };
+});
 
 function CurrentScreen({
 	screen,
@@ -18,7 +23,11 @@ function CurrentScreen({
 }) {
 	switch (screen) {
 		case 'statistics':
-			return <StatisticsScreen />;
+			return (
+				<Suspense fallback={null}>
+					<StatisticsScreen />
+				</Suspense>
+			);
 		case 'settings':
 			return <SettingsScreen onReplaySplash={onReplaySplash} />;
 		default:

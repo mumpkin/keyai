@@ -10,6 +10,9 @@ and this project adheres to
 
 ### Added
 
+- Statistics screen: last series with the speed of each word, progress per
+  script and history of the last series
+- Export and import of the progress, with a preview before replacing it
 - Settings screen: language, words per series, speed threshold, error sound,
   kana size, progress reset and about section
 - French and English interface, following the language of the settings

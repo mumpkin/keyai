@@ -21,10 +21,15 @@ export interface MasteryColors {
 	readonly backgroundClip: 'padding-box';
 }
 
-/** Border and light tint of a kana, from dark red to green (C8). */
-export function masteryColorsOf(score: number): MasteryColors {
+/** From red to green, for a score from 0 to 1 (C8). */
+export function masteryColorOf(score: number): string {
 	const low = Math.round((1 - score) * PERCENT);
-	const color = `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+	return `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+}
+
+/** Border and light tint of a kana (C8). */
+export function masteryColorsOf(score: number): MasteryColors {
+	const color = masteryColorOf(score);
 	return {
 		borderColor: `color-mix(in oklch, ${color} ${BORDER_OPACITY}%, transparent)`,
 		backgroundColor: `color-mix(in oklch, ${color} ${BACKGROUND_TINT}%, transparent)`,

@@ -43,6 +43,10 @@ export function useStartsWithSplash(): boolean {
 	return useAppDependencies().startsWithSplash;
 }
 
+export function useExportFile(): AppDependencies['exportFile'] {
+	return useAppDependencies().exportFile;
+}
+
 export function useWindowControls(): WindowControls | null {
 	return useAppDependencies().windowControls;
 }

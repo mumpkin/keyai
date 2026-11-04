@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import type { Screen } from '@/features/layout/screen.ts';
-import type { SeriesResult } from './progress-logic.ts';
+import type { SeriesSummary } from '@/features/statistics/series-summary.ts';
 
 /** Interface state that is not saved (A5): replaces a router. */
 export interface UiState {
 	readonly screen: Screen;
-	readonly lastSeries: SeriesResult | null;
+	readonly lastSeries: SeriesSummary | null;
 	readonly navigate: (screen: Screen) => void;
-	readonly showSeriesResult: (result: SeriesResult) => void;
+	readonly showSeriesResult: (summary: SeriesSummary) => void;
 	readonly clearSeriesResult: () => void;
 }
 

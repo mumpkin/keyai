@@ -5,6 +5,7 @@ import {
 	createSave,
 	importPreviewOf,
 	parseSave,
+	saveFileNameOf,
 	serializeSave,
 	withSessionRecord,
 } from './save.ts';
@@ -99,5 +100,13 @@ describe('migrateToCurrent', () => {
 			ok: false,
 			reason: 'unsupportedVersion',
 		});
+	});
+});
+
+describe('saveFileNameOf', () => {
+	it('names the export after its day', () => {
+		expect(saveFileNameOf(new Date('2026-11-04T12:00:00.000Z'))).toBe(
+			'keyai-save-2026-11-04.json',
+		);
 	});
 });

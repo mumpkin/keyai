@@ -1,4 +1,5 @@
 import type { Platform } from '../types.ts';
+import { downloadFile } from './download-file.ts';
 import { createWebStorage } from './storage.ts';
 
 export function createPlatform(): Platform {
@@ -7,5 +8,6 @@ export function createPlatform(): Platform {
 		storage: createWebStorage(),
 		playsSplashOnEveryLaunch: false,
 		windowControls: null,
+		exportFile: downloadFile,
 	};
 }
