@@ -49,9 +49,10 @@ describe('masteryColorsOf', () => {
 	});
 
 	it('uses a light tint of the same colour as background', () => {
-		const { borderColor, backgroundColor } = masteryColorsOf(0.5);
-		expect(backgroundColor).toContain(borderColor);
+		const { backgroundColor, backgroundClip } = masteryColorsOf(0.5);
+		expect(backgroundColor).toContain('var(--mastery-low) 50%');
 		expect(backgroundColor).toContain('transparent');
+		expect(backgroundClip).toBe('padding-box');
 	});
 });
 
