@@ -1,9 +1,11 @@
 import { createSeries, seriesReducer } from '@keyai/core/session';
 import { describe, expect, it } from 'vitest';
 import {
+	finishedWordCount,
 	finishedWordIndexes,
 	liveMeasurementsOf,
 	recapSourceOf,
+	recapWordIndexes,
 	wordViewsOf,
 } from './series-view.ts';
 
@@ -49,6 +51,18 @@ describe('finishedWordIndexes', () => {
 		expect(finishedWordIndexes(typed(['い', 'ぬ', 'く'], 'i  '))).toEqual([
 			1, 0,
 		]);
+	});
+});
+
+describe('recapWordIndexes', () => {
+	it('lists each word once, keeping its most recent occurrence', () => {
+		const series = typed(['い', 'く', 'い', 'く', 'し'], 'i ku i ku ');
+		expect(recapWordIndexes(series)).toEqual([3, 2]);
+	});
+
+	it('keeps counting every finished word in the series progress', () => {
+		const series = typed(['い', 'く', 'い', 'く', 'し'], 'i ku i ku ');
+		expect(finishedWordCount(series)).toBe(4);
 	});
 });
 

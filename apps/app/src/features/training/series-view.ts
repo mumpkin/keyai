@@ -96,6 +96,17 @@ export function finishedWordIndexes(series: SeriesState): number[] {
 		.reverse();
 }
 
+/** Finished words of the recap: each word once, at its latest occurrence. */
+export function recapWordIndexes(series: SeriesState): number[] {
+	const seen = new Set<string>();
+	return finishedWordIndexes(series).filter((index) => {
+		const kana = series.words[index]?.kana ?? '';
+		const isNew = !seen.has(kana);
+		seen.add(kana);
+		return isNew;
+	});
+}
+
 export function finishedWordCount(series: SeriesState): number {
 	return finishedWordIndexes(series).length;
 }
