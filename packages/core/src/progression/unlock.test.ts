@@ -61,6 +61,25 @@ describe('applySeries', () => {
 		expect(outcome.progress.unlocked).toEqual(['い', 'の', 'に']);
 	});
 
+	it('never unlocks after a series with a skipped word', () => {
+		const mastered = recordAttempts(createProgress(ORDER, 2), [
+			...cleanAttempts('い', 10),
+			...cleanAttempts('の', 10),
+		]);
+		const skipped = {
+			kana: 'い',
+			durationMs: null,
+			hadError: true,
+			skipped: true,
+		};
+		expect(
+			applySeries(mastered, [skipped], RULES).unlockedKana,
+		).toBeUndefined();
+		expect(
+			applySeries(mastered, cleanAttempts('い', 1), RULES).unlockedKana,
+		).toBe('に');
+	});
+
 	it('waits while an unlocked kana is not mastered', () => {
 		const progress = createProgress(ORDER, 2);
 		const outcome = applySeries(progress, cleanAttempts('い', 5), RULES);
