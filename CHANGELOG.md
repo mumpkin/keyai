@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- Settings with speed presets and versioned save format with validation and
+  migrations, not yet connected to the interface
 - Kana catalogue (105 hiragana, 126 katakana units) and romaji input engine
   validating keystrokes, not yet connected to the interface
 - Series measurements (speed, accuracy, errors) and kana mastery and
