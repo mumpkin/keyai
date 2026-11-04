@@ -1,2 +1,3 @@
 export { type SelectionContext, selectionContextOf } from './context.ts';
 export { generateSeries } from './generate.ts';
+export { practicableKanaOf } from './practicable.ts';
