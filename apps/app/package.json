@@ -20,6 +20,7 @@
 		"@fontsource-variable/noto-sans-jp": "^5.3.1",
 		"@keyai/core": "workspace:*",
 		"@keyai/vocab": "workspace:*",
+		"@tauri-apps/api": "~2.12.4",
 		"@tauri-apps/plugin-store": "~2.5.0",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.5.2",

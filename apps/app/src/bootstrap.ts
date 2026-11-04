@@ -1,5 +1,5 @@
 import { initTranslations } from '@/i18n/index.ts';
-import { loadPlatform } from '@/platform/index.ts';
+import { loadPlatform, type WindowControls } from '@/platform/index.ts';
 import { createProgressStore } from '@/stores/progress-store.ts';
 import { loadVocabulary, type Vocabulary } from '@/vocab/vocabulary.ts';
 import type { ProgressStore } from './stores/progress-store.ts';
@@ -8,6 +8,7 @@ export interface AppDependencies {
 	readonly progressStore: ProgressStore;
 	readonly vocabulary: Vocabulary;
 	readonly startsWithSplash: boolean;
+	readonly windowControls: WindowControls | null;
 }
 
 /** Startup sequence of A5: platform → vocabulary → save → translations. */
@@ -29,5 +30,6 @@ export async function bootstrap(): Promise<AppDependencies> {
 		progressStore,
 		vocabulary,
 		startsWithSplash: platform.playsSplashOnEveryLaunch || isFirstLaunch,
+		windowControls: platform.windowControls,
 	};
 }

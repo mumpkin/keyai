@@ -13,4 +13,4 @@ export async function loadPlatform(): Promise<Platform> {
 	return createPlatform();
 }
 
-export type { Platform, SaveStorage } from './types.ts';
+export type { Platform, SaveStorage, WindowControls } from './types.ts';
