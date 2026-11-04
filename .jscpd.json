@@ -13,7 +13,8 @@
 		"**/components/ui/**",
 		"**/*.test.ts",
 		"**/*.test.tsx",
-		"pnpm-lock.yaml"
+		"pnpm-lock.yaml",
+		"**/vocab/data/**"
 	],
 	"format": ["typescript", "tsx", "javascript", "css", "rust"]
 }
