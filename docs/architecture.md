@@ -1,8 +1,8 @@
 # Architecture
 
 **Status:** approved on 2026-11-03
-**Related:** [functional specification (FR)](./cahier-des-charges.md) ·
-[technical choices (FR)](./choix-techniques.md) ·
+**Related:** [functional specification](./functional-specification.md) ·
+[technical choices](./technical-choices.md) ·
 [contributing guide](../CONTRIBUTING.md)
 
 This document records the architecture decisions (A1–A7). Fine-grained
