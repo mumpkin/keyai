@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { kanaLayoutOf } from './kana-layout.ts';
-import { kanaStatesOf, masteryColorsOf } from './kana-states.ts';
+import { focusKanaOf, kanaStatesOf, masteryColorsOf } from './kana-states.ts';
 
 const FAST = { ms: 1000, error: false };
 const ORDER = ['い', 'か', 'く', 'こ'];
@@ -32,6 +32,37 @@ describe('kanaStatesOf', () => {
 	it('only marks as new a kana unlocked by playing', () => {
 		expect(statesFor(['い', 'か']).stateOf('か')).not.toBe('latest');
 		expect(statesFor(['い', 'か', 'く']).stateOf('く')).toBe('latest');
+	});
+});
+
+describe('focusKanaOf', () => {
+	const context = {
+		progress: {
+			unlocked: ['い', 'か'],
+			kana: Object.fromEntries([
+				['い', { seen: 5, errors: 0, recent: Array(5).fill(FAST) }],
+			]),
+		},
+		unlockOrder: ORDER,
+		initialUnlocked: 2,
+		thresholdKanaPerMinute: 30,
+	};
+
+	it('keeps the kana to master and the next one', () => {
+		expect(focusKanaOf(context)).toEqual({
+			list: ['か', 'く'],
+			learningCount: 1,
+		});
+	});
+
+	it('has no next kana at the end of the order', () => {
+		const unlocked = ['い', 'か', 'く', 'こ'];
+		const progress = { ...context.progress, unlocked };
+		expect(focusKanaOf({ ...context, progress }).list).toEqual([
+			'か',
+			'く',
+			'こ',
+		]);
 	});
 });
 

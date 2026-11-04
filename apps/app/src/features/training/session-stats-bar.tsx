@@ -17,7 +17,7 @@ function SeriesProgress({
 	const progress = length > 0 ? (completed / length) * PERCENT : 0;
 	return (
 		<span className="flex items-center gap-2">
-			<span className="h-1.5 w-24 overflow-hidden rounded-full bg-muted">
+			<span className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-muted sm:block">
 				<span
 					className="block h-full bg-primary transition-[width]"
 					style={{ width: `${progress}%` }}

@@ -446,5 +446,7 @@ have a reserved place or float above the page.
 
 ### Mobile
 
-The kana table moves to a bottom sheet opened by a button, because the
-virtual keyboard takes the bottom of the screen. The word line wraps.
+The words sit at the top of the screen, as the virtual keyboard covers the
+bottom. The full kana table does not fit a phone, so it gives way to the kana
+to work on, with the number of mastered kana: unlocked kana that are not
+mastered, then the next one. The word line wraps.

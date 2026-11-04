@@ -78,3 +78,23 @@ export function kanaStatesOf(context: KanaStateContext): KanaStates {
 		scoreOf: (kana) => masteryFor(kana).score,
 	};
 }
+
+export interface FocusKana {
+	/** The unlocked kana still to master, then the next one to unlock. */
+	readonly list: readonly string[];
+	readonly learningCount: number;
+}
+
+/** What a phone shows instead of the whole table (C8). */
+export function focusKanaOf(context: KanaStateContext): FocusKana {
+	const { progress, unlockOrder, thresholdKanaPerMinute } = context;
+	const learning = progress.unlocked.filter(
+		(kana) =>
+			!masteryOf(progress.kana[kana], thresholdKanaPerMinute).isMastered,
+	);
+	const next = nextKanaOf(progress, unlockOrder);
+	return {
+		list: next ? [...learning, next] : learning,
+		learningCount: learning.length,
+	};
+}

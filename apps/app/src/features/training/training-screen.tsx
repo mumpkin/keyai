@@ -1,8 +1,8 @@
 import { withWordsPerSession } from '@keyai/core/settings';
 import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
-import { MobileKanaSheet } from '@/features/kana-table/mobile-kana-sheet.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { recapSourceOf, wordViewsOf } from './series-view.ts';
@@ -26,7 +26,7 @@ function JapaneseInputWarning() {
 	);
 }
 
-/** Word cards manage the focus; the mobile sheet must not open the keyboard. */
+/** Word cards manage the focus; the kana list must not open the keyboard. */
 const KEEPS_FOCUS = '[data-slot="popover-trigger"], [data-keeps-focus]';
 
 /** Any other click brings the focus back to typing. */
@@ -69,7 +69,7 @@ export function TrainingScreen() {
 					onLengthChange={changeLength}
 					onLengthDismiss={focus}
 				/>
-				<div className="relative flex flex-1 flex-col justify-center gap-4 py-6">
+				<div className="relative flex flex-1 flex-col gap-4 md:justify-center md:py-6">
 					<WordLine
 						words={words}
 						entries={series.entries}
@@ -88,7 +88,9 @@ export function TrainingScreen() {
 				<div className="hidden md:block">
 					<KanaTable />
 				</div>
-				<MobileKanaSheet />
+				<div className="md:hidden">
+					<KanaFocusList />
+				</div>
 			</div>
 		</TypingFocusContext.Provider>
 	);

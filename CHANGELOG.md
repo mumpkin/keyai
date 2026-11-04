@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- On a phone, the words sit above the virtual keyboard, and the kana table
+  gives way to the kana to work on
+
 ## [0.1.0] - 2026-11-04
 
 ### Added
