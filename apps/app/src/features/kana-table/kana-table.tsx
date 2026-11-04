@@ -57,6 +57,7 @@ function SlotGrid({
 					key={slot.id}
 					kana={slot.kana}
 					state={slot.kana ? states.stateOf(slot.kana) : 'locked'}
+					score={slot.kana ? states.scoreOf(slot.kana) : 0}
 				/>
 			))}
 		</div>

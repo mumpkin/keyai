@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { kanaLayoutOf } from './kana-layout.ts';
-import { kanaStatesOf } from './kana-states.ts';
+import { kanaStatesOf, masteryColorOf } from './kana-states.ts';
 
 const FAST = { ms: 1000, error: false };
 const ORDER = ['い', 'か', 'く', 'こ'];
@@ -32,6 +32,14 @@ describe('kanaStatesOf', () => {
 	it('only marks as new a kana unlocked by playing', () => {
 		expect(statesFor(['い', 'か']).stateOf('か')).not.toBe('latest');
 		expect(statesFor(['い', 'か', 'く']).stateOf('く')).toBe('latest');
+	});
+});
+
+describe('masteryColorOf', () => {
+	it('goes from orange to green with the mastery score', () => {
+		expect(masteryColorOf(0)).toContain('var(--mastery-low) 100%');
+		expect(masteryColorOf(0.25)).toContain('var(--mastery-low) 75%');
+		expect(masteryColorOf(1)).toContain('var(--mastery-low) 0%');
 	});
 });
 

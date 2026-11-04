@@ -7,6 +7,14 @@ export type KanaDisplayState =
 	| 'latest'
 	| 'next';
 
+const PERCENT = 100;
+
+/** Background of a kana, from orange to green with its mastery (C8). */
+export function masteryColorOf(score: number): string {
+	const low = Math.round((1 - score) * PERCENT);
+	return `color-mix(in oklch, var(--mastery-low) ${low}%, var(--mastery-high))`;
+}
+
 export interface KanaStateContext {
 	readonly progress: Progress;
 	readonly unlockOrder: readonly string[];
