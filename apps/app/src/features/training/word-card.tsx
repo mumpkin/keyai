@@ -116,7 +116,7 @@ export function WordCard({
 			<PopoverTrigger
 				openOnHover
 				delay={HOVER_DELAY_MS}
-				className="w-full cursor-help text-left"
+				className="block w-full min-w-0 cursor-help text-left"
 			>
 				{children}
 			</PopoverTrigger>
