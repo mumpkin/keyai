@@ -28,6 +28,10 @@ export const SettingsSchema = zod.object({
 			.max(SPEED_LIMITS.max)
 			.multipleOf(SPEED_LIMITS.step),
 	}),
+	/** A default rather than a migration: older apps can still read it. */
+	naturalWriting: zod.boolean().default(false),
+	/** Natural writing only changes the keys: the words stay apart. */
+	keepsWordSpaces: zod.boolean().default(false),
 	feedback: zod.object({ sound: zod.boolean() }),
 	display: zod.object({
 		kanaSizePx: zod

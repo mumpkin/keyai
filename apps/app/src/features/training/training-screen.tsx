@@ -69,6 +69,9 @@ export function TrainingScreen() {
 	const { inputRef, isComposing, isFocusLost, focus } =
 		useTypingInput(dispatch);
 	const locale = useProgress((state) => state.save.settings.locale);
+	const keepsWordSpaces = useProgress(
+		(state) => state.save.settings.keepsWordSpaces,
+	);
 	const updateSettings = useProgress((state) => state.updateSettings);
 	const previous = useUiStore((state) => state.lastSeries);
 	const words = wordViewsOf(series.state);
@@ -103,6 +106,9 @@ export function TrainingScreen() {
 							currentIndex={series.state.currentIndex}
 							locale={locale}
 							errorCount={series.state.currentWordErrors}
+							isJoined={
+								series.state.naturalWriting && !keepsWordSpaces
+							}
 						/>
 						<FocusLostHint isVisible={isFocusLost} />
 					</div>

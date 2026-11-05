@@ -63,6 +63,14 @@ export async function playSeries(page: Page): Promise<void> {
 	}
 }
 
+/** Types every word one after the other, without any space. */
+export async function playNaturalSeries(page: Page): Promise<void> {
+	const words = await page.locator('[data-word-index]').allTextContents();
+	for (const word of words) {
+		await page.keyboard.type(toHepburn(tokenize(word)));
+	}
+}
+
 /** Whether anything can be scrolled sideways, on the page or in a box. */
 export function sidewaysOverflow(page: Page): Promise<string[]> {
 	return page.evaluate(() =>

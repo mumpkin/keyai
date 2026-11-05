@@ -1,4 +1,9 @@
-import { createMatcher, finishWord, progressOf } from '../input/matcher.ts';
+import {
+	createMatcher,
+	finishWord,
+	progressOf,
+	remainingSpellingsOf,
+} from '../input/matcher.ts';
 import type { SeriesState, SeriesWord } from './types.ts';
 import { applyMatchEvents } from './typing.ts';
 import { currentWordOf, withCurrentWord, withWordStatus } from './words.ts';
@@ -59,15 +64,31 @@ export function pressSpace(state: SeriesState, at: number): SeriesState {
 	);
 }
 
+/** The next word takes over what the finished one could still accept. */
+function continueAfter(state: SeriesState, finished: SeriesWord): SeriesState {
+	if (state.phase === 'finished') {
+		return state;
+	}
+	const leading = remainingSpellingsOf(finished.matcher);
+	return {
+		...withCurrentWord(state, (current) => ({
+			...current,
+			matcher: createMatcher(current.kana, leading),
+		})),
+		ignoresNextSpace: true,
+	};
+}
+
 /**
- * The last word needs no space: the series ends with its last key (C8). A
- * final ん ends the series as soon as `n` spells it.
+ * The last word needs no space, nor does any word in natural writing: it ends
+ * with its last key (C8). A final ん ends it as soon as `n` spells it.
  */
-export function finishLastWord(state: SeriesState, at: number): SeriesState {
+export function finishTypedWord(state: SeriesState, at: number): SeriesState {
 	const word = currentWordOf(state);
 	const isLastWord = state.currentIndex === state.words.length - 1;
-	return isLastWord && word && finishWord(word.matcher)
-		? pressSpace(state, at)
+	const endsByItself = state.naturalWriting || isLastWord;
+	return endsByItself && word && finishWord(word.matcher)
+		? continueAfter(pressSpace(state, at), word)
 		: state;
 }
 

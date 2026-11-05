@@ -1,4 +1,4 @@
-import { createSeries } from './create.ts';
+import { createSeries, type SeriesOptions } from './create.ts';
 import { seriesReducer } from './reducer.ts';
 import type { SeriesAction, SeriesState } from './types.ts';
 
@@ -20,10 +20,14 @@ function actionOf(character: string, at: number): SeriesAction {
  * Plays a script on a series, one action every 500 ms starting at 0:
  * letters are keys, ' ' is space and '<' is backspace.
  */
-export function play(words: readonly string[], script: string): SeriesState {
+export function play(
+	words: readonly string[],
+	script: string,
+	options?: SeriesOptions,
+): SeriesState {
 	return [...script].reduce(
 		(state, character, index) =>
 			seriesReducer(state, actionOf(character, index * KEY_INTERVAL_MS)),
-		createSeries(words),
+		createSeries(words, options),
 	);
 }

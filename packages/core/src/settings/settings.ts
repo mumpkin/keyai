@@ -31,6 +31,8 @@ export function defaultSettings(locale: Locale): Settings {
 		locale,
 		wordsPerSession: DEFAULT_WORDS_PER_SESSION,
 		speed: { preset: 'easy', kanaPerMinute: SPEED_PRESETS.easy },
+		naturalWriting: false,
+		keepsWordSpaces: false,
 		feedback: { sound: false },
 		display: {
 			kanaSizePx: DEFAULT_KANA_SIZE_PX,
@@ -46,6 +48,20 @@ function clamp(value: number, limits: { min: number; max: number }): number {
 
 export function withLocale(settings: Settings, locale: Locale): Settings {
 	return { ...settings, locale };
+}
+
+export function withNaturalWriting(
+	settings: Settings,
+	naturalWriting: boolean,
+): Settings {
+	return { ...settings, naturalWriting };
+}
+
+export function withWordSpaces(
+	settings: Settings,
+	keepsWordSpaces: boolean,
+): Settings {
+	return { ...settings, keepsWordSpaces };
 }
 
 export function withErrorSound(settings: Settings, sound: boolean): Settings {

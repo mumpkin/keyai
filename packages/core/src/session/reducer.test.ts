@@ -180,3 +180,105 @@ describe('seriesReducer', () => {
 		);
 	});
 });
+
+describe('natural writing', () => {
+	const Natural = { naturalWriting: true };
+
+	it('moves on with the last key of each word', () => {
+		const state = play(['いぬ', 'ねこ'], 'inuneko', Natural);
+		expect(state.phase).toBe('finished');
+		expect(state.attempts).toHaveLength(4);
+		expect(state.wrongKeyCount).toBe(0);
+	});
+
+	it('still needs a space by default', () => {
+		const state = play(['いぬ', 'ねこ'], 'inuneko');
+		expect(state.currentIndex).toBe(0);
+		expect(state.wrongKeyCount).toBe(4);
+	});
+
+	it.each([
+		[['ほん', 'あか'], 'honaka'],
+		[['ほん', 'あか'], 'honnaka'],
+		[['ほん', 'あか'], "hon'aka"],
+		[['ほん', 'なか'], 'honnaka'],
+		[['ほん', 'なか'], 'honnnaka'],
+		[['ほん', 'やま'], 'honyama'],
+		[['こう', 'おと'], 'koooto'],
+		[['コーヒー', 'いま'], 'koohiiima'],
+	])('reads %j typed %s', (words, script) => {
+		const state = play(words, script, Natural);
+		expect(state.phase).toBe('finished');
+		expect(state.wrongKeyCount).toBe(0);
+		expect(state.attempts.map((attempt) => attempt.kana)).toEqual(
+			words.flatMap((word) => tokenize(word).map((unit) => unit.text)),
+		);
+	});
+
+	it('does not read ほん + なか typed honaka', () => {
+		const state = play(['ほん', 'なか'], 'honaka', Natural);
+		expect(state.phase).toBe('typing');
+		expect(state.wrongKeyCount).toBeGreaterThan(0);
+	});
+
+	it('blames a wrong key on the first kana of the next word', () => {
+		const state = play(['ほん', 'あか'], 'honx', Natural);
+		expect(state.currentIndex).toBe(1);
+		expect(state.words[0]?.faultyUnits).toEqual([]);
+		expect(state.words[1]?.faultyUnits).toEqual([0]);
+	});
+
+	it('ignores one space after a finished word, then skips', () => {
+		const once = play(['いぬ', 'ねこ', 'いえ'], 'inu ', Natural);
+		expect(once.currentIndex).toBe(1);
+		expect(once.words[1]?.status).toBe('current');
+		const twice = play(['いぬ', 'ねこ', 'いえ'], 'inu  ', Natural);
+		expect(twice.currentIndex).toBe(2);
+		expect(twice.words[1]?.status).toBe('skipped');
+	});
+
+	it('times the next word from a space typed out of habit', () => {
+		const state = play(['いぬ', 'ね'], 'inu ne', Natural);
+		expect(state.attempts.at(-1)?.durationMs).toBe(2 * KEY_INTERVAL_MS);
+	});
+
+	it('skips an unfinished word and comes back to it', () => {
+		const skipped = play(['いぬ', 'ねこ'], 'i ', Natural);
+		expect(skipped.currentIndex).toBe(1);
+		const back = play(['いぬ', 'ねこ'], 'i <nuneko', Natural);
+		expect(back.phase).toBe('finished');
+		expect(back.words[0]?.status).toBe('done');
+	});
+
+	it('leaves a finished word alone on backspace', () => {
+		const state = play(['いぬ', 'ねこ'], 'inu<', Natural);
+		expect(state.currentIndex).toBe(1);
+		expect(state.words[0]?.status).toBe('done');
+	});
+
+	it('records every unit cleanly from the displayed romaji', () => {
+		const word = fc
+			.array(fc.constantFrom(...KANA_CATALOGUE), {
+				minLength: 1,
+				maxLength: 4,
+			})
+			.filter(isTypeable)
+			.map((units) => units.map((unit) => unit.text).join(''));
+		fc.assert(
+			fc.property(
+				fc.array(word, { minLength: 1, maxLength: 5 }),
+				(words) => {
+					const script = words
+						.map((kana) => toHepburn(tokenize(kana)))
+						.join('');
+					const state = play(words, script, Natural);
+					expect(state.phase).toBe('finished');
+					expect(state.wrongKeyCount).toBe(0);
+					expect(state.attempts).toHaveLength(
+						words.flatMap((kana) => tokenize(kana)).length,
+					);
+				},
+			),
+		);
+	});
+});

@@ -17,6 +17,10 @@ export type SeriesPhase = 'ready' | 'typing' | 'finished' | 'aborted';
 
 export interface SeriesState {
 	readonly phase: SeriesPhase;
+	/** Words follow each other without a space, typed or displayed (C8). */
+	readonly naturalWriting: boolean;
+	/** A word just ended by itself: a space out of habit must skip nothing. */
+	readonly ignoresNextSpace: boolean;
 	readonly words: readonly SeriesWord[];
 	readonly currentIndex: number;
 	/** Time of the first key, in milliseconds. */

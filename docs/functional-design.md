@@ -165,7 +165,8 @@ one, exactly like a cell of the reference table.
 - The timer starts on the first key; the first unit of a session only counts
   for accuracy.
 - A unit's time starts at the completion of the previous unit, or at the
-  space that starts the word.
+  space that starts the word. In natural writing there is no such space: the
+  time spent reading a word counts for its first unit.
 - When returning to a skipped word, the current unit's timer restarts.
 
 ### Summary content
@@ -311,6 +312,8 @@ The word order is then shuffled.
 | Kana size         | 24 px                         | 16 to 64 px           |
 | Theme             | system                        | system / dark / light |
 | Kana table tab    | My kana                       | set from the table    |
+| Natural writing   | off                           | on / off              |
+| Keep word spaces  | off                           | on / off              |
 
 The themes use the Tokyo Night Light and Tokyo Night colours. Where an
 original colour fails WCAG AA, it is adjusted as little as possible, and
@@ -440,6 +443,20 @@ click.
 - **The last word needs no space**: the series ends with its last key (a
   final ん ends it as soon as `n` spells it). Space does nothing before the
   first key of a series, so a space typed out of habit skips nothing.
+- **Natural writing** (option, off by default): words follow each other without
+  any gap, and each one ends with its last key, like the last word of a series.
+  - The series knows its words, so nothing has to be guessed. The only doubt is
+    a final ん: `n` ends the word, and an `n` or `'` that the next word cannot
+    start with still belongs to it. ほん + あか accepts `honaka`, `honnaka` and
+    `hon'aka`; ほん + なか accepts `honnaka` and `honnnaka`.
+  - A space right after a word ended this way is ignored once, out of habit,
+    and starts the timer of the next word. Otherwise space skips the word, and
+    a series with a skipped word still unlocks nothing.
+  - A wrong key is rejected as usual, and blamed on the first kana of the next
+    word once the previous one is finished.
+  - A change of this setting drops the series left for another screen.
+  - A second option keeps the gap between the words on screen: only the keys
+    change. It applies at once, and can only be set with natural writing on.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).

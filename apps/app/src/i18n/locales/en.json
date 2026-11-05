@@ -45,6 +45,7 @@
 		"kanaUnlocked": "New kana unlocked: {{kana}}.",
 		"focusLost": "Click or touch here to keep typing",
 		"guideKeyboard": "Type each word in romaji (か = ka), space to confirm.",
+		"guideNatural": "Type the words one after the other in romaji (か = ka), without spaces.",
 		"guideTouch": "Touch here to open the keyboard, then type in romaji.",
 		"typingArea": "Typing area",
 		"skipped": "skipped"
@@ -123,7 +124,9 @@
 		},
 		"session": {
 			"title": "Session",
-			"wordsPerSeries": "Words per series"
+			"wordsPerSeries": "Words per series",
+			"naturalWriting": "Natural writing (no space between words)",
+			"keepWordSpaces": "Keep the spaces shown between words"
 		},
 		"speed": {
 			"title": "Speed",
