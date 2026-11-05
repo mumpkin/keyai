@@ -31,8 +31,8 @@ export function defaultSettings(locale: Locale): Settings {
 		locale,
 		wordsPerSession: DEFAULT_WORDS_PER_SESSION,
 		speed: { preset: 'easy', kanaPerMinute: SPEED_PRESETS.easy },
-		naturalWriting: false,
-		keepsWordSpaces: false,
+		naturalWriting: true,
+		keepsWordSpaces: true,
 		feedback: { sound: false },
 		display: {
 			kanaSizePx: DEFAULT_KANA_SIZE_PX,

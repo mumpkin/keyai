@@ -29,9 +29,9 @@ export const SettingsSchema = zod.object({
 			.multipleOf(SPEED_LIMITS.step),
 	}),
 	/** A default rather than a migration: older apps can still read it. */
-	naturalWriting: zod.boolean().default(false),
+	naturalWriting: zod.boolean().default(true),
 	/** Natural writing only changes the keys: the words stay apart. */
-	keepsWordSpaces: zod.boolean().default(false),
+	keepsWordSpaces: zod.boolean().default(true),
 	feedback: zod.object({ sound: zod.boolean() }),
 	display: zod.object({
 		kanaSizePx: zod

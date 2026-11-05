@@ -73,7 +73,7 @@ test('says when the keys go nowhere', async ({ page }) => {
 });
 
 test('guides the first series only', async ({ page }) => {
-	const guide = page.getByText(/^Tapez chaque mot/);
+	const guide = page.getByText(/^Tapez les mots/);
 	await expect(guide).toBeVisible();
 
 	await page.getByRole('button', { name: '10', exact: true }).click();
@@ -120,7 +120,7 @@ test('types a whole series without a space in natural writing', async ({
 	page,
 }) => {
 	await openScreen(page, SETTINGS).click();
-	await page.getByRole('switch', { name: /Écriture naturelle/ }).click();
+	await page.getByRole('switch', { name: /Garder les espaces/ }).click();
 	await openScreen(page, TRAINING).click();
 	await page.getByRole('button', { name: '10', exact: true }).click();
 	const first = page.locator('[data-word-index="0"]');
@@ -141,13 +141,27 @@ test('types a whole series without a space in natural writing', async ({
 		.toMatchObject({ wordCount: 10, accuracy: 1 });
 });
 
-test('can keep the gaps between words in natural writing', async ({ page }) => {
+test('still lets people validate each word with space', async ({ page }) => {
 	await openScreen(page, SETTINGS).click();
-	const spaces = page.getByRole('switch', { name: /Garder les espaces/ });
-	await expect(spaces).toBeDisabled();
 	await page.getByRole('switch', { name: /Écriture naturelle/ }).click();
-	await spaces.click();
+	await expect(
+		page.getByRole('switch', { name: /Garder les espaces/ }),
+	).toBeDisabled();
 	await openScreen(page, TRAINING).click();
+	await page.getByRole('button', { name: '10', exact: true }).click();
+	await playSeries(page);
+	await expect
+		.poll(() =>
+			page.evaluate(
+				() =>
+					JSON.parse(localStorage.getItem('keyai.save') ?? '').history
+						.length,
+			),
+		)
+		.toBe(1);
+});
+
+test('keeps the gaps between words by default', async ({ page }) => {
 	const firstBox = await page.locator('[data-word-index="0"]').boundingBox();
 	const secondBox = await page.locator('[data-word-index="1"]').boundingBox();
 	expect(secondBox?.x).toBeGreaterThan(
