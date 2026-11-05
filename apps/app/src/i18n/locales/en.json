@@ -52,7 +52,9 @@
 	},
 	"wordCard": {
 		"otherSenses": "Other meanings",
-		"report": "Report an error"
+		"report": "Report an error",
+		"ankiAdd": "Add to my Anki list",
+		"ankiRemove": "Remove from my Anki list"
 	},
 	"partOfSpeech": {
 		"noun": "noun",
@@ -89,6 +91,16 @@
 		"next": "next"
 	},
 	"statistics": {
+		"anki": {
+			"title": "Anki list",
+			"empty": "Add words from their card to find them here.",
+			"export": "Export for Anki",
+			"done": "File saved. In Anki: File, then Import.",
+			"failed": "The export failed.",
+			"clear": "Empty the list",
+			"clearTitle": "Empty the Anki list?",
+			"clearDescription": "The words will leave the list. What is already in Anki does not change."
+		},
 		"lastSeries": "Last series",
 		"progress": "Progress",
 		"history": "History",

@@ -188,6 +188,7 @@ interface SaveFile {
 	settings: Settings;
 	progress: Progress;
 	history: SessionRecord[]; // last 100 sessions, oldest dropped first
+	ankiWords: string[]; // ids of the words to export to Anki
 }
 
 interface SessionRecord {
@@ -255,6 +256,7 @@ stores/             progress-store.ts · ui-store.ts · app-context.tsx
 features/
   training/         screen · bar/ · words/ · series/ · typing/
   word-card/        word card and glosses, shared with the statistics
+  anki/             text file of the Anki list
   kana-table/       full table, and the kana to work on for phones
   statistics/       screen · sections/ · charts/ · model/
   settings/         screen · sections/ · data/ · fields/

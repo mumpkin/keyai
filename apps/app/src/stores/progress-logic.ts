@@ -54,9 +54,12 @@ export function freshSave(
 	return blankSave(context, defaultSettings(preferredLocale(languages)));
 }
 
-/** Resetting erases the progress and the history, not the settings (C6). */
+/**
+ * Resetting erases the progress and the history, not the settings nor the
+ * words kept for Anki (C6).
+ */
 export function saveAfterReset(save: SaveFile, context: SaveContext): SaveFile {
-	return blankSave(context, save.settings);
+	return { ...blankSave(context, save.settings), ankiWords: save.ankiWords };
 }
 
 /** Matches a stored or imported save with the current vocabulary. */
@@ -142,4 +145,12 @@ export function saveWithSettings(
 	now: Date,
 ): SaveFile {
 	return { ...save, settings, savedAt: now.toISOString() };
+}
+
+export function saveWithAnkiWords(
+	save: SaveFile,
+	ankiWords: readonly string[],
+	now: Date,
+): SaveFile {
+	return { ...save, ankiWords: [...ankiWords], savedAt: now.toISOString() };
 }

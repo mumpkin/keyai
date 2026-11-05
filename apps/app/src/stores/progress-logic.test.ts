@@ -9,6 +9,7 @@ import {
 	type SaveContext,
 	saveAfterReset,
 	saveAfterSeries,
+	saveWithAnkiWords,
 	saveWithSettings,
 } from './progress-logic.ts';
 
@@ -156,5 +157,16 @@ describe('saveAfterSeries', () => {
 			CONTEXT,
 		);
 		expect(update.result.unlockedKana).toBeUndefined();
+	});
+});
+
+describe('the Anki list', () => {
+	it('survives a reset of the progress', () => {
+		const save = saveWithAnkiWords(
+			freshSave(CONTEXT, ['fr']),
+			['1'],
+			CONTEXT.now,
+		);
+		expect(saveAfterReset(save, CONTEXT).ankiWords).toEqual(['1']);
 	});
 });

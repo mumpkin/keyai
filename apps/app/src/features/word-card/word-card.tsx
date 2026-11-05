@@ -10,6 +10,7 @@ import {
 	PopoverTrigger,
 } from '@/components/ui/popover.tsx';
 import { translationReportUrl } from '@/lib/translation-report.ts';
+import { AnkiToggle } from './anki-toggle.tsx';
 import { GlossText } from './gloss-text.tsx';
 import { glossOf, noteOf } from './glosses.ts';
 import { useTypingFocus } from './typing-focus.tsx';
@@ -107,7 +108,8 @@ function WordCardContent({ entry, locale }: WordCardProps) {
 			{others.length > 0 && (
 				<OtherSenses senses={others} locale={locale} />
 			)}
-			<p className="mt-2 text-xs">
+			<p className="mt-2 flex flex-col items-start gap-1 text-xs">
+				<AnkiToggle wordId={entry.word.id} />
 				<ExternalLink
 					href={translationReportUrl({
 						kana: entry.word.kana,

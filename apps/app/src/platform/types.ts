@@ -19,6 +19,22 @@ export interface WindowControls {
 	readonly onResized: (listener: () => void) => Promise<() => void>;
 }
 
+/** What a saved file is, for the browser and the file dialog. */
+export interface ExportFormat {
+	readonly mimeType: string;
+	readonly extension: string;
+}
+
+export const JSON_EXPORT: ExportFormat = {
+	mimeType: 'application/json',
+	extension: 'json',
+};
+
+export const TEXT_EXPORT: ExportFormat = {
+	mimeType: 'text/plain',
+	extension: 'txt',
+};
+
 /** Everything that differs between the web and the desktop app (A5). */
 export interface Platform {
 	readonly name: 'web' | 'tauri';
@@ -36,5 +52,6 @@ export interface Platform {
 	readonly exportFile: (
 		fileName: string,
 		content: string,
+		format?: ExportFormat,
 	) => Promise<boolean>;
 }
