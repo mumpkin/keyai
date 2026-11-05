@@ -1,11 +1,11 @@
 import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
-import { useLayoutEffect, useRef } from 'react';
+import { type ReactNode, useLayoutEffect, useRef } from 'react';
 import type { WordView as WordViewModel } from '@/features/training/series/series-view.ts';
 import { cn } from '@/lib/utils.ts';
 import { WordView } from './word-view.tsx';
 
-const LINE_HEIGHT = 'calc(var(--kana-size) * 1.6)';
+const LINE_SCALE = 1.6;
 const VISIBLE_LINES = 3;
 
 function prefersReducedMotion(): boolean {
@@ -45,6 +45,10 @@ function useGlidingCursor() {
 		const content = contentRef.current;
 		const cursor = cursorRef.current;
 		const unit = content?.querySelector('[data-cursor]');
+		if (cursor) {
+			// A finished quote stays on screen, with nothing left to type.
+			cursor.hidden = !unit;
+		}
 		if (!(content && cursor && unit)) {
 			return;
 		}
@@ -59,25 +63,23 @@ function useGlidingCursor() {
 	return { contentRef, cursorRef };
 }
 
-interface WordLineProps {
-	readonly words: readonly WordViewModel[];
-	readonly entries: readonly VocabEntry[];
+interface TypingLineProps {
 	readonly currentIndex: number;
-	readonly locale: Locale;
-	readonly errorCount: number;
 	/** Natural writing: nothing separates the words (C8). */
 	readonly isJoined: boolean;
+	/** Height of a line in kana sizes: furigana need more room. */
+	readonly lineScale?: number;
+	readonly children: ReactNode;
 }
 
 /** Three lines at most, scrolling with the current word (C8). */
-export function WordLine({
-	words,
-	entries,
+export function TypingLine({
 	currentIndex,
-	locale,
-	errorCount,
 	isJoined,
-}: WordLineProps) {
+	lineScale = LINE_SCALE,
+	children,
+}: TypingLineProps) {
+	const lineHeight = `calc(var(--kana-size) * ${lineScale})`;
 	const viewportRef = useKeepCurrentLineCentered(currentIndex);
 	const { contentRef, cursorRef } = useGlidingCursor();
 	return (
@@ -86,8 +88,8 @@ export function WordLine({
 			className="relative overflow-hidden"
 			style={{
 				fontSize: 'var(--kana-size)',
-				lineHeight: LINE_HEIGHT,
-				height: `calc(${LINE_HEIGHT} * ${VISIBLE_LINES})`,
+				lineHeight,
+				height: `calc(${lineHeight} * ${VISIBLE_LINES})`,
 			}}
 		>
 			<div
@@ -103,16 +105,40 @@ export function WordLine({
 					data-typing-cursor
 					className="pointer-events-none absolute top-0 left-0 h-0.5 bg-primary transition-[transform,width] duration-100 ease-out motion-reduce:transition-none"
 				/>
-				{words.map((word) => (
-					<WordView
-						key={word.index}
-						word={word}
-						entry={entries[word.index]}
-						locale={locale}
-						errorCount={errorCount}
-					/>
-				))}
+				{children}
 			</div>
 		</div>
+	);
+}
+
+interface WordLineProps {
+	readonly words: readonly WordViewModel[];
+	readonly entries: readonly VocabEntry[];
+	readonly currentIndex: number;
+	readonly locale: Locale;
+	readonly errorCount: number;
+	readonly isJoined: boolean;
+}
+
+export function WordLine({
+	words,
+	entries,
+	currentIndex,
+	locale,
+	errorCount,
+	isJoined,
+}: WordLineProps) {
+	return (
+		<TypingLine currentIndex={currentIndex} isJoined={isJoined}>
+			{words.map((word) => (
+				<WordView
+					key={word.index}
+					word={word}
+					entry={entries[word.index]}
+					locale={locale}
+					errorCount={errorCount}
+				/>
+			))}
+		</TypingLine>
 	);
 }

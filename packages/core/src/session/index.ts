@@ -8,4 +8,5 @@ export type {
 	SeriesState,
 	SeriesWord,
 	WordStatus,
+	WordTyping,
 } from './types.ts';

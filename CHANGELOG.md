@@ -13,6 +13,10 @@ and this project adheres to
 - Natural writing, on by default: words follow each other without typing a
   space, with or without a gap on screen
 - An Anki list: add words from their card and export them from the statistics
+- A quote mode: 100 quotes from Japanese literature in kana, in kanji with
+  furigana or in kanji alone, with their translation, source and word cards
+- A choice to train on hiragana or katakana alone, as a revision without unlocks
+- A Buy Me a Coffee link, which can be turned off apart from the About section
 - A "My kana" tab, shown first, with every unlocked kana from the most recent
 
 ### Changed

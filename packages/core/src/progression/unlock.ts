@@ -10,6 +10,8 @@ export interface UnlockRules {
 	/** Unlock order computed by the vocabulary pipeline. */
 	readonly unlockOrder: readonly string[];
 	readonly thresholdKanaPerMinute: number;
+	/** A revision of one script records the attempts and unlocks nothing. */
+	readonly isRevision?: boolean;
 }
 
 export interface SeriesOutcome {
@@ -84,6 +86,7 @@ export function applySeries(
 	const hasSkippedWord = attempts.some((attempt) => attempt.skipped);
 	const canUnlock =
 		nextKana !== undefined &&
+		!rules.isRevision &&
 		!hasSkippedWord &&
 		blockingKanaOf(recorded, rules.thresholdKanaPerMinute).length === 0;
 	if (!canUnlock) {

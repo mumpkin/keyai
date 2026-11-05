@@ -25,11 +25,10 @@ function newSeries(
 	previous: SeriesWords | null = null,
 ): Series {
 	const { save } = store.getState();
-	const context = selectionContextOf(
-		vocabulary.entries,
-		save.progress,
-		save.settings.speed.kanaPerMinute,
-	);
+	const context = selectionContextOf(vocabulary.entries, save.progress, {
+		thresholdKanaPerMinute: save.settings.speed.kanaPerMinute,
+		script: save.settings.wordScript,
+	});
 	seriesCount += 1;
 	const seed = Date.now() + seriesCount;
 	const entries = generateSeries(
@@ -39,6 +38,7 @@ function newSeries(
 	);
 	return {
 		id: seed,
+		script: save.settings.wordScript,
 		entries,
 		state: createSeries(
 			entries.map((entry) => entry.word.kana),
@@ -51,10 +51,11 @@ function newSeries(
 /** The series left for another screen, unless the settings no longer fit. */
 function pausedSeriesFor(store: ProgressStore): Series | null {
 	const { pausedSeries } = useUiStore.getState();
-	const { wordsPerSession, naturalWriting } = store.getState().save.settings;
+	const settings = store.getState().save.settings;
 	if (
-		pausedSeries?.series.entries.length !== wordsPerSession ||
-		pausedSeries.series.state.naturalWriting !== naturalWriting
+		pausedSeries?.series.entries.length !== settings.wordsPerSession ||
+		pausedSeries.series.state.naturalWriting !== settings.naturalWriting ||
+		pausedSeries.series.script !== settings.wordScript
 	) {
 		return null;
 	}
@@ -103,12 +104,10 @@ export function useSeries() {
 	}
 
 	function finish(current: Series, finished: SeriesState) {
-		const result = store
-			.getState()
-			.applySeriesResult(
-				seriesRecordOf(finished),
-				current.entries.length,
-			);
+		const result = store.getState().applySeriesResult({
+			record: seriesRecordOf(finished),
+			wordCount: current.entries.length,
+		});
 		showSeriesResult(seriesSummaryOf(result, current.entries, finished));
 	}
 

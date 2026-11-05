@@ -81,7 +81,13 @@ describe('recapSourceOf', () => {
 
 	function seriesWith(keys: string) {
 		const state = typed(['く'], keys);
-		return { id: 1, entries: [], state, previous: finished };
+		return {
+			id: 1,
+			script: 'both' as const,
+			entries: [],
+			state,
+			previous: finished,
+		};
 	}
 
 	it('keeps the finished series until the first key of the next one', () => {

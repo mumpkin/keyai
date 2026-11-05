@@ -39,6 +39,10 @@ export function useVocabulary(): Vocabulary {
 	return useAppDependencies().vocabulary;
 }
 
+export function useQuotes(): AppDependencies['quotes'] {
+	return useAppDependencies().quotes;
+}
+
 export function useStartsWithSplash(): boolean {
 	return useAppDependencies().startsWithSplash;
 }

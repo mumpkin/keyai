@@ -34,7 +34,29 @@
 	"splash": {
 		"meaning": "rapide"
 	},
+	"support": {
+		"button": "Offrez-moi un café",
+		"hint": "Désactivable dans les réglages"
+	},
 	"training": {
+		"quote": {
+			"kana": "Kana",
+			"furigana": "Kanji + furigana",
+			"kanji": "Kanji seuls",
+			"display": "Affichage des citations",
+			"words": "Mots",
+			"quotes": "Citations",
+			"all": "toutes",
+			"short": "courtes",
+			"medium": "moyennes",
+			"long": "longues",
+			"next": "Suivante",
+			"replay": "Rejouer",
+			"source": "Fiche Aozora Bunko",
+			"report": "Signaler une erreur",
+			"mode": "Mode d’entraînement",
+			"length": "Longueur des citations"
+		},
 		"japaneseInputWarning": "Saisie japonaise active : désactivez-la pour taper en romaji.",
 		"errors_one": "{{count}} erreur",
 		"errors_other": "{{count}} erreurs",
@@ -81,6 +103,7 @@
 		"honorific": "honorifique"
 	},
 	"kanaTable": {
+		"revision": "Révision d’une seule écriture : aucun kana ne se débloque.",
 		"mine": "Mes kana",
 		"focusTitle": "Kana à travailler",
 		"locked": "verrouillé",
@@ -130,6 +153,12 @@
 		"date": "Date"
 	},
 	"settings": {
+		"quote": {
+			"title": "Citations",
+			"hint": "Erreurs avant la furigana en Kanji seuls (0 = jamais)",
+			"punctuation": "Taper la ponctuation",
+			"spaces": "Garder des espaces entre les mots"
+		},
 		"language": {
 			"title": "Langue",
 			"label": "Langue de l’interface et des traductions"
@@ -138,7 +167,11 @@
 			"title": "Séance",
 			"wordsPerSeries": "Mots par série",
 			"naturalWriting": "Écriture naturelle (sans espace entre les mots)",
-			"keepWordSpaces": "Garder les espaces affichés entre les mots"
+			"keepWordSpaces": "Garder les espaces affichés entre les mots",
+			"wordScript": "Écriture des mots",
+			"both": "Les deux",
+			"hiragana": "Hiragana",
+			"katakana": "Katakana"
 		},
 		"speed": {
 			"title": "Vitesse",
@@ -156,6 +189,7 @@
 		},
 		"display": {
 			"title": "Affichage",
+			"supportButton": "Afficher le bouton de soutien",
 			"theme": "Thème",
 			"themeSystem": "Système",
 			"themeDark": "Sombre",
@@ -194,6 +228,7 @@
 			"version": "Version {{version}}",
 			"sourceCode": "Code source (licence MIT)",
 			"vocabulary": "Vocabulaire sous licence CC BY-SA 4.0, issu de :",
+			"quotes": "citations",
 			"replaySplash": "Rejouer l’animation de lancement",
 			"reportTranslation": "Signaler une erreur de traduction (compte GitHub requis)"
 		}

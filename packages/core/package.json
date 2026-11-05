@@ -9,6 +9,7 @@
 		"./input": "./src/input/index.ts",
 		"./kana": "./src/kana/index.ts",
 		"./progression": "./src/progression/index.ts",
+		"./quote": "./src/quote/index.ts",
 		"./random": "./src/random/index.ts",
 		"./save": "./src/save/index.ts",
 		"./selection": "./src/selection/index.ts",

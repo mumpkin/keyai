@@ -7,11 +7,17 @@ import {
 import type { ProgressStore } from '@/stores/progress-store.ts';
 import { createProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
-import { loadVocabulary, type Vocabulary } from '@/vocab/vocabulary.ts';
+import { loadQuoteCards, loadQuotes, type QuoteEntry } from '@/vocab/quotes.ts';
+import {
+	loadVocabulary,
+	type Vocabulary,
+	withCards,
+} from '@/vocab/vocabulary.ts';
 
 export interface AppDependencies {
 	readonly progressStore: ProgressStore;
 	readonly vocabulary: Vocabulary;
+	readonly quotes: readonly QuoteEntry[];
 	readonly startsWithSplash: boolean;
 	readonly windowControls: WindowControls | null;
 	readonly exportFile: Platform['exportFile'];
@@ -20,10 +26,13 @@ export interface AppDependencies {
 
 /** Startup sequence of A5: platform → vocabulary → save → translations. */
 export async function bootstrap(): Promise<AppDependencies> {
-	const [platform, vocabulary] = await Promise.all([
+	const [platform, words, quotes, cards] = await Promise.all([
 		loadPlatform(),
 		loadVocabulary(),
+		loadQuotes(),
+		loadQuoteCards(),
 	]);
+	const vocabulary = withCards(words, cards);
 	const progressStore = await createProgressStore({
 		storage: platform.storage,
 		vocabulary,
@@ -37,6 +46,7 @@ export async function bootstrap(): Promise<AppDependencies> {
 	return {
 		progressStore,
 		vocabulary,
+		quotes,
 		startsWithSplash: platform.playsSplashOnEveryLaunch || isFirstLaunch,
 		windowControls: platform.windowControls,
 		exportFile: platform.exportFile,

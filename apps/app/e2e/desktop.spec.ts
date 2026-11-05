@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { toHepburn, tokenize } from '@keyai/core/input';
 import { expect, test } from '@playwright/test';
 import {
 	openApp,
@@ -227,4 +228,82 @@ test('lets people report a wrong translation', async ({ page }) => {
 	const url = new URL((await link.getAttribute('href')) ?? '');
 	expect(url.searchParams.get('word')).toBe(word);
 	expect(url.searchParams.get('current')).toBeTruthy();
+});
+
+test('types a quote, then replays it or goes to the next one', async ({
+	page,
+}) => {
+	await page.getByRole('button', { name: 'Citations' }).click();
+	const words = page.locator('[data-word-index]');
+	const quoteKeys = async () => {
+		const kana = (await words.allTextContents()).join('');
+		await page.keyboard.type(toHepburn(tokenize(kana)));
+	};
+	const first = await words.allTextContents();
+	await quoteKeys();
+	await expect(page.getByRole('button', { name: /Suivante/ })).toBeVisible();
+	await page.keyboard.press('Tab');
+	await expect(page.getByRole('button', { name: /Suivante/ })).toBeHidden();
+	expect(await words.allTextContents()).toEqual(first);
+	await quoteKeys();
+	await page.keyboard.press('Enter');
+	await expect(page.getByRole('button', { name: /Suivante/ })).toBeHidden();
+	expect(await words.allTextContents()).not.toEqual(first);
+});
+
+test('shows furigana, and types the same reading', async ({ page }) => {
+	await page.getByRole('button', { name: 'Citations' }).click();
+	const kana = (
+		await page.locator('[data-word-index]').allTextContents()
+	).join('');
+	await page.getByRole('button', { name: 'Kanji + furigana' }).click();
+	const ruby = page.locator('ruby').first();
+	await expect(ruby.locator('rt')).toBeVisible();
+	await page.keyboard.type(toHepburn(tokenize(kana)).slice(0, -1));
+	await expect(
+		page.locator('rt .text-typed-foreground').first(),
+	).toBeAttached();
+	await page.keyboard.type(toHepburn(tokenize(kana)).slice(-1));
+	await expect(page.getByRole('button', { name: /Suivante/ })).toBeVisible();
+});
+
+test('hides furigana until enough wrong keys in kanji only', async ({
+	page,
+}) => {
+	await page.getByRole('button', { name: 'Citations' }).click();
+	await page.getByRole('button', { name: 'Kanji seuls' }).click();
+	const firstKanji = page.locator('[data-word-index="0"] ruby');
+	while ((await firstKanji.count()) === 0) {
+		await page.keyboard.press('Escape');
+	}
+	await expect(firstKanji.locator('rt').first()).toBeHidden();
+	await page.keyboard.type('qq');
+	await expect(firstKanji.locator('rt').first()).toBeVisible();
+});
+
+test('opens the card of a word of a finished quote', async ({ page }) => {
+	await page.getByRole('button', { name: 'Citations' }).click();
+	const words = page.locator('[data-word-index]');
+	const kana = (await words.allTextContents()).join('');
+	await page.keyboard.type(toHepburn(tokenize(kana)));
+	await words.first().hover();
+	await expect(
+		page.getByRole('button', { name: 'Ajouter à ma liste Anki' }),
+	).toBeVisible();
+});
+
+test('offers a support link that can be turned off, except in About', async ({
+	page,
+}) => {
+	const links = page.getByRole('link', { name: 'Offrez-moi un café' });
+	await expect(links).toHaveCount(1);
+	await expect(links.first()).toHaveAttribute(
+		'href',
+		'https://buymeacoffee.com/mumpkin',
+	);
+	await openScreen(page, SETTINGS).click();
+	await expect(links).toHaveCount(2);
+	await page.getByRole('switch', { name: /bouton de soutien/ }).click();
+	await expect(links).toHaveCount(1);
+	await expect(page.getByText('Désactivable dans les réglages')).toBeHidden();
 });

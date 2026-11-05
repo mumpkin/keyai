@@ -1,4 +1,5 @@
 import type { SeriesState } from '@keyai/core/session';
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	finishedWordCount,
@@ -7,7 +8,7 @@ import {
 import { cn } from '@/lib/utils.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import type { SeriesResult } from '@/stores/progress-logic.ts';
-import { SeriesLengthPicker } from './series-length-picker.tsx';
+import { TrainingModePicker } from './training-mode-picker.tsx';
 
 const PERCENT = 100;
 
@@ -114,16 +115,15 @@ function FirstSeriesGuide() {
 interface SessionStatsBarProps {
 	readonly series: SeriesState;
 	readonly previous: SeriesResult | null;
-	readonly onLengthChange: (length: number) => void;
-	readonly onLengthDismiss: () => void;
+	/** How long the next series will be, which depends on the mode. */
+	readonly lengthPicker: ReactNode;
 }
 
 /** Live figures of the current series and the previous one (C8). */
 export function SessionStatsBar({
 	series,
 	previous,
-	onLengthChange,
-	onLengthDismiss,
+	lengthPicker,
 }: SessionStatsBarProps) {
 	const { t: translate } = useTranslation();
 	const live = liveMeasurementsOf(series, performance.now());
@@ -158,12 +158,9 @@ export function SessionStatsBar({
 				<span className="min-w-20">
 					{translate('training.errors', { count: live.errorCount })}
 				</span>
-				<span className="ml-auto">
-					<SeriesLengthPicker
-						length={series.words.length}
-						onChange={onLengthChange}
-						onDismiss={onLengthDismiss}
-					/>
+				<span className="ml-auto flex flex-wrap items-center gap-3">
+					<TrainingModePicker />
+					{lengthPicker}
 				</span>
 			</div>
 			<SeriesAnnouncement result={previous} />

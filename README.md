@@ -22,6 +22,7 @@ short translation in French or English.
 - Progressive unlocking driven by word frequency
 - Hepburn romaji with common variants accepted (`shi` / `si`)
 - Word cards with every meaning, usual kanji form and grammatical notes
+- A quote mode, with kana, furigana or kanji, and an Anki export of the words
 - Session summary with charts
 - Works offline; progress stays on your device, with export and import
 - Web app (installable on mobile) and desktop app for Windows and Linux

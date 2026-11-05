@@ -1,4 +1,5 @@
 import {
+	DEFAULT_QUOTE_HINT,
 	KANA_SIZE_LIMITS,
 	type KanaTableTab,
 	LOCALES,
@@ -7,7 +8,9 @@ import {
 	SPEED_LIMITS,
 	SPEED_PRESETS,
 	type Theme,
+	type TrainingMode,
 	WORDS_PER_SESSION_LIMITS,
+	type WordScript,
 } from './schema.ts';
 
 const DEFAULT_WORDS_PER_SESSION = 20;
@@ -33,10 +36,20 @@ export function defaultSettings(locale: Locale): Settings {
 		speed: { preset: 'easy', kanaPerMinute: SPEED_PRESETS.easy },
 		naturalWriting: true,
 		keepsWordSpaces: true,
+		wordScript: 'both',
+		trainingMode: 'words',
+		quote: {
+			length: 'all',
+			keepsSpaces: false,
+			display: 'kana',
+			typesPunctuation: false,
+			hintAfterErrors: DEFAULT_QUOTE_HINT,
+		},
 		feedback: { sound: false },
 		display: {
 			kanaSizePx: DEFAULT_KANA_SIZE_PX,
 			theme: 'system',
+			showsSupportButton: true,
 			kanaTableTab: 'mine',
 		},
 	};
@@ -62,6 +75,27 @@ export function withWordSpaces(
 	keepsWordSpaces: boolean,
 ): Settings {
 	return { ...settings, keepsWordSpaces };
+}
+
+export function withTrainingMode(
+	settings: Settings,
+	trainingMode: TrainingMode,
+): Settings {
+	return { ...settings, trainingMode };
+}
+
+export function withWordScript(
+	settings: Settings,
+	wordScript: WordScript,
+): Settings {
+	return { ...settings, wordScript };
+}
+
+export function withQuote(
+	settings: Settings,
+	quote: Partial<Settings['quote']>,
+): Settings {
+	return { ...settings, quote: { ...settings.quote, ...quote } };
 }
 
 export function withErrorSound(settings: Settings, sound: boolean): Settings {
@@ -119,6 +153,16 @@ export function withKanaSize(settings: Settings, kanaSizePx: number): Settings {
 
 export function withTheme(settings: Settings, theme: Theme): Settings {
 	return { ...settings, display: { ...settings.display, theme } };
+}
+
+export function withSupportButton(
+	settings: Settings,
+	showsSupportButton: boolean,
+): Settings {
+	return {
+		...settings,
+		display: { ...settings.display, showsSupportButton },
+	};
 }
 
 export function withKanaTableTab(

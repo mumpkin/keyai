@@ -170,3 +170,25 @@ describe('the Anki list', () => {
 		expect(saveAfterReset(save, CONTEXT).ankiWords).toEqual(['1']);
 	});
 });
+
+describe('a finished quote', () => {
+	it('goes in the history and leaves the progress alone', () => {
+		const save = freshSave(CONTEXT, ['fr']);
+		const { save: after, result } = saveAfterSeries(
+			save,
+			{
+				record: {
+					attempts: cleanAttempts('い', 10),
+					wrongKeyCount: 0,
+					elapsedMs: ONE_SECOND,
+				},
+				wordCount: 3,
+				isQuote: true,
+			},
+			CONTEXT,
+		);
+		expect(after.progress).toEqual(save.progress);
+		expect(after.history).toHaveLength(1);
+		expect(result.unlockedKana).toBeUndefined();
+	});
+});

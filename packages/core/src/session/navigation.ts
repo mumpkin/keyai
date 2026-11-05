@@ -73,7 +73,10 @@ function continueAfter(state: SeriesState, finished: SeriesWord): SeriesState {
 	return {
 		...withCurrentWord(state, (current) => ({
 			...current,
-			matcher: createMatcher(current.kana, leading),
+			matcher: createMatcher(current.kana, {
+				...current.typing,
+				leading,
+			}),
 		})),
 		ignoresNextSpace: true,
 	};
@@ -111,7 +114,7 @@ export function pressBackspace(state: SeriesState, at: number): SeriesState {
 	const reset = withCurrentWord(state, (current) => ({
 		...current,
 		status: 'pending',
-		matcher: createMatcher(current.kana),
+		matcher: createMatcher(current.kana, current.typing),
 	}));
 	return {
 		...withWordStatus(reset, previousIndex, 'current'),

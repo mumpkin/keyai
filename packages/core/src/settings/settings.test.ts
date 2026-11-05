@@ -10,6 +10,7 @@ import {
 	withLocale,
 	withNaturalWriting,
 	withSpeedPreset,
+	withSupportButton,
 	withTheme,
 	withWordSpaces,
 	withWordsPerSession,
@@ -25,8 +26,22 @@ describe('settings', () => {
 			speed: { preset: 'easy', kanaPerMinute: 30 },
 			naturalWriting: true,
 			keepsWordSpaces: true,
+			wordScript: 'both',
+			trainingMode: 'words',
+			quote: {
+				length: 'all',
+				keepsSpaces: false,
+				display: 'kana',
+				typesPunctuation: false,
+				hintAfterErrors: 2,
+			},
 			feedback: { sound: false },
-			display: { kanaSizePx: 24, theme: 'system', kanaTableTab: 'mine' },
+			display: {
+				kanaSizePx: 24,
+				theme: 'system',
+				showsSupportButton: true,
+				kanaTableTab: 'mine',
+			},
 		});
 		expect(SettingsSchema.parse(DEFAULTS)).toEqual(DEFAULTS);
 	});
@@ -53,6 +68,9 @@ describe('settings', () => {
 		const {
 			naturalWriting: _natural,
 			keepsWordSpaces: _spaces,
+			wordScript: _script,
+			trainingMode: _mode,
+			quote: _quote,
 			...older
 		} = DEFAULTS;
 		expect(SettingsSchema.parse(older)).toEqual(DEFAULTS);
@@ -64,6 +82,11 @@ describe('settings', () => {
 		const { kanaSizePx, theme } = DEFAULTS.display;
 		const older = { ...DEFAULTS, display: { kanaSizePx, theme } };
 		expect(SettingsSchema.parse(older)).toEqual(DEFAULTS);
+	});
+
+	it('can hide the support button', () => {
+		const hidden = withSupportButton(DEFAULTS, false);
+		expect(hidden.display.showsSupportButton).toBe(false);
 	});
 
 	it('keeps the theme and the kana size apart', () => {

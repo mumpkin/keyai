@@ -4,6 +4,7 @@ import { SaveIssueNotice } from '@/features/notices/save-issue-notice.tsx';
 import { UpdateNotice } from '@/features/notices/update-notice.tsx';
 import { SettingsScreen } from '@/features/settings/settings-screen.tsx';
 import { SplashScreen } from '@/features/splash/splash-screen.tsx';
+import { FloatingSupport } from '@/features/support/support-link.tsx';
 import { TrainingScreen } from '@/features/training/training-screen.tsx';
 import { applyLocale } from '@/i18n/index.ts';
 import { applyTheme, isDarkTheme } from '@/lib/theme.ts';
@@ -88,9 +89,10 @@ export function App() {
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<SaveIssueNotice />
 			<UpdateNotice />
+			<FloatingSupport />
 			{/* Only the content scrolls: the header and its scrollbar never meet. */}
 			<div className="min-h-0 flex-1 [scrollbar-width:thin] [scrollbar-gutter:stable] overflow-y-auto">
-				<main className="mx-auto flex min-h-full w-full max-w-6xl flex-col p-4">
+				<main className="mx-auto flex min-h-full w-full max-w-6xl flex-col p-4 md:pb-16">
 					<CurrentScreen
 						screen={screen}
 						onReplaySplash={() => setIsSplashVisible(true)}

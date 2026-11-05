@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils.ts';
 // biome-ignore lint/style/noMagicNumbers: the presets are the values themselves
 const SERIES_LENGTH_PRESETS: readonly number[] = [10, 20, 50, 100];
 
-function lengthButtonClass(isSelected: boolean) {
+export function lengthButtonClass(isSelected: boolean) {
 	return cn(
 		'inline-flex h-6 min-w-6 items-center justify-center rounded px-1.5 pointer-coarse:h-8 pointer-coarse:min-w-8',
 		isSelected

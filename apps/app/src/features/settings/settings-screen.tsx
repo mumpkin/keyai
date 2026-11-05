@@ -3,6 +3,7 @@ import { AboutSection } from '@/features/settings/sections/about-section.tsx';
 import { DisplaySetting } from '@/features/settings/sections/display-setting.tsx';
 import { FeedbackSetting } from '@/features/settings/sections/feedback-setting.tsx';
 import { LanguageSetting } from '@/features/settings/sections/language-setting.tsx';
+import { QuoteSetting } from '@/features/settings/sections/quote-setting.tsx';
 import { SessionSetting } from '@/features/settings/sections/session-setting.tsx';
 import { SpeedSetting } from '@/features/settings/sections/speed-setting.tsx';
 
@@ -15,6 +16,7 @@ export function SettingsScreen({ onReplaySplash }: SettingsScreenProps) {
 		<div className="mx-auto flex w-full max-w-2xl flex-col gap-3">
 			<LanguageSetting />
 			<SessionSetting />
+			<QuoteSetting />
 			<SpeedSetting />
 			<FeedbackSetting />
 			<DisplaySetting />

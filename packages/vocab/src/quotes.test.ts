@@ -1,28 +1,24 @@
 import { readFileSync } from 'node:fs';
-import { isTypeable, tokenize } from '@keyai/core/input';
+import { toHepburn, tokenize } from '@keyai/core/input';
+import {
+	QuotesSchema,
+	quoteSeriesOf,
+	quoteTokensOf,
+	quoteWordsOf,
+} from '@keyai/core/quote';
+import { createSeries, seriesReducer } from '@keyai/core/session';
+import { indexVocabulary, VocabWordSchema } from '@keyai/core/vocab';
 import { describe, expect, it } from 'vitest';
-import { parse } from 'yaml';
+import * as zod from 'zod';
 
-interface Quote {
-	readonly id: string;
-	readonly author: string;
-	readonly authorLatin: string;
-	readonly work: string;
-	readonly year: number;
-	readonly source: string;
-	readonly text: string;
-	readonly ruby: string;
-	readonly fr: string;
-	readonly en: string;
-}
-
-const QUOTES: Quote[] = parse(
-	readFileSync(new URL('../quotes/quotes.yaml', import.meta.url), 'utf8'),
+const QUOTES = QuotesSchema.parse(
+	JSON.parse(
+		readFileSync(new URL('../data/quotes.json', import.meta.url), 'utf8'),
+	),
 );
 
 const QUOTE_COUNT = 100;
 const LATEST_DEATH_YEAR = 1955;
-const PUNCTUATION = /[、。！？「」『』\s]/g;
 
 function textOf(ruby: string): string {
 	return ruby
@@ -31,12 +27,30 @@ function textOf(ruby: string): string {
 		.replaceAll(' ', '');
 }
 
-function readingOf(ruby: string): string {
-	return ruby
-		.replace(/\[[^|]+\|([^\]]+)\]/g, '$1')
-		.replace(/[{}]/g, '')
-		.replace(PUNCTUATION, '');
+/** Types the whole quote from its romaji, as a sentence and not word by word. */
+function playedFromRomaji(ruby: string) {
+	const { words, typing } = quoteSeriesOf(quoteTokensOf(ruby));
+	const romaji = toHepburn(tokenize(words.join('')));
+	return [...romaji].reduce(
+		(state, key, index) =>
+			seriesReducer(state, { type: 'key', key, at: index }),
+		createSeries(words, { naturalWriting: true, typing }),
+	);
 }
+
+const CARDS = indexVocabulary(
+	zod
+		.array(VocabWordSchema)
+		.parse(
+			JSON.parse(
+				readFileSync(
+					new URL('../data/quote-words.json', import.meta.url),
+					'utf8',
+				),
+			),
+		),
+);
+const CARD_IDS = new Set(CARDS.map((entry) => entry.word.id));
 
 describe('quotes', () => {
 	it('has every quote once', () => {
@@ -64,7 +78,20 @@ describe('quotes', () => {
 		},
 	);
 
-	it.each(QUOTES)('$id can be typed', ({ ruby }) => {
-		expect(isTypeable(tokenize(readingOf(ruby)))).toBe(true);
+	it.each(QUOTES)('$id can be typed from start to end', ({ ruby }) => {
+		const state = playedFromRomaji(ruby);
+		expect(state.phase).toBe('finished');
+		expect(state.wrongKeyCount).toBe(0);
 	});
+
+	it.each(QUOTES)(
+		'$id has a usable card for each word',
+		({ ruby, words }) => {
+			const tokens = quoteWordsOf(quoteTokensOf(ruby, words));
+			expect(words).toHaveLength(tokens.length);
+			for (const { cardId } of tokens) {
+				expect(CARD_IDS.has(cardId ?? '')).toBe(true);
+			}
+		},
+	);
 });

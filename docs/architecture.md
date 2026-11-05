@@ -52,6 +52,7 @@ selection/     session word list generation
 stats/         keystroke events → speed, accuracy, errors
 progression/   per-kana mastery, unlocking, unlock order algorithm
 session/       session state machine (combines input + stats)
+quote/         quote schema, tokens and readings, choice of the next quote
 settings/      settings schema, defaults, speed presets
 save/          versioned save format, migrations, import parsing
 random/        seeded random generator, weighted draw, shuffle
@@ -168,6 +169,15 @@ interface Settings {
 	wordsPerSession: number;
 	naturalWriting: boolean;
 	keepsWordSpaces: boolean;
+	wordScript: 'both' | 'hiragana' | 'katakana';
+	trainingMode: 'words' | 'quotes';
+	quote: {
+		length: 'all' | 'short' | 'medium' | 'long';
+		keepsSpaces: boolean;
+		display: 'kana' | 'furigana' | 'kanji';
+		typesPunctuation: boolean;
+		hintAfterErrors: number; // 0 means never
+	};
 	speed: {
 		preset: 'easy' | 'normal' | 'hard' | 'custom';
 		kanaPerMinute: number;
@@ -176,6 +186,7 @@ interface Settings {
 	display: {
 		kanaSizePx: number;
 		theme: 'system' | 'dark' | 'light';
+		showsSupportButton: boolean;
 		kanaTableTab: 'mine' | 'hiragana' | 'katakana';
 	};
 }
@@ -254,7 +265,7 @@ main.tsx            bootstrap: platform → save → i18n → render
 platform/           types.ts · web/ · tauri/
 stores/             progress-store.ts · ui-store.ts · app-context.tsx
 features/
-  training/         screen · bar/ · words/ · series/ · typing/
+  training/         screen · bar/ · words/ · quotes/ · series/ · typing/
   word-card/        word card and glosses, shared with the statistics
   anki/             text file of the Anki list
   kana-table/       full table, and the kana to work on for phones

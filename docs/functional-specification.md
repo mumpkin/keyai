@@ -82,7 +82,7 @@ The full list of accepted variants and the input rules for special sounds remain
 
 ## 10. Out of scope for V1
 
-- Kanji exercises.
+- Kanji exercises, apart from reading them in the quote mode.
 - Audio pronunciation.
 - Accounts and automatic synchronisation.
 - Detailed session history.
