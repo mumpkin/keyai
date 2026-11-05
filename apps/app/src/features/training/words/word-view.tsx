@@ -1,10 +1,10 @@
 import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { cva } from 'class-variance-authority';
+import type { WordView as WordViewModel } from '@/features/training/series/series-view.ts';
+import { WordCard } from '@/features/word-card/word-card.tsx';
 import { cn } from '@/lib/utils.ts';
 import { KanaUnits } from './kana-units.tsx';
-import type { WordView as WordViewModel } from './series-view.ts';
-import { WordCard } from './word-card.tsx';
 
 const wordVariants = cva('font-kana', {
 	variants: {

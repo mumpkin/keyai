@@ -6,10 +6,10 @@ import type { Platform } from './types.ts';
  */
 export async function loadPlatform(): Promise<Platform> {
 	if (import.meta.env.VITE_PLATFORM === 'tauri') {
-		const { createPlatform } = await import('./tauri/index.ts');
+		const { createPlatform } = await import('@/platform/tauri/index.ts');
 		return createPlatform();
 	}
-	const { createPlatform } = await import('./web/index.ts');
+	const { createPlatform } = await import('@/platform/web/index.ts');
 	return createPlatform();
 }
 

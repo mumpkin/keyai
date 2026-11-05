@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
-import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import {
 	masteryBreakdownOf,
 	type ScriptBreakdown,
-} from './mastery-breakdown.ts';
+} from '@/features/statistics/model/mastery-breakdown.ts';
+import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import { StatisticsSection } from './statistics-section.tsx';
 
 /** Checked with the palette validator against both theme surfaces. */

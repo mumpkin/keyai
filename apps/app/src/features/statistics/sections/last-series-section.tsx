@@ -1,9 +1,10 @@
 import type { FaultyKana } from '@keyai/core/stats';
 import { useTranslation } from 'react-i18next';
+import { KanaSpeedChart } from '@/features/statistics/charts/kana-speed-chart.tsx';
+import { TrendChart } from '@/features/statistics/charts/trend-chart.tsx';
+import type { SeriesSummary } from '@/features/statistics/model/series-summary.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
-import { KanaSpeedChart } from './kana-speed-chart.tsx';
-import type { SeriesSummary } from './series-summary.ts';
 import { SeriesWordsLists } from './series-words-lists.tsx';
 import {
 	EmptyNote,
@@ -11,7 +12,6 @@ import {
 	StatisticsSection,
 	StatTile,
 } from './statistics-section.tsx';
-import { TrendChart } from './trend-chart.tsx';
 
 const PERCENT = 100;
 

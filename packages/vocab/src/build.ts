@@ -19,7 +19,7 @@ import { selectWords } from './stages/select.ts';
 import { vocabularyOf } from './stages/vocabulary.ts';
 
 /** Target vocabulary size of the V1 (C7). */
-export const TARGET_SIZE = 2500;
+const TARGET_SIZE = 2500;
 
 /** Builds `data/vocab.json` and `report.md` from the cached sources. */
 export function buildVocabulary(): void {

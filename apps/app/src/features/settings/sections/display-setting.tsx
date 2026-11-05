@@ -1,9 +1,12 @@
 import { THEMES, withTheme } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
-import { ChoiceField } from './choice-field.tsx';
+import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
+import {
+	SettingRow,
+	SettingSection,
+} from '@/features/settings/fields/setting-section.tsx';
+import { useSettings } from '@/features/settings/use-settings.ts';
 import { KanaSizeSetting } from './kana-size-setting.tsx';
-import { SettingRow, SettingSection } from './setting-section.tsx';
-import { useSettings } from './use-settings.ts';
 
 const THEME_LABELS = {
 	system: 'settings.display.themeSystem',

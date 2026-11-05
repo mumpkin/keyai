@@ -1,13 +1,13 @@
 import type { SessionRecord } from '@keyai/core/save';
 import { useTranslation } from 'react-i18next';
+import { DataDetails } from '@/features/statistics/charts/data-details.tsx';
+import { TrendChart } from '@/features/statistics/charts/trend-chart.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
-import { DataDetails } from './data-details.tsx';
 import {
 	EmptyNote,
 	StatisticsBlock,
 	StatisticsSection,
 } from './statistics-section.tsx';
-import { TrendChart } from './trend-chart.tsx';
 
 const PERCENT = 100;
 /** Points stay readable up to this many series. */

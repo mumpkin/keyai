@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button.tsx';
-import { ExportUnreadableSave } from '@/features/settings/export-unreadable-save.tsx';
+import { ExportUnreadableSave } from '@/features/settings/data/export-unreadable-save.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 
 /** Says at launch that the stored save was not used (C6). */

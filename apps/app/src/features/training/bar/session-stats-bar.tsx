@@ -1,10 +1,13 @@
 import type { SeriesState } from '@keyai/core/session';
 import { useTranslation } from 'react-i18next';
+import {
+	finishedWordCount,
+	liveMeasurementsOf,
+} from '@/features/training/series/series-view.ts';
 import { cn } from '@/lib/utils.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import type { SeriesResult } from '@/stores/progress-logic.ts';
 import { SeriesLengthPicker } from './series-length-picker.tsx';
-import { finishedWordCount, liveMeasurementsOf } from './series-view.ts';
 
 const PERCENT = 100;
 

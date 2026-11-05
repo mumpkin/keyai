@@ -1,5 +1,5 @@
 import { load } from '@tauri-apps/plugin-store';
-import type { SaveStorage } from '../types.ts';
+import type { SaveStorage } from '@/platform/types.ts';
 
 const STORE_FILE = 'keyai-save.json';
 const SAVE_ENTRY = 'save';

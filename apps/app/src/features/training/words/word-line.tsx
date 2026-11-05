@@ -1,7 +1,7 @@
 import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { useLayoutEffect, useRef } from 'react';
-import type { WordView as WordViewModel } from './series-view.ts';
+import type { WordView as WordViewModel } from '@/features/training/series/series-view.ts';
 import { WordView } from './word-view.tsx';
 
 const LINE_HEIGHT = 'calc(var(--kana-size) * 1.6)';

@@ -24,12 +24,7 @@ export function recapSourceOf(series: Series): SeriesWords {
 		: series;
 }
 
-export type UnitDisplayState =
-	| 'typed'
-	| 'faulty'
-	| 'partial'
-	| 'next'
-	| 'pending';
+type UnitDisplayState = 'typed' | 'faulty' | 'partial' | 'next' | 'pending';
 
 export interface UnitView {
 	readonly id: string;

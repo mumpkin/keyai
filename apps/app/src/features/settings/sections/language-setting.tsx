@@ -1,8 +1,11 @@
 import { type Locale, withLocale } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
-import { ChoiceField } from './choice-field.tsx';
-import { SettingRow, SettingSection } from './setting-section.tsx';
-import { useSettings } from './use-settings.ts';
+import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
+import {
+	SettingRow,
+	SettingSection,
+} from '@/features/settings/fields/setting-section.tsx';
+import { useSettings } from '@/features/settings/use-settings.ts';
 
 /** Each language is named in itself, whatever the current language is. */
 const LANGUAGES: readonly { value: Locale; label: string }[] = [

@@ -4,10 +4,10 @@ import {
 	type Platform,
 	type WindowControls,
 } from '@/platform/index.ts';
+import type { ProgressStore } from '@/stores/progress-store.ts';
 import { createProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { loadVocabulary, type Vocabulary } from '@/vocab/vocabulary.ts';
-import type { ProgressStore } from './stores/progress-store.ts';
 
 export interface AppDependencies {
 	readonly progressStore: ProgressStore;

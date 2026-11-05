@@ -21,7 +21,7 @@ import {
 
 const POINT_RADIUS_PX = 4;
 
-export interface TrendPoint {
+interface TrendPoint {
 	/** Position on the horizontal axis. */
 	readonly position: number;
 	readonly value: number | null;

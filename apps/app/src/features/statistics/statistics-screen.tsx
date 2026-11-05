@@ -1,6 +1,6 @@
-import { HistorySection } from './history-section.tsx';
-import { LastSeriesSection } from './last-series-section.tsx';
-import { ProgressSection } from './progress-section.tsx';
+import { HistorySection } from '@/features/statistics/sections/history-section.tsx';
+import { LastSeriesSection } from '@/features/statistics/sections/last-series-section.tsx';
+import { ProgressSection } from '@/features/statistics/sections/progress-section.tsx';
 
 export function StatisticsScreen() {
 	return (

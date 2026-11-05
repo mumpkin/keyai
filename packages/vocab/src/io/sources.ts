@@ -17,9 +17,7 @@ const SourcesSchema = zod.object({
 export type Source = zod.infer<typeof SourceSchema>;
 export type Sources = zod.infer<typeof SourcesSchema>;
 
-export const PACKAGE_DIRECTORY = fileURLToPath(
-	new URL('../../', import.meta.url),
-);
+const PACKAGE_DIRECTORY = fileURLToPath(new URL('../../', import.meta.url));
 export const CACHE_DIRECTORY = `${PACKAGE_DIRECTORY}.cache/`;
 export const VOCABULARY_FILE = `${PACKAGE_DIRECTORY}data/vocab.json`;
 export const REPORT_FILE = `${PACKAGE_DIRECTORY}report.md`;

@@ -245,9 +245,18 @@ wrong key count and elapsed time to `core/stats` and `core/progression`.
 ```
 main.tsx            bootstrap: platform → save → i18n → render
 platform/           types.ts · web/ · tauri/
-stores/             progress-store.ts · ui-store.ts
-features/           training/ · kana-table/ · statistics/ · settings/ · splash/
-components/ui/      shadcn components
+stores/             progress-store.ts · ui-store.ts · app-context.tsx
+features/
+  training/         screen · bar/ · words/ · series/ · typing/
+  word-card/        word card and glosses, shared with the statistics
+  kana-table/       full table, and the kana to work on for phones
+  statistics/       screen · sections/ · charts/ · model/
+  settings/         screen · sections/ · data/ · fields/
+  layout/           header, download menu, window buttons
+  notices/          floating update and save notices
+  splash/           launch animation
+components/         shared components · ui/ for shadcn
+lib/                small helpers without React
 vocab/              JSON loading and index
 i18n/               configuration and locales
 styles/app.css      Tailwind and theme

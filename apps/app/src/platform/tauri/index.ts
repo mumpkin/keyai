@@ -1,5 +1,5 @@
 import { openUrl } from '@tauri-apps/plugin-opener';
-import type { Platform } from '../types.ts';
+import type { Platform } from '@/platform/types.ts';
 import { saveFileWithDialog } from './save-file-dialog.ts';
 import { createTauriStorage } from './storage.ts';
 import { watchForDesktopUpdate } from './update.ts';

@@ -8,9 +8,12 @@ import {
 } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
-import { ChoiceField } from './choice-field.tsx';
-import { SettingRow, SettingSection } from './setting-section.tsx';
-import { useSettings } from './use-settings.ts';
+import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
+import {
+	SettingRow,
+	SettingSection,
+} from '@/features/settings/fields/setting-section.tsx';
+import { useSettings } from '@/features/settings/use-settings.ts';
 
 function withPreset(settings: Settings, preset: SpeedPresetName): Settings {
 	return preset === 'custom'

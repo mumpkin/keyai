@@ -1,10 +1,10 @@
-import { AboutSection } from './about-section.tsx';
-import { DataSetting } from './data-setting.tsx';
-import { DisplaySetting } from './display-setting.tsx';
-import { FeedbackSetting } from './feedback-setting.tsx';
-import { LanguageSetting } from './language-setting.tsx';
-import { SessionSetting } from './session-setting.tsx';
-import { SpeedSetting } from './speed-setting.tsx';
+import { DataSetting } from '@/features/settings/data/data-setting.tsx';
+import { AboutSection } from '@/features/settings/sections/about-section.tsx';
+import { DisplaySetting } from '@/features/settings/sections/display-setting.tsx';
+import { FeedbackSetting } from '@/features/settings/sections/feedback-setting.tsx';
+import { LanguageSetting } from '@/features/settings/sections/language-setting.tsx';
+import { SessionSetting } from '@/features/settings/sections/session-setting.tsx';
+import { SpeedSetting } from '@/features/settings/sections/speed-setting.tsx';
 
 interface SettingsScreenProps {
 	readonly onReplaySplash: () => void;
