@@ -88,6 +88,18 @@ jobs:
     steps:
       # The download buttons of the web app link to these names, which do
       # not change with the version.
+      # On a draft, the action writes API links, which are rate limited.
+      - name: Point the update file to plain download links
+        run: |
+          gh release download "$GITHUB_REF_NAME" --pattern latest.json
+          jq --arg base "https://github.com/$GH_REPO/releases/download/$GITHUB_REF_NAME" '
+            .platforms |= with_entries(.value.url = $base + "/" + (
+              if (.key | test("windows")) then "keyai-windows-x64-setup.exe"
+              elif (.key | test("deb")) then "keyai-linux-amd64.deb"
+              else "keyai-linux-x86_64.AppImage" end))
+          ' latest.json > links.json
+          mv links.json latest.json
+          gh release upload "$GITHUB_REF_NAME" --clobber latest.json
       - name: Copy the installers under stable names
         run: |
           gh release download "$GITHUB_REF_NAME" \
