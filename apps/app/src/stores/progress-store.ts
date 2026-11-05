@@ -1,12 +1,12 @@
 import type { SaveError, SaveFile } from '@keyai/core/save';
 import { parseSave, serializeSave } from '@keyai/core/save';
 import type { Settings } from '@keyai/core/settings';
-import type { SeriesRecord } from '@keyai/core/stats';
 import { createStore, type StoreApi } from 'zustand/vanilla';
 import type { SaveStorage } from '@/platform/index.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import {
 	alignedSave,
+	type FinishedSeries,
 	loadedSaveOf,
 	type SaveContext,
 	type SeriesResult,
@@ -30,10 +30,7 @@ export interface ProgressState {
 	readonly isFirstLaunch: boolean;
 	/** Copy of a save that could not be read, as it was stored. */
 	readonly unreadableCopy: string | null;
-	readonly applySeriesResult: (
-		record: SeriesRecord,
-		wordCount: number,
-	) => SeriesResult;
+	readonly applySeriesResult: (series: FinishedSeries) => SeriesResult;
 	readonly updateSettings: (update: (settings: Settings) => Settings) => void;
 	readonly updateAnkiWords: (
 		update: (words: readonly string[]) => readonly string[],
@@ -117,12 +114,8 @@ export async function createProgressStore(
 	const store = createStore<ProgressState>()((set, get) => ({
 		...loaded,
 		unreadableCopy,
-		applySeriesResult: (record, wordCount) => {
-			const update = saveAfterSeries(
-				get().save,
-				{ record, wordCount },
-				contextOf(),
-			);
+		applySeriesResult: (series) => {
+			const update = saveAfterSeries(get().save, series, contextOf());
 			set({ save: update.save });
 			return update.result;
 		},

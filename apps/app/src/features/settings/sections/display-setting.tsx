@@ -1,5 +1,6 @@
-import { THEMES, withTheme } from '@keyai/core/settings';
+import { THEMES, withSupportButton, withTheme } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
+import { Switch } from '@/components/ui/switch.tsx';
 import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
 import {
 	SettingRow,
@@ -35,12 +36,32 @@ function ThemeSetting() {
 	);
 }
 
+function SupportButtonSetting() {
+	const { t: translate } = useTranslation();
+	const { settings, updateSettings } = useSettings();
+	const label = translate('settings.display.supportButton');
+	return (
+		<SettingRow label={label}>
+			<Switch
+				aria-label={label}
+				checked={settings.display.showsSupportButton}
+				onCheckedChange={(isShown) =>
+					updateSettings((current) =>
+						withSupportButton(current, isShown),
+					)
+				}
+			/>
+		</SettingRow>
+	);
+}
+
 export function DisplaySetting() {
 	const { t: translate } = useTranslation();
 	return (
 		<SettingSection title={translate('settings.display.title')}>
 			<ThemeSetting />
 			<KanaSizeSetting />
+			<SupportButtonSetting />
 		</SettingSection>
 	);
 }

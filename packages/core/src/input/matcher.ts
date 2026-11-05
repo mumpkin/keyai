@@ -43,13 +43,37 @@ export interface MatcherProgress {
 	readonly typed: string;
 }
 
+export interface MatcherOptions {
+	/** What the previous word could still accept. */
+	readonly leading?: readonly string[];
+	/** Other spellings of a one-unit word: は as a particle is also 'wa'. */
+	readonly alternatives?: readonly string[];
+	/** The word after this one, which a final っ needs. */
+	readonly following?: string;
+	/** Keys of a punctuation mark, which is no kana. */
+	readonly keys?: readonly string[];
+}
+
+function spellingsWith(
+	word: string,
+	{ alternatives = [], following, keys }: MatcherOptions,
+): string[][] {
+	if (keys) {
+		return [[...keys]];
+	}
+	const [next] = following ? tokenize(following) : [];
+	const [first, ...others] = spellingsOf(tokenize(word), next);
+	return [[...(first ?? []), ...alternatives], ...others];
+}
+
 export function createMatcher(
 	word: string,
-	leading: readonly string[] = [],
+	options: MatcherOptions = {},
 ): MatcherState {
+	const { leading = [] } = options;
 	const start = { unitIndex: 0, typed: '' };
 	return {
-		spellings: spellingsOf(tokenize(word)),
+		spellings: spellingsWith(word, options),
 		leading,
 		hypotheses:
 			leading.length > 0

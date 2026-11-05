@@ -34,7 +34,29 @@
 	"splash": {
 		"meaning": "fast"
 	},
+	"support": {
+		"button": "Buy me a coffee",
+		"hint": "Can be turned off in the settings"
+	},
 	"training": {
+		"quote": {
+			"kana": "Kana",
+			"furigana": "Kanji + furigana",
+			"kanji": "Kanji only",
+			"display": "Display of quotes",
+			"words": "Words",
+			"quotes": "Quotes",
+			"all": "all",
+			"short": "short",
+			"medium": "medium",
+			"long": "long",
+			"next": "Next",
+			"replay": "Replay",
+			"source": "Aozora Bunko card",
+			"report": "Report an error",
+			"mode": "Training mode",
+			"length": "Length of the quotes"
+		},
 		"japaneseInputWarning": "Japanese input is on: turn it off to type in romaji.",
 		"errors_one": "{{count}} error",
 		"errors_other": "{{count}} errors",
@@ -81,6 +103,7 @@
 		"honorific": "honorific"
 	},
 	"kanaTable": {
+		"revision": "Revising one script: no kana unlocks.",
 		"mine": "My kana",
 		"focusTitle": "Kana to work on",
 		"locked": "locked",
@@ -130,6 +153,12 @@
 		"date": "Date"
 	},
 	"settings": {
+		"quote": {
+			"title": "Quotes",
+			"hint": "Errors before furigana in Kanji only (0 = never)",
+			"punctuation": "Type the punctuation",
+			"spaces": "Keep spaces between words"
+		},
 		"language": {
 			"title": "Language",
 			"label": "Language of the interface and translations"
@@ -138,7 +167,11 @@
 			"title": "Session",
 			"wordsPerSeries": "Words per series",
 			"naturalWriting": "Natural writing (no space between words)",
-			"keepWordSpaces": "Keep the spaces shown between words"
+			"keepWordSpaces": "Keep the spaces shown between words",
+			"wordScript": "Writing of the words",
+			"both": "Both",
+			"hiragana": "Hiragana",
+			"katakana": "Katakana"
 		},
 		"speed": {
 			"title": "Speed",
@@ -156,6 +189,7 @@
 		},
 		"display": {
 			"title": "Display",
+			"supportButton": "Show the support button",
 			"theme": "Theme",
 			"themeSystem": "System",
 			"themeDark": "Dark",
@@ -194,6 +228,7 @@
 			"version": "Version {{version}}",
 			"sourceCode": "Source code (MIT license)",
 			"vocabulary": "Vocabulary under the CC BY-SA 4.0 license, based on:",
+			"quotes": "quotes",
 			"replaySplash": "Replay the launch animation",
 			"reportTranslation": "Report a translation error (GitHub account needed)"
 		}

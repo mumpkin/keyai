@@ -1,7 +1,9 @@
-import type { MatcherState } from '../input/matcher.ts';
+import type { MatcherOptions, MatcherState } from '../input/matcher.ts';
 import type { UnitAttempt } from '../stats/types.ts';
 
 export type WordStatus = 'pending' | 'current' | 'done' | 'skipped';
+
+export type WordTyping = Omit<MatcherOptions, 'leading'>;
 
 export interface SeriesWord {
 	readonly kana: string;
@@ -9,6 +11,8 @@ export interface SeriesWord {
 	readonly units: readonly string[];
 	readonly status: WordStatus;
 	readonly matcher: MatcherState;
+	/** How the word is typed, kept to start its matcher again. */
+	readonly typing: WordTyping;
 	/** Units on which a wrong key was typed; shown in red (C8). */
 	readonly faultyUnits: readonly number[];
 }

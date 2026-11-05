@@ -1,9 +1,16 @@
+import type { SeriesState } from '@keyai/core/session';
 import { withWordsPerSession } from '@keyai/core/settings';
-import type { MouseEvent } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
+import { QuoteDisplayPicker } from '@/features/training/bar/quote-display-picker.tsx';
+import { QuoteLengthPicker } from '@/features/training/bar/quote-length-picker.tsx';
+import { SeriesLengthPicker } from '@/features/training/bar/series-length-picker.tsx';
 import { SessionStatsBar } from '@/features/training/bar/session-stats-bar.tsx';
+import { QuoteLine } from '@/features/training/quotes/quote-line.tsx';
+import { QuoteResult } from '@/features/training/quotes/quote-result.tsx';
+import { useQuoteSeries } from '@/features/training/quotes/use-quote-series.ts';
 import {
 	recapSourceOf,
 	wordViewsOf,
@@ -64,25 +71,16 @@ function refocusOnClick(focus: () => void) {
 	};
 }
 
-export function TrainingScreen() {
-	const { series, dispatch, restart } = useSeries();
-	const { inputRef, isComposing, isFocusLost, focus } =
-		useTypingInput(dispatch);
-	const locale = useProgress((state) => state.save.settings.locale);
-	const keepsWordSpaces = useProgress(
-		(state) => state.save.settings.keepsWordSpaces,
-	);
-	const updateSettings = useProgress((state) => state.updateSettings);
-	const previous = useUiStore((state) => state.lastSeries);
-	const words = wordViewsOf(series.state);
-	const recap = recapSourceOf(series);
+interface TrainingShellProps {
+	readonly typing: ReturnType<typeof useTypingInput>;
+	readonly bar: ReactNode;
+	readonly line: ReactNode;
+	readonly below: ReactNode;
+}
 
-	function changeLength(length: number) {
-		updateSettings((settings) => withWordsPerSession(settings, length));
-		restart();
-		focus();
-	}
-
+/** What the two modes share: the input, the bar, the line and the table. */
+function TrainingShell({ typing, bar, line, below }: TrainingShellProps) {
+	const { inputRef, isComposing, isFocusLost, focus } = typing;
 	return (
 		<TypingFocusContext.Provider value={inputRef}>
 			{/* biome-ignore lint/a11y/noStaticElementInteractions: clicks only restore the focus of the typing input */}
@@ -92,32 +90,13 @@ export function TrainingScreen() {
 				onClick={refocusOnClick(focus)}
 			>
 				<TypingInput inputRef={inputRef} />
-				<SessionStatsBar
-					series={series.state}
-					previous={previous}
-					onLengthChange={changeLength}
-					onLengthDismiss={focus}
-				/>
+				{bar}
 				<div className="relative flex flex-1 flex-col gap-4 md:justify-center md:py-6">
 					<div className="relative">
-						<WordLine
-							words={words}
-							entries={series.entries}
-							currentIndex={series.state.currentIndex}
-							locale={locale}
-							errorCount={series.state.currentWordErrors}
-							isJoined={
-								series.state.naturalWriting && !keepsWordSpaces
-							}
-						/>
+						{line}
 						<FocusLostHint isVisible={isFocusLost} />
 					</div>
-					<SeriesWordsRecap
-						series={recap.state}
-						words={wordViewsOf(recap.state)}
-						entries={recap.entries}
-						locale={locale}
-					/>
+					{below}
 					{isComposing && <JapaneseInputWarning />}
 				</div>
 				<div className="hidden md:block">
@@ -129,4 +108,139 @@ export function TrainingScreen() {
 			</div>
 		</TypingFocusContext.Provider>
 	);
+}
+
+function WordBar({
+	series,
+	onRestart,
+	focus,
+}: {
+	readonly series: SeriesState;
+	readonly onRestart: () => void;
+	readonly focus: () => void;
+}) {
+	const updateSettings = useProgress((state) => state.updateSettings);
+	const previous = useUiStore((state) => state.lastSeries);
+
+	function changeLength(length: number) {
+		updateSettings((settings) => withWordsPerSession(settings, length));
+		onRestart();
+		focus();
+	}
+
+	return (
+		<SessionStatsBar
+			series={series}
+			previous={previous}
+			lengthPicker={
+				<SeriesLengthPicker
+					length={series.words.length}
+					onChange={changeLength}
+					onDismiss={focus}
+				/>
+			}
+		/>
+	);
+}
+
+function WordTraining() {
+	const { series, dispatch, restart } = useSeries();
+	const typing = useTypingInput(dispatch);
+	const locale = useProgress((state) => state.save.settings.locale);
+	const keepsWordSpaces = useProgress(
+		(state) => state.save.settings.keepsWordSpaces,
+	);
+	const words = wordViewsOf(series.state);
+	const recap = recapSourceOf(series);
+	return (
+		<TrainingShell
+			typing={typing}
+			bar={
+				<WordBar
+					series={series.state}
+					onRestart={restart}
+					focus={typing.focus}
+				/>
+			}
+			line={
+				<WordLine
+					words={words}
+					entries={series.entries}
+					currentIndex={series.state.currentIndex}
+					locale={locale}
+					errorCount={series.state.currentWordErrors}
+					isJoined={series.state.naturalWriting && !keepsWordSpaces}
+				/>
+			}
+			below={
+				<SeriesWordsRecap
+					series={recap.state}
+					words={wordViewsOf(recap.state)}
+					entries={recap.entries}
+					locale={locale}
+				/>
+			}
+		/>
+	);
+}
+
+const QUOTE_KEYS: ReadonlyMap<string, 'next' | 'replay'> = new Map([
+	['Enter', 'next'],
+	['Tab', 'replay'],
+]);
+
+function QuoteTraining() {
+	const { series, dispatch, next, replay } = useQuoteSeries();
+	const isFinished = series.state.phase === 'finished';
+	const typing = useTypingInput(dispatch, (key) => {
+		const command = isFinished ? QUOTE_KEYS.get(key) : undefined;
+		if (command) {
+			({ next, replay })[command]();
+		}
+		return command !== undefined;
+	});
+	const { locale, quote } = useProgress((state) => state.save.settings);
+	const previous = useUiStore((state) => state.lastSeries);
+	const thenFocus = (action: () => void) => () => {
+		action();
+		typing.focus();
+	};
+	return (
+		<TrainingShell
+			typing={typing}
+			bar={
+				<SessionStatsBar
+					series={series.state}
+					previous={previous}
+					lengthPicker={
+						<>
+							<QuoteDisplayPicker onChange={thenFocus(replay)} />
+							<QuoteLengthPicker onChange={thenFocus(next)} />
+						</>
+					}
+				/>
+			}
+			line={
+				<QuoteLine
+					series={series}
+					locale={locale}
+					isJoined={!quote.keepsSpaces}
+				/>
+			}
+			below={
+				<QuoteResult
+					quote={series.quote}
+					locale={locale}
+					isFinished={isFinished}
+					onNext={next}
+					onReplay={replay}
+				/>
+			}
+		/>
+	);
+}
+
+export function TrainingScreen() {
+	const mode = useProgress((state) => state.save.settings.trainingMode);
+	return mode === 'quotes' ? <QuoteTraining /> : <WordTraining />;
 }

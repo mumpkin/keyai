@@ -5,6 +5,7 @@ export {
 	finishWord,
 	isWordComplete,
 	type MatchEvent,
+	type MatcherOptions,
 	type MatcherProgress,
 	type MatcherState,
 	type MatchResult,

@@ -1,17 +1,41 @@
 import {
+	WORD_SCRIPTS,
 	WORDS_PER_SESSION_LIMITS,
 	withNaturalWriting,
+	withWordScript,
 	withWordSpaces,
 	withWordsPerSession,
 } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
 import { Switch } from '@/components/ui/switch.tsx';
+import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
 import {
 	SettingRow,
 	SettingSection,
 } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
+
+function WordScriptSetting() {
+	const { t: translate } = useTranslation();
+	const { settings, updateSettings } = useSettings();
+	const scriptLabel = translate('settings.session.wordScript');
+	return (
+		<SettingRow label={scriptLabel}>
+			<ChoiceField
+				label={scriptLabel}
+				value={settings.wordScript}
+				options={WORD_SCRIPTS.map((script) => ({
+					value: script,
+					label: translate(`settings.session.${script}`),
+				}))}
+				onChange={(script) =>
+					updateSettings((current) => withWordScript(current, script))
+				}
+			/>
+		</SettingRow>
+	);
+}
 
 export function SessionSetting() {
 	const { t: translate } = useTranslation();
@@ -33,6 +57,7 @@ export function SessionSetting() {
 					}
 				/>
 			</SettingRow>
+			<WordScriptSetting />
 			<SettingRow label={naturalLabel}>
 				<Switch
 					aria-label={naturalLabel}

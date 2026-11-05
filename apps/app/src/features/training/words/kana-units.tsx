@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import type { UnitView } from '@/features/training/series/series-view.ts';
 
-const unitVariants = cva('', {
+export const unitVariants = cva('', {
 	variants: {
 		state: {
 			typed: 'text-typed-foreground',
@@ -13,8 +13,8 @@ const unitVariants = cva('', {
 	},
 });
 
-function isUnderCursor(unit: UnitView): boolean {
-	return unit.state === 'next' || unit.state === 'partial';
+export function isUnderCursor({ state }: Pick<UnitView, 'state'>): boolean {
+	return state === 'next' || state === 'partial';
 }
 
 export function KanaUnits({ units }: { readonly units: readonly UnitView[] }) {

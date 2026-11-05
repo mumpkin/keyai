@@ -48,16 +48,45 @@ function useIsFocusLost(inputRef: RefObject<HTMLInputElement | null>) {
 	return isFocusLost;
 }
 
+/** Whether a Japanese input method is composing, which needs a warning. */
+function useIsComposing(inputRef: RefObject<HTMLInputElement | null>) {
+	const [isComposing, setIsComposing] = useState(false);
+
+	useEffect(() => {
+		const input = inputRef.current;
+		const handleStart = () => setIsComposing(true);
+		const handleEnd = () => {
+			setIsComposing(false);
+			if (input) {
+				input.value = SENTINEL;
+			}
+		};
+		input?.addEventListener('compositionstart', handleStart);
+		input?.addEventListener('compositionend', handleEnd);
+		return () => {
+			input?.removeEventListener('compositionstart', handleStart);
+			input?.removeEventListener('compositionend', handleEnd);
+		};
+	}, [inputRef]);
+
+	return isComposing;
+}
+
 /**
  * Keyboard capture through a focused, invisible input read with
  * `beforeinput` (A4): it works with physical and mobile virtual keyboards.
  * A Japanese input method is detected through composition events.
  */
-export function useTypingInput(onAction: (action: SeriesAction) => void) {
+export function useTypingInput(
+	onAction: (action: SeriesAction) => void,
+	/** Returns whether it handled a key of its own (Enter, Tab…). */
+	onCommand: (key: string) => boolean = () => false,
+) {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const [isComposing, setIsComposing] = useState(false);
+	const isComposing = useIsComposing(inputRef);
 	const isFocusLost = useIsFocusLost(inputRef);
 	const emit = useEffectEvent(onAction);
+	const command = useEffectEvent(onCommand);
 
 	useEffect(() => {
 		const input = inputRef.current;
@@ -73,29 +102,20 @@ export function useTypingInput(onAction: (action: SeriesAction) => void) {
 			}
 		};
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') {
-				event.preventDefault();
+			const isAbort = event.key === 'Escape';
+			if (isAbort) {
 				emit({ type: 'abort' });
 			}
-		};
-		const handleCompositionStart = () => setIsComposing(true);
-		const handleCompositionEnd = () => {
-			setIsComposing(false);
-			input.value = SENTINEL;
+			if (isAbort || command(event.key)) {
+				event.preventDefault();
+			}
 		};
 		input.addEventListener('beforeinput', handleBeforeInput);
 		input.addEventListener('keydown', handleKeyDown);
-		input.addEventListener('compositionstart', handleCompositionStart);
-		input.addEventListener('compositionend', handleCompositionEnd);
 		input.focus();
 		return () => {
 			input.removeEventListener('beforeinput', handleBeforeInput);
 			input.removeEventListener('keydown', handleKeyDown);
-			input.removeEventListener(
-				'compositionstart',
-				handleCompositionStart,
-			);
-			input.removeEventListener('compositionend', handleCompositionEnd);
 		};
 	}, []);
 

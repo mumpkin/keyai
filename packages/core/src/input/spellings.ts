@@ -73,7 +73,11 @@ function regularSpellings(unit: KanaUnit, previous: KanaUnit | undefined) {
 		: [...unit.romaji.accepted];
 }
 
-function spellingsAt(units: readonly KanaUnit[], index: number): string[] {
+function spellingsAt(
+	units: readonly KanaUnit[],
+	index: number,
+	following: KanaUnit | undefined,
+): string[] {
 	const unit = units[index] as KanaUnit;
 	const previous = units[index - 1];
 	const next = units[index + 1];
@@ -82,7 +86,7 @@ function spellingsAt(units: readonly KanaUnit[], index: number): string[] {
 		case 'nasal':
 			return nasalSpellings(unit, next);
 		case 'sokuon':
-			return sokuonSpellings(next);
+			return sokuonSpellings(next ?? following);
 		case 'choon':
 			return choonSpellings(previous);
 		default:
@@ -93,9 +97,14 @@ function spellingsAt(units: readonly KanaUnit[], index: number): string[] {
 /**
  * Accepted spellings of every unit of a word, taking the neighbouring units
  * into account. An empty list means the unit cannot be typed in this word.
+ * `following` is the unit after the word, which a final っ doubles: in a
+ * sentence, なっ is followed by て.
  */
-export function spellingsOf(units: readonly KanaUnit[]): string[][] {
-	return units.map((_, index) => spellingsAt(units, index));
+export function spellingsOf(
+	units: readonly KanaUnit[],
+	following?: KanaUnit,
+): string[][] {
+	return units.map((_, index) => spellingsAt(units, index, following));
 }
 
 export function isTypeable(units: readonly KanaUnit[]): boolean {

@@ -71,6 +71,17 @@ describe('blockingKanaOf', () => {
 });
 
 describe('applySeries', () => {
+	it('records a revision of one script without unlocking anything', () => {
+		const progress = createProgress(['い'], 1);
+		const outcome = applySeries(progress, cleanAttempts('い', 10), {
+			unlockOrder: ['い', 'の'],
+			thresholdKanaPerMinute: 30,
+			isRevision: true,
+		});
+		expect(outcome.unlockedKana).toBeUndefined();
+		expect(Object.values(outcome.progress.kana)[0]?.seen).toBe(10);
+	});
+
 	it('unlocks the next kana once the last unlocked kana are mastered', () => {
 		const progress = createProgress(ORDER, 2);
 		const attempts = [...cleanAttempts('い', 5), ...cleanAttempts('の', 5)];

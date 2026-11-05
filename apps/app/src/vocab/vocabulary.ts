@@ -22,6 +22,18 @@ export function vocabularyOf(data: unknown): Vocabulary {
 	};
 }
 
+/** Adds cards that can be looked up, without any effect on the series. */
+export function withCards(
+	vocabulary: Vocabulary,
+	cards: readonly VocabEntry[],
+): Vocabulary {
+	const entriesById = new Map(vocabulary.entriesById);
+	for (const card of cards) {
+		entriesById.set(card.word.id, entriesById.get(card.word.id) ?? card);
+	}
+	return { ...vocabulary, entriesById };
+}
+
 /** Loads the generated vocabulary in its own chunk, after the app shell. */
 export async function loadVocabulary(): Promise<Vocabulary> {
 	const module = await import('@keyai/vocab/vocab.json');

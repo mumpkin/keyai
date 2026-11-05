@@ -107,18 +107,28 @@ export interface SeriesUpdate {
 	readonly result: SeriesResult;
 }
 
+export interface FinishedSeries {
+	readonly record: SeriesRecord;
+	readonly wordCount: number;
+	/** A quote goes in the history, but leaves the progress as it is. */
+	readonly isQuote?: boolean;
+}
+
 /** Records a finished series: progress, unlocking and light history. */
 export function saveAfterSeries(
 	save: SaveFile,
-	series: { readonly record: SeriesRecord; readonly wordCount: number },
+	series: FinishedSeries,
 	context: SaveContext,
 ): SeriesUpdate {
 	const measurements = measureSeries(series.record);
 	const { file } = context.vocabulary;
-	const outcome = applySeries(save.progress, series.record.attempts, {
-		unlockOrder: file.unlockOrder,
-		thresholdKanaPerMinute: save.settings.speed.kanaPerMinute,
-	});
+	const outcome = series.isQuote
+		? { progress: save.progress, unlockedKana: undefined }
+		: applySeries(save.progress, series.record.attempts, {
+				unlockOrder: file.unlockOrder,
+				thresholdKanaPerMinute: save.settings.speed.kanaPerMinute,
+				isRevision: save.settings.wordScript !== 'both',
+			});
 	const updated = withSessionRecord(
 		{
 			...save,

@@ -312,12 +312,17 @@ The word order is then shuffled.
 | Kana size         | 24 px                         | 16 to 64 px           |
 | Theme             | system                        | system / dark / light |
 | Kana table tab    | My kana                       | set from the table    |
+| Support button    | on                            | on / off              |
+| Word script       | both                          | both / one script     |
 | Natural writing   | on                            | on / off              |
 | Keep word spaces  | on                            | on / off              |
 
 The themes use the Tokyo Night Light and Tokyo Night colours. Where an
 original colour fails WCAG AA, it is adjusted as little as possible, and
 `theme-contrast.test.ts` keeps it that way.
+
+With one script alone, series only use its words and kana: this is a revision,
+which records attempts and unlocks nothing.
 
 ### Data management
 
@@ -480,6 +485,37 @@ click.
   which opens a small field for any length from 5 to 100 (Enter confirms,
   Escape cancels) and shows the current length when it is not one of the four.
   The same setting is available in the settings.
+
+### Quote mode
+
+A choice in the statistics bar switches between words and quotes. Quotes are
+real ones, from works out of copyright (`packages/vocab/data/quotes.md`), open to
+everyone from the start.
+
+- **One quote at a time**, drawn at random among those of the chosen length (all,
+  short, medium, long) without repeating any before they were all seen. It stays
+  on screen when finished, with its original text, translation, author, work,
+  year and source. Enter draws the next one and Tab replays it.
+- **Display**, chosen in the bar: kana, kanji with furigana, or kanji only, where
+  the reading of a word shows after a number of wrong keys (1 to 10, or never).
+  The same kana are typed in all three, and readings fill in as they are typed.
+- **No space to type.** Spaces on screen are an option of their own, off by
+  default, as Japanese has none.
+- **Punctuation** is skipped, or typed with the keys of a Japanese keyboard as
+  an option (`.` for 。, `,` for 、, `[` and `]` for quotation marks).
+- **Particles**: は and へ also accept `wa` and `e` where they are particles, and
+  only there.
+- **Word cards** open on every finished word, a conjugated word showing its
+  base form. These cards stay out of the vocabulary of the series, which would
+  bring rare words to beginners and change the unlock order.
+- **Progress**: a quote changes neither mastery nor unlocking. It goes in the
+  history and the statistics like a series.
+
+### Support
+
+A link to Buy Me a Coffee sits at the bottom left of every screen from a
+desktop-sized screen, with a note saying that it can be turned off in the
+settings. The same link always stays in the About section.
 
 ### Keeping the thread
 

@@ -6,7 +6,9 @@
 	"license": "(MIT AND CC-BY-SA-4.0)",
 	"type": "module",
 	"exports": {
-		"./vocab.json": "./data/vocab.json"
+		"./vocab.json": "./data/vocab.json",
+		"./quotes.json": "./data/quotes.json",
+		"./quote-words.json": "./data/quote-words.json"
 	},
 	"dependencies": {
 		"@keyai/core": "workspace:*",

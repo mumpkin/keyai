@@ -1,6 +1,7 @@
 import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { cva } from 'class-variance-authority';
+import type { ReactNode } from 'react';
 import type { WordView as WordViewModel } from '@/features/training/series/series-view.ts';
 import { WordCard } from '@/features/word-card/word-card.tsx';
 import { cn } from '@/lib/utils.ts';
@@ -23,9 +24,17 @@ interface WordViewProps {
 	readonly locale: Locale;
 	/** Changes on every wrong key to replay the shake animation. */
 	readonly errorCount: number;
+	/** What to show instead of the kana: the kanji of a quote. */
+	readonly writing?: ReactNode;
 }
 
-export function WordView({ word, entry, locale, errorCount }: WordViewProps) {
+export function WordView({
+	word,
+	entry,
+	locale,
+	errorCount,
+	writing,
+}: WordViewProps) {
 	const isFinished = word.status === 'done' || word.status === 'skipped';
 	const shakes = word.status === 'current' && errorCount > 0;
 	const kana = (
@@ -37,7 +46,7 @@ export function WordView({ word, entry, locale, errorCount }: WordViewProps) {
 				shakes && 'inline-block animate-shake',
 			)}
 		>
-			<KanaUnits units={word.units} />
+			{writing ?? <KanaUnits units={word.units} />}
 		</span>
 	);
 	return (
