@@ -14,7 +14,13 @@ export function byFrequency(first: Candidate, second: Candidate): number {
 function mergedSenses(group: readonly Candidate[]): Sense[] {
 	const seen = new Set<string>();
 	const senses: Sense[] = [];
-	for (const sense of group.flatMap((candidate) => candidate.senses)) {
+	// Each homograph gets its main sense first: the many senses of the most
+	// frequent entry must not push 紙 and 神 out of かみ.
+	const [mainSenses, otherSenses] = [
+		group.flatMap((candidate) => candidate.senses.slice(0, 1)),
+		group.flatMap((candidate) => candidate.senses.slice(1)),
+	];
+	for (const sense of [...mainSenses, ...otherSenses]) {
 		const key = `${sense.kanji ?? ''}|${sense.gloss.en}`;
 		if (!seen.has(key)) {
 			seen.add(key);
