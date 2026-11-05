@@ -23,6 +23,7 @@ export const PACKAGE_DIRECTORY = fileURLToPath(
 export const CACHE_DIRECTORY = `${PACKAGE_DIRECTORY}.cache/`;
 export const VOCABULARY_FILE = `${PACKAGE_DIRECTORY}data/vocab.json`;
 export const REPORT_FILE = `${PACKAGE_DIRECTORY}report.md`;
+export const OVERRIDES_FILE = `${PACKAGE_DIRECTORY}overrides/words.yaml`;
 
 export function readSources(): Sources {
 	const text = readFileSync(`${PACKAGE_DIRECTORY}sources.json`, 'utf8');

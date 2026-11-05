@@ -57,15 +57,35 @@ describe('senses', () => {
 		});
 	});
 
-	it('only trusts a French gloss when the entry has a single sense', () => {
-		const single = jmdictWord('いぬ', [sense('dog'), frenchSense('chien')]);
-		const several = jmdictWord('にち', [
-			sense('Sunday'),
-			sense('day'),
-			frenchSense('dimanche'),
+	it('keeps short brackets, which carry the meaning', () => {
+		expect(shortGloss('free (of charge)')).toBe('free (of charge)');
+		expect(shortGloss('dog (Canis (lupus) familiaris)')).toBe('dog');
+	});
+
+	it('gives the French glosses to the primary sense only', () => {
+		const word = jmdictWord('ある', [
+			sense('to be'),
+			sense('to have'),
+			frenchSense('être'),
 		]);
-		expect(sensesOf(single, undefined)[0]?.gloss.fr).toBe('chien');
-		expect(sensesOf(several, undefined)[0]?.gloss.fr).toBeUndefined();
+		const [primary, other] = sensesOf(word, undefined);
+		expect(primary?.gloss.fr).toBe('être');
+		expect(other?.gloss.fr).toBeUndefined();
+	});
+
+	it('keeps two glosses, without duplicates', () => {
+		const glosses = [
+			'freedom',
+			'liberty (of people and nations)',
+			'liberty',
+			'choice',
+		];
+		const word = jmdictWord('じゆう', [
+			sense('', {
+				gloss: glosses.map((text) => ({ lang: 'eng', text })),
+			}),
+		]);
+		expect(sensesOf(word, undefined)[0]?.gloss.en).toBe('freedom, liberty');
 	});
 
 	it('recognises entries that are only affixes', () => {

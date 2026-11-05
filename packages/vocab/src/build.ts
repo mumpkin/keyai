@@ -1,9 +1,11 @@
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { KANA_CATALOGUE } from '@keyai/core/kana';
 import { VocabFileSchema } from '@keyai/core/vocab';
+import { parse } from 'yaml';
 import { readJmdict } from './io/jmdict.ts';
 import {
 	cachedPathOf,
+	OVERRIDES_FILE,
 	REPORT_FILE,
 	readSources,
 	VOCABULARY_FILE,
@@ -12,6 +14,7 @@ import { readWordfreq } from './io/wordfreq.ts';
 import { reportOf } from './report.ts';
 import { candidatesOf } from './stages/candidates.ts';
 import { mergeHomographs } from './stages/merge.ts';
+import { applyOverrides, OverridesSchema } from './stages/overrides.ts';
 import { selectWords } from './stages/select.ts';
 import { vocabularyOf } from './stages/vocabulary.ts';
 
@@ -29,9 +32,14 @@ export function buildVocabulary(): void {
 		TARGET_SIZE,
 		KANA_CATALOGUE.map((unit) => unit.text),
 	);
-	const vocabulary = VocabFileSchema.parse(
-		vocabularyOf(selection.words, sources),
+	const overrides = OverridesSchema.parse(
+		parse(readFileSync(OVERRIDES_FILE, 'utf8')) ?? [],
 	);
+	const selected = vocabularyOf(selection.words, sources);
+	const vocabulary = VocabFileSchema.parse({
+		...selected,
+		words: applyOverrides(selected.words, overrides),
+	});
 	writeFileSync(
 		VOCABULARY_FILE,
 		`${JSON.stringify(vocabulary, null, '\t')}\n`,
@@ -41,6 +49,8 @@ export function buildVocabulary(): void {
 		reportOf({
 			vocabulary,
 			candidateCount: candidates.length,
+			reviewedOverrides: overrides.filter((item) => item.reviewed).length,
+			draftOverrides: overrides.filter((item) => !item.reviewed).length,
 			coverageAdditions: selection.coverageAdditions,
 			tiedHomographs: selection.words
 				.filter((word) => word.tiedEntries > 1)

@@ -73,12 +73,17 @@ export function partOfSpeechOf(tag: string): PartOfSpeech {
 	return match?.[1] ?? 'other';
 }
 
+/** Short brackets carry the meaning: "free (of charge)", "just (now)". */
+const KEPT_BRACKET_LENGTH = 15;
+
 /** "dog (Canis (lupus) familiaris)" → "dog". */
 export function shortGloss(text: string): string {
 	const shortened = text
 		.replace(/\s*\((?:[^()]|\([^()]*\))*\)\s*$/, '')
 		.trim();
-	return shortened === '' ? text : shortened;
+	const isBracketShort =
+		text.length - shortened.length <= KEPT_BRACKET_LENGTH;
+	return shortened === '' || isBracketShort ? text : shortened;
 }
 
 export function isUsableForm(form: JmdictForm): boolean {
@@ -92,11 +97,16 @@ export function isKeptSense(sense: JmdictSense): boolean {
 	);
 }
 
-function firstGloss(senses: readonly JmdictSense[], lang: string) {
-	const gloss = senses
-		.flatMap((sense) => sense.gloss)
-		.find((candidate) => candidate.lang === lang);
-	return gloss && shortGloss(gloss.text);
+/** One word often hides a nuance: "liberté" comes second in 自由. */
+const SHOWN_GLOSSES = 2;
+
+/** The first glosses of the first sense in this language, shortened. */
+function glossesOf(senses: readonly JmdictSense[], lang: string) {
+	const texts = senses
+		.map((sense) => sense.gloss.filter((gloss) => gloss.lang === lang))
+		.find((glosses) => glosses.length > 0)
+		?.map((gloss) => shortGloss(gloss.text));
+	return texts && [...new Set(texts)].slice(0, SHOWN_GLOSSES).join(', ');
 }
 
 interface SenseContext {
@@ -111,7 +121,7 @@ function senseOf(sense: JmdictSense, context: SenseContext): Sense {
 	const [info] = sense.info;
 	return {
 		gloss: {
-			en: firstGloss([sense], 'eng') ?? '',
+			en: glossesOf([sense], 'eng') ?? '',
 			...(context.french ? { fr: context.french } : {}),
 		},
 		pos: [...new Set(sense.partOfSpeech.map(partOfSpeechOf))],
@@ -123,14 +133,16 @@ function senseOf(sense: JmdictSense, context: SenseContext): Sense {
 
 /**
  * Senses of a JMdict entry in our format. JMdict keeps French glosses in
- * separate senses that are not aligned with the English ones: a French
- * gloss is only trusted when the entry has a single sense.
+ * separate senses that are not aligned with the English ones, but they mostly
+ * start with the main meaning: they go to the primary sense only.
  */
 export function sensesOf(word: JmdictWord, kanji: string | undefined): Sense[] {
-	const kept = word.sense.filter(isKeptSense);
-	const french =
-		kept.length === 1 ? firstGloss(word.sense, 'fre') : undefined;
-	return kept.map((sense) => senseOf(sense, { kanji, french }));
+	const french = glossesOf(word.sense, 'fre');
+	return word.sense
+		.filter(isKeptSense)
+		.map((sense, index) =>
+			senseOf(sense, { kanji, french: index === 0 ? french : undefined }),
+		);
 }
 
 const AFFIXES = new Set<PartOfSpeech>(['suffix', 'prefix', 'counter']);

@@ -1,0 +1,301 @@
+# Hand-written French translations (C7). Only reviewed entries reach the app.
+- kana: は
+  fr: "marque le thème"
+  reviewed: true
+- kana: ここ
+  fr: "ici, cet endroit"
+  reviewed: true
+- kana: こ
+  fr: "enfant"
+  reviewed: true
+- kana: いい
+  fr: "bon, bien"
+  reviewed: true
+- kana: いう
+  fr: "dire"
+  reviewed: true
+- kana: か
+  fr: "marque une question"
+  reviewed: true
+- kana: かい
+  fr: "fois (compteur)"
+  reviewed: true
+- kana: つい
+  fr: "à l'instant"
+  reviewed: true
+- kana: たい
+  fr: "vouloir faire"
+  reviewed: true
+- kana: かた
+  fr: "direction, manière"
+  reviewed: true
+- kana: た
+  fr: "autre"
+  reviewed: true
+- kana: たか
+  fr: "quantité, montant"
+  reviewed: true
+- kana: たかい
+  fr: "haut, grand"
+  reviewed: true
+- kana: かん
+  fr: "intervalle, durée"
+  reviewed: true
+- kana: はん
+  fr: "édition, version"
+  reviewed: true
+- kana: かんたん
+  fr: "simple, facile"
+  reviewed: true
+- kana: し
+  fr: "et, de plus"
+  reviewed: true
+- kana: しか
+  fr: "ne… que, rien que"
+  reviewed: true
+- kana: しかし
+  fr: "cependant, mais"
+  reviewed: true
+- kana: しん
+  fr: "nouveau, néo-"
+  reviewed: true
+- kana: した
+  fr: "en bas, dessous"
+  reviewed: true
+- kana: せい
+  fr: "nature"
+  reviewed: true
+- kana: せかい
+  fr: "le monde, la société"
+  reviewed: true
+- kana: せんせい
+  fr: "professeur, enseignant"
+  reviewed: true
+- kana: けん
+  fr: "préfecture"
+  reviewed: true
+- kana: けい
+  fr: "système, lignée"
+  reviewed: true
+- kana: かんけい
+  fr: "relation, rapport"
+  reviewed: true
+- kana: うけ
+  fr: "popularité, faveur"
+  reviewed: true
+- kana: いく
+  fr: "aller, se déplacer"
+  reviewed: true
+- kana: さ
+  fr: "-eur, -té (suffixe)"
+  reviewed: true
+- kana: さん
+  fr: "trois, 3"
+  reviewed: true
+- kana: さんか
+  fr: "participation"
+  reviewed: true
+- kana: さいこう
+  fr: "le meilleur, suprême"
+  reviewed: true
+- kana: かいさい
+  fr: "tenue, ouverture"
+  reviewed: true
+- kana: つき
+  fr: "Lune"
+  reviewed: true
+- kana: き
+  fr: "esprit, état d'esprit"
+  reviewed: true
+- kana: きん
+  fr: "or"
+  reviewed: true
+- kana: さき
+  fr: "pointe, bout"
+  reviewed: true
+- kana: さいきん
+  fr: "récemment, dernièrement"
+  reviewed: true
+- kana: いき
+  fr: "l'aller, trajet aller"
+  reviewed: true
+- kana: じ
+  fr: "heure"
+  reviewed: true
+- kana: じかん
+  fr: "temps"
+  reviewed: true
+- kana: かんじ
+  fr: "sensation, impression"
+  reviewed: true
+- kana: じけん
+  fr: "événement, affaire"
+  reviewed: true
+- kana: サイト
+  fr: "site"
+  reviewed: true
+- kana: と
+  fr: "si, quand"
+  reviewed: true
+- kana: こと
+  fr: "chose, fait"
+  reviewed: true
+- kana: とし
+  fr: "année"
+  reviewed: true
+- kana: という
+  fr: "appelé, nommé"
+  reviewed: true
+- kana: とき
+  fr: "moment, heure"
+  reviewed: true
+- kana: とか
+  fr: "et ce genre de, comme"
+  reviewed: true
+- kana: とく
+  fr: "profit, avantage"
+  reviewed: true
+- kana: てき
+  fr: "-ique, -if"
+  reviewed: true
+- kana: として
+  fr: "en tant que, comme"
+  reviewed: true
+- kana: て
+  fr: "main, bras"
+  reviewed: true
+- kana: てん
+  fr: "magasin, boutique"
+  reviewed: true
+- kana: って
+  fr: "tu as dit, il a dit"
+  reviewed: true
+- kana: けっか
+  fr: "résultat, conséquence"
+  reviewed: true
+- kana: じっさい
+  fr: "réalité"
+  reviewed: true
+- kana: あと
+  fr: "derrière, arrière"
+  reviewed: true
+- kana: ああ
+  fr: "ah !, oh !"
+  reviewed: true
+- kana: あいて
+  fr: "compagnon, partenaire"
+  reviewed: true
+- kana: な
+  fr: "ne fais pas"
+  reviewed: true
+- kana: ない
+  fr: "inexistant, ne pas y avoir"
+  reviewed: true
+- kana: なか
+  fr: "intérieur, dedans"
+  reviewed: true
+- kana: なん
+  fr: "quoi"
+  reviewed: true
+- kana: はなし
+  fr: "discussion, parole"
+  reviewed: true
+- kana: なんて
+  fr: "comme… !, quel… !"
+  reviewed: true
+- kana: あなた
+  fr: "toi, vous"
+  reviewed: true
+- kana: こんな
+  fr: "ce genre de, tel"
+  reviewed: true
+- kana: なんか
+  fr: "quelque chose comme"
+  reviewed: true
+- kana: おなじ
+  fr: "même, identique"
+  reviewed: true
+- kana: おおい
+  fr: "nombreux"
+  reviewed: true
+- kana: おとこ
+  fr: "homme"
+  reviewed: true
+- kana: おんな
+  fr: "femme"
+  reviewed: true
+- kana: おおく
+  fr: "beaucoup, nombreux"
+  reviewed: true
+- kana: かお
+  fr: "visage"
+  reviewed: true
+- kana: あり
+  fr: "fourmi"
+  reviewed: false
+- kana: なり
+  fr: "ou quelque chose, par exemple"
+  reviewed: true
+- kana: たり
+  fr: "faire ceci et cela"
+  reviewed: true
+- kana: とおり
+  fr: "rue, route"
+  reviewed: true
+- kana: まし
+  fr: "mieux, préférable"
+  reviewed: true
+- kana: いま
+  fr: "maintenant"
+  reviewed: true
+- kana: また
+  fr: "encore, de nouveau"
+  reviewed: true
+- kana: まん
+  fr: "dix mille"
+  reviewed: true
+- kana: ま
+  fr: "temps, pause"
+  reviewed: true
+- kana: さま
+  fr: "M., Mme (politesse)"
+  reviewed: true
+- kana: なま
+  fr: "cru, pas cuit"
+  reviewed: true
+- kana: しまう
+  fr: "finir, arrêter"
+  reviewed: true
+- kana: あたま
+  fr: "tête"
+  reviewed: true
+- kana: まあ
+  fr: "bon, allons"
+  reviewed: true
+- kana: いる
+  fr: "être nécessaire"
+  reviewed: false
+- kana: てる
+  fr: "être en train de"
+  reviewed: true
+- kana: ある
+  fr: "exister, il y a"
+  reviewed: true
+- kana: なる
+  fr: "devenir"
+  reviewed: true
+- kana: くるま
+  fr: "voiture"
+  reviewed: true
+- kana: まえ
+  fr: "devant, avant"
+  reviewed: true
+- kana: え
+  fr: "hein ?, quoi ?"
+  reviewed: true
+- kana: いえ
+  fr: "maison"
+  reviewed: true
+- kana: えん
+  fr: "yen"
+  reviewed: true
