@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Many more words have a French translation, with up to two glosses each
+
 ## [0.2.0] - 2026-11-05
 
 ### Added

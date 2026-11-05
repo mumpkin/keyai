@@ -288,12 +288,10 @@ data/vocab.json     output (committed)
 7. Compute the unlock order with `core/progression`.
 8. Emit a deterministic file (stable ordering, no timestamps).
 
-- JMdict glosses are used as is; a missing French gloss falls back to
-  English in the interface.
-- Each override carries `reviewed: true | false`. Draft translations are
-  written during working sessions (no API in the pipeline) with
-  `reviewed: false`. `pnpm vocab:check --strict` rejects any unreviewed entry
-  and runs in the release workflow.
+- A missing French gloss falls back to English in the interface.
+- Each override of `overrides/words.yaml` carries `reviewed: true | false`.
+  Drafts are written during working sessions (no API in the pipeline) and stay
+  out of the vocabulary until they are reviewed, so they never block a release.
 - Measured on JMdict 3.6.2 (261 MB of JSON): the whole build takes about four
   seconds; `JSON.parse` is enough, no streaming needed.
 - wordfreq counts strings, not words: only **common** JMdict forms are looked
@@ -325,11 +323,11 @@ tsconfig.base.json    strict, erasableSyntaxOnly, verbatimModuleSyntax,
 | `pnpm vocab:fetch` · `build` · `check` | Vocabulary pipeline         |
 | `pnpm preview:web`                     | Web build on the network    |
 
-| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                                              |
-| ------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (phone and desktop formats), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes         |
-| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check --strict`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names |
-| `pages.yml`   | CI green on `main`, or by hand | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                                           |
+| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                                      |
+| ------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (phone and desktop formats), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
+| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names  |
+| `pages.yml`   | CI green on `main`, or by hand | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                                   |
 
 CI tuning: parallel jobs, pnpm and Cargo caches, `concurrency` with
 `cancel-in-progress`, path filters, actions pinned by commit SHA (updated by

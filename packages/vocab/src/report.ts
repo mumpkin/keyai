@@ -11,6 +11,8 @@ export interface ReportInputs {
 	readonly vocabulary: VocabFile;
 	readonly candidateCount: number;
 	readonly coverageAdditions: number;
+	readonly reviewedOverrides: number;
+	readonly draftOverrides: number;
 	/** Words whose primary sense is uncertain: several entries tied. */
 	readonly tiedHomographs: readonly string[];
 }
@@ -49,6 +51,8 @@ function summarySection(inputs: ReportInputs): string[] {
 		`| Candidates (typeable, frequent) | ${inputs.candidateCount} |`,
 		`| Words | ${words.length} |`,
 		`| Coverage additions | ${inputs.coverageAdditions} |`,
+		`| Reviewed translations | ${inputs.reviewedOverrides} |`,
+		`| Draft translations | ${inputs.draftOverrides} |`,
 		`| Katakana words | ${katakana} |`,
 		`| French primary gloss | ${french} (${percent(french, words.length)}) |`,
 		`| Initial group | ${inputs.vocabulary.initialUnlocked} kana |`,
