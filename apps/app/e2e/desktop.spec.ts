@@ -60,7 +60,7 @@ test('says when the keys go nowhere', async ({ page }) => {
 	const hint = page.getByText('reprendre la frappe').locator('..');
 	await expect(hint).toHaveCSS('opacity', '0');
 
-	await page.locator('header span').first().click();
+	await page.locator('header h1').click();
 	await expect(hint).toHaveCSS('opacity', '1');
 
 	await page.locator('main').click({ position: { x: 300, y: 200 } });
@@ -76,4 +76,23 @@ test('guides the first series only', async ({ page }) => {
 	await page.getByRole('button', { name: '10', exact: true }).click();
 	await playSeries(page);
 	await expect(guide).toBeHidden();
+});
+
+test('moves between the kana tabs with the arrow keys', async ({ page }) => {
+	await page.getByRole('tab', { name: 'Hiragana' }).focus();
+	await page.keyboard.press('ArrowRight');
+	await expect(page.getByRole('tab', { name: 'Katakana' })).toBeFocused();
+	await expect(page.getByRole('tabpanel')).toHaveAccessibleName('Katakana');
+});
+
+test('does not stop on every kana with the Tab key', async ({ page }) => {
+	const stops = await page.evaluate(
+		() =>
+			[
+				...document.querySelectorAll<HTMLElement>(
+					'a[href],button,input',
+				),
+			].filter((node) => node.tabIndex >= 0 && node.offsetParent).length,
+	);
+	expect(stops).toBeLessThan(20);
 });

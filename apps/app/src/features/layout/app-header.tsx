@@ -31,7 +31,7 @@ export function AppHeader({ currentScreen, onNavigate }: AppHeaderProps) {
 			data-tauri-drag-region={windowControls ? 'deep' : undefined}
 			className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b px-4 py-3 select-none"
 		>
-			<span className="text-xl font-bold tracking-tight">keyai</span>
+			<h1 className="text-xl font-bold tracking-tight">keyai</h1>
 			<nav
 				className={cn(
 					'flex gap-1',

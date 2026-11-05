@@ -81,7 +81,7 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
 		>
 			<AnimatedTitle />
 			<span className="animate-subtitle-reveal font-kana text-lg text-muted-foreground">
-				はやい · {translate('splash.meaning')}
+				<span lang="ja">はやい</span> · {translate('splash.meaning')}
 			</span>
 		</button>
 	);

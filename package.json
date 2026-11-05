@@ -28,6 +28,7 @@
 		"vocab:check": "pnpm --filter @keyai/vocab check-vocabulary"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.14.0",
 		"@biomejs/biome": "2.6.4",
 		"@playwright/test": "^1.64.1",
 		"@types/node": "^24.19.2",

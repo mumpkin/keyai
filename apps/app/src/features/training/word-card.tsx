@@ -60,7 +60,10 @@ function OtherSenses({
 					<li key={`${sense.kanji ?? ''}-${sense.gloss.en}`}>
 						· <GlossText gloss={glossOf(sense, locale)} />
 						{sense.kanji && (
-							<span className="ml-1 font-kana text-muted-foreground">
+							<span
+								lang="ja"
+								className="ml-1 font-kana text-muted-foreground"
+							>
 								{sense.kanji}
 							</span>
 						)}
@@ -79,9 +82,14 @@ function WordCardContent({ entry, locale }: WordCardProps) {
 	return (
 		<>
 			<p className="flex items-baseline gap-2">
-				<span className="font-kana text-3xl">{entry.word.kana}</span>
+				<span lang="ja" className="font-kana text-3xl">
+					{entry.word.kana}
+				</span>
 				{primary.kanji && (
-					<span className="font-kana text-xl text-muted-foreground">
+					<span
+						lang="ja"
+						className="font-kana text-xl text-muted-foreground"
+					>
 						{primary.kanji}
 					</span>
 				)}

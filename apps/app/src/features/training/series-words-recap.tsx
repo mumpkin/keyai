@@ -34,6 +34,7 @@ function RecapEntry({ word, entry, locale, isLatest }: RecapEntryProps) {
 					)}
 				>
 					<span
+						lang="ja"
 						className={cn(
 							'shrink-0 font-kana whitespace-nowrap',
 							isSkipped && 'line-through',

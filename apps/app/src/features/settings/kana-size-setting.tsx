@@ -40,6 +40,7 @@ export function KanaSizeSetting() {
 			</SettingRow>
 			{/* As tall as the largest size: the page does not move with it. */}
 			<p
+				lang="ja"
 				className="flex h-24 items-center font-kana"
 				style={{ fontSize: 'var(--kana-size)' }}
 			>
