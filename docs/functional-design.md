@@ -413,10 +413,14 @@ click.
   series figures, and a _new_ chip when a kana was just unlocked.
 - **Word line**: words separated by a normal space. **No romaji is shown
   under the words**: as in Keybr or Monkeytype, typing fills the kana in
-  place. Typed units turn to the main colour, the unit being typed is shown
-  as partially filled, and a single cursor glides under the unit being typed. A unit on which a wrong
+  place. Typed units turn to a colour stronger than regular text, the unit being
+  typed takes the primary colour, and a single cursor glides under the unit being typed. A unit on which a wrong
   key was typed turns **red** and stays red once the word is done, in the
   word line and in the recap. Skipped words are struck through.
+  Kana still to type have their own colour, paler than muted text, with the
+  contrast of large text, and a contrast of at least 4.5:1 with typed kana.
+  Below 24 px, where the contrast of large text is not enough, they keep the
+  muted colour.
   The word line shows **three lines** at most and scrolls as typing
   progresses, keeping the current line in the middle, so the layout does not
   change with the series length.

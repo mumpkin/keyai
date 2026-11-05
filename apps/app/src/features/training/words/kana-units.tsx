@@ -4,9 +4,9 @@ import type { UnitView } from '@/features/training/series/series-view.ts';
 const unitVariants = cva('', {
 	variants: {
 		state: {
-			typed: 'text-foreground',
+			typed: 'text-typed-foreground',
 			faulty: 'text-destructive',
-			partial: 'text-primary/60',
+			partial: 'text-primary',
 			next: '',
 			pending: '',
 		},

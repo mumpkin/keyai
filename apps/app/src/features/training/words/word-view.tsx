@@ -9,10 +9,10 @@ import { KanaUnits } from './kana-units.tsx';
 const wordVariants = cva('font-kana', {
 	variants: {
 		status: {
-			done: 'text-foreground',
+			done: 'text-typed-foreground',
 			skipped: 'text-muted-foreground line-through',
-			current: 'text-muted-foreground',
-			pending: 'text-muted-foreground',
+			current: 'text-pending-foreground',
+			pending: 'text-pending-foreground',
 		},
 	},
 });
