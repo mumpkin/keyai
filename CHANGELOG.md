@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Kana still to type stand out clearly from the kana already typed
+
 ## [0.3.0] - 2026-11-05
 
 ### Added

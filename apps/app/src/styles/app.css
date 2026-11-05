@@ -113,6 +113,8 @@
 	--color-accent-foreground: var(--accent-foreground);
 	--color-accent: var(--accent);
 	--color-muted-foreground: var(--muted-foreground);
+	--color-pending-foreground: var(--pending-foreground);
+	--color-typed-foreground: var(--typed-foreground);
 	--color-muted: var(--muted);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-secondary: var(--secondary);
@@ -154,6 +156,8 @@
 	--secondary-foreground: #343b59;
 	--muted: #d6d8df;
 	--muted-foreground: #565c79;
+	--pending-foreground: #7e8297;
+	--typed-foreground: #11162a;
 	--accent: #d6d8df;
 	--accent-foreground: #343b59;
 	--destructive: #942f2f;
@@ -192,6 +196,8 @@
 	--secondary-foreground: #c0caf5;
 	--muted: #292e42;
 	--muted-foreground: #8e96bc;
+	--pending-foreground: #61667e;
+	--typed-foreground: #f2f4ff;
 	--accent: #292e42;
 	--accent-foreground: #c0caf5;
 	--destructive: #f7768e;
@@ -211,6 +217,11 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
+}
+
+/* The pending colour only reaches the contrast of large text (WCAG 1.4.3). */
+:root[data-small-kana] {
+	--pending-foreground: var(--muted-foreground);
 }
 
 @layer base {

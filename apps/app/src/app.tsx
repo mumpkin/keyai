@@ -37,16 +37,18 @@ function CurrentScreen({
 	}
 }
 
+/** Size from which text counts as large for contrast (WCAG 1.4.3). */
+const LARGE_TEXT_PX = 24;
+
 /** Applies the kana size of the settings to the whole interface (C8). */
 function useKanaSize() {
 	const kanaSizePx = useProgress(
 		(state) => state.save.settings.display.kanaSizePx,
 	);
 	useEffect(() => {
-		document.documentElement.style.setProperty(
-			'--kana-size',
-			`${kanaSizePx}px`,
-		);
+		const root = document.documentElement;
+		root.style.setProperty('--kana-size', `${kanaSizePx}px`);
+		root.toggleAttribute('data-small-kana', kanaSizePx < LARGE_TEXT_PX);
 	}, [kanaSizePx]);
 }
 

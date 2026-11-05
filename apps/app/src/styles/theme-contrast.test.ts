@@ -6,6 +6,8 @@ const STYLES = readFileSync(new URL('./app.css', import.meta.url), 'utf8');
 const TEXT = 4.5;
 /** Field borders, charts and large marks (WCAG 1.4.11). */
 const GRAPHIC = 3;
+/** Kana still to type must not look like the kana already typed. */
+const TYPED_AND_PENDING = 4.5;
 
 type Tokens = ReadonlyMap<string, string>;
 
@@ -50,6 +52,7 @@ function blend(top: number[], bottom: number[], opacity: number): number[] {
 
 const TEXT_PAIRS = [
 	['foreground', 'background'],
+	['typed-foreground', 'background'],
 	['foreground', 'muted'],
 	['muted-foreground', 'background'],
 	['muted-foreground', 'muted'],
@@ -67,6 +70,7 @@ const GRAPHIC_PAIRS = [
 	['ring', 'background'],
 	['mastery-low', 'background'],
 	['mastery-high', 'background'],
+	['pending-foreground', 'background'],
 ] as const;
 
 describe.each([
@@ -86,6 +90,15 @@ describe.each([
 		expect(
 			contrastOf(colour(graphic), colour(surface)),
 		).toBeGreaterThanOrEqual(GRAPHIC);
+	});
+
+	it('tells the kana to type from the typed ones', () => {
+		expect(
+			contrastOf(
+				colour('pending-foreground'),
+				colour('typed-foreground'),
+			),
+		).toBeGreaterThanOrEqual(TYPED_AND_PENDING);
 	});
 
 	it('keeps a warning readable on its tint', () => {
