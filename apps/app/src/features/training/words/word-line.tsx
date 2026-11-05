@@ -2,6 +2,7 @@ import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { useLayoutEffect, useRef } from 'react';
 import type { WordView as WordViewModel } from '@/features/training/series/series-view.ts';
+import { cn } from '@/lib/utils.ts';
 import { WordView } from './word-view.tsx';
 
 const LINE_HEIGHT = 'calc(var(--kana-size) * 1.6)';
@@ -64,6 +65,8 @@ interface WordLineProps {
 	readonly currentIndex: number;
 	readonly locale: Locale;
 	readonly errorCount: number;
+	/** Natural writing: nothing separates the words (C8). */
+	readonly isJoined: boolean;
 }
 
 /** Three lines at most, scrolling with the current word (C8). */
@@ -73,6 +76,7 @@ export function WordLine({
 	currentIndex,
 	locale,
 	errorCount,
+	isJoined,
 }: WordLineProps) {
 	const viewportRef = useKeepCurrentLineCentered(currentIndex);
 	const { contentRef, cursorRef } = useGlidingCursor();
@@ -88,7 +92,10 @@ export function WordLine({
 		>
 			<div
 				ref={contentRef}
-				className="relative flex flex-wrap gap-x-[0.5em]"
+				className={cn(
+					'relative flex flex-wrap',
+					!isJoined && 'gap-x-[0.5em]',
+				)}
 			>
 				<span
 					ref={cursorRef}

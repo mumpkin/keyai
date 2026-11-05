@@ -45,6 +45,7 @@
 		"kanaUnlocked": "Nouveau kana débloqué : {{kana}}.",
 		"focusLost": "Cliquez ou touchez ici pour reprendre la frappe",
 		"guideKeyboard": "Tapez chaque mot en romaji (か = ka), espace pour valider.",
+		"guideNatural": "Tapez les mots à la suite en romaji (か = ka), sans espace.",
 		"guideTouch": "Touchez ici pour ouvrir le clavier, puis tapez en romaji.",
 		"typingArea": "Zone de frappe",
 		"skipped": "passé"
@@ -123,7 +124,9 @@
 		},
 		"session": {
 			"title": "Séance",
-			"wordsPerSeries": "Mots par série"
+			"wordsPerSeries": "Mots par série",
+			"naturalWriting": "Écriture naturelle (sans espace entre les mots)",
+			"keepWordSpaces": "Garder les espaces affichés entre les mots"
 		},
 		"speed": {
 			"title": "Vitesse",

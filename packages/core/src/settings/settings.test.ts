@@ -8,8 +8,10 @@ import {
 	withKanaSize,
 	withKanaTableTab,
 	withLocale,
+	withNaturalWriting,
 	withSpeedPreset,
 	withTheme,
+	withWordSpaces,
 	withWordsPerSession,
 } from './settings.ts';
 
@@ -21,6 +23,8 @@ describe('settings', () => {
 			locale: 'fr',
 			wordsPerSession: 20,
 			speed: { preset: 'easy', kanaPerMinute: 30 },
+			naturalWriting: false,
+			keepsWordSpaces: false,
 			feedback: { sound: false },
 			display: { kanaSizePx: 24, theme: 'system', kanaTableTab: 'mine' },
 		});
@@ -43,6 +47,17 @@ describe('settings', () => {
 			...DEFAULTS.display,
 			kanaTableTab: 'katakana',
 		});
+	});
+
+	it('keeps natural writing off for settings saved before it', () => {
+		const {
+			naturalWriting: _natural,
+			keepsWordSpaces: _spaces,
+			...older
+		} = DEFAULTS;
+		expect(SettingsSchema.parse(older)).toEqual(DEFAULTS);
+		expect(withNaturalWriting(DEFAULTS, true).naturalWriting).toBe(true);
+		expect(withWordSpaces(DEFAULTS, true).keepsWordSpaces).toBe(true);
 	});
 
 	it('opens my kana for settings saved before that tab', () => {

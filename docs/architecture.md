@@ -166,6 +166,8 @@ interface Sample {
 interface Settings {
 	locale: 'fr' | 'en';
 	wordsPerSession: number;
+	naturalWriting: boolean;
+	keepsWordSpaces: boolean;
 	speed: {
 		preset: 'easy' | 'normal' | 'hard' | 'custom';
 		kanaPerMinute: number;

@@ -22,7 +22,9 @@ export {
 	withKanaSize,
 	withKanaTableTab,
 	withLocale,
+	withNaturalWriting,
 	withSpeedPreset,
 	withTheme,
+	withWordSpaces,
 	withWordsPerSession,
 } from './settings.ts';

@@ -12,10 +12,19 @@ function seriesWordOf(kana: string, index: number): SeriesWord {
 	};
 }
 
+export interface SeriesOptions {
+	readonly naturalWriting?: boolean;
+}
+
 /** A series ready to be typed; an empty series is already finished. */
-export function createSeries(words: readonly string[]): SeriesState {
+export function createSeries(
+	words: readonly string[],
+	{ naturalWriting = false }: SeriesOptions = {},
+): SeriesState {
 	return {
 		phase: words.length > 0 ? 'ready' : 'finished',
+		naturalWriting,
+		ignoresNextSpace: false,
 		words: words.map(seriesWordOf),
 		currentIndex: 0,
 		startedAt: null,

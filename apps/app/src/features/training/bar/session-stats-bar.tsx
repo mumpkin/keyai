@@ -89,13 +89,20 @@ function FirstSeriesGuide() {
 	const isFirstSeries = useProgress(
 		(state) => state.save.history.length === 0,
 	);
+	const naturalWriting = useProgress(
+		(state) => state.save.settings.naturalWriting,
+	);
 	if (!isFirstSeries) {
 		return null;
 	}
 	return (
 		<span className="truncate text-muted-foreground">
 			<span className="pointer-coarse:hidden">
-				{translate('training.guideKeyboard')}
+				{translate(
+					naturalWriting
+						? 'training.guideNatural'
+						: 'training.guideKeyboard',
+				)}
 			</span>
 			<span className="hidden pointer-coarse:inline">
 				{translate('training.guideTouch')}

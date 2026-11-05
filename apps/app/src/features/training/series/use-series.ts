@@ -40,7 +40,10 @@ function newSeries(
 	return {
 		id: seed,
 		entries,
-		state: createSeries(entries.map((entry) => entry.word.kana)),
+		state: createSeries(
+			entries.map((entry) => entry.word.kana),
+			{ naturalWriting: save.settings.naturalWriting },
+		),
 		previous,
 	};
 }
@@ -48,8 +51,11 @@ function newSeries(
 /** The series left for another screen, unless the settings no longer fit. */
 function pausedSeriesFor(store: ProgressStore): Series | null {
 	const { pausedSeries } = useUiStore.getState();
-	const { wordsPerSession } = store.getState().save.settings;
-	if (pausedSeries?.series.entries.length !== wordsPerSession) {
+	const { wordsPerSession, naturalWriting } = store.getState().save.settings;
+	if (
+		pausedSeries?.series.entries.length !== wordsPerSession ||
+		pausedSeries.series.state.naturalWriting !== naturalWriting
+	) {
 		return null;
 	}
 	const { series, pausedAt } = pausedSeries;

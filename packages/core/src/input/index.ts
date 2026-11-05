@@ -9,6 +9,7 @@ export {
 	type MatcherState,
 	type MatchResult,
 	progressOf,
+	remainingSpellingsOf,
 } from './matcher.ts';
 export { isTypeable, spellingsOf } from './spellings.ts';
 export { tokenize, UnknownKanaError } from './tokenize.ts';

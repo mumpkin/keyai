@@ -2,7 +2,9 @@ import { expect, test } from '@playwright/test';
 import {
 	openApp,
 	openScreen,
+	playNaturalSeries,
 	playSeries,
+	SETTINGS,
 	STATISTICS,
 	TRAINING,
 	typeCurrentWord,
@@ -111,6 +113,55 @@ test('keeps the same height on every kana tab', async ({ page }) => {
 		heights.push(box?.height);
 	}
 	expect(new Set(heights).size).toBe(1);
+});
+
+test('types a whole series without a space in natural writing', async ({
+	page,
+}) => {
+	await openScreen(page, SETTINGS).click();
+	await page.getByRole('switch', { name: /Écriture naturelle/ }).click();
+	await openScreen(page, TRAINING).click();
+	await page.getByRole('button', { name: '10', exact: true }).click();
+	const first = page.locator('[data-word-index="0"]');
+	const second = page.locator('[data-word-index="1"]');
+	const firstBox = await first.boundingBox();
+	const secondBox = await second.boundingBox();
+	expect(secondBox?.x).toBe((firstBox?.x ?? 0) + (firstBox?.width ?? 0));
+	await playNaturalSeries(page);
+	await expect
+		.poll(() =>
+			page.evaluate(() => {
+				const save = JSON.parse(
+					localStorage.getItem('keyai.save') ?? '',
+				);
+				return save.history[0];
+			}),
+		)
+		.toMatchObject({ wordCount: 10, accuracy: 1 });
+});
+
+test('can keep the gaps between words in natural writing', async ({ page }) => {
+	await openScreen(page, SETTINGS).click();
+	const spaces = page.getByRole('switch', { name: /Garder les espaces/ });
+	await expect(spaces).toBeDisabled();
+	await page.getByRole('switch', { name: /Écriture naturelle/ }).click();
+	await spaces.click();
+	await openScreen(page, TRAINING).click();
+	const firstBox = await page.locator('[data-word-index="0"]').boundingBox();
+	const secondBox = await page.locator('[data-word-index="1"]').boundingBox();
+	expect(secondBox?.x).toBeGreaterThan(
+		(firstBox?.x ?? 0) + (firstBox?.width ?? 0),
+	);
+	await playNaturalSeries(page);
+	await expect
+		.poll(() =>
+			page.evaluate(
+				() =>
+					JSON.parse(localStorage.getItem('keyai.save') ?? '').history
+						.length,
+			),
+		)
+		.toBe(1);
 });
 
 test('does not stop on every kana with the Tab key', async ({ page }) => {

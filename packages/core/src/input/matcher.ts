@@ -1,6 +1,9 @@
 import { spellingsOf } from './spellings.ts';
 import { tokenize } from './tokenize.ts';
 
+/** Index of what is left of the previous word, before the first unit. */
+const LEADING_UNIT = -1;
+
 /** One possible reading of the keys typed so far. */
 interface Hypothesis {
 	/** Index of the unit being typed; equals the unit count once done. */
@@ -17,6 +20,11 @@ interface Hypothesis {
 export interface MatcherState {
 	/** Accepted spellings of each unit of the word. */
 	readonly spellings: readonly (readonly string[])[];
+	/**
+	 * Keys that may still belong to the previous word: without a space, 'honn'
+	 * can be a whole ほん followed by a word in な, or ほん typed 'honn'.
+	 */
+	readonly leading: readonly string[];
 	readonly hypotheses: readonly Hypothesis[];
 }
 
@@ -35,11 +43,25 @@ export interface MatcherProgress {
 	readonly typed: string;
 }
 
-export function createMatcher(word: string): MatcherState {
+export function createMatcher(
+	word: string,
+	leading: readonly string[] = [],
+): MatcherState {
+	const start = { unitIndex: 0, typed: '' };
 	return {
 		spellings: spellingsOf(tokenize(word)),
-		hypotheses: [{ unitIndex: 0, typed: '' }],
+		leading,
+		hypotheses:
+			leading.length > 0
+				? [{ unitIndex: LEADING_UNIT, typed: '' }, start]
+				: [start],
 	};
+}
+
+function spellingsAt(state: MatcherState, unitIndex: number) {
+	return unitIndex === LEADING_UNIT
+		? state.leading
+		: (state.spellings[unitIndex] ?? []);
 }
 
 /** Units completed in every reading still possible. */
@@ -69,12 +91,12 @@ export function progressOf(state: MatcherState): MatcherProgress {
 }
 
 function successorsOf(
-	spellings: MatcherState['spellings'],
+	state: MatcherState,
 	hypothesis: Hypothesis,
 	key: string,
 ): Hypothesis[] {
 	const typed = hypothesis.typed + key;
-	const candidates = (spellings[hypothesis.unitIndex] ?? []).filter(
+	const candidates = spellingsAt(state, hypothesis.unitIndex).filter(
 		(spelling) => spelling.startsWith(typed),
 	);
 	const completes = candidates.includes(typed);
@@ -111,7 +133,10 @@ function moveTo(
 	const next = { ...state, hypotheses };
 	return {
 		state: next,
-		events: completionEvents(confirmedUnits(state), confirmedUnits(next)),
+		events: completionEvents(
+			Math.max(0, confirmedUnits(state)),
+			confirmedUnits(next),
+		),
 	};
 }
 
@@ -123,7 +148,7 @@ export function feedKey(state: MatcherState, key: string): MatchResult {
 	const lowerKey = key.toLowerCase();
 	const hypotheses = deduplicated(
 		state.hypotheses.flatMap((hypothesis) =>
-			successorsOf(state.spellings, hypothesis, lowerKey),
+			successorsOf(state, hypothesis, lowerKey),
 		),
 	);
 	if (hypotheses.length === 0) {
@@ -146,4 +171,19 @@ export function finishWord(state: MatcherState): MatchResult | undefined {
 		({ unitIndex }) => unitIndex >= unitCount,
 	);
 	return complete.length > 0 ? moveTo(state, complete) : undefined;
+}
+
+/** The keys that would still fit a word already complete ('n' after 'hon'). */
+export function remainingSpellingsOf(state: MatcherState): string[] {
+	const started = state.hypotheses.filter(
+		({ unitIndex, typed }) =>
+			unitIndex < state.spellings.length && typed !== '',
+	);
+	const remaining = started.flatMap(({ unitIndex, typed }) =>
+		spellingsAt(state, unitIndex)
+			.filter((spelling) => spelling.startsWith(typed))
+			.map((spelling) => spelling.slice(typed.length))
+			.filter((rest) => rest !== ''),
+	);
+	return [...new Set(remaining)];
 }

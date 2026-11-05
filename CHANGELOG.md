@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+- A natural writing option: words follow each other without typing a space,
+  with or without a gap on screen
 - A "My kana" tab, shown first, with every unlocked kana from the most recent
 
 ### Changed
