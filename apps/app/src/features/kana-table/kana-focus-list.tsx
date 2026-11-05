@@ -2,6 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import { KanaCell } from './kana-cell.tsx';
 import { focusKanaOf, kanaStatesOf } from './kana-states.ts';
+import { UnlockHint } from './unlock-hint.tsx';
+
+const PERCENT = 100;
 
 /**
  * The kana table of a phone: the whole chart does not fit and most of it is
@@ -33,17 +36,26 @@ export function KanaFocusList() {
 					})}
 				</span>
 			</p>
+			<UnlockHint />
 			<ul
 				aria-label={label}
 				className="flex flex-wrap gap-x-2 gap-y-3 pt-2"
 			>
 				{kana.list.map((item) => (
-					<li key={item}>
+					<li key={item} className="flex flex-col items-center">
 						<KanaCell
 							kana={item}
 							state={states.stateOf(item)}
 							score={states.scoreOf(item)}
 						/>
+						<span className="text-xs text-muted-foreground tabular-nums">
+							{states.stateOf(item) !== 'next' &&
+								translate('common.percent', {
+									value: Math.round(
+										states.scoreOf(item) * PERCENT,
+									),
+								})}
+						</span>
 					</li>
 				))}
 			</ul>

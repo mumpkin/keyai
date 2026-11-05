@@ -71,6 +71,7 @@
 	},
 	"kanaTable": {
 		"focusTitle": "Kana à travailler",
+		"unlockHint": "Pour débloquer {{next}}, maîtrisez :",
 		"masteredCount_one": "{{count}} maîtrisé",
 		"masteredCount_other": "{{count}} maîtrisés",
 		"latest": "nouveau",

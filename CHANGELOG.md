@@ -14,6 +14,9 @@ and this project adheres to
 
 ### Changed
 
+- The next kana unlocks once the last five are mastered, instead of all of
+  them, the screen says which ones are missing, and the weakest kana is always
+  featured
 - On a phone, the words sit above the virtual keyboard, and the kana table
   gives way to the kana to work on
 
