@@ -270,7 +270,7 @@ styles/app.css      Tailwind and theme
 
 ```
 sources.json        pinned sources (URL, version, SHA-256)
-overrides/          words.yaml · particles.yaml
+overrides/          words.yaml
 src/                fetch.ts · build.ts · report.ts · stages/
 .cache/             raw sources (git-ignored)
 data/vocab.json     output (committed)

@@ -343,7 +343,10 @@ original colour fails WCAG AA, it is adjusted as little as possible, and
   two glosses, and on the primary sense only. The 300 most frequent words only
   get a French translation from `overrides/words.yaml`.
 - Overrides translate the first English sense of JMdict: they choose words,
-  not meanings. Only reviewed ones reach the app.
+  not meanings, except where that sense is clearly not the usual one (かも is
+  « peut-être » before being a duck): `primary` then picks another sense.
+- After the first 200 words read line by line, the maintainer chose to rely on
+  user reports for the rest: the word card links to a prefilled GitHub issue.
 
 ### Coverage
 
@@ -367,7 +370,7 @@ original colour fails WCAG AA, it is adjusted as little as possible, and
   shown in the word card (_vulgar_, _familiar_); common onomatopoeia.
 - **Particles**: は, が, を, に, へ, で, と, も, の, か, や, よ, ね, から, まで,
   より, だけ, しか, など, each with a hand-written card in
-  `particles.yaml`.
+  `overrides/words.yaml`.
 
 ## C8 — Screens and series flow
 

@@ -96,3 +96,15 @@ test('does not stop on every kana with the Tab key', async ({ page }) => {
 	);
 	expect(stops).toBeLessThan(20);
 });
+
+test('lets people report a wrong translation', async ({ page }) => {
+	const [word] = await page.locator('[data-word-index]').allTextContents();
+	await typeCurrentWord(page);
+	await page.locator('ul.grid > li button').first().hover();
+
+	const link = page.getByRole('link', { name: 'Signaler une erreur' });
+	await expect(link).toBeVisible();
+	const url = new URL((await link.getAttribute('href')) ?? '');
+	expect(url.searchParams.get('word')).toBe(word);
+	expect(url.searchParams.get('current')).toBeTruthy();
+});

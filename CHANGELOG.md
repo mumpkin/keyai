@@ -8,8 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- A link in the word card and the settings to report a wrong translation
+
 ### Changed
 
+- Every word has a French translation, and particles have a French note
+- Word cards show each homograph before the secondary senses of the first one
 - Many more words have a French translation, with up to two glosses each
 
 ## [0.2.0] - 2026-11-05

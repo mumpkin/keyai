@@ -27,6 +27,12 @@ short translation in French or English.
 - Web app (installable on mobile) and desktop app for Windows and Linux
 - Interface in French and English
 
+## Translations
+
+French translations come from JMdict and from our own work, and some will be
+wrong. Spotted one? Use the link in the word card, or
+[open an issue](https://github.com/mumpkin/keyai/issues/new?template=translation.yml).
+
 ## Documentation
 
 - [Functional specification](./docs/functional-specification.md)
