@@ -109,13 +109,16 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      # It takes a minute, but sometimes hangs: start again rather than wait.
+      # It takes a minute, but an Azure mirror of Ubuntu is sometimes very slow.
+      # Stopping an attempt leaves apt-get running, which would lock the next.
       - name: Install the browsers
         timeout-minutes: 10
         run: |
           for attempt in 1 2 3; do
             timeout --kill-after=10 180 pnpm exec playwright install --with-deps chromium webkit && exit 0
             echo "::warning::Installing the browsers failed on attempt $attempt"
+            sudo pkill --exact apt-get || true
+            sleep 5
             sudo dpkg --configure -a || true
           done
           exit 1
