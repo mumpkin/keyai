@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { kanaLayoutOf } from './kana-layout.ts';
-import { focusKanaOf, kanaStatesOf, masteryColorsOf } from './kana-states.ts';
+import {
+	focusKanaOf,
+	kanaStatesOf,
+	masteryColorsOf,
+	recentKanaOf,
+} from './kana-states.ts';
 
 const FAST = { ms: 1000, error: false };
 const ORDER = ['い', 'か', 'く', 'こ'];
@@ -35,6 +40,23 @@ describe('kanaStatesOf', () => {
 	});
 });
 
+describe('recentKanaOf', () => {
+	it('starts with the last unlocked kana', () => {
+		const unlocked = ['い', 'か', 'く', 'こ'];
+		expect(recentKanaOf({ unlocked, kana: {} }, 2)).toEqual([
+			'こ',
+			'く',
+			'い',
+			'か',
+		]);
+	});
+
+	it('keeps the order of the initial group', () => {
+		const unlocked = ['い', 'か'];
+		expect(recentKanaOf({ unlocked, kana: {} }, 2)).toEqual(unlocked);
+	});
+});
+
 describe('focusKanaOf', () => {
 	const context = {
 		progress: {
@@ -59,9 +81,9 @@ describe('focusKanaOf', () => {
 		const unlocked = ['い', 'か', 'く', 'こ'];
 		const progress = { ...context.progress, unlocked };
 		expect(focusKanaOf({ ...context, progress }).list).toEqual([
-			'か',
-			'く',
 			'こ',
+			'く',
+			'か',
 		]);
 	});
 });

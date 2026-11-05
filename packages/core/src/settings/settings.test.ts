@@ -6,6 +6,7 @@ import {
 	withErrorSound,
 	withKanaPerMinute,
 	withKanaSize,
+	withKanaTableTab,
 	withLocale,
 	withSpeedPreset,
 	withTheme,
@@ -21,7 +22,7 @@ describe('settings', () => {
 			wordsPerSession: 20,
 			speed: { preset: 'easy', kanaPerMinute: 30 },
 			feedback: { sound: false },
-			display: { kanaSizePx: 24, theme: 'system' },
+			display: { kanaSizePx: 24, theme: 'system', kanaTableTab: 'mine' },
 		});
 		expect(SettingsSchema.parse(DEFAULTS)).toEqual(DEFAULTS);
 	});
@@ -36,10 +37,25 @@ describe('settings', () => {
 		expect(preferredLocale(languages)).toBe(locale);
 	});
 
+	it('remembers the kana table tab without touching the rest', () => {
+		const katakana = withKanaTableTab(DEFAULTS, 'katakana');
+		expect(katakana.display).toEqual({
+			...DEFAULTS.display,
+			kanaTableTab: 'katakana',
+		});
+	});
+
+	it('opens my kana for settings saved before that tab', () => {
+		const { kanaSizePx, theme } = DEFAULTS.display;
+		const older = { ...DEFAULTS, display: { kanaSizePx, theme } };
+		expect(SettingsSchema.parse(older)).toEqual(DEFAULTS);
+	});
+
 	it('keeps the theme and the kana size apart', () => {
 		const dark = withTheme(DEFAULTS, 'dark');
 		expect(dark.display.theme).toBe('dark');
 		expect(withKanaSize(dark, 40).display).toEqual({
+			...DEFAULTS.display,
 			kanaSizePx: 40,
 			theme: 'dark',
 		});

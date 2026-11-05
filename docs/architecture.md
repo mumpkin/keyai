@@ -171,7 +171,11 @@ interface Settings {
 		kanaPerMinute: number;
 	};
 	feedback: { sound: boolean };
-	display: { kanaSizePx: number; theme: 'system' | 'dark' | 'light' };
+	display: {
+		kanaSizePx: number;
+		theme: 'system' | 'dark' | 'light';
+		kanaTableTab: 'mine' | 'hiragana' | 'katakana';
+	};
 }
 
 interface SaveFile {

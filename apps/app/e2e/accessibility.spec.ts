@@ -1,4 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
+import { KANA_CATALOGUE } from '@keyai/core/kana';
 import { expect, test } from '@playwright/test';
 import {
 	openApp,
@@ -38,6 +39,26 @@ for (const colorScheme of ['light', 'dark'] as const) {
 		}
 	});
 }
+
+test('stays accessible with every kana unlocked', async ({ page }) => {
+	await openApp(page);
+	await page.evaluate(
+		([key, unlocked]) => {
+			const save = JSON.parse(localStorage.getItem(key as string) ?? '');
+			save.progress.unlocked = unlocked;
+			localStorage.setItem(key as string, JSON.stringify(save));
+		},
+		['keyai.save', KANA_CATALOGUE.map((unit) => unit.text)],
+	);
+	await page.reload();
+	await page.keyboard.press('Escape');
+	const { violations } = await new AxeBuilder({ page })
+		.withTags(RULES)
+		.analyze();
+	expect(
+		violations.map(({ id, nodes }) => `${id}: ${nodes[0]?.html}`),
+	).toEqual([]);
+});
 
 test('marks Japanese text and announces the end of a series', async ({
 	page,

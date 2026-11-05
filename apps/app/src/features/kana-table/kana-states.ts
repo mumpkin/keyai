@@ -79,6 +79,19 @@ export function kanaStatesOf(context: KanaStateContext): KanaStates {
 	};
 }
 
+/**
+ * The unlocked kana, the most recent first. The initial group, unlocked all at
+ * once, keeps its order: a first screen starts with a hiragana.
+ */
+export function recentKanaOf(
+	progress: Progress,
+	initialUnlocked: number,
+): string[] {
+	const initial = progress.unlocked.slice(0, initialUnlocked);
+	const played = progress.unlocked.slice(initialUnlocked);
+	return [...played.reverse(), ...initial];
+}
+
 export interface FocusKana {
 	/** The unlocked kana still to master, then the next one to unlock. */
 	readonly list: readonly string[];
@@ -88,7 +101,8 @@ export interface FocusKana {
 /** What a phone shows instead of the whole table (C8). */
 export function focusKanaOf(context: KanaStateContext): FocusKana {
 	const { progress, unlockOrder, thresholdKanaPerMinute } = context;
-	const learning = progress.unlocked.filter(
+	const recent = recentKanaOf(progress, context.initialUnlocked);
+	const learning = recent.filter(
 		(kana) =>
 			!masteryOf(progress.kana[kana], thresholdKanaPerMinute).isMastered,
 	);

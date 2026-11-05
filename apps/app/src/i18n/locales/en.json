@@ -78,6 +78,7 @@
 		"honorific": "honorific"
 	},
 	"kanaTable": {
+		"mine": "My kana",
 		"focusTitle": "Kana to work on",
 		"locked": "locked",
 		"unlockHint": "To unlock {{next}}, master:",

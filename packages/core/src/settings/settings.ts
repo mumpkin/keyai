@@ -1,5 +1,6 @@
 import {
 	KANA_SIZE_LIMITS,
+	type KanaTableTab,
 	LOCALES,
 	type Locale,
 	type Settings,
@@ -31,7 +32,11 @@ export function defaultSettings(locale: Locale): Settings {
 		wordsPerSession: DEFAULT_WORDS_PER_SESSION,
 		speed: { preset: 'easy', kanaPerMinute: SPEED_PRESETS.easy },
 		feedback: { sound: false },
-		display: { kanaSizePx: DEFAULT_KANA_SIZE_PX, theme: 'system' },
+		display: {
+			kanaSizePx: DEFAULT_KANA_SIZE_PX,
+			theme: 'system',
+			kanaTableTab: 'mine',
+		},
 	};
 }
 
@@ -98,4 +103,11 @@ export function withKanaSize(settings: Settings, kanaSizePx: number): Settings {
 
 export function withTheme(settings: Settings, theme: Theme): Settings {
 	return { ...settings, display: { ...settings.display, theme } };
+}
+
+export function withKanaTableTab(
+	settings: Settings,
+	kanaTableTab: KanaTableTab,
+): Settings {
+	return { ...settings, display: { ...settings.display, kanaTableTab } };
 }
