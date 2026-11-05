@@ -1,9 +1,10 @@
 import { create } from 'zustand';
-import type { Screen } from '@/features/layout/screen.ts';
-import type { SeriesSummary } from '@/features/statistics/series-summary.ts';
-import type { Series } from '@/features/training/series-view.ts';
+import type { SeriesSummary } from '@/features/statistics/model/series-summary.ts';
+import type { Series } from '@/features/training/series/series-view.ts';
 
 /** A series left for another screen, taken back on return. */
+export type Screen = 'training' | 'statistics' | 'settings';
+
 export interface PausedSeries {
 	readonly series: Series;
 	readonly pausedAt: number;

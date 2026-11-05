@@ -7,9 +7,9 @@ import {
 import { type ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button.tsx';
+import { ConfirmDialog } from '@/features/settings/fields/confirm-dialog.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
-import { ConfirmDialog } from './confirm-dialog.tsx';
 import type { DataMessage } from './data-message.tsx';
 
 function ImportPreviewText({ save }: { readonly save: SaveFile }) {

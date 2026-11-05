@@ -9,7 +9,7 @@ import {
 	seriesReducer,
 } from '@keyai/core/session';
 import { type RefObject, useEffect, useRef, useState } from 'react';
-import { seriesSummaryOf } from '@/features/statistics/series-summary.ts';
+import { seriesSummaryOf } from '@/features/statistics/model/series-summary.ts';
 import { useProgressStore, useVocabulary } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';

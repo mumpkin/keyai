@@ -3,7 +3,7 @@ import type { Sense } from '@keyai/core/vocab';
 import type { JmdictForm, JmdictWord } from '../io/jmdict.ts';
 import { isAffixOnly, isKeptSense, isUsableForm, sensesOf } from './senses.ts';
 
-export const MAX_WORD_UNITS = 8;
+const MAX_WORD_UNITS = 8;
 
 export interface Candidate {
 	readonly id: string;

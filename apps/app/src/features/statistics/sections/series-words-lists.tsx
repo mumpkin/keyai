@@ -1,10 +1,10 @@
 import { toHepburn, tokenize } from '@keyai/core/input';
 import { useTranslation } from 'react-i18next';
-import { GlossText } from '@/features/training/gloss-text.tsx';
-import { glossOf } from '@/features/training/glosses.ts';
-import { WordCard } from '@/features/training/word-card.tsx';
+import type { SummaryWord } from '@/features/statistics/model/series-summary.ts';
+import { GlossText } from '@/features/word-card/gloss-text.tsx';
+import { glossOf } from '@/features/word-card/glosses.ts';
+import { WordCard } from '@/features/word-card/word-card.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
-import type { SummaryWord } from './series-summary.ts';
 import { EmptyNote, StatisticsBlock } from './statistics-section.tsx';
 
 function WordRow({ word }: { readonly word: SummaryWord }) {

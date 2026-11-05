@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { firstFileOfTar } from './tar.ts';
 
-export interface JmdictGloss {
+interface JmdictGloss {
 	readonly lang: string;
 	readonly text: string;
 }

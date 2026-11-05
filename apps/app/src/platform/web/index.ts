@@ -1,4 +1,4 @@
-import type { Platform } from '../types.ts';
+import type { Platform } from '@/platform/types.ts';
 import { downloadFile } from './download-file.ts';
 import { createWebStorage } from './storage.ts';
 import { watchForWebUpdate } from './update.ts';

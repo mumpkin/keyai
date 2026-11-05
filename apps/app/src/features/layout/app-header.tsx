@@ -1,9 +1,9 @@
 import { ChartColumn, Keyboard, type LucideIcon, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils.ts';
 import { useWindowControls } from '@/stores/app-context.tsx';
+import type { Screen } from '@/stores/ui-store.ts';
 import { DownloadMenu } from './download-menu.tsx';
-import type { Screen } from './screen';
 import { WindowControls } from './window-controls.tsx';
 
 interface NavigationItem {

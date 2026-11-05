@@ -2,10 +2,10 @@ import { WORDS_PER_SESSION_LIMITS } from '@keyai/core/settings';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils.ts';
 
 // biome-ignore lint/style/noMagicNumbers: the presets are the values themselves
-export const SERIES_LENGTH_PRESETS: readonly number[] = [10, 20, 50, 100];
+const SERIES_LENGTH_PRESETS: readonly number[] = [10, 20, 50, 100];
 
 function lengthButtonClass(isSelected: boolean) {
 	return cn(

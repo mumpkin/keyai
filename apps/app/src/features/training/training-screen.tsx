@@ -3,17 +3,20 @@ import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
+import { SessionStatsBar } from '@/features/training/bar/session-stats-bar.tsx';
+import {
+	recapSourceOf,
+	wordViewsOf,
+} from '@/features/training/series/series-view.ts';
+import { useSeries } from '@/features/training/series/use-series.ts';
+import { TypingInput } from '@/features/training/typing/typing-input.tsx';
+import { useTypingInput } from '@/features/training/typing/use-typing-input.ts';
+import { SeriesWordsRecap } from '@/features/training/words/series-words-recap.tsx';
+import { WordLine } from '@/features/training/words/word-line.tsx';
+import { TypingFocusContext } from '@/features/word-card/typing-focus.tsx';
 import { cn } from '@/lib/utils.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
-import { recapSourceOf, wordViewsOf } from './series-view.ts';
-import { SeriesWordsRecap } from './series-words-recap.tsx';
-import { SessionStatsBar } from './session-stats-bar.tsx';
-import { TypingFocusContext } from './typing-focus.tsx';
-import { TypingInput } from './typing-input.tsx';
-import { useSeries } from './use-series.ts';
-import { useTypingInput } from './use-typing-input.ts';
-import { WordLine } from './word-line.tsx';
 
 function JapaneseInputWarning() {
 	const { t: translate } = useTranslation();

@@ -2,8 +2,8 @@ import { KANA_SIZE_LIMITS, withKanaSize } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
 import { Slider } from '@/components/ui/slider.tsx';
-import { SettingRow } from './setting-section.tsx';
-import { useSettings } from './use-settings.ts';
+import { SettingRow } from '@/features/settings/fields/setting-section.tsx';
+import { useSettings } from '@/features/settings/use-settings.ts';
 
 export function KanaSizeSetting() {
 	const { t: translate } = useTranslation();

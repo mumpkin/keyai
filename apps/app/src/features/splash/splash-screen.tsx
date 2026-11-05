@@ -1,6 +1,6 @@
 import { type MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils.ts';
 
 const SPLASH_DURATION_MS = 2400;
 const LEAVE_DURATION_MS = 300;

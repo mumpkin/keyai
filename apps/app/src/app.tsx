@@ -1,15 +1,14 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
-import { AppHeader } from '@/features/layout/app-header';
-import { SaveIssueNotice } from '@/features/layout/save-issue-notice.tsx';
-import type { Screen } from '@/features/layout/screen';
-import { UpdateNotice } from '@/features/layout/update-notice.tsx';
-import { SettingsScreen } from '@/features/settings/settings-screen';
-import { SplashScreen } from '@/features/splash/splash-screen';
-import { TrainingScreen } from '@/features/training/training-screen';
+import { AppHeader } from '@/features/layout/app-header.tsx';
+import { SaveIssueNotice } from '@/features/notices/save-issue-notice.tsx';
+import { UpdateNotice } from '@/features/notices/update-notice.tsx';
+import { SettingsScreen } from '@/features/settings/settings-screen.tsx';
+import { SplashScreen } from '@/features/splash/splash-screen.tsx';
+import { TrainingScreen } from '@/features/training/training-screen.tsx';
 import { applyLocale } from '@/i18n/index.ts';
 import { applyTheme, isDarkTheme } from '@/lib/theme.ts';
 import { useProgress, useStartsWithSplash } from '@/stores/app-context.tsx';
-import { useUiStore } from '@/stores/ui-store.ts';
+import { type Screen, useUiStore } from '@/stores/ui-store.ts';
 
 /** The charts weigh more than the rest of the app: loaded when needed. */
 const StatisticsScreen = lazy(async () => {

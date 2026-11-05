@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '@/components/external-link.tsx';
+import { SettingSection } from '@/features/settings/fields/setting-section.tsx';
 import { translationReportUrl } from '@/lib/translation-report.ts';
-import { SettingSection } from './setting-section.tsx';
 
 const SOURCE_CODE_URL = 'https://github.com/mumpkin/keyai';
 const JMDICT_URL =

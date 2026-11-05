@@ -4,13 +4,16 @@ import type { Locale } from '@keyai/core/settings';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+	recapWordIndexes,
+	type WordView,
+} from '@/features/training/series/series-view.ts';
+import { GlossText } from '@/features/word-card/gloss-text.tsx';
+import { glossOf } from '@/features/word-card/glosses.ts';
+import { WordCard } from '@/features/word-card/word-card.tsx';
 import { cn } from '@/lib/utils.ts';
-import { GlossText } from './gloss-text.tsx';
-import { glossOf } from './glosses.ts';
 import { KanaUnits } from './kana-units.tsx';
-import { recapWordIndexes, type WordView } from './series-view.ts';
 import { useRowWheelScroll } from './use-row-wheel-scroll.ts';
-import { WordCard } from './word-card.tsx';
 
 interface RecapEntryProps {
 	readonly word: WordView;

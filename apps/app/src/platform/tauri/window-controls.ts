@@ -1,5 +1,5 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
-import type { WindowControls } from '../types.ts';
+import type { WindowControls } from '@/platform/types.ts';
 
 export function createTauriWindowControls(): WindowControls {
 	const appWindow = getCurrentWindow();

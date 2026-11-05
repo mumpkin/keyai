@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority';
-import type { UnitView } from './series-view.ts';
+import type { UnitView } from '@/features/training/series/series-view.ts';
 
 const unitVariants = cva('', {
 	variants: {

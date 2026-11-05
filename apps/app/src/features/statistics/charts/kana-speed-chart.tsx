@@ -12,6 +12,7 @@ import {
 	YAxis,
 } from 'recharts';
 import { masteryColorOf } from '@/features/kana-table/kana-states.ts';
+import { StatisticsBlock } from '@/features/statistics/sections/statistics-section.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import {
 	AXIS_TICK,
@@ -22,7 +23,6 @@ import {
 	thresholdLineOf,
 } from './chart-parts.tsx';
 import { DataDetails } from './data-details.tsx';
-import { StatisticsBlock } from './statistics-section.tsx';
 
 const PERCENT = 100;
 const SHOWN_KANA = 15;

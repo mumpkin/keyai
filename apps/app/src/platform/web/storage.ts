@@ -1,7 +1,7 @@
-import type { SaveStorage } from '../types.ts';
+import type { SaveStorage } from '@/platform/types.ts';
 
 export const SAVE_KEY = 'keyai.save';
-export const UNREADABLE_SAVE_KEY = 'keyai.save.unreadable';
+const UNREADABLE_SAVE_KEY = 'keyai.save.unreadable';
 
 /**
  * Browser storage: localStorage, after asking the browser not to evict the

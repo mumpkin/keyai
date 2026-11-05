@@ -1,8 +1,11 @@
 import { withErrorSound } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { Switch } from '@/components/ui/switch.tsx';
-import { SettingRow, SettingSection } from './setting-section.tsx';
-import { useSettings } from './use-settings.ts';
+import {
+	SettingRow,
+	SettingSection,
+} from '@/features/settings/fields/setting-section.tsx';
+import { useSettings } from '@/features/settings/use-settings.ts';
 
 export function FeedbackSetting() {
 	const { t: translate } = useTranslation();
