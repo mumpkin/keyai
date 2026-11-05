@@ -101,7 +101,7 @@ jobs:
   e2e:
     name: End-to-end
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
@@ -109,9 +109,16 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      # It takes a minute, but sometimes hangs: start again rather than wait.
       - name: Install the browsers
-        timeout-minutes: 5
-        run: pnpm exec playwright install --with-deps chromium webkit
+        timeout-minutes: 10
+        run: |
+          for attempt in 1 2 3; do
+            timeout --kill-after=10 180 pnpm exec playwright install --with-deps chromium webkit && exit 0
+            echo "::warning::Installing the browsers failed on attempt $attempt"
+            sudo dpkg --configure -a || true
+          done
+          exit 1
       - run: pnpm test:e2e
 
   changes:
