@@ -50,6 +50,16 @@ export async function typeCurrentWord(page: Page): Promise<void> {
 	await page.keyboard.press('Space');
 }
 
+export async function playSeries(page: Page): Promise<void> {
+	const words = await page.locator('[data-word-index]').allTextContents();
+	for (const [index, word] of words.entries()) {
+		await page.keyboard.type(toHepburn(tokenize(word)));
+		if (index < words.length - 1) {
+			await page.keyboard.press('Space');
+		}
+	}
+}
+
 /** Whether anything can be scrolled sideways, on the page or in a box. */
 export function sidewaysOverflow(page: Page): Promise<string[]> {
 	return page.evaluate(() =>

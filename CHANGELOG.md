@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- A second tab no longer erases the progress saved by the first one
+
 ### Changed
 
 - On a phone, the words sit above the virtual keyboard, and the kana table

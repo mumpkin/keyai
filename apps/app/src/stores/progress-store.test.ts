@@ -22,11 +22,17 @@ const VOCABULARY = vocabularyOf({
 const NOW = new Date('2026-11-04T12:00:00.000Z');
 
 function storageWith(content: string | null, keptCopy: string | null = null) {
-	const state = { content, keptCopy };
+	const state = {
+		content,
+		keptCopy,
+		writes: 0,
+		fromOtherTab: (_content: string): void => undefined,
+	};
 	const storage: SaveStorage = {
 		load: () => Promise.resolve(state.content),
 		save: (saved) => {
 			state.content = saved;
+			state.writes += 1;
 			return Promise.resolve();
 		},
 		keepUnreadable: (copy) => {
@@ -34,6 +40,9 @@ function storageWith(content: string | null, keptCopy: string | null = null) {
 			return Promise.resolve();
 		},
 		loadUnreadable: () => Promise.resolve(state.keptCopy),
+		onExternalSave: (listener) => {
+			state.fromOtherTab = listener;
+		},
 	};
 	return { state, storage };
 }
@@ -84,6 +93,33 @@ describe('createProgressStore', () => {
 
 		expect(store.getState().loadIssue).toBeNull();
 		expect(store.getState().unreadableCopy).toBe('{broken');
+	});
+
+	it('follows the saves of another tab without writing them back', async () => {
+		const context = {
+			vocabulary: VOCABULARY,
+			appVersion: '0.1.0',
+			now: NOW,
+		};
+		const { state, storage } = storageWith(null);
+		const store = await storeOn(storage);
+		const writesBefore = state.writes;
+		const other = freshSave(context, ['en']);
+
+		state.fromOtherTab(serializeSave(other));
+
+		expect(store.getState().save.settings.locale).toBe('en');
+		expect(state.writes).toBe(writesBefore);
+	});
+
+	it('ignores an unreadable save from another tab', async () => {
+		const { state, storage } = storageWith(null);
+		const store = await storeOn(storage);
+		const { save } = store.getState();
+
+		state.fromOtherTab('{broken');
+
+		expect(store.getState().save).toBe(save);
 	});
 
 	it('has no copy when every save was readable', async () => {
