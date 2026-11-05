@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import {
 	openApp,
@@ -162,6 +163,32 @@ test('can keep the gaps between words in natural writing', async ({ page }) => {
 			),
 		)
 		.toBe(1);
+});
+
+test('sets words aside from their card and exports them for Anki', async ({
+	page,
+}) => {
+	await typeCurrentWord(page);
+	await page.locator('[data-word-index="0"]').hover();
+	await page.getByRole('button', { name: 'Ajouter à ma liste Anki' }).click();
+	await expect(
+		page.getByRole('button', { name: 'Retirer de ma liste Anki' }),
+	).toBeVisible();
+	await page.keyboard.press('Escape');
+	await openScreen(page, STATISTICS).click();
+	const download = page.waitForEvent('download');
+	await page.getByRole('button', { name: 'Exporter pour Anki' }).click();
+	const file = await download;
+	expect(file.suggestedFilename()).toMatch(/^keyai-anki-.*\.txt$/);
+	const content = readFileSync((await file.path()) ?? '', 'utf8');
+	expect(content).toContain('#guid column:1');
+	expect(content).toContain('keyai-');
+	await expect(page.getByText(/Fichier enregistré/)).toBeVisible();
+	await page.reload();
+	await openScreen(page, STATISTICS).click();
+	await expect(
+		page.getByRole('button', { name: 'Exporter pour Anki' }),
+	).toBeVisible();
 });
 
 test('does not stop on every kana with the Tab key', async ({ page }) => {

@@ -12,6 +12,7 @@ import {
 	type SeriesResult,
 	saveAfterReset,
 	saveAfterSeries,
+	saveWithAnkiWords,
 	saveWithSettings,
 } from './progress-logic.ts';
 
@@ -34,6 +35,9 @@ export interface ProgressState {
 		wordCount: number,
 	) => SeriesResult;
 	readonly updateSettings: (update: (settings: Settings) => Settings) => void;
+	readonly updateAnkiWords: (
+		update: (words: readonly string[]) => readonly string[],
+	) => void;
 	readonly replaceSave: (save: SaveFile) => void;
 	readonly resetProgress: () => void;
 }
@@ -82,6 +86,19 @@ function syncWithStorage(store: ProgressStore, sync: StorageSync): void {
 	});
 }
 
+async function startingStateOf(
+	dependencies: ProgressDependencies,
+	context: SaveContext,
+) {
+	const stored = await dependencies.storage.load();
+	const loaded = loadedSaveOf(stored, context, dependencies.languages);
+	const unreadableCopy = await unreadableCopyOf(
+		dependencies.storage,
+		loaded.loadIssue ? stored : null,
+	);
+	return { stored, loaded, unreadableCopy };
+}
+
 /**
  * Settings and progress (A5). Every change is saved immediately through
  * the platform storage; changes are rare (end of series, settings).
@@ -94,13 +111,8 @@ export async function createProgressStore(
 		appVersion: dependencies.appVersion,
 		now: dependencies.now(),
 	});
-	const stored = await dependencies.storage.load();
-	const loaded = loadedSaveOf(stored, contextOf(), dependencies.languages);
-
-	const unreadableCopy = await unreadableCopyOf(
-		dependencies.storage,
-		loaded.loadIssue ? stored : null,
-	);
+	const starting = await startingStateOf(dependencies, contextOf());
+	const { stored, loaded, unreadableCopy } = starting;
 
 	const store = createStore<ProgressState>()((set, get) => ({
 		...loaded,
@@ -114,14 +126,16 @@ export async function createProgressStore(
 			set({ save: update.save });
 			return update.result;
 		},
-		updateSettings: (update) =>
-			set(({ save }) => ({
-				save: saveWithSettings(
-					save,
-					update(save.settings),
-					dependencies.now(),
-				),
-			})),
+		updateSettings: (update) => {
+			const { save } = get();
+			const settings = update(save.settings);
+			set({ save: saveWithSettings(save, settings, dependencies.now()) });
+		},
+		updateAnkiWords: (update) => {
+			const { save } = get();
+			const words = update(save.ankiWords);
+			set({ save: saveWithAnkiWords(save, words, dependencies.now()) });
+		},
 		replaceSave: (save) => set({ save: alignedSave(save, contextOf()) }),
 		resetProgress: () =>
 			set(({ save }) => ({ save: saveAfterReset(save, contextOf()) })),

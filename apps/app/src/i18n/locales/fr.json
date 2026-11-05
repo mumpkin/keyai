@@ -52,7 +52,9 @@
 	},
 	"wordCard": {
 		"otherSenses": "Autres sens",
-		"report": "Signaler une erreur"
+		"report": "Signaler une erreur",
+		"ankiAdd": "Ajouter à ma liste Anki",
+		"ankiRemove": "Retirer de ma liste Anki"
 	},
 	"partOfSpeech": {
 		"noun": "nom",
@@ -89,6 +91,16 @@
 		"next": "suivant"
 	},
 	"statistics": {
+		"anki": {
+			"title": "Liste Anki",
+			"empty": "Ajoutez des mots depuis leur fiche pour les retrouver ici.",
+			"export": "Exporter pour Anki",
+			"done": "Fichier enregistré. Dans Anki : Fichier, puis Importer.",
+			"failed": "L’export a échoué.",
+			"clear": "Vider la liste",
+			"clearTitle": "Vider la liste Anki ?",
+			"clearDescription": "Les mots seront retirés de la liste. Ce qui est déjà dans Anki ne change pas."
+		},
 		"lastSeries": "Dernière série",
 		"progress": "Progression",
 		"history": "Évolution",

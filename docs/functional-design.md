@@ -329,7 +329,7 @@ original colour fails WCAG AA, it is adjusted as little as possible, and
   newer version, is set aside before anything replaces it. A notice says so at
   launch, and the copy can be exported from there or from the settings.
 - **Reset** the progress and the history, with an explicit confirmation. The
-  settings are kept.
+  settings and the Anki list are kept.
 
 ### Not in settings (V1)
 
@@ -460,6 +460,14 @@ click.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).
+- **Anki list**: the word card adds a word to a saved list, or takes it out. The
+  statistics screen shows the list and exports it as a text file for Anki, in
+  the language of the interface: one file for all the words, as each file means
+  one import. The front has the kana and the kanji of the primary sense, the
+  back everything else in the word card. The list stays after an export:
+  importing the same word again updates its card.
+  - Each note carries a GUID: without one, Anki replaces any note of the user
+    with the same front. Checked on the engine of Anki, in French and English.
 - **Kana table**: my kana or one script at a time; the last unlocked kana carries a
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
   Romaji is shown under unmastered, new and next kana, and only on hover,

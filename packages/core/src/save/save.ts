@@ -28,6 +28,7 @@ export interface SaveContent {
 	readonly settings: Settings;
 	readonly progress: Progress;
 	readonly history: readonly SessionRecord[];
+	readonly ankiWords?: readonly string[];
 }
 
 export function createSave(content: SaveContent): SaveFile {
@@ -36,6 +37,7 @@ export function createSave(content: SaveContent): SaveFile {
 		schemaVersion: CURRENT_SCHEMA_VERSION,
 		...content,
 		history: content.history.slice(-HISTORY_LIMIT),
+		ankiWords: [...(content.ankiWords ?? [])],
 	};
 }
 

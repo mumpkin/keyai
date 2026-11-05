@@ -12,6 +12,7 @@ and this project adheres to
 
 - A natural writing option: words follow each other without typing a space,
   with or without a gap on screen
+- An Anki list: add words from their card and export them from the statistics
 - A "My kana" tab, shown first, with every unlocked kana from the most recent
 
 ### Changed

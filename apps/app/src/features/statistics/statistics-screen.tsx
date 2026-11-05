@@ -1,3 +1,4 @@
+import { AnkiSection } from '@/features/statistics/sections/anki-section.tsx';
 import { HistorySection } from '@/features/statistics/sections/history-section.tsx';
 import { LastSeriesSection } from '@/features/statistics/sections/last-series-section.tsx';
 import { ProgressSection } from '@/features/statistics/sections/progress-section.tsx';
@@ -8,6 +9,7 @@ export function StatisticsScreen() {
 			<LastSeriesSection />
 			<ProgressSection />
 			<HistorySection />
+			<AnkiSection />
 		</div>
 	);
 }

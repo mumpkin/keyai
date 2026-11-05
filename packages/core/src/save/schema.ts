@@ -24,6 +24,8 @@ export const SaveFileSchema = zod.object({
 	settings: SettingsSchema,
 	progress: ProgressSchema,
 	history: zod.array(SessionRecordSchema).max(HISTORY_LIMIT),
+	/** Words to export to Anki; a default so that older apps can read it. */
+	ankiWords: zod.array(zod.string().min(1)).default([]),
 });
 
 export type SessionRecord = zod.infer<typeof SessionRecordSchema>;

@@ -1,4 +1,5 @@
 import { toHepburn, tokenize } from '@keyai/core/input';
+import type { VocabEntry } from '@keyai/core/vocab';
 import { useTranslation } from 'react-i18next';
 import type { SummaryWord } from '@/features/statistics/model/series-summary.ts';
 import { GlossText } from '@/features/word-card/gloss-text.tsx';
@@ -7,10 +8,15 @@ import { WordCard } from '@/features/word-card/word-card.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { EmptyNote, StatisticsBlock } from './statistics-section.tsx';
 
-function WordRow({ word }: { readonly word: SummaryWord }) {
+export function WordRow({
+	entry,
+	kanaPerMinute = null,
+}: {
+	readonly entry: VocabEntry;
+	readonly kanaPerMinute?: number | null;
+}) {
 	const { t: translate } = useTranslation();
 	const locale = useProgress((state) => state.save.settings.locale);
-	const { entry, kanaPerMinute } = word;
 	const [primary] = entry.word.senses;
 	return (
 		<li className="min-w-0">
@@ -57,7 +63,11 @@ function WordList({
 			{words.length > 0 ? (
 				<ul className="max-h-60 scroll-y">
 					{words.map((word) => (
-						<WordRow key={word.position} word={word} />
+						<WordRow
+							key={word.position}
+							entry={word.entry}
+							kanaPerMinute={word.kanaPerMinute}
+						/>
 					))}
 				</ul>
 			) : (
