@@ -7,6 +7,10 @@ import { WordView } from './word-view.tsx';
 const LINE_HEIGHT = 'calc(var(--kana-size) * 1.6)';
 const VISIBLE_LINES = 3;
 
+function prefersReducedMotion(): boolean {
+	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 function useKeepCurrentLineCentered(currentIndex: number) {
 	const viewportRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +25,7 @@ function useKeepCurrentLineCentered(currentIndex: number) {
 		const lineHeight = viewport.clientHeight / VISIBLE_LINES;
 		viewport.scrollTo({
 			top: currentWord.offsetTop - lineHeight,
-			behavior: 'smooth',
+			behavior: prefersReducedMotion() ? 'auto' : 'smooth',
 		});
 	}, [currentIndex]);
 
@@ -89,6 +93,7 @@ export function WordLine({
 				<span
 					ref={cursorRef}
 					aria-hidden="true"
+					data-typing-cursor
 					className="pointer-events-none absolute top-0 left-0 h-0.5 bg-primary transition-[transform,width] duration-100 ease-out motion-reduce:transition-none"
 				/>
 				{words.map((word) => (

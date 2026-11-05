@@ -16,7 +16,10 @@ function WordRow({ word }: { readonly word: SummaryWord }) {
 		<li className="min-w-0">
 			<WordCard entry={entry} locale={locale}>
 				<span className="flex w-full items-baseline gap-2 py-0.5">
-					<span className="shrink-0 font-kana whitespace-nowrap">
+					<span
+						lang="ja"
+						className="shrink-0 font-kana whitespace-nowrap"
+					>
 						{entry.word.kana}
 					</span>
 					<span className="shrink-0 font-mono text-xs whitespace-nowrap text-muted-foreground">

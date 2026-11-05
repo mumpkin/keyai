@@ -14,6 +14,10 @@ and this project adheres to
 
 ### Changed
 
+- Accessibility: kana are no longer keyboard stops, Japanese text is marked as
+  such, screen readers hear the end of a series, selected states show in high
+  contrast mode, and locked kana are easier to read
+- A very short animation marks a new kana
 - A series in progress survives a visit to another screen
 - A notice says when typing lost the focus, and a line guides the first series
 - The next kana unlocks once the last five are mastered, instead of all of

@@ -66,7 +66,10 @@ function KanaTooltip({
 			value={format.speed(kana)}
 			title={
 				<>
-					<span className="font-kana">{kana.kana}</span> · {accuracy}
+					<span lang="ja" className="font-kana">
+						{kana.kana}
+					</span>{' '}
+					· {accuracy}
 				</>
 			}
 		/>
@@ -173,7 +176,7 @@ export function KanaSpeedChart({
 				rows={kanaSpeeds.map((kana) => ({
 					id: kana.kana,
 					cells: [
-						<span key="kana" className="font-kana">
+						<span key="kana" lang="ja" className="font-kana">
 							{kana.kana}
 						</span>,
 						format.speed(kana),

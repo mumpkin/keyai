@@ -39,6 +39,8 @@
 		"previousSeries": "précédente : {{speed}} · {{accuracy}}",
 		"unlocked": "nouveau :",
 		"customLength": "perso",
+		"seriesDone": "Série terminée : {{speed}} kana par minute, {{accuracy}} % de précision.",
+		"kanaUnlocked": "Nouveau kana débloqué : {{kana}}.",
 		"focusLost": "Cliquez ou touchez ici pour reprendre la frappe",
 		"guideKeyboard": "Tapez chaque mot en romaji (か = ka), espace pour valider.",
 		"guideTouch": "Touchez ici pour ouvrir le clavier, puis tapez en romaji.",
@@ -74,6 +76,7 @@
 	},
 	"kanaTable": {
 		"focusTitle": "Kana à travailler",
+		"locked": "verrouillé",
 		"unlockHint": "Pour débloquer {{next}}, maîtrisez :",
 		"masteredCount_one": "{{count}} maîtrisé",
 		"masteredCount_other": "{{count}} maîtrisés",

@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { type KanaDisplayState, masteryColorsOf } from './kana-states.ts';
 
 const cellVariants = cva(
-	'group relative flex size-11 flex-col items-center justify-center rounded-md border font-kana text-lg focus-visible:outline-2',
+	'group relative flex size-11 flex-col items-center justify-center rounded-md border font-kana text-lg',
 	{
 		variants: {
 			state: {
-				locked: 'border-transparent text-muted-foreground/50',
+				locked: 'border-transparent text-muted-foreground',
 				learning: 'border-2 border-dashed',
 				mastered: 'border-2 border-dashed',
 				latest: 'border-2 border-dashed ring-2 ring-primary',
@@ -18,12 +18,11 @@ const cellVariants = cva(
 	},
 );
 
-const romajiVariants = cva('font-sans text-[10px] text-muted-foreground', {
+const romajiVariants = cva('font-sans text-[10px] text-foreground', {
 	variants: {
 		visibility: {
 			always: 'visible',
-			onHover:
-				'invisible group-hover:visible group-focus-visible:visible',
+			onHover: 'invisible group-hover:visible',
 		},
 	},
 });
@@ -79,9 +78,19 @@ export function KanaCell({ kana, state, score }: KanaCellProps) {
 	const mastery = translate('common.percent', {
 		value: Math.round(score * PERCENT),
 	});
+	const labelParts = [
+		kana,
+		romaji,
+		isColoured
+			? mastery
+			: translate(
+					state === 'next' ? 'kanaTable.next' : 'kanaTable.locked',
+				),
+	];
 	return (
-		<button
-			type="button"
+		<span
+			role="img"
+			aria-label={labelParts.join(', ')}
 			className={cellVariants({ state })}
 			title={isColoured ? `${romaji} · ${mastery}` : romaji}
 			style={isColoured ? masteryColorsOf(score) : undefined}
@@ -101,6 +110,6 @@ export function KanaCell({ kana, state, score }: KanaCellProps) {
 			>
 				{romaji}
 			</span>
-		</button>
+		</span>
 	);
 }

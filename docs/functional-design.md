@@ -450,6 +450,12 @@ click.
   says so above the words.
 - During the first series, a line says what to do.
 
+### Accessibility
+
+The end-to-end tests run axe on every screen, in both themes and every format.
+Kana cells are information, not controls. Screen readers hear the end of a
+series and new kana, but nothing during typing.
+
 ### Stable layout
 
 An interaction never moves what surrounds it: changing figures have a reserved

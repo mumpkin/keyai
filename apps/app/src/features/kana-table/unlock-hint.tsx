@@ -17,7 +17,7 @@ export function UnlockHint() {
 			{next && blocking.length > 0 && (
 				<>
 					{translate('kanaTable.unlockHint', { next })}{' '}
-					<span className="font-kana text-foreground">
+					<span lang="ja" className="font-kana text-foreground">
 						{blocking.join(' ')}
 					</span>
 				</>

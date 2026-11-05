@@ -39,6 +39,8 @@
 		"previousSeries": "previous: {{speed}} · {{accuracy}}",
 		"unlocked": "new:",
 		"customLength": "custom",
+		"seriesDone": "Series finished: {{speed}} kana per minute, {{accuracy}}% accuracy.",
+		"kanaUnlocked": "New kana unlocked: {{kana}}.",
 		"focusLost": "Click or touch here to keep typing",
 		"guideKeyboard": "Type each word in romaji (か = ka), space to confirm.",
 		"guideTouch": "Touch here to open the keyboard, then type in romaji.",
@@ -74,6 +76,7 @@
 	},
 	"kanaTable": {
 		"focusTitle": "Kana to work on",
+		"locked": "locked",
 		"unlockHint": "To unlock {{next}}, master:",
 		"masteredCount_one": "{{count}} mastered",
 		"masteredCount_other": "{{count}} mastered",

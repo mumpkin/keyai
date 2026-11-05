@@ -47,12 +47,36 @@ function PreviousSeries({ result }: { readonly result: SeriesResult }) {
 				})}
 			</span>
 			{unlockedKana && (
-				<span className="rounded-full bg-primary/10 px-2">
+				<span
+					key={unlockedKana}
+					className="inline-block animate-unlock-pop rounded-full bg-primary/10 px-2"
+				>
 					✦ {translate('training.unlocked')}{' '}
-					<span className="font-kana">{unlockedKana}</span>
+					<span lang="ja" className="font-kana">
+						{unlockedKana}
+					</span>
 				</span>
 			)}
 		</>
+	);
+}
+
+/** Read by screen readers only: the rest of the bar changes on every key. */
+function SeriesAnnouncement({
+	result,
+}: {
+	readonly result: SeriesResult | null;
+}) {
+	const { t: translate } = useTranslation();
+	const speed = result && Math.round(result.measurements.kanaPerMinute);
+	const accuracy =
+		result && Math.round(result.measurements.accuracy * PERCENT);
+	return (
+		<p role="status" className="sr-only">
+			{result && translate('training.seriesDone', { speed, accuracy })}
+			{result?.unlockedKana &&
+				` ${translate('training.kanaUnlocked', { kana: result.unlockedKana })}`}
+		</p>
 	);
 }
 
@@ -132,6 +156,7 @@ export function SessionStatsBar({
 					/>
 				</span>
 			</div>
+			<SeriesAnnouncement result={previous} />
 			{/* Its own line, always there: nothing moves when it fills in. */}
 			<div className="flex h-5 items-center gap-4 overflow-hidden whitespace-nowrap">
 				{previous ? (

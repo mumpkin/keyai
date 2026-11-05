@@ -30,6 +30,7 @@ export function WordView({ word, entry, locale, errorCount }: WordViewProps) {
 	const shakes = word.status === 'current' && errorCount > 0;
 	const kana = (
 		<span
+			lang="ja"
 			key={shakes ? errorCount : undefined}
 			className={cn(
 				wordVariants({ status: word.status }),

@@ -30,7 +30,9 @@ function FaultyKanaList({
 							key={kana}
 							className="flex items-baseline gap-1 rounded-md bg-muted/50 px-2 py-1"
 						>
-							<span className="font-kana text-lg">{kana}</span>
+							<span lang="ja" className="font-kana text-lg">
+								{kana}
+							</span>
 							<span className="text-xs text-muted-foreground">
 								×{faultyAttempts}
 							</span>
@@ -59,7 +61,7 @@ function SpeedPerWordChart({ summary }: { readonly summary: SeriesSummary }) {
 					position: word.position,
 					value: word.kanaPerMinute,
 					title: (
-						<span className="font-kana">
+						<span lang="ja" className="font-kana">
 							{word.entry.word.kana}
 						</span>
 					),
@@ -108,7 +110,9 @@ function SeriesFigures({ summary }: { readonly summary: SeriesSummary }) {
 			{unlockedKana && (
 				<p className="text-sm">
 					✦ {translate('training.unlocked')}{' '}
-					<span className="font-kana">{unlockedKana}</span>
+					<span lang="ja" className="font-kana">
+						{unlockedKana}
+					</span>
 				</p>
 			)}
 		</>
