@@ -5,6 +5,7 @@ import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import { KanaCell } from './kana-cell.tsx';
 import { type KanaSlot, kanaLayoutOf } from './kana-layout.ts';
 import { type KanaStates, kanaStatesOf } from './kana-states.ts';
+import { UnlockHint } from './unlock-hint.tsx';
 
 const SCRIPT_LABELS: Record<Script, string> = {
 	hiragana: 'Hiragana',
@@ -81,7 +82,10 @@ export function KanaTable() {
 	const layout = kanaLayoutOf(script);
 	return (
 		<div className="flex flex-col gap-3">
-			<ScriptTabs script={script} onChange={setScript} />
+			<div className="flex items-center justify-between gap-4">
+				<ScriptTabs script={script} onChange={setScript} />
+				<UnlockHint />
+			</div>
 			<div className="flex [scrollbar-width:thin] items-start gap-6 overflow-x-auto pt-2 pb-3">
 				<SlotGrid
 					slots={layout.base}

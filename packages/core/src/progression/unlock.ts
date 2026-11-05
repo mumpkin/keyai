@@ -3,6 +3,9 @@ import { masteryOf } from './mastery.ts';
 import { recordAttempts } from './record.ts';
 import type { Progress } from './schema.ts';
 
+/** How many of the last unlocked kana must be mastered to unlock one more. */
+export const RECENT_KANA_TO_MASTER = 5;
+
 export interface UnlockRules {
 	/** Unlock order computed by the vocabulary pipeline. */
 	readonly unlockOrder: readonly string[];
@@ -23,14 +26,21 @@ export function createProgress(
 	return { unlocked: unlockOrder.slice(0, initialCount), kana: {} };
 }
 
-export function areAllUnlockedMastered(
+/**
+ * The last unlocked kana not mastered yet: they hold the next one back. Older
+ * kana do not, as the series keep bringing the weakest one back (C4, C5).
+ */
+export function blockingKanaOf(
 	progress: Progress,
 	thresholdKanaPerMinute: number,
-): boolean {
-	return progress.unlocked.every(
-		(kana) =>
-			masteryOf(progress.kana[kana], thresholdKanaPerMinute).isMastered,
-	);
+): string[] {
+	return progress.unlocked
+		.slice(-RECENT_KANA_TO_MASTER)
+		.filter(
+			(kana) =>
+				!masteryOf(progress.kana[kana], thresholdKanaPerMinute)
+					.isMastered,
+		);
 }
 
 /**
@@ -60,9 +70,9 @@ export function nextKanaOf(
 }
 
 /**
- * Records a finished series, then unlocks at most one kana, only when every
- * unlocked kana is mastered and every word was typed: skipping words, even
- * by holding space, never unlocks anything (C4).
+ * Records a finished series, then unlocks at most one kana, only when the
+ * last unlocked kana are mastered and every word was typed: skipping words,
+ * even by holding space, never unlocks anything (C4).
  */
 export function applySeries(
 	progress: Progress,
@@ -75,7 +85,7 @@ export function applySeries(
 	const canUnlock =
 		nextKana !== undefined &&
 		!hasSkippedWord &&
-		areAllUnlockedMastered(recorded, rules.thresholdKanaPerMinute);
+		blockingKanaOf(recorded, rules.thresholdKanaPerMinute).length === 0;
 	if (!canUnlock) {
 		return { progress: recorded, unlockedKana: undefined };
 	}

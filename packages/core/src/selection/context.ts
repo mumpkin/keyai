@@ -5,7 +5,7 @@ import type { VocabEntry } from '../vocab/entries.ts';
 export interface SelectionContext {
 	readonly entries: readonly VocabEntry[];
 	readonly unlocked: ReadonlySet<string>;
-	/** Last unlocked kana, favoured in the series (C5). */
+	/** Weakest kana, or the last unlocked one, favoured in the series (C5). */
 	readonly featuredKana: string | undefined;
 	/** Unlocked kana that are not mastered, weakest first. */
 	readonly weakKana: readonly string[];
@@ -27,7 +27,7 @@ export function selectionContextOf(
 	return {
 		entries,
 		unlocked: new Set(progress.unlocked),
-		featuredKana: progress.unlocked.at(-1),
+		featuredKana: weakKana[0] ?? progress.unlocked.at(-1),
 		weakKana,
 	};
 }

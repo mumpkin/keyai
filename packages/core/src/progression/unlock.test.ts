@@ -4,6 +4,7 @@ import { cleanAttempts, ONE_SECOND } from './test-helpers.ts';
 import {
 	alignProgress,
 	applySeries,
+	blockingKanaOf,
 	createProgress,
 	nextKanaOf,
 } from './unlock.ts';
@@ -58,8 +59,19 @@ describe('recordAttempts', () => {
 	});
 });
 
+describe('blockingKanaOf', () => {
+	it('lists the last unlocked kana that are not mastered', () => {
+		const order = ['あ', 'い', 'う', 'え', 'お', 'か'];
+		const progress = recordAttempts(
+			createProgress(order, 6),
+			cleanAttempts('か', 5),
+		);
+		expect(blockingKanaOf(progress, 30)).toEqual(['い', 'う', 'え', 'お']);
+	});
+});
+
 describe('applySeries', () => {
-	it('unlocks the next kana once every unlocked kana is mastered', () => {
+	it('unlocks the next kana once the last unlocked kana are mastered', () => {
 		const progress = createProgress(ORDER, 2);
 		const attempts = [...cleanAttempts('い', 5), ...cleanAttempts('の', 5)];
 		const outcome = applySeries(progress, attempts, RULES);
@@ -87,7 +99,20 @@ describe('applySeries', () => {
 		).toBe('に');
 	});
 
-	it('waits while an unlocked kana is not mastered', () => {
+	it('is not held back by an older kana', () => {
+		const order = ['あ', 'い', 'う', 'え', 'お', 'か', 'き'];
+		const progress = createProgress(order, 6);
+		const attempts = order
+			.slice(1, 6)
+			.flatMap((kana) => cleanAttempts(kana, 5));
+		const outcome = applySeries(progress, attempts, {
+			...RULES,
+			unlockOrder: order,
+		});
+		expect(outcome.unlockedKana).toBe('き');
+	});
+
+	it('waits while a recent kana is not mastered', () => {
 		const progress = createProgress(ORDER, 2);
 		const outcome = applySeries(progress, cleanAttempts('い', 5), RULES);
 		expect(outcome.unlockedKana).toBeUndefined();

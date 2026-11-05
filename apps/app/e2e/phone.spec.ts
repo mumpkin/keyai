@@ -53,6 +53,13 @@ test('shows only the kana to work on', async ({ page }) => {
 	await expect(page.getByRole('tab', { name: 'Katakana' })).toBeHidden();
 });
 
+test('says what holds the next kana back', async ({ page }) => {
+	await expect(
+		page.getByText(/^Pour débloquer/).locator('visible=true'),
+	).toBeVisible();
+	await expect(page.getByText('0 %').first()).toBeVisible();
+});
+
 test('lays the kana out without any overlap', async ({ page }) => {
 	const list = page.getByRole('list', { name: 'Kana à travailler' });
 	const cells = await list.getByRole('listitem').evaluateAll((items) =>

@@ -71,6 +71,7 @@
 	},
 	"kanaTable": {
 		"focusTitle": "Kana to work on",
+		"unlockHint": "To unlock {{next}}, master:",
 		"masteredCount_one": "{{count}} mastered",
 		"masteredCount_other": "{{count}} mastered",
 		"latest": "new",

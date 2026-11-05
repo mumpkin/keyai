@@ -5,7 +5,7 @@ import { selectionContextOf } from './context.ts';
 const FAST = { ms: 1000, error: false };
 
 describe('selectionContextOf', () => {
-	it('features the last unlocked kana and lists weak kana, weakest first', () => {
+	it('features the weakest kana and lists weak kana, weakest first', () => {
 		const progress: Progress = {
 			unlocked: ['い', 'の', 'に', 'く'],
 			kana: Object.fromEntries([
@@ -32,5 +32,17 @@ describe('selectionContextOf', () => {
 		expect(context.featuredKana).toBe('く');
 		expect(context.weakKana).toEqual(['く', 'の', 'に']);
 		expect(context.unlocked.has('い')).toBe(true);
+	});
+
+	it('features the last unlocked kana once everything is mastered', () => {
+		const stats = { seen: 5, errors: 0, recent: Array(5).fill(FAST) };
+		const progress: Progress = {
+			unlocked: ['い', 'の'],
+			kana: Object.fromEntries([
+				['い', stats],
+				['の', stats],
+			]),
+		};
+		expect(selectionContextOf([], progress, 30).featuredKana).toBe('の');
 	});
 });

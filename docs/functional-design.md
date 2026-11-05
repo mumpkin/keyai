@@ -213,12 +213,15 @@ the lower of `median speed ÷ threshold` and `clean ratio ÷ 90 %`, capped at
   session**, and is announced in the summary.
 - Hiragana and katakana share a single unlock order (C2) but keep distinct
   mastery figures and progress displays.
-- An unlocked kana is never locked again; if it regresses, it delays the next
-  unlock until it is mastered again.
+- An unlocked kana is never locked again; if it regresses, it comes back as the
+  featured kana, and delays the next unlock while it is one of the last five.
 - **A series with a skipped word unlocks nothing**: holding space must never
   lead to an unlock.
-- **No exception**: every unlocked kana must be mastered before the next one
-  unlocks. The unlock order guarantees that each of them can be practised
+- **The five last unlocked kana** must be mastered before the next one
+  unlocks; the screen says which ones are missing. Requiring every kana at
+  once stalled learners: simulated with the real engine, 15 % of errors meant
+  no unlock at all. Older kana stay in the series, as the weakest one is always
+  featured (C5). The unlock order guarantees that each kana can be practised
   (C2).
 - A loaded save is aligned with the unlock order, which a new vocabulary can
   change: the unlocked kana become the start of the order, up to the last one
@@ -244,7 +247,8 @@ generator.
 
 - **Eligible words**: every unit is unlocked (hiragana and katakana mix
   naturally once both progressions allow it).
-- **Priority kana**: the **featured kana** (the last unlocked one)
+- **Priority kana**: the **featured kana** (the least mastered unlocked one,
+  or the last unlocked one when all are mastered)
   and the **weak kana** (unlocked but not mastered, weakest first by display
   score).
 

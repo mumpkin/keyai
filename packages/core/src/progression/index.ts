@@ -20,9 +20,10 @@ export {
 export {
 	alignProgress,
 	applySeries,
-	areAllUnlockedMastered,
+	blockingKanaOf,
 	createProgress,
 	nextKanaOf,
+	RECENT_KANA_TO_MASTER,
 	type SeriesOutcome,
 	type UnlockRules,
 } from './unlock.ts';
