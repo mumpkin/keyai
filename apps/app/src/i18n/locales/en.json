@@ -25,7 +25,9 @@
 		"unsignedNote": "The app is not signed yet: Windows may show a warning during installation."
 	},
 	"update": {
-		"ready": "A new version of keyai is ready.",
+		"offered": "A new version of keyai is ready.",
+		"applying": "Downloading the new version…",
+		"failed": "The update failed. You can try again.",
 		"apply": "Update",
 		"later": "Later"
 	},

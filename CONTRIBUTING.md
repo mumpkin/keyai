@@ -124,5 +124,7 @@ The history of `main` is linear: no merge commits.
 - The tag starts `release.yml`, which builds the installers into a draft
   release; publishing that draft stays a manual step. The version lives in the
   root `package.json` and in `apps/app/package.json`.
+- Desktop updates are signed. The key lives in the `TAURI_SIGNING_PRIVATE_KEY`
+  secrets and with the maintainer: without it, installed apps cannot update.
 - The web app does not wait for a release: it deploys after every green CI on
   `main`.

@@ -20,8 +20,8 @@ export interface UiState {
 	readonly pausedSeries: PausedSeries | null;
 	readonly pauseSeries: (paused: PausedSeries | null) => void;
 	/** Applies the new version that is ready, if there is one. */
-	readonly applyUpdate: (() => void) | null;
-	readonly offerUpdate: (apply: () => void) => void;
+	readonly applyUpdate: (() => Promise<void>) | null;
+	readonly offerUpdate: (apply: () => Promise<void>) => void;
 	readonly dismissUpdate: () => void;
 }
 

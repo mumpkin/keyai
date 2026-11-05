@@ -27,7 +27,9 @@ export interface Platform {
 	readonly playsSplashOnEveryLaunch: boolean;
 	readonly windowControls: WindowControls | null;
 	/** Calls back with the way to apply a new version, once one is ready. */
-	readonly watchForUpdate: (onReady: (apply: () => void) => void) => void;
+	readonly watchForUpdate: (
+		onReady: (apply: () => Promise<void>) => void,
+	) => void;
 	/** Resolves to `false` when the user cancels. */
 	readonly exportFile: (
 		fileName: string,
