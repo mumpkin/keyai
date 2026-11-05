@@ -50,7 +50,8 @@
 		"skipped": "skipped"
 	},
 	"wordCard": {
-		"otherSenses": "Other meanings"
+		"otherSenses": "Other meanings",
+		"report": "Report an error"
 	},
 	"partOfSpeech": {
 		"noun": "noun",
@@ -177,7 +178,8 @@
 			"version": "Version {{version}}",
 			"sourceCode": "Source code (MIT license)",
 			"vocabulary": "Vocabulary under the CC BY-SA 4.0 license, based on:",
-			"replaySplash": "Replay the launch animation"
+			"replaySplash": "Replay the launch animation",
+			"reportTranslation": "Report a translation error (GitHub account needed)"
 		}
 	}
 }

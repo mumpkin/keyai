@@ -1,0 +1,26 @@
+name: Erreur de traduction / Translation error
+description: Un mot mal traduit dans keyai / A word translated wrongly in keyai
+labels: [translation]
+body:
+  - type: input
+    id: word
+    attributes:
+      label: Mot / Word
+      description: Le mot en kana, tel qu'il apparaît dans l'app
+    validations:
+      required: true
+  - type: input
+    id: current
+    attributes:
+      label: Traduction affichée / Current translation
+    validations:
+      required: true
+  - type: input
+    id: suggestion
+    attributes:
+      label: Traduction proposée / Suggested translation
+  - type: textarea
+    id: details
+    attributes:
+      label: Précisions / Details
+      description: Pourquoi c'est faux, un exemple, une source…

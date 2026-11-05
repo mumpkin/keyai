@@ -15,6 +15,7 @@ export interface AppDependencies {
 	readonly startsWithSplash: boolean;
 	readonly windowControls: WindowControls | null;
 	readonly exportFile: Platform['exportFile'];
+	readonly openLink: Platform['openLink'];
 }
 
 /** Startup sequence of A5: platform → vocabulary → save → translations. */
@@ -39,5 +40,6 @@ export async function bootstrap(): Promise<AppDependencies> {
 		startsWithSplash: platform.playsSplashOnEveryLaunch || isFirstLaunch,
 		windowControls: platform.windowControls,
 		exportFile: platform.exportFile,
+		openLink: platform.openLink,
 	};
 }

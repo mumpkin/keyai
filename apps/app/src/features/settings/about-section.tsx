@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ExternalLink } from '@/components/external-link.tsx';
+import { translationReportUrl } from '@/lib/translation-report.ts';
 import { SettingSection } from './setting-section.tsx';
 
 const SOURCE_CODE_URL = 'https://github.com/mumpkin/keyai';
@@ -7,25 +8,6 @@ const JMDICT_URL =
 	'https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project';
 const EDRDG_LICENCE_URL = 'https://www.edrdg.org/edrdg/licence.html';
 const WORDFREQ_URL = 'https://github.com/rspeer/wordfreq';
-
-function ExternalLink({
-	href,
-	children,
-}: {
-	readonly href: string;
-	readonly children: ReactNode;
-}) {
-	return (
-		<a
-			href={href}
-			target="_blank"
-			rel="noreferrer"
-			className="text-primary underline"
-		>
-			{children}
-		</a>
-	);
-}
 
 export function AboutSection({
 	onReplaySplash,
@@ -62,6 +44,11 @@ export function AboutSection({
 						{' · Robyn Speer'}
 					</li>
 				</ul>
+				<p>
+					<ExternalLink href={translationReportUrl()}>
+						{translate('settings.about.reportTranslation')}
+					</ExternalLink>
+				</p>
 				<button
 					type="button"
 					onClick={onReplaySplash}

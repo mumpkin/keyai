@@ -3,11 +3,13 @@ import type { Locale } from '@keyai/core/settings';
 import type { Sense, VocabEntry } from '@keyai/core/vocab';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ExternalLink } from '@/components/external-link.tsx';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/popover.tsx';
+import { translationReportUrl } from '@/lib/translation-report.ts';
 import { GlossText } from './gloss-text.tsx';
 import { glossOf, noteOf } from './glosses.ts';
 import { useTypingFocus } from './typing-focus.tsx';
@@ -75,6 +77,7 @@ function OtherSenses({
 }
 
 function WordCardContent({ entry, locale }: WordCardProps) {
+	const { t: translate } = useTranslation();
 	const [primary, ...others] = entry.word.senses;
 	if (!primary) {
 		return null;
@@ -104,6 +107,16 @@ function WordCardContent({ entry, locale }: WordCardProps) {
 			{others.length > 0 && (
 				<OtherSenses senses={others} locale={locale} />
 			)}
+			<p className="mt-2 text-xs">
+				<ExternalLink
+					href={translationReportUrl({
+						kana: entry.word.kana,
+						translation: glossOf(primary, locale).text,
+					})}
+				>
+					{translate('wordCard.report')}
+				</ExternalLink>
+			</p>
 		</>
 	);
 }

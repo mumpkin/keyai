@@ -9,6 +9,7 @@ export function createPlatform(): Platform {
 		storage: createWebStorage(),
 		playsSplashOnEveryLaunch: false,
 		windowControls: null,
+		openLink: null,
 		watchForUpdate: watchForWebUpdate,
 		exportFile: downloadFile,
 	};

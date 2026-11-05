@@ -26,6 +26,8 @@ export interface Platform {
 	/** Otherwise the splash only plays on the first launch (C8). */
 	readonly playsSplashOnEveryLaunch: boolean;
 	readonly windowControls: WindowControls | null;
+	/** How to open a web link, when a plain link is not enough. */
+	readonly openLink: ((url: string) => void) | null;
 	/** Calls back with the way to apply a new version, once one is ready. */
 	readonly watchForUpdate: (
 		onReady: (apply: () => Promise<void>) => void,

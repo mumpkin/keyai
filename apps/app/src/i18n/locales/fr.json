@@ -50,7 +50,8 @@
 		"skipped": "passé"
 	},
 	"wordCard": {
-		"otherSenses": "Autres sens"
+		"otherSenses": "Autres sens",
+		"report": "Signaler une erreur"
 	},
 	"partOfSpeech": {
 		"noun": "nom",
@@ -177,7 +178,8 @@
 			"version": "Version {{version}}",
 			"sourceCode": "Code source (licence MIT)",
 			"vocabulary": "Vocabulaire sous licence CC BY-SA 4.0, issu de :",
-			"replaySplash": "Rejouer l’animation de lancement"
+			"replaySplash": "Rejouer l’animation de lancement",
+			"reportTranslation": "Signaler une erreur de traduction (compte GitHub requis)"
 		}
 	}
 }

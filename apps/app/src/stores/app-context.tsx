@@ -47,6 +47,10 @@ export function useExportFile(): AppDependencies['exportFile'] {
 	return useAppDependencies().exportFile;
 }
 
+export function useOpenLink(): AppDependencies['openLink'] {
+	return useAppDependencies().openLink;
+}
+
 export function useWindowControls(): WindowControls | null {
 	return useAppDependencies().windowControls;
 }
