@@ -13,6 +13,8 @@ const OverrideSchema = zod.object({
 	fr: zod.string().min(1),
 	/** Start of the English gloss of the sense to put first, if not the first. */
 	primary: zod.string().min(1).optional(),
+	/** French note of the primary sense, such as the card of a particle. */
+	note: zod.string().min(1).optional(),
 	/** Drafts stay out of the vocabulary until they are reviewed. */
 	reviewed: zod.boolean(),
 });
@@ -42,7 +44,13 @@ function overriddenWord(word: VocabWord, override: Override): VocabWord {
 	return {
 		...word,
 		senses: [
-			{ ...first, gloss: { ...first.gloss, fr: override.fr } },
+			{
+				...first,
+				gloss: { ...first.gloss, fr: override.fr },
+				...(override.note
+					? { note: { ...first.note, fr: override.note } }
+					: {}),
+			},
 			...others.map(withoutFrench),
 		],
 	};

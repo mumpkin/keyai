@@ -66,6 +66,21 @@ describe('applyOverrides', () => {
 		expect(frequent?.senses[0]?.gloss.fr).toBe('coûter');
 	});
 
+	it('adds a French note, as for the card of a particle', () => {
+		const [frequent] = applyOverrides(
+			[word('は', FREQUENT)],
+			[
+				{
+					kana: 'は',
+					fr: 'thème',
+					note: 'Se prononce wa',
+					reviewed: true,
+				},
+			],
+		);
+		expect(frequent?.senses[0]?.note).toEqual({ fr: 'Se prononce wa' });
+	});
+
 	it('refuses an override without a word', () => {
 		expect(() =>
 			applyOverrides([], [{ kana: 'ぬ', fr: 'x', reviewed: true }]),

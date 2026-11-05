@@ -1,6 +1,7 @@
 # Hand-written French translations (C7). Only reviewed entries reach the app.
 - kana: は
   fr: "marque le thème"
+  note: "Particule de thème : annonce ce dont on parle. Se prononce « wa », mais s'écrit は."
   reviewed: true
 - kana: ここ
   fr: "ici, cet endroit"
@@ -16,6 +17,7 @@
   reviewed: true
 - kana: か
   fr: "marque une question"
+  note: "En fin de phrase, la transforme en question."
   reviewed: true
 - kana: かい
   fr: "fois (compteur)"
@@ -52,6 +54,7 @@
   reviewed: true
 - kana: しか
   fr: "ne… que, rien que"
+  note: "S'emploie toujours avec une négation : « ne… que »."
   reviewed: true
 - kana: しかし
   fr: "cependant, mais"
@@ -136,6 +139,7 @@
   reviewed: true
 - kana: と
   fr: "si, quand"
+  note: "Relie des noms (« et »), indique avec qui, ou cite des paroles."
   reviewed: true
 - kana: こと
   fr: "chose, fait"
@@ -232,7 +236,7 @@
   reviewed: true
 - kana: あり
   fr: "fourmi"
-  reviewed: false
+  reviewed: true
 - kana: なり
   fr: "ou quelque chose, par exemple"
   reviewed: true
@@ -273,8 +277,9 @@
   fr: "bon, allons"
   reviewed: true
 - kana: いる
-  fr: "être nécessaire"
-  reviewed: false
+  fr: "être, exister"
+  primary: "to be, to exist"
+  reviewed: true
 - kana: てる
   fr: "être en train de"
   reviewed: true
@@ -298,4 +303,1949 @@
   reviewed: true
 - kana: えん
   fr: "yen"
+  reviewed: true
+- kana: うえ
+  fr: "au-dessus, sur"
+  reviewed: true
+- kana: こえ
+  fr: "voix"
+  reviewed: true
+- kana: おまえ
+  fr: "toi (familier)"
+  reviewed: true
+- kana: なまえ
+  fr: "nom"
+  reviewed: true
+- kana: えき
+  fr: "gare"
+  reviewed: true
+- kana: けど
+  fr: "mais, cependant"
+  reviewed: true
+- kana: など
+  fr: "et cetera, etc."
+  note: "Termine une énumération."
+  reviewed: true
+- kana: どう
+  fr: "comment, de quelle manière"
+  reviewed: true
+- kana: ど
+  fr: "degré"
+  reviewed: true
+- kana: どこ
+  fr: "où, quel endroit"
+  reviewed: true
+- kana: どおり
+  fr: "conformément à, selon"
+  reviewed: true
+- kana: に
+  fr: "à, dans"
+  note: "Indique le lieu où l'on se trouve, la destination, le moment ou le destinataire."
+  reviewed: true
+- kana: なに
+  fr: "quoi"
+  reviewed: true
+- kana: について
+  fr: "au sujet de, sur"
+  reviewed: true
+- kana: くに
+  fr: "pays, État"
+  reviewed: true
+- kana: かくにん
+  fr: "confirmation, vérification"
+  reviewed: true
+- kana: も
+  fr: "aussi, également"
+  note: "« Aussi » : remplace は ou が pour ajouter un élément."
+  reviewed: true
+- kana: もう
+  fr: "déjà"
+  reviewed: true
+- kana: おもう
+  fr: "penser, considérer"
+  reviewed: true
+- kana: おもい
+  fr: "pensée"
+  reviewed: true
+- kana: もっと
+  fr: "davantage, encore plus"
+  reviewed: true
+- kana: いつも
+  fr: "toujours, tout le temps"
+  reviewed: true
+- kana: こども
+  fr: "enfant, enfants"
+  reviewed: true
+- kana: とても
+  fr: "très, terriblement"
+  reviewed: true
+- kana: ほう
+  fr: "direction, manière"
+  reviewed: true
+- kana: にほん
+  fr: "Japon"
+  reviewed: true
+- kana: ほか
+  fr: "autre endroit, ailleurs"
+  reviewed: true
+- kana: ほん
+  fr: "livre, volume"
+  reviewed: true
+- kana: ほんとうに
+  fr: "vraiment, réellement"
+  reviewed: true
+- kana: ほしい
+  fr: "vouloir (avoir), désirer"
+  reviewed: true
+- kana: ほど
+  fr: "étendue, degré"
+  reviewed: true
+- kana: ほうほう
+  fr: "méthode, manière"
+  reviewed: true
+- kana: いち
+  fr: "un, 1"
+  reviewed: true
+- kana: うち
+  fr: "sa maison, chez soi"
+  reviewed: true
+- kana: まち
+  fr: "ville, quartier"
+  reviewed: true
+- kana: きもち
+  fr: "sentiment, sensation"
+  reviewed: true
+- kana: が
+  fr: "marque le sujet"
+  note: "Particule de sujet : désigne qui fait l'action ou ce qu'on met en avant."
+  reviewed: true
+- kana: がつ
+  fr: "mois (de l'année)"
+  reviewed: true
+- kana: かんがえ
+  fr: "réflexion, pensée"
+  reviewed: true
+- kana: ありがとう
+  fr: "merci"
+  reviewed: true
+- kana: ちがう
+  fr: "être différent, différer"
+  reviewed: true
+- kana: えいが
+  fr: "film"
+  reviewed: true
+- kana: どうが
+  fr: "vidéo"
+  reviewed: true
+- kana: まんが
+  fr: "manga, bande dessinée"
+  reviewed: true
+- kana: いがい
+  fr: "à part, sauf"
+  reviewed: true
+- kana: がっこう
+  fr: "école"
+  reviewed: true
+- kana: だ
+  fr: "être, c'est"
+  reviewed: true
+- kana: だけ
+  fr: "seulement, juste"
+  note: "Limite, sans nuance négative."
+  reviewed: true
+- kana: ください
+  fr: "s'il vous plaît (donnez-moi)"
+  reviewed: true
+- kana: だい
+  fr: "grand"
+  reviewed: true
+- kana: もんだい
+  fr: "question, problème"
+  reviewed: true
+- kana: まだ
+  fr: "encore, toujours"
+  reviewed: true
+- kana: あいだ
+  fr: "espace (entre), écart"
+  reviewed: true
+- kana: だって
+  fr: "après tout, parce que"
+  reviewed: true
+- kana: じだい
+  fr: "époque, ère"
+  reviewed: true
+- kana: から
+  fr: "de, depuis"
+  note: "Point de départ dans l'espace ou le temps, ou cause après une proposition."
+  reviewed: true
+- kana: たら
+  fr: "si, quand"
+  reviewed: true
+- kana: なら
+  fr: "si, au cas où"
+  reviewed: true
+- kana: くらい
+  fr: "environ, à peu près"
+  reviewed: true
+- kana: ちから
+  fr: "force"
+  reviewed: true
+- kana: ながら
+  fr: "tout en, pendant que"
+  reviewed: true
+- kana: こちら
+  fr: "par ici, cette direction"
+  reviewed: true
+- kana: からだ
+  fr: "corps"
+  reviewed: true
+- kana: らしい
+  fr: "il semble que, avoir l'air"
+  reviewed: true
+- kana: そんな
+  fr: "tel, ce genre de"
+  reviewed: true
+- kana: そして
+  fr: "et, et puis"
+  reviewed: true
+- kana: そこ
+  fr: "là"
+  reviewed: true
+- kana: これ
+  fr: "ceci, celui-ci"
+  reviewed: true
+- kana: それ
+  fr: "cela, ça"
+  reviewed: true
+- kana: おれ
+  fr: "je, moi (masculin, familier)"
+  reviewed: true
+- kana: だれ
+  fr: "qui"
+  reviewed: true
+- kana: あれ
+  fr: "cela (là-bas)"
+  reviewed: true
+- kana: くれる
+  fr: "donner (à moi)"
+  reviewed: true
+- kana: かれ
+  fr: "il, lui"
+  reviewed: true
+- kana: よ
+  fr: "hé, toi"
+  note: "En fin de phrase, insiste ou apporte une information à l'interlocuteur."
+  reviewed: true
+- kana: よう
+  fr: "avoir l'air de, ressembler à"
+  reviewed: true
+- kana: より
+  fr: "que (comparaison)"
+  note: "Sert à comparer (« plus que ») ; à l'écrit, indique aussi un point de départ."
+  reviewed: true
+- kana: よい
+  fr: "bon, bien"
+  reviewed: true
+- kana: よく
+  fr: "bien, correctement"
+  reviewed: true
+- kana: しよう
+  fr: "utilisation, emploi"
+  reviewed: true
+- kana: によって
+  fr: "selon, à cause de"
+  reviewed: true
+- kana: による
+  fr: "au moyen de, à cause de"
+  reviewed: true
+- kana: りよう
+  fr: "utilisation, usage"
+  reviewed: true
+- kana: みたい
+  fr: "comme, genre de"
+  reviewed: true
+- kana: みる
+  fr: "voir, regarder"
+  reviewed: true
+- kana: いみ
+  fr: "sens, signification"
+  reviewed: true
+- kana: きみ
+  fr: "toi (familier)"
+  reviewed: true
+- kana: みせ
+  fr: "magasin, boutique"
+  reviewed: true
+- kana: わたし
+  fr: "je, moi"
+  reviewed: true
+- kana: わ
+  fr: "marque l'émotion, l'admiration"
+  reviewed: true
+- kana: わるい
+  fr: "mauvais"
+  reviewed: true
+- kana: わかる
+  fr: "comprendre"
+  reviewed: true
+- kana: がわ
+  fr: "côté, partie"
+  reviewed: true
+- kana: の
+  fr: "marque la possession"
+  note: "Relie deux noms : possession ou caractéristique (私の本, mon livre)."
+  reviewed: true
+- kana: を
+  fr: "marque le complément d'objet"
+  note: "Particule d'objet : marque ce qui subit l'action. Se prononce « o »."
+  reviewed: true
+- kana: で
+  fr: "à, dans"
+  note: "Indique le lieu de l'action, le moyen ou la cause."
+  reviewed: true
+- kana: です
+  fr: "être, c'est (poli)"
+  reviewed: true
+- kana: する
+  fr: "faire, effectuer"
+  reviewed: true
+- kana: ね
+  fr: "n'est-ce pas ?"
+  note: "En fin de phrase, cherche l'accord de l'interlocuteur."
+  reviewed: true
+- kana: ひと
+  fr: "personne, quelqu'un"
+  reviewed: true
+- kana: や
+  fr: "des choses comme, et… et"
+  note: "Énumération non exhaustive : A, B, et d'autres."
+  reviewed: true
+- kana: にち
+  fr: "jour (du mois)"
+  primary: "nth day"
+  reviewed: true
+- kana: ひ
+  fr: "jour"
+  reviewed: true
+- kana: この
+  fr: "ce, cette"
+  reviewed: true
+- kana: そう
+  fr: "ainsi, comme ça"
+  primary: "in that way"
+  reviewed: true
+- kana: ば
+  fr: "si, quand"
+  reviewed: true
+- kana: ねん
+  fr: "année"
+  reviewed: true
+- kana: その
+  fr: "ce, cette (près de toi)"
+  reviewed: true
+- kana: まで
+  fr: "jusqu'à"
+  note: "Limite dans l'espace ou le temps."
+  reviewed: true
+- kana: もの
+  fr: "chose, objet"
+  primary: "thing"
+  reviewed: true
+- kana: ちゅう
+  fr: "moyen, intermédiaire"
+  reviewed: true
+- kana: でも
+  fr: "mais, cependant"
+  reviewed: true
+- kana: ため
+  fr: "pour, dans le but de"
+  primary: "sake"
+  reviewed: true
+- kana: へ
+  fr: "vers, à"
+  note: "Indique une direction. Se prononce « e », mais s'écrit へ."
+  reviewed: true
+- kana: ので
+  fr: "parce que, comme"
+  reviewed: true
+- kana: じぶん
+  fr: "moi-même, soi-même"
+  reviewed: true
+- kana: ぜん
+  fr: "dernier, précédent"
+  reviewed: true
+- kana: め
+  fr: "œil"
+  reviewed: true
+- kana: できる
+  fr: "pouvoir faire, être possible"
+  reviewed: true
+- kana: かも
+  fr: "peut-être"
+  primary: "may"
+  reviewed: true
+- kana: ふん
+  fr: "minute"
+  reviewed: true
+- kana: ぶん
+  fr: "part, portion"
+  reviewed: true
+- kana: ご
+  fr: "après"
+  reviewed: true
+- kana: のに
+  fr: "bien que, malgré"
+  reviewed: true
+- kana: すき
+  fr: "aimer, apprécier"
+  reviewed: true
+- kana: ぞ
+  fr: "renforce une affirmation"
+  reviewed: true
+- kana: かみ
+  fr: "papier"
+  primary: "paper"
+  reviewed: true
+- kana: じょう
+  fr: "du point de vue de"
+  reviewed: true
+- kana: かず
+  fr: "nombre, quantité"
+  reviewed: true
+- kana: すう
+  fr: "quelques, plusieurs"
+  reviewed: true
+- kana: ひつよう
+  fr: "nécessaire, requis"
+  reviewed: true
+- kana: ちょっと
+  fr: "un peu"
+  reviewed: true
+- kana: しごと
+  fr: "travail, emploi"
+  reviewed: true
+- kana: たび
+  fr: "fois"
+  reviewed: true
+- kana: ゲーム
+  fr: "jeu"
+  reviewed: true
+- kana: じょうほう
+  fr: "information, nouvelles"
+  reviewed: true
+- kana: ぼく
+  fr: "je, moi (masculin)"
+  reviewed: true
+- kana: きょう
+  fr: "aujourd'hui"
+  reviewed: true
+- kana: いじょう
+  fr: "au moins, et plus"
+  reviewed: true
+- kana: かね
+  fr: "argent"
+  reviewed: true
+- kana: かのう
+  fr: "possible"
+  reviewed: true
+- kana: ばあい
+  fr: "cas, occasion"
+  reviewed: true
+- kana: あの
+  fr: "ce… là-bas"
+  reviewed: true
+- kana: しゅったい
+  fr: "survenue, événement"
+  reviewed: true
+- kana: でき
+  fr: "qualité du travail, facture"
+  reviewed: true
+- kana: ところ
+  fr: "endroit, lieu"
+  reviewed: true
+- kana: にんげん
+  fr: "être humain"
+  reviewed: true
+- kana: つぎ
+  fr: "suivant, prochain"
+  reviewed: true
+- kana: やる
+  fr: "faire, entreprendre"
+  reviewed: true
+- kana: じょせい
+  fr: "femme"
+  reviewed: true
+- kana: すぐ
+  fr: "immédiatement, tout de suite"
+  reviewed: true
+- kana: ただ
+  fr: "seulement, simplement"
+  primary: "only"
+  reviewed: true
+- kana: とうきょう
+  fr: "Tokyo"
+  reviewed: true
+- kana: べき
+  fr: "devoir, il faut"
+  reviewed: true
+- kana: いっしょ
+  fr: "ensemble"
+  reviewed: true
+- kana: いや
+  fr: "non"
+  reviewed: true
+- kana: しゃしん
+  fr: "photo, photographie"
+  reviewed: true
+- kana: ぜ
+  fr: "renforce légèrement une affirmation"
+  reviewed: true
+- kana: おねがい
+  fr: "demande, service"
+  reviewed: true
+- kana: かいしゃ
+  fr: "entreprise, société"
+  reviewed: true
+- kana: やつ
+  fr: "type, gars"
+  reviewed: true
+- kana: じゅう
+  fr: "dix, 10"
+  reviewed: true
+- kana: すこし
+  fr: "un peu"
+  reviewed: true
+- kana: こころ
+  fr: "esprit, cœur"
+  reviewed: true
+- kana: アメリカ
+  fr: "États-Unis, Amérique"
+  reviewed: true
+- kana: ちょう
+  fr: "super-, ultra-"
+  reviewed: true
+- kana: むりょう
+  fr: "gratuit"
+  reviewed: true
+- kana: アニメ
+  fr: "animation, dessin animé"
+  reviewed: true
+- kana: さいご
+  fr: "fin, conclusion"
+  reviewed: true
+- kana: ばしょ
+  fr: "lieu, endroit"
+  reviewed: true
+- kana: ぶ
+  fr: "département, division"
+  reviewed: true
+- kana: べつ
+  fr: "distinction, différence"
+  reviewed: true
+- kana: もと
+  fr: "origine, source"
+  reviewed: true
+- kana: いちばん
+  fr: "numéro un, premier"
+  reviewed: true
+- kana: ことば
+  fr: "mot, expression"
+  primary: "word"
+  reviewed: true
+- kana: だいじょうぶ
+  fr: "sans danger, ça va"
+  reviewed: true
+- kana: しゃかい
+  fr: "société"
+  reviewed: true
+- kana: さいしょ
+  fr: "début, commencement"
+  reviewed: true
+- kana: りゆう
+  fr: "raison, motif"
+  reviewed: true
+- kana: かのじょ
+  fr: "elle"
+  reviewed: true
+- kana: さくひん
+  fr: "œuvre"
+  reviewed: true
+- kana: すごい
+  fr: "incroyable, génial"
+  primary: "amazing"
+  reviewed: true
+- kana: はじめ
+  fr: "début, commencement"
+  reviewed: true
+- kana: きぎょう
+  fr: "entreprise"
+  reviewed: true
+- kana: きょく
+  fr: "morceau de musique, composition"
+  reviewed: true
+- kana: げんざい
+  fr: "présent, moment actuel"
+  reviewed: true
+- kana: そんざい
+  fr: "existence, être"
+  reviewed: true
+- kana: ちゃう
+  fr: "faire complètement"
+  reviewed: true
+- kana: はず
+  fr: "devrait, être censé"
+  reviewed: true
+- kana: むり
+  fr: "déraisonnable, impossible"
+  reviewed: true
+- kana: みず
+  fr: "eau"
+  reviewed: true
+- kana: ばん
+  fr: "numéro"
+  reviewed: true
+- kana: ふつう
+  fr: "normal, ordinaire"
+  reviewed: true
+- kana: がぞう
+  fr: "image"
+  reviewed: true
+- kana: じょうたい
+  fr: "état, condition"
+  reviewed: true
+- kana: じょし
+  fr: "femme, fille"
+  reviewed: true
+- kana: ぜったい
+  fr: "absolument, à coup sûr"
+  reviewed: true
+- kana: はつばい
+  fr: "mise en vente"
+  reviewed: true
+- kana: やく
+  fr: "environ"
+  reviewed: true
+- kana: ちゅうごく
+  fr: "Chine"
+  reviewed: true
+- kana: にて
+  fr: "à, dans (écrit)"
+  reviewed: true
+- kana: のみ
+  fr: "seulement, rien que"
+  reviewed: true
+- kana: おおさか
+  fr: "Osaka"
+  reviewed: true
+- kana: おん
+  fr: "son, bruit"
+  reviewed: true
+- kana: こそ
+  fr: "justement, c'est bien… que"
+  reviewed: true
+- kana: とも
+  fr: "certainement, bien sûr"
+  reviewed: true
+- kana: ネット
+  fr: "réseau, internet"
+  reviewed: true
+- kana: そういう
+  fr: "tel, comme ça"
+  reviewed: true
+- kana: どの
+  fr: "quel, lequel"
+  reviewed: true
+- kana: イベント
+  fr: "événement"
+  reviewed: true
+- kana: にたいして
+  fr: "envers, contre"
+  reviewed: true
+- kana: かんこく
+  fr: "Corée du Sud"
+  reviewed: true
+- kana: まい
+  fr: "ne… probablement pas"
+  reviewed: true
+- kana: にとって
+  fr: "pour, aux yeux de"
+  reviewed: true
+- kana: いり
+  fr: "entrée"
+  reviewed: true
+- kana: エロ
+  fr: "érotique, porno"
+  reviewed: true
+- kana: ライブ
+  fr: "concert, en direct"
+  reviewed: true
+- kana: アプリ
+  fr: "appli, application"
+  reviewed: true
+- kana: マン
+  fr: "homme"
+  reviewed: true
+- kana: べい
+  fr: "États-Unis, Amérique"
+  reviewed: true
+- kana: こいつ
+  fr: "celui-ci, ce type"
+  reviewed: true
+- kana: において
+  fr: "à, dans (écrit)"
+  reviewed: true
+- kana: あるじ
+  fr: "maître, patron"
+  reviewed: true
+- kana: けんさく
+  fr: "recherche, consultation"
+  reviewed: true
+- kana: メール
+  fr: "e-mail, courriel"
+  reviewed: true
+- kana: リンク
+  fr: "lien"
+  reviewed: true
+- kana: おち
+  fr: "oubli, omission"
+  reviewed: true
+- kana: ひん
+  fr: "élégance, grâce"
+  reviewed: true
+- kana: きめ
+  fr: "accord, règle"
+  reviewed: true
+- kana: ブログ
+  fr: "blog"
+  reviewed: true
+- kana: ポイント
+  fr: "point, point clé"
+  reviewed: true
+- kana: にたいする
+  fr: "à l'égard de, envers"
+  reviewed: true
+- kana: ひょうじ
+  fr: "affichage, indication"
+  reviewed: true
+- kana: はいしん
+  fr: "diffusion, distribution"
+  reviewed: true
+- kana: つつ
+  fr: "tout en"
+  reviewed: true
+- kana: こういう
+  fr: "ce genre de, tel"
+  reviewed: true
+- kana: つくり
+  fr: "fabrication, production"
+  reviewed: true
+- kana: タイトル
+  fr: "titre"
+  reviewed: true
+- kana: キャラ
+  fr: "personnage"
+  reviewed: true
+- kana: さえ
+  fr: "même"
+  reviewed: true
+- kana: おきなわ
+  fr: "Okinawa"
+  reviewed: true
+- kana: あげ
+  fr: "pli, rempli"
+  reviewed: true
+- kana: ガン
+  fr: "pistolet, arme à feu"
+  reviewed: true
+- kana: こうしん
+  fr: "renouvellement, mise à jour"
+  reviewed: true
+- kana: じてん
+  fr: "moment, instant précis"
+  reviewed: true
+- kana: よし
+  fr: "bon, d'accord"
+  reviewed: true
+- kana: シーン
+  fr: "scène"
+  reviewed: true
+- kana: コメント
+  fr: "commentaire"
+  reviewed: true
+- kana: ロシア
+  fr: "Russie"
+  reviewed: true
+- kana: おっぱい
+  fr: "seins, nichons"
+  reviewed: true
+- kana: ちなみに
+  fr: "au fait, à ce propos"
+  reviewed: true
+- kana: わかり
+  fr: "compréhension"
+  reviewed: true
+- kana: どういう
+  fr: "quel genre de"
+  reviewed: true
+- kana: なごや
+  fr: "Nagoya"
+  reviewed: true
+- kana: にかんして
+  fr: "concernant, au sujet de"
+  reviewed: true
+- kana: スマホ
+  fr: "smartphone"
+  reviewed: true
+- kana: ライン
+  fr: "ligne"
+  reviewed: true
+- kana: における
+  fr: "dans, à (écrit)"
+  reviewed: true
+- kana: ふくおか
+  fr: "Fukuoka"
+  reviewed: true
+- kana: オリジナル
+  fr: "original"
+  reviewed: true
+- kana: ランキング
+  fr: "classement"
+  reviewed: true
+- kana: なさい
+  fr: "fais…, faites… (ordre doux)"
+  reviewed: true
+- kana: ツアー
+  fr: "tournée, voyage organisé"
+  reviewed: true
+- kana: プレイ
+  fr: "jeu, divertissement"
+  reviewed: true
+- kana: とる
+  fr: "prendre (un repas)"
+  reviewed: true
+- kana: ユーザー
+  fr: "utilisateur"
+  reviewed: true
+- kana: しょく
+  fr: "nourriture, aliment"
+  reviewed: true
+- kana: べいこく
+  fr: "États-Unis, Amérique"
+  reviewed: true
+- kana: しじょう
+  fr: "marché"
+  reviewed: true
+- kana: っぽい
+  fr: "-esque, qui ressemble à"
+  reviewed: true
+- kana: よこはま
+  fr: "Yokohama"
+  reviewed: true
+- kana: フランス
+  fr: "France"
+  reviewed: true
+- kana: ブラック
+  fr: "noir"
+  reviewed: true
+- kana: ころし
+  fr: "meurtre, assassinat"
+  reviewed: true
+- kana: ひろしま
+  fr: "Hiroshima"
+  reviewed: true
+- kana: アクセス
+  fr: "accès"
+  reviewed: true
+- kana: メイン
+  fr: "principal"
+  reviewed: true
+- kana: かしら
+  fr: "je me demande"
+  reviewed: true
+- kana: ぎょうむ
+  fr: "travail, activité professionnelle"
+  reviewed: true
+- kana: しちょう
+  fr: "visionnage, écoute"
+  reviewed: true
+- kana: すら
+  fr: "même"
+  reviewed: true
+- kana: ものの
+  fr: "bien que, quoique"
+  reviewed: true
+- kana: だし
+  fr: "dashi (bouillon japonais)"
+  reviewed: true
+- kana: どうじに
+  fr: "en même temps, à la fois"
+  reviewed: true
+- kana: にげ
+  fr: "fuite, échappatoire"
+  reviewed: true
+- kana: アイテム
+  fr: "objet, article"
+  reviewed: true
+- kana: レース
+  fr: "course"
+  reviewed: true
+- kana: たすけ
+  fr: "aide, secours"
+  reviewed: true
+- kana: キャラクター
+  fr: "personnage, personnalité"
+  reviewed: true
+- kana: ファイル
+  fr: "fichier"
+  reviewed: true
+- kana: ベース
+  fr: "base"
+  reviewed: true
+- kana: はくし
+  fr: "docteur (titre universitaire)"
+  reviewed: true
+- kana: リアル
+  fr: "réel, réaliste"
+  reviewed: true
+- kana: おこない
+  fr: "acte, action"
+  reviewed: true
+- kana: にくい
+  fr: "difficile à"
+  reviewed: true
+- kana: リリース
+  fr: "sortie, publication"
+  reviewed: true
+- kana: あつかい
+  fr: "traitement, manipulation"
+  reviewed: true
+- kana: おはなし
+  fr: "histoire, conte"
+  reviewed: true
+- kana: それら
+  fr: "ceux-là, ces choses"
+  reviewed: true
+- kana: イラスト
+  fr: "illustration"
+  reviewed: true
+- kana: ストーリー
+  fr: "histoire, intrigue"
+  reviewed: true
+- kana: バー
+  fr: "bar"
+  reviewed: true
+- kana: ブロック
+  fr: "bloc"
+  reviewed: true
+- kana: しゅうろく
+  fr: "enregistrement, publication"
+  reviewed: true
+- kana: デビュー
+  fr: "débuts"
+  reviewed: true
+- kana: いちらん
+  fr: "coup d'œil, liste"
+  reviewed: true
+- kana: フル
+  fr: "plein, complet"
+  reviewed: true
+- kana: プロジェクト
+  fr: "projet"
+  reviewed: true
+- kana: すげ
+  fr: "laîche (plante)"
+  reviewed: true
+- kana: ちば
+  fr: "Chiba"
+  reviewed: true
+- kana: インターネット
+  fr: "internet"
+  reviewed: true
+- kana: タイ
+  fr: "Thaïlande"
+  primary: "Thailand"
+  reviewed: true
+- kana: イン
+  fr: "dedans, à l'intérieur"
+  reviewed: true
+- kana: デジタル
+  fr: "numérique"
+  reviewed: true
+- kana: パワー
+  fr: "puissance, force"
+  reviewed: true
+- kana: ビール
+  fr: "bière"
+  reviewed: true
+- kana: おし
+  fr: "poussée"
+  reviewed: true
+- kana: たち
+  fr: "départ"
+  reviewed: true
+- kana: まだまだ
+  fr: "encore, bien plus"
+  reviewed: true
+- kana: イギリス
+  fr: "Royaume-Uni"
+  reviewed: true
+- kana: ブランド
+  fr: "marque"
+  reviewed: true
+- kana: しんさく
+  fr: "nouvelle œuvre"
+  reviewed: true
+- kana: キャンペーン
+  fr: "campagne, promotion"
+  reviewed: true
+- kana: ドラゴン
+  fr: "dragon"
+  reviewed: true
+- kana: ボス
+  fr: "chef, patron"
+  reviewed: true
+- kana: ライト
+  fr: "lumière"
+  reviewed: true
+- kana: あん
+  fr: "pâte de haricots rouges"
+  reviewed: true
+- kana: しぶや
+  fr: "Shibuya"
+  reviewed: true
+- kana: しめし
+  fr: "leçon, discipline"
+  reviewed: true
+- kana: なげ
+  fr: "lancer, projection"
+  reviewed: true
+- kana: モード
+  fr: "mode, réglage"
+  reviewed: true
+- kana: うけいれ
+  fr: "accueil, acceptation"
+  reviewed: true
+- kana: テロ
+  fr: "terrorisme"
+  reviewed: true
+- kana: ニューヨーク
+  fr: "New York"
+  reviewed: true
+- kana: リスク
+  fr: "risque"
+  reviewed: true
+- kana: ロー
+  fr: "bas"
+  reviewed: true
+- kana: あまりに
+  fr: "trop, excessivement"
+  reviewed: true
+- kana: くそ
+  fr: "merde, zut"
+  reviewed: true
+- kana: ダイエット
+  fr: "régime"
+  reviewed: true
+- kana: さいたま
+  fr: "Saitama"
+  reviewed: true
+- kana: ざ
+  fr: "siège, place"
+  reviewed: true
+- kana: エリア
+  fr: "zone"
+  reviewed: true
+- kana: サポート
+  fr: "soutien, assistance"
+  reviewed: true
+- kana: ショー
+  fr: "spectacle"
+  reviewed: true
+- kana: レッド
+  fr: "rouge"
+  reviewed: true
+- kana: あたし
+  fr: "je, moi (féminin)"
+  reviewed: true
+- kana: くりかえし
+  fr: "répétition"
+  reviewed: true
+- kana: ブルー
+  fr: "bleu"
+  reviewed: true
+- kana: オンライン
+  fr: "en ligne"
+  reviewed: true
+- kana: バージョン
+  fr: "version"
+  reviewed: true
+- kana: リーダー
+  fr: "chef, leader"
+  reviewed: true
+- kana: こうべ
+  fr: "Kobe"
+  reviewed: true
+- kana: そうび
+  fr: "équipement"
+  reviewed: true
+- kana: ほんかく
+  fr: "méthode originale, authenticité"
+  reviewed: true
+- kana: イタリア
+  fr: "Italie"
+  reviewed: true
+- kana: コンビニ
+  fr: "supérette, konbini"
+  reviewed: true
+- kana: やばい
+  fr: "dangereux, risqué"
+  reviewed: true
+- kana: オタク
+  fr: "otaku, geek"
+  reviewed: true
+- kana: カット
+  fr: "coupe, coupure"
+  reviewed: true
+- kana: カフェ
+  fr: "café"
+  reviewed: true
+- kana: グッズ
+  fr: "produits dérivés"
+  reviewed: true
+- kana: かっこいい
+  fr: "classe, beau"
+  reviewed: true
+- kana: さっぽろ
+  fr: "Sapporo"
+  reviewed: true
+- kana: せっきょく
+  fr: "actif, positif"
+  reviewed: true
+- kana: にいがた
+  fr: "Niigata"
+  reviewed: true
+- kana: ゆるし
+  fr: "pardon"
+  reviewed: true
+- kana: インド
+  fr: "Inde"
+  reviewed: true
+- kana: ゲスト
+  fr: "invité"
+  reviewed: true
+- kana: ジャンル
+  fr: "genre, catégorie"
+  reviewed: true
+- kana: ダウンロード
+  fr: "téléchargement"
+  reviewed: true
+- kana: モンスター
+  fr: "monstre"
+  reviewed: true
+- kana: おもしろ
+  fr: "amusant, drôle"
+  reviewed: true
+- kana: そなえ
+  fr: "préparation, provision"
+  reviewed: true
+- kana: へい
+  fr: "soldat"
+  reviewed: true
+- kana: ようぎ
+  fr: "soupçon, accusation"
+  reviewed: true
+- kana: サイド
+  fr: "côté"
+  reviewed: true
+- kana: ニュー
+  fr: "nouveau"
+  reviewed: true
+- kana: ランク
+  fr: "rang, classement"
+  reviewed: true
+- kana: ロード
+  fr: "route"
+  reviewed: true
+- kana: い
+  fr: "médecine"
+  reviewed: true
+- kana: いくせい
+  fr: "formation, éducation"
+  reviewed: true
+- kana: トーク
+  fr: "discussion, bavardage"
+  reviewed: true
+- kana: プレイヤー
+  fr: "joueur"
+  reviewed: true
+- kana: ロンドン
+  fr: "Londres"
+  reviewed: true
+- kana: うり
+  fr: "vente"
+  reviewed: true
+- kana: さつがい
+  fr: "meurtre, assassinat"
+  reviewed: true
+- kana: さんせん
+  fr: "entrée en guerre, participation"
+  reviewed: true
+- kana: せかいじゅう
+  fr: "dans le monde entier"
+  reviewed: true
+- kana: まいかい
+  fr: "à chaque fois"
+  reviewed: true
+- kana: スペース
+  fr: "espace, place"
+  reviewed: true
+- kana: ダメージ
+  fr: "dégâts, dommage"
+  reviewed: true
+- kana: マシン
+  fr: "machine"
+  reviewed: true
+- kana: しずおか
+  fr: "Shizuoka"
+  reviewed: true
+- kana: ちょさく
+  fr: "écrit, ouvrage"
+  reviewed: true
+- kana: コミック
+  fr: "bande dessinée, comics"
+  reviewed: true
+- kana: タグ
+  fr: "étiquette, tag"
+  reviewed: true
+- kana: パリ
+  fr: "Paris"
+  reviewed: true
+- kana: リア
+  fr: "arrière"
+  reviewed: true
+- kana: えい
+  fr: "Royaume-Uni"
+  reviewed: true
+- kana: おきにいり
+  fr: "favori"
+  reviewed: true
+- kana: おきゃくさま
+  fr: "invité, client"
+  reviewed: true
+- kana: しょしんしゃ
+  fr: "débutant"
+  reviewed: true
+- kana: アナ
+  fr: "présentateur"
+  reviewed: true
+- kana: コスト
+  fr: "coût"
+  reviewed: true
+- kana: ボックス
+  fr: "boîte"
+  reviewed: true
+- kana: リング
+  fr: "anneau, ring"
+  reviewed: true
+- kana: じょうき
+  fr: "susmentionné, ci-dessus"
+  reviewed: true
+- kana: そくほう
+  fr: "flash d'information"
+  reviewed: true
+- kana: ゆう
+  fr: "existence"
+  reviewed: true
+- kana: アート
+  fr: "art"
+  reviewed: true
+- kana: コントロール
+  fr: "contrôle"
+  reviewed: true
+- kana: ソロ
+  fr: "solo"
+  reviewed: true
+- kana: リーグ
+  fr: "ligue"
+  reviewed: true
+- kana: おくり
+  fr: "envoi, raccompagnement"
+  reviewed: true
+- kana: きどう
+  fr: "démarrage"
+  reviewed: true
+- kana: さいげん
+  fr: "réapparition, reproduction"
+  reviewed: true
+- kana: じゅん
+  fr: "innocent, pur"
+  reviewed: true
+- kana: せんし
+  fr: "soldat, combattant"
+  reviewed: true
+- kana: せんたくし
+  fr: "choix, options"
+  reviewed: true
+- kana: スペイン
+  fr: "Espagne"
+  reviewed: true
+- kana: ルート
+  fr: "itinéraire, route"
+  reviewed: true
+- kana: レビュー
+  fr: "critique, avis"
+  reviewed: true
+- kana: しょかい
+  fr: "première fois"
+  reviewed: true
+- kana: ちょうかん
+  fr: "directeur, secrétaire d'État"
+  reviewed: true
+- kana: なおし
+  fr: "correction"
+  reviewed: true
+- kana: のり
+  fr: "trajet, fait de monter"
+  reviewed: true
+- kana: サブ
+  fr: "remplaçant, secondaire"
+  reviewed: true
+- kana: ニーズ
+  fr: "besoins"
+  reviewed: true
+- kana: ハート
+  fr: "cœur"
+  reviewed: true
+- kana: パック
+  fr: "paquet, emballage"
+  reviewed: true
+- kana: おなじく
+  fr: "de même, pareillement"
+  reviewed: true
+- kana: まわし
+  fr: "mawashi (ceinture de sumo)"
+  reviewed: true
+- kana: コミュニティ
+  fr: "communauté"
+  reviewed: true
+- kana: ユニット
+  fr: "unité"
+  reviewed: true
+- kana: かかえ
+  fr: "brassée"
+  reviewed: true
+- kana: げいにん
+  fr: "humoriste, comique"
+  reviewed: true
+- kana: じゅしょう
+  fr: "obtention d'un prix"
+  reviewed: true
+- kana: どうじん
+  fr: "la même personne"
+  reviewed: true
+- kana: アクション
+  fr: "action"
+  reviewed: true
+- kana: アーティスト
+  fr: "artiste, musicien"
+  reviewed: true
+- kana: プレミアム
+  fr: "premium, haut de gamme"
+  reviewed: true
+- kana: ホワイト
+  fr: "blanc"
+  reviewed: true
+- kana: レス
+  fr: "réponse"
+  reviewed: true
+- kana: こうりゃく
+  fr: "prise, conquête"
+  reviewed: true
+- kana: じゅうでん
+  fr: "recharge (électrique)"
+  reviewed: true
+- kana: せんだい
+  fr: "Sendai"
+  reviewed: true
+- kana: やるき
+  fr: "motivation, volonté"
+  reviewed: true
+- kana: キング
+  fr: "roi"
+  reviewed: true
+- kana: ヒーロー
+  fr: "héros"
+  reviewed: true
+- kana: プロフィール
+  fr: "profil"
+  reviewed: true
+- kana: おさえ
+  fr: "poids, pression"
+  reviewed: true
+- kana: げんぱつ
+  fr: "centrale nucléaire"
+  reviewed: true
+- kana: ろせん
+  fr: "ligne, itinéraire"
+  reviewed: true
+- kana: キャリア
+  fr: "carrière"
+  reviewed: true
+- kana: セール
+  fr: "soldes, promotion"
+  reviewed: true
+- kana: チャレンジ
+  fr: "défi, tentative"
+  reviewed: true
+- kana: ブック
+  fr: "livre"
+  reviewed: true
+- kana: おおかみ
+  fr: "loup"
+  reviewed: true
+- kana: かいご
+  fr: "soins, aide aux personnes"
+  reviewed: true
+- kana: しゅほう
+  fr: "technique, méthode"
+  reviewed: true
+- kana: すすめ
+  fr: "recommandation, conseil"
+  reviewed: true
+- kana: ぜい
+  fr: "groupe, équipe"
+  reviewed: true
+- kana: たんまつ
+  fr: "terminal (informatique)"
+  reviewed: true
+- kana: ぬき
+  fr: "omission, sans"
+  reviewed: true
+- kana: はや
+  fr: "déjà"
+  reviewed: true
+- kana: わし
+  fr: "aigle"
+  reviewed: true
+- kana: ドライバー
+  fr: "conducteur"
+  reviewed: true
+- kana: ラブ
+  fr: "amour"
+  reviewed: true
+- kana: いただける
+  fr: "pouvoir recevoir (poli)"
+  reviewed: true
+- kana: いでんし
+  fr: "gène"
+  reviewed: true
+- kana: おとずれ
+  fr: "visite, arrivée"
+  reviewed: true
+- kana: きたちょうせん
+  fr: "Corée du Nord"
+  reviewed: true
+- kana: パートナー
+  fr: "partenaire"
+  reviewed: true
+- kana: ポール
+  fr: "poteau, perche"
+  reviewed: true
+- kana: あかし
+  fr: "preuve"
+  reviewed: true
+- kana: きしゅ
+  fr: "modèle"
+  reviewed: true
+- kana: せんこう
+  fr: "fait de passer devant, avance"
+  reviewed: true
+- kana: たいせん
+  fr: "affrontement, match"
+  reviewed: true
+- kana: たる
+  fr: "qui est, en tant que"
+  reviewed: true
+- kana: キャスト
+  fr: "distribution, acteurs"
+  reviewed: true
+- kana: ツール
+  fr: "outil"
+  reviewed: true
+- kana: フィギュア
+  fr: "figurine, forme"
+  reviewed: true
+- kana: ホームページ
+  fr: "page d'accueil, site web"
+  reviewed: true
+- kana: メイク
+  fr: "maquillage"
+  reviewed: true
+- kana: ラン
+  fr: "course"
+  reviewed: true
+- kana: ランド
+  fr: "terre, pays"
+  reviewed: true
+- kana: あんた
+  fr: "toi (familier)"
+  reviewed: true
+- kana: えいこく
+  fr: "Royaume-Uni"
+  reviewed: true
+- kana: ついてる
+  fr: "avoir de la chance"
+  reviewed: true
+- kana: つうはん
+  fr: "vente en ligne, vente par correspondance"
+  reviewed: true
+- kana: みんしゅとう
+  fr: "Parti démocrate"
+  reviewed: true
+- kana: もどり
+  fr: "retour"
+  reviewed: true
+- kana: オフ
+  fr: "éteint, désactivé"
+  reviewed: true
+- kana: クロス
+  fr: "croix"
+  reviewed: true
+- kana: コマ
+  fr: "coma (d'une comète)"
+  reviewed: true
+- kana: ジム
+  fr: "salle de sport"
+  reviewed: true
+- kana: パーツ
+  fr: "pièce, composant"
+  reviewed: true
+- kana: メキシコ
+  fr: "Mexique"
+  reviewed: true
+- kana: ロゴ
+  fr: "logo"
+  reviewed: true
+- kana: ワールド
+  fr: "monde"
+  reviewed: true
+- kana: じみんとう
+  fr: "Parti libéral-démocrate"
+  reviewed: true
+- kana: ぞく
+  fr: "tribu, clan"
+  reviewed: true
+- kana: ちょく
+  fr: "direct"
+  reviewed: true
+- kana: まなこ
+  fr: "œil"
+  reviewed: true
+- kana: イオン
+  fr: "ion"
+  reviewed: true
+- kana: ライフ
+  fr: "vie"
+  reviewed: true
+- kana: こうちく
+  fr: "construction, élaboration"
+  reviewed: true
+- kana: セキュリティ
+  fr: "sécurité"
+  reviewed: true
+- kana: しんぴん
+  fr: "article neuf"
+  reviewed: true
+- kana: ジャケット
+  fr: "veste"
+  reviewed: true
+- kana: ファンタジー
+  fr: "fantasy, imaginaire"
+  reviewed: true
+- kana: マルチ
+  fr: "multi-"
+  reviewed: true
+- kana: パフォーマンス
+  fr: "performance, spectacle"
+  reviewed: true
+- kana: りゅう
+  fr: "dragon"
+  reviewed: true
+- kana: ハッピー
+  fr: "heureux"
+  reviewed: true
+- kana: ヒロイン
+  fr: "héroïne"
+  reviewed: true
+- kana: ギフト
+  fr: "cadeau"
+  reviewed: true
+- kana: シェア
+  fr: "partage, part de marché"
+  reviewed: true
+- kana: エピソード
+  fr: "épisode, anecdote"
+  reviewed: true
+- kana: ジャック
+  fr: "valet (cartes)"
+  reviewed: true
+- kana: チャット
+  fr: "discussion en ligne, tchat"
+  reviewed: true
+- kana: チョコ
+  fr: "chocolat"
+  reviewed: true
+- kana: りゅうしゅつ
+  fr: "fuite, écoulement"
+  reviewed: true
+- kana: ピザ
+  fr: "pizza"
+  reviewed: true
+- kana: ヘッド
+  fr: "tête"
+  reviewed: true
+- kana: ユダヤ
+  fr: "Judée"
+  reviewed: true
+- kana: ターゲット
+  fr: "cible"
+  reviewed: true
+- kana: フォロー
+  fr: "suivi, soutien"
+  reviewed: true
+- kana: ゲイ
+  fr: "gay"
+  reviewed: true
+- kana: ソフトウェア
+  fr: "logiciel"
+  reviewed: true
+- kana: カリフォルニア
+  fr: "Californie"
+  reviewed: true
+- kana: ギャル
+  fr: "gyaru (style de jeune femme)"
+  reviewed: true
+- kana: ギリシャ
+  fr: "Grèce"
+  reviewed: true
+- kana: ジュニア
+  fr: "junior"
+  reviewed: true
+- kana: ファイナル
+  fr: "finale"
+  reviewed: true
+- kana: ゲート
+  fr: "portail, porte"
+  reviewed: true
+- kana: ジェット
+  fr: "jet, avion à réaction"
+  reviewed: true
+- kana: ウェブサイト
+  fr: "site web"
+  reviewed: true
+- kana: デザイナー
+  fr: "designer, styliste"
+  reviewed: true
+- kana: ゾーン
+  fr: "zone"
+  reviewed: true
+- kana: レーザー
+  fr: "laser"
+  reviewed: true
+- kana: フェイス
+  fr: "visage"
+  reviewed: true
+- kana: ウェイ
+  fr: "voie, chemin"
+  reviewed: true
+- kana: ギャグ
+  fr: "blague, gag"
+  reviewed: true
+- kana: ヘア
+  fr: "cheveux"
+  reviewed: true
+- kana: ハロウィン
+  fr: "Halloween"
+  reviewed: true
+- kana: フェア
+  fr: "foire, salon"
+  reviewed: true
+- kana: リニューアル
+  fr: "rénovation, renouvellement"
+  reviewed: true
+- kana: フラッシュ
+  fr: "flash"
+  reviewed: true
+- kana: チャート
+  fr: "graphique, classement"
+  reviewed: true
+- kana: カジノ
+  fr: "casino"
+  reviewed: true
+- kana: ディスク
+  fr: "disque"
+  reviewed: true
+- kana: キャッシュ
+  fr: "cache"
+  reviewed: true
+- kana: フォード
+  fr: "gué"
+  reviewed: true
+- kana: ユーロ
+  fr: "euro"
+  reviewed: true
+- kana: エンディング
+  fr: "fin, dénouement"
+  reviewed: true
+- kana: ミュージカル
+  fr: "comédie musicale"
+  reviewed: true
+- kana: にょう
+  fr: "urine"
+  reviewed: true
+- kana: オーディション
+  fr: "audition"
+  reviewed: true
+- kana: ビジョン
+  fr: "vision"
+  reviewed: true
+- kana: シャンハイ
+  fr: "Shanghai"
+  reviewed: true
+- kana: ヘリ
+  fr: "hélicoptère"
+  reviewed: true
+- kana: ウェア
+  fr: "vêtements, tenue"
+  reviewed: true
+- kana: ギャラリー
+  fr: "galerie"
+  reviewed: true
+- kana: ドキュメンタリー
+  fr: "documentaire"
+  reviewed: true
+- kana: ジョーク
+  fr: "blague"
+  reviewed: true
+- kana: スウェーデン
+  fr: "Suède"
+  reviewed: true
+- kana: ダッシュ
+  fr: "sprint, tiret"
+  reviewed: true
+- kana: リゾート
+  fr: "lieu de villégiature"
+  reviewed: true
+- kana: エージェント
+  fr: "agent"
+  reviewed: true
+- kana: ナチュラル
+  fr: "naturel"
+  reviewed: true
+- kana: ヘルメット
+  fr: "casque"
+  reviewed: true
+- kana: ギャップ
+  fr: "écart, décalage"
+  reviewed: true
+- kana: シュート
+  fr: "tir"
+  reviewed: true
+- kana: シミュレーション
+  fr: "simulation"
+  reviewed: true
+- kana: ヨーグルト
+  fr: "yaourt"
+  reviewed: true
+- kana: シチュエーション
+  fr: "situation"
+  reviewed: true
+- kana: ギャンブル
+  fr: "jeu d'argent"
+  reviewed: true
+- kana: シェフ
+  fr: "chef cuisinier"
+  reviewed: true
+- kana: ビジュアル
+  fr: "visuel"
+  reviewed: true
+- kana: ユニフォーム
+  fr: "uniforme"
+  reviewed: true
+- kana: シェル
+  fr: "coquille"
+  reviewed: true
+- kana: エンジェル
+  fr: "ange"
+  reviewed: true
+- kana: ヌード
+  fr: "nu"
+  reviewed: true
+- kana: キュート
+  fr: "mignon"
+  reviewed: true
+- kana: キューバ
+  fr: "Cuba"
+  reviewed: true
+- kana: フェスティバル
+  fr: "festival"
+  reviewed: true
+- kana: ヨガ
+  fr: "yoga"
+  reviewed: true
+- kana: ゼリー
+  fr: "gelée"
+  reviewed: true
+- kana: パーフェクト
+  fr: "parfait"
+  reviewed: true
+- kana: コスチューム
+  fr: "costume"
+  reviewed: true
+- kana: ジョーカー
+  fr: "joker"
+  reviewed: true
+- kana: ロサンゼルス
+  fr: "Los Angeles"
+  reviewed: true
+- kana: カジュアル
+  fr: "décontracté"
+  reviewed: true
+- kana: チューブ
+  fr: "tube"
+  reviewed: true
+- kana: ウォン
+  fr: "won"
+  reviewed: true
+- kana: チェス
+  fr: "échecs"
+  reviewed: true
+- kana: タトゥー
+  fr: "tatouage"
+  reviewed: true
+- kana: チェリー
+  fr: "cerise"
+  reviewed: true
+- kana: ピュア
+  fr: "pur"
+  reviewed: true
+- kana: ウィンドウ
+  fr: "fenêtre"
+  reviewed: true
+- kana: ダイジェスト
+  fr: "résumé"
+  reviewed: true
+- kana: アイヌ
+  fr: "Aïnou"
+  reviewed: true
+- kana: ディーゼル
+  fr: "diesel"
+  reviewed: true
+- kana: ヴァンパイア
+  fr: "vampire"
+  reviewed: true
+- kana: ミャンマー
+  fr: "Birmanie"
+  reviewed: true
+- kana: ウォッカ
+  fr: "vodka"
+  reviewed: true
+- kana: ヒューマン
+  fr: "humain"
+  reviewed: true
+- kana: ウィーク
+  fr: "semaine"
+  reviewed: true
+- kana: シェルター
+  fr: "abri, refuge"
+  reviewed: true
+- kana: シェイク
+  fr: "secousse, milk-shake"
+  reviewed: true
+- kana: ヌードル
+  fr: "nouilles"
+  reviewed: true
+- kana: わぎゅう
+  fr: "wagyu (bœuf japonais)"
+  reviewed: true
+- kana: ヒューズ
+  fr: "fusible"
+  reviewed: true
+- kana: ブルゾン
+  fr: "blouson"
+  reviewed: true
+- kana: ポピュラー
+  fr: "populaire"
+  reviewed: true
+- kana: マゾ
+  fr: "masochiste"
+  reviewed: true
+- kana: カヌー
+  fr: "canoë"
+  reviewed: true
+- kana: ウィークリー
+  fr: "hebdomadaire"
+  reviewed: true
+- kana: スクリュー
+  fr: "hélice, vis"
+  reviewed: true
+- kana: ぎゅっと
+  fr: "fermement, fort"
+  reviewed: true
+- kana: イリュージョン
+  fr: "illusion"
+  reviewed: true
+- kana: ビュー
+  fr: "vue"
+  reviewed: true
+- kana: ヴィンテージ
+  fr: "vintage, millésime"
+  reviewed: true
+- kana: オゾン
+  fr: "ozone"
+  reviewed: true
+- kana: ブリュッセル
+  fr: "Bruxelles"
+  reviewed: true
+- kana: ウォールがい
+  fr: "Wall Street"
+  reviewed: true
+- kana: ヒンドゥー
+  fr: "hindou"
+  reviewed: true
+- kana: トリュフ
+  fr: "truffe"
+  reviewed: true
+- kana: コニャック
+  fr: "cognac"
+  reviewed: true
+- kana: チョキ
+  fr: "ciseaux (pierre-feuille-ciseaux)"
+  reviewed: true
+- kana: ヴァイオリニスト
+  fr: "violoniste"
+  reviewed: true
+- kana: ミルウォーキー
+  fr: "Milwaukee"
+  reviewed: true
+- kana: ビューティフル
+  fr: "beau, magnifique"
+  reviewed: true
+- kana: ストップウォッチ
+  fr: "chronomètre"
+  reviewed: true
+- kana: トゥルー
+  fr: "vrai"
+  reviewed: true
+- kana: ヒューマニズム
+  fr: "humanisme"
+  reviewed: true
+- kana: ピョンヤン
+  fr: "Pyongyang"
+  reviewed: true
+- kana: コンフィギュレーション
+  fr: "configuration"
+  reviewed: true
+- kana: チョーキング
+  fr: "bend (guitare)"
   reviewed: true
