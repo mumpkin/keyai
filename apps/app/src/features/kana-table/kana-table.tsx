@@ -1,10 +1,16 @@
 import type { Script } from '@keyai/core/kana';
-import { type KeyboardEvent, useId, useState } from 'react';
+import {
+	KANA_TABLE_TABS,
+	type KanaTableTab,
+	withKanaTableTab,
+} from '@keyai/core/settings';
+import { type KeyboardEvent, useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
 import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
 import { KanaCell } from './kana-cell.tsx';
 import { type KanaSlot, kanaLayoutOf } from './kana-layout.ts';
-import { type KanaStates, kanaStatesOf } from './kana-states.ts';
+import { type KanaStates, kanaStatesOf, recentKanaOf } from './kana-states.ts';
 import { UnlockHint } from './unlock-hint.tsx';
 
 const SCRIPT_LABELS: Record<Script, string> = {
@@ -12,47 +18,66 @@ const SCRIPT_LABELS: Record<Script, string> = {
 	katakana: 'Katakana',
 };
 
-const SCRIPTS = Object.keys(SCRIPT_LABELS) as Script[];
+const ARROW_STEPS: ReadonlyMap<string, number> = new Map([
+	['ArrowLeft', -1],
+	['ArrowRight', 1],
+]);
 
-function ScriptTabs({
-	script,
+/** The tab a step away, going round at both ends. */
+function tabAfter(tab: KanaTableTab, step: number): KanaTableTab {
+	const count = KANA_TABLE_TABS.length;
+	const index = KANA_TABLE_TABS.indexOf(tab);
+	return KANA_TABLE_TABS[(index + step + count) % count] ?? tab;
+}
+
+function useTabLabel() {
+	const { t: translate } = useTranslation();
+	return (tab: KanaTableTab) =>
+		tab === 'mine' ? translate('kanaTable.mine') : SCRIPT_LABELS[tab];
+}
+
+function KanaTabs({
+	current,
 	panelId,
 	onChange,
 }: {
-	readonly script: Script;
+	readonly current: KanaTableTab;
 	readonly panelId: string;
-	readonly onChange: (script: Script) => void;
+	readonly onChange: (tab: KanaTableTab) => void;
 }) {
+	const labelOf = useTabLabel();
+
 	function moveWithArrows(event: KeyboardEvent<HTMLDivElement>) {
-		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-			const other = SCRIPTS.find((tab) => tab !== script) ?? script;
-			onChange(other);
+		const step = ARROW_STEPS.get(event.key);
+		if (step !== undefined) {
+			const next = tabAfter(current, step);
+			onChange(next);
 			event.currentTarget
-				.querySelector<HTMLElement>(`[data-script="${other}"]`)
+				.querySelector<HTMLElement>(`[data-tab="${next}"]`)
 				?.focus();
 		}
 	}
 
 	return (
 		<div className="flex gap-1" role="tablist" onKeyDown={moveWithArrows}>
-			{SCRIPTS.map((tab) => (
+			{KANA_TABLE_TABS.map((tab) => (
 				<button
 					key={tab}
 					type="button"
 					role="tab"
-					data-script={tab}
-					aria-selected={tab === script}
+					data-tab={tab}
+					aria-selected={tab === current}
 					aria-controls={panelId}
-					tabIndex={tab === script ? 0 : -1}
+					tabIndex={tab === current ? 0 : -1}
 					onClick={() => onChange(tab)}
 					className={cn(
 						'rounded-md px-3 py-1 text-sm',
-						tab === script
+						tab === current
 							? 'bg-primary text-primary-foreground'
 							: 'text-muted-foreground',
 					)}
 				>
-					{SCRIPT_LABELS[tab]}
+					{labelOf(tab)}
 				</button>
 			))}
 		</div>
@@ -82,6 +107,58 @@ function SlotGrid({
 	);
 }
 
+function ScriptChart({
+	script,
+	states,
+}: {
+	readonly script: Script;
+	readonly states: KanaStates;
+}) {
+	const layout = kanaLayoutOf(script);
+	return (
+		<div className="flex items-start gap-6">
+			<SlotGrid
+				slots={layout.base}
+				states={states}
+				className="grid-flow-col grid-rows-5"
+			/>
+			<SlotGrid
+				slots={layout.voiced}
+				states={states}
+				className="grid-flow-col grid-rows-5"
+			/>
+			<SlotGrid
+				slots={layout.combinations}
+				states={states}
+				className="h-fit grid-cols-3"
+			/>
+			<SlotGrid
+				slots={layout.others}
+				states={states}
+				className="h-fit grid-cols-2"
+			/>
+		</div>
+	);
+}
+
+/** Every unlocked kana whatever its script, so no choice has to be made. */
+function RecentKana({ states }: { readonly states: KanaStates }) {
+	const progress = useProgress((state) => state.save.progress);
+	const { initialUnlocked } = useVocabulary().file;
+	return (
+		<div className="grid grid-cols-[repeat(auto-fill,2.75rem)] gap-1">
+			{recentKanaOf(progress, initialUnlocked).map((kana) => (
+				<KanaCell
+					key={kana}
+					kana={kana}
+					state={states.stateOf(kana)}
+					score={states.scoreOf(kana)}
+				/>
+			))}
+		</div>
+	);
+}
+
 function useKanaStates(): KanaStates {
 	const progress = useProgress((state) => state.save.progress);
 	const threshold = useProgress(
@@ -96,48 +173,45 @@ function useKanaStates(): KanaStates {
 	});
 }
 
-/** Reference table at the bottom of the screen, one script at a time (C2). */
+/** Reference table at the bottom of the screen (C2). */
 export function KanaTable() {
-	const [script, setScript] = useState<Script>('hiragana');
+	const tab = useProgress(
+		(state) => state.save.settings.display.kanaTableTab,
+	);
+	const updateSettings = useProgress((state) => state.updateSettings);
+	const labelOf = useTabLabel();
 	const panelId = useId();
 	const states = useKanaStates();
-	const layout = kanaLayoutOf(script);
 	return (
 		<div className="flex flex-col gap-3">
 			<div className="flex items-center justify-between gap-4">
-				<ScriptTabs
-					script={script}
+				<KanaTabs
+					current={tab}
 					panelId={panelId}
-					onChange={setScript}
+					onChange={(next) =>
+						updateSettings((settings) =>
+							withKanaTableTab(settings, next),
+						)
+					}
 				/>
 				<UnlockHint />
 			</div>
 			<div
 				id={panelId}
 				role="tabpanel"
-				aria-label={SCRIPT_LABELS[script]}
-				className="flex [scrollbar-width:thin] items-start gap-6 overflow-x-auto pt-2 pb-3"
+				aria-label={labelOf(tab)}
+				className={cn(
+					'pt-2 pb-3',
+					tab === 'mine'
+						? 'min-h-136'
+						: '[scrollbar-width:thin] overflow-x-auto',
+				)}
 			>
-				<SlotGrid
-					slots={layout.base}
-					states={states}
-					className="grid-flow-col grid-rows-5"
-				/>
-				<SlotGrid
-					slots={layout.voiced}
-					states={states}
-					className="grid-flow-col grid-rows-5"
-				/>
-				<SlotGrid
-					slots={layout.combinations}
-					states={states}
-					className="h-fit grid-cols-3"
-				/>
-				<SlotGrid
-					slots={layout.others}
-					states={states}
-					className="h-fit grid-cols-2"
-				/>
+				{tab === 'mine' ? (
+					<RecentKana states={states} />
+				) : (
+					<ScriptChart script={tab} states={states} />
+				)}
 			</div>
 		</div>
 	);

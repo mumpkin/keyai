@@ -77,8 +77,12 @@ Excluded: ゐ and ゑ (archaic), ぢゃ, ぢゅ, ぢょ (virtually unused), hira
 - Laid out like the gojūon chart: five columns (a, i, u, e, o), one row per
   consonant; blocks follow each other (base, voiced, combinations with three
   columns ya/yu/yo, special marks and extended combinations).
-- One script at a time, with hiragana and katakana tabs; defaults to the
-  script of the current word.
+- Three tabs: **My kana**, then hiragana and katakana, one script at a time.
+  The last tab chosen is remembered, across screens and launches.
+- **My kana** comes first, so that beginners need not know the two scripts: every
+  unlocked kana, whatever its script, the most recent first. The order only
+  changes when a kana unlocks. The initial group keeps its own order at the end
+  of the list, so that a first screen starts with a hiragana.
 - Each cell shows the kana and its Hepburn romaji. States: locked (greyed
   out), unlocked, last unlocked (highlighted). How mastery is shown is left
   to the UI design.
@@ -306,6 +310,7 @@ The word order is then shuffled.
 | Error sound       | off                           | on / off              |
 | Kana size         | 24 px                         | 16 to 64 px           |
 | Theme             | system                        | system / dark / light |
+| Kana table tab    | My kana                       | set from the table    |
 
 The themes use the Tokyo Night Light and Tokyo Night colours. Where an
 original colour fails WCAG AA, it is adjusted as little as possible, and
@@ -438,7 +443,7 @@ click.
 - **Word card** on hover, keyboard focus or touch of a finished word, in the
   word line or in the recap, in a floating popover that neither of them clips: kana, usual kanji, reading, primary sense,
   grammatical nature, register, note and **other senses** (homographs).
-- **Kana table**: one script at a time; the last unlocked kana carries a
+- **Kana table**: my kana or one script at a time; the last unlocked kana carries a
   _new_ badge, the **next kana to unlock** a _next_ badge (dashed outline).
   Romaji is shown under unmastered, new and next kana, and only on hover,
   focus or touch for mastered kana.
@@ -481,4 +486,4 @@ have a reserved place or float above the page.
 The words sit at the top of the screen, as the virtual keyboard covers the
 bottom. The full kana table does not fit a phone, so it gives way to the kana
 to work on, with the number of mastered kana: unlocked kana that are not
-mastered, then the next one. The word line wraps.
+mastered, the most recent first, then the next one. The word line wraps.

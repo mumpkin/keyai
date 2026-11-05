@@ -79,10 +79,38 @@ test('guides the first series only', async ({ page }) => {
 });
 
 test('moves between the kana tabs with the arrow keys', async ({ page }) => {
-	await page.getByRole('tab', { name: 'Hiragana' }).focus();
+	await page.getByRole('tab', { name: 'Mes kana' }).focus();
+	await page.keyboard.press('ArrowRight');
 	await page.keyboard.press('ArrowRight');
 	await expect(page.getByRole('tab', { name: 'Katakana' })).toBeFocused();
 	await expect(page.getByRole('tabpanel')).toHaveAccessibleName('Katakana');
+	await page.keyboard.press('ArrowRight');
+	await expect(page.getByRole('tab', { name: 'Mes kana' })).toBeFocused();
+});
+
+test('opens on my kana, without choosing a script', async ({ page }) => {
+	const panel = page.getByRole('tabpanel');
+	await expect(panel).toHaveAccessibleName('Mes kana');
+	await expect(panel.getByRole('img')).toHaveCount(12);
+	await expect(panel.getByRole('img').first()).toHaveAccessibleName(/^は/);
+});
+
+test('remembers the kana tab across screens and launches', async ({ page }) => {
+	await page.getByRole('tab', { name: 'Katakana' }).click();
+	await openScreen(page, STATISTICS).click();
+	await expect(page.getByRole('tabpanel')).toHaveAccessibleName('Katakana');
+	await page.reload();
+	await expect(page.getByRole('tabpanel')).toHaveAccessibleName('Katakana');
+});
+
+test('keeps the same height on every kana tab', async ({ page }) => {
+	const heights = [];
+	for (const name of ['Mes kana', 'Hiragana', 'Katakana']) {
+		await page.getByRole('tab', { name }).click();
+		const box = await page.getByRole('tabpanel').boundingBox();
+		heights.push(box?.height);
+	}
+	expect(new Set(heights).size).toBe(1);
 });
 
 test('does not stop on every kana with the Tab key', async ({ page }) => {

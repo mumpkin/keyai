@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- A "My kana" tab, shown first, with every unlocked kana from the most recent
+
+### Changed
+
+- The kana table remembers its tab, across screens and launches
+- On phones, the kana to work on start with the most recent
+
 ### Fixed
 
 - Kana still to type stand out clearly from the kana already typed

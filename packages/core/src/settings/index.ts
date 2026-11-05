@@ -1,5 +1,7 @@
 export {
 	KANA_SIZE_LIMITS,
+	KANA_TABLE_TABS,
+	type KanaTableTab,
 	LOCALES,
 	type Locale,
 	type Settings,
@@ -18,6 +20,7 @@ export {
 	withErrorSound,
 	withKanaPerMinute,
 	withKanaSize,
+	withKanaTableTab,
 	withLocale,
 	withSpeedPreset,
 	withTheme,

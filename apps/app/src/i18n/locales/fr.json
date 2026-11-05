@@ -78,6 +78,7 @@
 		"honorific": "honorifique"
 	},
 	"kanaTable": {
+		"mine": "Mes kana",
 		"focusTitle": "Kana à travailler",
 		"locked": "verrouillé",
 		"unlockHint": "Pour débloquer {{next}}, maîtrisez :",
