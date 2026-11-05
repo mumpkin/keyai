@@ -21,5 +21,7 @@ export async function createTauriStorage(): Promise<SaveStorage> {
 		keepUnreadable: (content) => write(UNREADABLE_SAVE_ENTRY, content),
 		loadUnreadable: async () =>
 			(await store.get<string>(UNREADABLE_SAVE_ENTRY)) ?? null,
+		// The desktop app has a single window.
+		onExternalSave: () => undefined,
 	};
 }

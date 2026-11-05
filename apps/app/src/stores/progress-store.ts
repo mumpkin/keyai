@@ -1,5 +1,5 @@
 import type { SaveError, SaveFile } from '@keyai/core/save';
-import { serializeSave } from '@keyai/core/save';
+import { parseSave, serializeSave } from '@keyai/core/save';
 import type { Settings } from '@keyai/core/settings';
 import type { SeriesRecord } from '@keyai/core/stats';
 import { createStore, type StoreApi } from 'zustand/vanilla';
@@ -55,6 +55,33 @@ async function unreadableCopyOf(
 	return unreadable;
 }
 
+interface StorageSync {
+	readonly storage: SaveStorage;
+	readonly storedContent: string | null;
+	readonly align: (save: SaveFile) => SaveFile;
+}
+
+/** Saves every change, and follows the saves of the other tabs. */
+function syncWithStorage(store: ProgressStore, sync: StorageSync): void {
+	/** What the storage holds: a save from another tab is not written back. */
+	let storedContent = sync.storedContent;
+	store.subscribe(({ save }, previous) => {
+		const content = serializeSave(save);
+		if (save !== previous.save && content !== storedContent) {
+			storedContent = content;
+			void sync.storage.save(content);
+		}
+	});
+	sync.storage.onExternalSave((content) => {
+		const parsed = parseSave(content);
+		if (parsed.ok) {
+			const save = sync.align(parsed.save);
+			storedContent = serializeSave(save);
+			store.setState({ save });
+		}
+	});
+}
+
 /**
  * Settings and progress (A5). Every change is saved immediately through
  * the platform storage; changes are rare (end of series, settings).
@@ -104,10 +131,10 @@ export async function createProgressStore(
 	if (loaded.isFirstLaunch) {
 		void dependencies.storage.save(serializeSave(loaded.save));
 	}
-	store.subscribe((state, previous) => {
-		if (state.save !== previous.save) {
-			void dependencies.storage.save(serializeSave(state.save));
-		}
+	syncWithStorage(store, {
+		storage: dependencies.storage,
+		storedContent: stored,
+		align: (save) => alignedSave(save, contextOf()),
 	});
 	return store;
 }

@@ -5,6 +5,8 @@ export interface SaveStorage {
 	/** Sets aside a save that cannot be read, before it gets replaced. */
 	readonly keepUnreadable: (content: string) => Promise<void>;
 	readonly loadUnreadable: () => Promise<string | null>;
+	/** Calls back when another tab of the app saves its progress. */
+	readonly onExternalSave: (listener: (content: string) => void) => void;
 }
 
 /** The window of the desktop app, which has no system title bar. */
