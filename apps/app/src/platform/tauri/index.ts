@@ -1,6 +1,7 @@
 import type { Platform } from '../types.ts';
 import { saveFileWithDialog } from './save-file-dialog.ts';
 import { createTauriStorage } from './storage.ts';
+import { watchForDesktopUpdate } from './update.ts';
 import { createTauriWindowControls } from './window-controls.ts';
 
 export async function createPlatform(): Promise<Platform> {
@@ -9,8 +10,7 @@ export async function createPlatform(): Promise<Platform> {
 		storage: await createTauriStorage(),
 		playsSplashOnEveryLaunch: true,
 		windowControls: createTauriWindowControls(),
-		// The updater comes with the desktop release.
-		watchForUpdate: () => undefined,
+		watchForUpdate: (onReady) => void watchForDesktopUpdate(onReady),
 		exportFile: saveFileWithDialog,
 	};
 }

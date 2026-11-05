@@ -456,6 +456,12 @@ The end-to-end tests run axe on every screen, in both themes and every format.
 Kana cells are information, not controls. Screen readers hear the end of a
 series and new kana, but nothing during typing.
 
+### Updates
+
+A new version is only offered: on the web as soon as it is cached, on the
+desktop at launch. Nothing is downloaded or installed before the user clicks
+"Update", and "Later" asks again at the next launch.
+
 ### Stable layout
 
 An interaction never moves what surrounds it: changing figures have a reserved

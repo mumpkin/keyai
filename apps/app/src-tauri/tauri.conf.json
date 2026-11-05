@@ -29,6 +29,7 @@
 	},
 	"bundle": {
 		"active": true,
+		"createUpdaterArtifacts": true,
 		"targets": ["nsis", "appimage", "deb"],
 		"icon": [
 			"icons/32x32.png",
@@ -39,5 +40,14 @@
 		],
 		"category": "Education",
 		"shortDescription": "Learn to read Japanese kana by typing them"
+	},
+	"plugins": {
+		"updater": {
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI2Q0YyNDQ3QTAxMEUxNjgKUldSbzRSQ2dSeVRQdHFuSnhXUUlocUxSdG05c3JZOCtsZ0xlV2FKU21DUkNDRndodDJiN3BXS3gK",
+			"endpoints": [
+				"https://github.com/mumpkin/keyai/releases/latest/download/latest.json"
+			],
+			"windows": { "installMode": "passive" }
+		}
 	}
 }

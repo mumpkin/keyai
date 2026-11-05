@@ -25,7 +25,9 @@
 		"unsignedNote": "L’application n’est pas encore signée : Windows peut afficher un avertissement à l’installation."
 	},
 	"update": {
-		"ready": "Une nouvelle version de keyai est prête.",
+		"offered": "Une nouvelle version de keyai est prête.",
+		"applying": "Téléchargement de la nouvelle version…",
+		"failed": "La mise à jour a échoué. Vous pouvez réessayer.",
 		"apply": "Mettre à jour",
 		"later": "Plus tard"
 	},

@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- The desktop app offers new versions at launch, and installs them on request
+
 ### Fixed
 
 - A second tab no longer erases the progress saved by the first one
