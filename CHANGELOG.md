@@ -14,6 +14,8 @@ and this project adheres to
 
 ### Changed
 
+- A series in progress survives a visit to another screen
+- A notice says when typing lost the focus, and a line guides the first series
 - The next kana unlocks once the last five are mastered, instead of all of
   them, the screen says which ones are missing, and the weakest kana is always
   featured

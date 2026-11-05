@@ -1,5 +1,11 @@
 import type { SeriesAction } from '@keyai/core/session';
-import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import {
+	type RefObject,
+	useEffect,
+	useEffectEvent,
+	useRef,
+	useState,
+} from 'react';
 
 /** Kept in the input so that mobile keyboards always have something to delete. */
 export const SENTINEL = '​';
@@ -22,6 +28,26 @@ function actionsOfInput(event: InputEvent): SeriesAction[] {
 		: [];
 }
 
+/** Whether the keys go nowhere; another window gives the focus back itself. */
+function useIsFocusLost(inputRef: RefObject<HTMLInputElement | null>) {
+	const [isFocusLost, setIsFocusLost] = useState(false);
+
+	useEffect(() => {
+		const input = inputRef.current;
+		const handleBlur = (event: FocusEvent) =>
+			setIsFocusLost(event.relatedTarget === null && document.hasFocus());
+		const handleFocus = () => setIsFocusLost(false);
+		input?.addEventListener('blur', handleBlur);
+		input?.addEventListener('focus', handleFocus);
+		return () => {
+			input?.removeEventListener('blur', handleBlur);
+			input?.removeEventListener('focus', handleFocus);
+		};
+	}, [inputRef]);
+
+	return isFocusLost;
+}
+
 /**
  * Keyboard capture through a focused, invisible input read with
  * `beforeinput` (A4): it works with physical and mobile virtual keyboards.
@@ -30,6 +56,7 @@ function actionsOfInput(event: InputEvent): SeriesAction[] {
 export function useTypingInput(onAction: (action: SeriesAction) => void) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [isComposing, setIsComposing] = useState(false);
+	const isFocusLost = useIsFocusLost(inputRef);
 	const emit = useEffectEvent(onAction);
 
 	useEffect(() => {
@@ -75,6 +102,7 @@ export function useTypingInput(onAction: (action: SeriesAction) => void) {
 	return {
 		inputRef,
 		isComposing,
+		isFocusLost,
 		focus: () => inputRef.current?.focus(),
 	};
 }

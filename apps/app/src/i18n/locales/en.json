@@ -39,6 +39,9 @@
 		"previousSeries": "previous: {{speed}} · {{accuracy}}",
 		"unlocked": "new:",
 		"customLength": "custom",
+		"focusLost": "Click or touch here to keep typing",
+		"guideKeyboard": "Type each word in romaji (か = ka), space to confirm.",
+		"guideTouch": "Touch here to open the keyboard, then type in romaji.",
 		"typingArea": "Typing area",
 		"skipped": "skipped"
 	},
