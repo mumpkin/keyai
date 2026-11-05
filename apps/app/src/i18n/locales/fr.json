@@ -185,7 +185,7 @@
 			},
 			"reset": "Réinitialiser la progression",
 			"resetTitle": "Réinitialiser la progression ?",
-			"resetDescription": "Les kana débloqués, leur maîtrise et l’historique seront effacés définitivement. Les réglages sont conservés.",
+			"resetDescription": "Les kana débloqués, leur maîtrise et l’historique seront effacés définitivement. Les réglages et la liste Anki sont conservés.",
 			"resetConfirm": "Réinitialiser",
 			"cancel": "Annuler"
 		},

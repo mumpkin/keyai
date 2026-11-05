@@ -23,8 +23,8 @@ describe('settings', () => {
 			locale: 'fr',
 			wordsPerSession: 20,
 			speed: { preset: 'easy', kanaPerMinute: 30 },
-			naturalWriting: false,
-			keepsWordSpaces: false,
+			naturalWriting: true,
+			keepsWordSpaces: true,
 			feedback: { sound: false },
 			display: { kanaSizePx: 24, theme: 'system', kanaTableTab: 'mine' },
 		});
@@ -49,15 +49,15 @@ describe('settings', () => {
 		});
 	});
 
-	it('keeps natural writing off for settings saved before it', () => {
+	it('turns natural writing on for settings saved before it', () => {
 		const {
 			naturalWriting: _natural,
 			keepsWordSpaces: _spaces,
 			...older
 		} = DEFAULTS;
 		expect(SettingsSchema.parse(older)).toEqual(DEFAULTS);
-		expect(withNaturalWriting(DEFAULTS, true).naturalWriting).toBe(true);
-		expect(withWordSpaces(DEFAULTS, true).keepsWordSpaces).toBe(true);
+		expect(withNaturalWriting(DEFAULTS, false).naturalWriting).toBe(false);
+		expect(withWordSpaces(DEFAULTS, false).keepsWordSpaces).toBe(false);
 	});
 
 	it('opens my kana for settings saved before that tab', () => {

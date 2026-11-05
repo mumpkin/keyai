@@ -185,7 +185,7 @@
 			},
 			"reset": "Reset progress",
 			"resetTitle": "Reset your progress?",
-			"resetDescription": "Unlocked kana, their mastery and the history will be permanently erased. Your settings are kept.",
+			"resetDescription": "Unlocked kana, their mastery and the history will be permanently erased. Your settings and your Anki list are kept.",
 			"resetConfirm": "Reset",
 			"cancel": "Cancel"
 		},
