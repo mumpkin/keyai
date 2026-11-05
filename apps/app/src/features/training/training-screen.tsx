@@ -3,6 +3,7 @@ import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
+import { cn } from '@/lib/utils.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import { recapSourceOf, wordViewsOf } from './series-view.ts';
@@ -26,6 +27,27 @@ function JapaneseInputWarning() {
 	);
 }
 
+/**
+ * Keys go nowhere without the focus. Always there and fading in late, so that
+ * it neither moves anything nor flashes during an ordinary click.
+ */
+function FocusLostHint({ isVisible }: { readonly isVisible: boolean }) {
+	const { t: translate } = useTranslation();
+	return (
+		<p
+			aria-hidden={!isVisible}
+			className={cn(
+				'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity motion-reduce:transition-none',
+				isVisible ? 'opacity-100 delay-300' : 'opacity-0',
+			)}
+		>
+			<span className="rounded-md bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10">
+				{translate('training.focusLost')}
+			</span>
+		</p>
+	);
+}
+
 /** Word cards manage the focus; the kana list must not open the keyboard. */
 const KEEPS_FOCUS = '[data-slot="popover-trigger"], [data-keeps-focus]';
 
@@ -41,7 +63,8 @@ function refocusOnClick(focus: () => void) {
 
 export function TrainingScreen() {
 	const { series, dispatch, restart } = useSeries();
-	const { inputRef, isComposing, focus } = useTypingInput(dispatch);
+	const { inputRef, isComposing, isFocusLost, focus } =
+		useTypingInput(dispatch);
 	const locale = useProgress((state) => state.save.settings.locale);
 	const updateSettings = useProgress((state) => state.updateSettings);
 	const previous = useUiStore((state) => state.lastSeries);
@@ -70,13 +93,16 @@ export function TrainingScreen() {
 					onLengthDismiss={focus}
 				/>
 				<div className="relative flex flex-1 flex-col gap-4 md:justify-center md:py-6">
-					<WordLine
-						words={words}
-						entries={series.entries}
-						currentIndex={series.state.currentIndex}
-						locale={locale}
-						errorCount={series.state.currentWordErrors}
-					/>
+					<div className="relative">
+						<WordLine
+							words={words}
+							entries={series.entries}
+							currentIndex={series.state.currentIndex}
+							locale={locale}
+							errorCount={series.state.currentWordErrors}
+						/>
+						<FocusLostHint isVisible={isFocusLost} />
+					</div>
 					<SeriesWordsRecap
 						series={recap.state}
 						words={wordViewsOf(recap.state)}

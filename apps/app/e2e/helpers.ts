@@ -11,7 +11,10 @@ export async function openApp(page: Page): Promise<void> {
 }
 
 export function openScreen(page: Page, position: number) {
-	return page.getByRole('navigation').getByRole('button').nth(position);
+	return page
+		.getByRole('navigation')
+		.getByRole('button', { name: /Entraînement|Statistiques|Réglages/ })
+		.nth(position);
 }
 
 export const TRAINING = 0;

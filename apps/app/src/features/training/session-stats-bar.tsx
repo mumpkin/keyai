@@ -1,6 +1,7 @@
 import type { SeriesState } from '@keyai/core/session';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
+import { useProgress } from '@/stores/app-context.tsx';
 import type { SeriesResult } from '@/stores/progress-logic.ts';
 import { SeriesLengthPicker } from './series-length-picker.tsx';
 import { finishedWordCount, liveMeasurementsOf } from './series-view.ts';
@@ -52,6 +53,27 @@ function PreviousSeries({ result }: { readonly result: SeriesResult }) {
 				</span>
 			)}
 		</>
+	);
+}
+
+/** Nothing else tells a newcomer what to do. */
+function FirstSeriesGuide() {
+	const { t: translate } = useTranslation();
+	const isFirstSeries = useProgress(
+		(state) => state.save.history.length === 0,
+	);
+	if (!isFirstSeries) {
+		return null;
+	}
+	return (
+		<span className="truncate text-muted-foreground">
+			<span className="pointer-coarse:hidden">
+				{translate('training.guideKeyboard')}
+			</span>
+			<span className="hidden pointer-coarse:inline">
+				{translate('training.guideTouch')}
+			</span>
+		</span>
 	);
 }
 
@@ -112,7 +134,11 @@ export function SessionStatsBar({
 			</div>
 			{/* Its own line, always there: nothing moves when it fills in. */}
 			<div className="flex h-5 items-center gap-4 overflow-hidden whitespace-nowrap">
-				{previous && <PreviousSeries result={previous} />}
+				{previous ? (
+					<PreviousSeries result={previous} />
+				) : (
+					<FirstSeriesGuide />
+				)}
 			</div>
 		</div>
 	);

@@ -442,6 +442,14 @@ click.
   Escape cancels) and shows the current length when it is not one of the four.
   The same setting is available in the settings.
 
+### Keeping the thread
+
+- A series in progress survives a visit to another screen; the time away does
+  not count. Escape, a new length or a reload still drop it.
+- When the keys go nowhere, because the focus left the typing input, a notice
+  says so above the words.
+- During the first series, a line says what to do.
+
 ### Stable layout
 
 An interaction never moves what surrounds it: changing figures have a reserved
