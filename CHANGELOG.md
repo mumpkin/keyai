@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-05
+
 ### Added
 
 - A link in the word card and the settings to report a wrong translation
@@ -82,6 +84,7 @@ and this project adheres to
 - Biome configuration with Clean Code rules and a single-letter identifier
   check
 
-[Unreleased]: https://github.com/mumpkin/keyai/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/mumpkin/keyai/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/mumpkin/keyai/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/mumpkin/keyai/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/mumpkin/keyai/releases/tag/v0.1.0
