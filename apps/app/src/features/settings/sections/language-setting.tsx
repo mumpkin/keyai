@@ -1,10 +1,7 @@
 import { type Locale, withLocale } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
-import {
-	SettingRow,
-	SettingSection,
-} from '@/features/settings/fields/setting-section.tsx';
+import { SettingRow } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
 
 /** Each language is named in itself, whatever the current language is. */
@@ -18,17 +15,15 @@ export function LanguageSetting() {
 	const { settings, updateSettings } = useSettings();
 	const label = translate('settings.language.label');
 	return (
-		<SettingSection title={translate('settings.language.title')}>
-			<SettingRow label={label}>
-				<ChoiceField
-					label={label}
-					value={settings.locale}
-					options={LANGUAGES}
-					onChange={(locale) =>
-						updateSettings((current) => withLocale(current, locale))
-					}
-				/>
-			</SettingRow>
-		</SettingSection>
+		<SettingRow label={label}>
+			<ChoiceField
+				label={label}
+				value={settings.locale}
+				options={LANGUAGES}
+				onChange={(locale) =>
+					updateSettings((current) => withLocale(current, locale))
+				}
+			/>
+		</SettingRow>
 	);
 }

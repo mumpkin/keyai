@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { NumberField } from '@/components/number-field.tsx';
 import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
 import {
+	SettingGroup,
 	SettingRow,
-	SettingSection,
 } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
 
@@ -27,10 +27,7 @@ export function SpeedSetting() {
 	const label = translate('settings.speed.label');
 	const threshold = translate('settings.speed.threshold');
 	return (
-		<SettingSection
-			title={translate('settings.speed.title')}
-			tourZone="speed"
-		>
+		<SettingGroup tourZone="speed">
 			<SettingRow label={label}>
 				<ChoiceField
 					label={label}
@@ -59,6 +56,6 @@ export function SpeedSetting() {
 			<p className="text-xs text-muted-foreground">
 				{translate('settings.speed.hint')}
 			</p>
-		</SettingSection>
+		</SettingGroup>
 	);
 }

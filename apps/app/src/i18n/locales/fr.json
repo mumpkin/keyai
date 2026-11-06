@@ -184,6 +184,8 @@
 		"date": "Date"
 	},
 	"settings": {
+		"general": "Général",
+		"training": "Entraînement",
 		"quote": {
 			"title": "Citations",
 			"hint": "Erreurs avant la furigana en Kanji seuls (0 = jamais)",
@@ -191,11 +193,9 @@
 			"spaces": "Garder des espaces entre les mots"
 		},
 		"language": {
-			"title": "Langue",
 			"label": "Langue de l’interface et des traductions"
 		},
 		"session": {
-			"title": "Séance",
 			"wordsPerSeries": "Mots par série",
 			"naturalWriting": "Écriture naturelle (sans espace entre les mots)",
 			"keepWordSpaces": "Garder les espaces affichés entre les mots",
@@ -205,7 +205,6 @@
 			"katakana": "Katakana"
 		},
 		"speed": {
-			"title": "Vitesse",
 			"label": "Seuil de vitesse",
 			"threshold": "Kana par minute",
 			"hint": "Un kana est maîtrisé à partir de cette vitesse. Le changement s’applique tout de suite à toute la table.",
@@ -215,11 +214,9 @@
 			"custom": "Perso"
 		},
 		"feedback": {
-			"title": "Retours",
 			"errorSound": "Son d’erreur"
 		},
 		"display": {
-			"title": "Affichage",
 			"supportButton": "Afficher le bouton de soutien",
 			"theme": "Thème",
 			"themeSystem": "Système",

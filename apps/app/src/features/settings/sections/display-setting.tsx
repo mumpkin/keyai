@@ -2,10 +2,7 @@ import { THEMES, withSupportButton, withTheme } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { Switch } from '@/components/ui/switch.tsx';
 import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
-import {
-	SettingRow,
-	SettingSection,
-} from '@/features/settings/fields/setting-section.tsx';
+import { SettingRow } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
 import { KanaSizeSetting } from './kana-size-setting.tsx';
 
@@ -56,12 +53,11 @@ function SupportButtonSetting() {
 }
 
 export function DisplaySetting() {
-	const { t: translate } = useTranslation();
 	return (
-		<SettingSection title={translate('settings.display.title')}>
+		<>
 			<ThemeSetting />
 			<KanaSizeSetting />
 			<SupportButtonSetting />
-		</SettingSection>
+		</>
 	);
 }

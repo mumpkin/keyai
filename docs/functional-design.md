@@ -406,7 +406,7 @@ Agreed during the blocking session (pull request #5).
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Training   | Statistics bar, word line, series words recap, Japanese input warning, kana table                                                                |
 | Statistics | Last series (figures, speed per word, faulty kana, words, skipped words), progress (mastery per script, kana table coloured by mastery), history |
-| Settings   | Language, session, speed, feedback, display, data, about                                                                                         |
+| Settings   | General, training, quotes, data, about                                                                                                           |
 
 Navigation: header with Training, Statistics and Settings (icons only on
 mobile). It always stays visible: only the content below it scrolls.
