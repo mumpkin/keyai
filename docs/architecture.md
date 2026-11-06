@@ -356,7 +356,7 @@ tsconfig.base.json    strict, erasableSyntaxOnly, verbatimModuleSyntax,
 | ------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (phone and desktop formats), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
 | `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names  |
-| `pages.yml`   | CI green on `main`, or by hand | Web build with `base: '/keyai/'`, deploy to GitHub Pages                                                                                                                                                                                   |
+| `pages.yml`   | CI green on `main`, or by hand | Web build, deploy to GitHub Pages on keyai.cat                                                                                                                                                                                             |
 
 CI tuning: parallel jobs, pnpm and Cargo caches, `concurrency` with
 `cancel-in-progress`, path filters, actions pinned by commit SHA (updated by

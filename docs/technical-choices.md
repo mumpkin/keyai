@@ -44,7 +44,7 @@ All the domain logic (romaji input, word selection, statistics, progression) liv
 - **French vocabulary:** JMdict only provides a French translation for ~15,300 entries. Missing French translations are completed with drafts, always reviewed before publication. Kana homographs (e.g. はし) must be settled.
 - **Linux build:** compile on Ubuntu 22.04 for glibc compatibility.
 - **Updates:** Linux auto-update only concerns the AppImage. Updates (PWA and Tauri) are offered, never forced during a session.
-- **GitHub Pages without a domain:** set the base path `/repository-name/` in Vite.
+- **GitHub Pages:** served on keyai.cat, so the base path stays `/`. A save lives at its address: changing it again would leave the progress of web users behind.
 
 ## Code conventions
 
