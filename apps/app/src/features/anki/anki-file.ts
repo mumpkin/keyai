@@ -17,14 +17,14 @@ const HEADERS = [
 	'#separator:tab',
 	'#html:true',
 	'#notetype:Basic',
-	'#deck:KeyAI',
+	'#deck:keyai',
 	'#tags:keyai',
 	'#guid column:1',
 	'#tags column:4',
 ];
 
 const LINE_BREAK = '<br>';
-const SOURCE = 'JMdict (EDRDG, CC BY-SA 4.0) · KeyAI';
+const SOURCE = 'JMdict (EDRDG, CC BY-SA 4.0) · keyai';
 
 const HTML_ENTITIES: ReadonlyMap<string, string> = new Map([
 	['&', '&amp;'],
