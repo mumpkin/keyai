@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AlertDialog,
@@ -14,30 +14,33 @@ import { isDesktopSize } from '@/lib/utils.ts';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 
-/** Asked once, at the first launch; the settings can start the tour later. */
+/**
+ * Asked once, at the first launch; the settings can start the tour later. It
+ * leaves at once rather than through the closing animation of the dialog:
+ * should that one never end, its backdrop would blur the whole tour.
+ */
 export function TourOffer() {
 	const { t: translate } = useTranslation();
 	const startTour = useUiStore((state) => state.startTour);
 	const requestTypingFocus = useUiStore((state) => state.requestTypingFocus);
 	const isFirstLaunch = useProgress((state) => state.isFirstLaunch);
-	const isAccepted = useRef(false);
-	const [isOpen, setIsOpen] = useState(isFirstLaunch && isDesktopSize());
+	const [answer, setAnswer] = useState<'none' | 'accepted' | 'declined'>(
+		isFirstLaunch && isDesktopSize() ? 'none' : 'declined',
+	);
+
+	useEffect(() => {
+		if (answer === 'accepted') {
+			startTour('visit');
+		} else if (answer === 'declined' && isFirstLaunch) {
+			requestTypingFocus();
+		}
+	}, [answer, isFirstLaunch, startTour, requestTypingFocus]);
+
+	if (answer !== 'none') {
+		return null;
+	}
 	return (
-		<AlertDialog
-			open={isOpen}
-			onOpenChange={setIsOpen}
-			onOpenChangeComplete={(open) => {
-				if (open) {
-					return;
-				}
-				// Once closed: its backdrop would blur the whole tour.
-				if (isAccepted.current) {
-					startTour('visit');
-				} else {
-					requestTypingFocus();
-				}
-			}}
-		>
+		<AlertDialog open>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
@@ -48,15 +51,10 @@ export function TourOffer() {
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>
+					<AlertDialogCancel onClick={() => setAnswer('declined')}>
 						{translate('tour.decline')}
 					</AlertDialogCancel>
-					<AlertDialogAction
-						onClick={() => {
-							isAccepted.current = true;
-							setIsOpen(false);
-						}}
-					>
+					<AlertDialogAction onClick={() => setAnswer('accepted')}>
 						{translate('tour.accept')}
 					</AlertDialogAction>
 				</AlertDialogFooter>
