@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AlertDialog,
@@ -20,13 +20,20 @@ export function TourOffer() {
 	const startTour = useUiStore((state) => state.startTour);
 	const requestTypingFocus = useUiStore((state) => state.requestTypingFocus);
 	const isFirstLaunch = useProgress((state) => state.isFirstLaunch);
+	const isAccepted = useRef(false);
 	const [isOpen, setIsOpen] = useState(isFirstLaunch && isDesktopSize());
 	return (
 		<AlertDialog
 			open={isOpen}
 			onOpenChange={setIsOpen}
 			onOpenChangeComplete={(open) => {
-				if (!open) {
+				if (open) {
+					return;
+				}
+				// Once closed: its backdrop would blur the whole tour.
+				if (isAccepted.current) {
+					startTour('visit');
+				} else {
 					requestTypingFocus();
 				}
 			}}
@@ -44,7 +51,12 @@ export function TourOffer() {
 					<AlertDialogCancel>
 						{translate('tour.decline')}
 					</AlertDialogCancel>
-					<AlertDialogAction onClick={() => startTour('visit')}>
+					<AlertDialogAction
+						onClick={() => {
+							isAccepted.current = true;
+							setIsOpen(false);
+						}}
+					>
 						{translate('tour.accept')}
 					</AlertDialogAction>
 				</AlertDialogFooter>
