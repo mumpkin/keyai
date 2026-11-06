@@ -8,11 +8,11 @@ hiragana and katakana; you type their reading in romaji. Kana are unlocked
 one at a time, based on your speed and accuracy, and every word comes with a
 short translation in French or English.
 
-> **Status:** early version, [available on the web](https://mumpkin.github.io/keyai/).
+> **Status:** early version, [available on the web](https://keyai.cat/).
 
 ## Get it
 
-- **Web:** [mumpkin.github.io/keyai](https://mumpkin.github.io/keyai/), installable on a phone
+- **Web:** [keyai.cat](https://keyai.cat/), installable on a phone
 - **Desktop:** [latest release](https://github.com/mumpkin/keyai/releases/latest) for Windows and Linux
 
 ## Features
