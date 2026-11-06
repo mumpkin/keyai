@@ -21,6 +21,21 @@ export function SettingSection({
 	);
 }
 
+/** Rows the guided tour can point at, inside a section. */
+export function SettingGroup({
+	tourZone,
+	children,
+}: {
+	readonly tourZone: string;
+	readonly children: ReactNode;
+}) {
+	return (
+		<div className="flex flex-col gap-3" data-tour={tourZone}>
+			{children}
+		</div>
+	);
+}
+
 export function SettingRow({
 	label,
 	children,

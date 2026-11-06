@@ -11,8 +11,8 @@ import { NumberField } from '@/components/number-field.tsx';
 import { Switch } from '@/components/ui/switch.tsx';
 import { ChoiceField } from '@/features/settings/fields/choice-field.tsx';
 import {
+	SettingGroup,
 	SettingRow,
-	SettingSection,
 } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
 
@@ -44,10 +44,7 @@ export function SessionSetting() {
 	const naturalLabel = translate('settings.session.naturalWriting');
 	const spacesLabel = translate('settings.session.keepWordSpaces');
 	return (
-		<SettingSection
-			title={translate('settings.session.title')}
-			tourZone="session"
-		>
+		<SettingGroup tourZone="session">
 			<SettingRow label={label}>
 				<NumberField
 					label={label}
@@ -84,6 +81,6 @@ export function SessionSetting() {
 					}
 				/>
 			</SettingRow>
-		</SettingSection>
+		</SettingGroup>
 	);
 }

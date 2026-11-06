@@ -15,6 +15,7 @@ and this project adheres to
 ### Changed
 
 - The app is called keyai everywhere, including the Anki deck
+- The settings are grouped into general, training, quotes, data and about
 
 ## [0.5.0] - 2026-11-06
 

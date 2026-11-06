@@ -1,10 +1,7 @@
 import { withErrorSound } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { Switch } from '@/components/ui/switch.tsx';
-import {
-	SettingRow,
-	SettingSection,
-} from '@/features/settings/fields/setting-section.tsx';
+import { SettingRow } from '@/features/settings/fields/setting-section.tsx';
 import { useSettings } from '@/features/settings/use-settings.ts';
 
 export function FeedbackSetting() {
@@ -12,18 +9,14 @@ export function FeedbackSetting() {
 	const { settings, updateSettings } = useSettings();
 	const label = translate('settings.feedback.errorSound');
 	return (
-		<SettingSection title={translate('settings.feedback.title')}>
-			<SettingRow label={label}>
-				<Switch
-					aria-label={label}
-					checked={settings.feedback.sound}
-					onCheckedChange={(sound) =>
-						updateSettings((current) =>
-							withErrorSound(current, sound),
-						)
-					}
-				/>
-			</SettingRow>
-		</SettingSection>
+		<SettingRow label={label}>
+			<Switch
+				aria-label={label}
+				checked={settings.feedback.sound}
+				onCheckedChange={(sound) =>
+					updateSettings((current) => withErrorSound(current, sound))
+				}
+			/>
+		</SettingRow>
 	);
 }
