@@ -27,7 +27,7 @@ function zone(name: string): string {
 export const VISIT_STEPS: readonly TourStep[] = [
 	{ id: 'welcome', target: CENTER, place: WORDS },
 	{ id: 'line', target: zone('line'), place: WORDS },
-	{ id: 'lookup', target: zone('table'), place: WORDS },
+	{ id: 'lookup', target: zone('kana'), place: WORDS },
 	{ id: 'tabs', target: zone('tabs'), place: WORDS },
 	{ id: 'mastery', target: `${zone('table')} [role="img"]`, place: WORDS },
 	{ id: 'unlock', target: zone('unlock'), place: WORDS },
