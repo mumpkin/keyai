@@ -1,15 +1,5 @@
 import type { QuotePiece, QuoteToken, QuoteWord } from '@keyai/core/quote';
-import type { SeriesState } from '@keyai/core/session';
 import type { UnitView } from '@/features/training/series/series-view.ts';
-import type { QuoteEntry } from '@/vocab/quotes.ts';
-
-export interface QuoteSeries {
-	readonly id: number;
-	readonly quote: QuoteEntry;
-	/** The quote as it is typed: in the chosen writing, with its marks. */
-	readonly tokens: readonly QuoteToken[];
-	readonly state: SeriesState;
-}
 
 /** A word with the punctuation around it, which must not start a line. */
 export interface QuoteGroup {

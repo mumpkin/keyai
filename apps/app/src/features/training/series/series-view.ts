@@ -1,20 +1,7 @@
 import { progressOf } from '@keyai/core/input';
 import type { SeriesState, SeriesWord, WordStatus } from '@keyai/core/session';
-import type { WordScript } from '@keyai/core/settings';
 import { measureSeries, type SeriesMeasurements } from '@keyai/core/stats';
-import type { VocabEntry } from '@keyai/core/vocab';
-
-export interface SeriesWords {
-	readonly entries: readonly VocabEntry[];
-	readonly state: SeriesState;
-}
-
-export interface Series extends SeriesWords {
-	readonly id: number;
-	readonly script: WordScript;
-	/** The series just finished, kept for its recap. */
-	readonly previous: SeriesWords | null;
-}
+import type { Series, SeriesWords } from '@/stores/series-types.ts';
 
 /**
  * The recap keeps showing the finished series until the first key of the

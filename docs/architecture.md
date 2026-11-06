@@ -263,9 +263,9 @@ wrong key count and elapsed time to `core/stats` and `core/progression`.
 ```
 main.tsx            bootstrap: platform → save → i18n → render
 platform/           types.ts · web/ · tauri/
-stores/             progress-store.ts · ui-store.ts · app-context.tsx
+stores/             progress-store.ts · ui-store.ts · series-types.ts · app-context.tsx
 features/
-  training/         screen · bar/ · words/ · quotes/ · series/ · typing/
+  training/         screens · bar/ · words/ · quotes/ · series/ · typing/
   word-card/        word card and glosses, shared with the statistics
   anki/             text file of the Anki list
   kana-table/       full table, and the kana to work on for phones

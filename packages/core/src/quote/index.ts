@@ -3,6 +3,7 @@ export {
 	type QuotePiece,
 	type QuoteToken,
 	type QuoteWord,
+	quoteInKana,
 	quoteKanaCountOf,
 	quoteSeriesOf,
 	quoteTokensOf,
@@ -10,11 +11,8 @@ export {
 	withTypedMarks,
 } from './parse.ts';
 export { type Quote, QuoteSchema, QuotesSchema } from './schema.ts';
-export { quoteInKana } from './script.ts';
 export {
 	nextQuoteOf,
-	QUOTE_LENGTHS,
 	type QuoteChoice,
-	type QuoteLength,
 	quotesOfLength,
 } from './select.ts';

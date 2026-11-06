@@ -1,5 +1,8 @@
-import { QUOTE_LENGTHS, type QuoteLength } from '@keyai/core/quote';
-import { withQuote } from '@keyai/core/settings';
+import {
+	QUOTE_LENGTHS,
+	type QuoteLength,
+	withQuote,
+} from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { useProgress } from '@/stores/app-context.tsx';
 import { lengthButtonClass } from './series-length-picker.tsx';

@@ -21,9 +21,9 @@ import { useEffect, useRef, useState } from 'react';
 import { seriesSummaryOf } from '@/features/statistics/model/series-summary.ts';
 import { useProgressStore, useQuotes } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
+import type { QuoteSeries } from '@/stores/series-types.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
 import type { QuoteEntry } from '@/vocab/quotes.ts';
-import type { QuoteSeries } from './quote-view.ts';
 
 let quoteCount = 0;
 

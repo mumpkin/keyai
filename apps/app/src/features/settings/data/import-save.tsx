@@ -6,8 +6,8 @@ import {
 } from '@keyai/core/save';
 import { type ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ConfirmDialog } from '@/components/confirm-dialog.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { ConfirmDialog } from '@/features/settings/fields/confirm-dialog.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';
 import type { DataMessage } from './data-message.tsx';
