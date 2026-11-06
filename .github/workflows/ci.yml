@@ -98,30 +98,32 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm build:web
 
+  browsers:
+    name: Find the browsers
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: version
+        run: |
+          version="$(grep --only-matching --max-count=1 '^  playwright@[0-9.]*' pnpm-lock.yaml | cut --delimiter=@ --fields=2)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  # The image holds the browsers and their system libraries: installing them
+  # with apt depended on a mirror that was sometimes very slow.
   e2e:
     name: End-to-end
+    needs: browsers
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.browsers.outputs.version }}-noble
+      options: --user 1001
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      # It takes a minute, but an Azure mirror of Ubuntu is sometimes very slow.
-      # Stopping an attempt leaves apt-get running, which would lock the next.
-      - name: Install the browsers
-        timeout-minutes: 10
-        run: |
-          for attempt in 1 2 3; do
-            timeout --kill-after=10 180 pnpm exec playwright install --with-deps chromium webkit && exit 0
-            echo "::warning::Installing the browsers failed on attempt $attempt"
-            sudo pkill --exact apt-get || true
-            sleep 5
-            sudo dpkg --configure -a || true
-          done
-          exit 1
       - run: pnpm test:e2e
 
   changes:
