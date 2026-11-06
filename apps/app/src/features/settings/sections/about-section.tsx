@@ -3,6 +3,7 @@ import { ExternalLink } from '@/components/external-link.tsx';
 import { SettingSection } from '@/features/settings/fields/setting-section.tsx';
 import { SupportLink } from '@/features/support/support-link.tsx';
 import { translationReportUrl } from '@/lib/translation-report.ts';
+import { useUiStore } from '@/stores/ui-store.ts';
 
 const SOURCE_CODE_URL = 'https://github.com/mumpkin/keyai';
 const JMDICT_URL =
@@ -17,6 +18,7 @@ export function AboutSection({
 	readonly onReplaySplash: () => void;
 }) {
 	const { t: translate } = useTranslation();
+	const startTour = useUiStore((state) => state.startTour);
 	return (
 		<SettingSection title={translate('settings.about.title')}>
 			<div className="flex flex-col gap-1 text-sm">
@@ -60,6 +62,14 @@ export function AboutSection({
 				<p className="mt-2">
 					<SupportLink />
 				</p>
+				<button
+					type="button"
+					data-tour="replay-tour"
+					onClick={() => startTour('visit')}
+					className="mt-2 hidden w-fit text-primary underline md:block"
+				>
+					{translate('tour.replay')}
+				</button>
 				<button
 					type="button"
 					onClick={onReplaySplash}

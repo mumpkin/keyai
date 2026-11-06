@@ -19,13 +19,19 @@ export function UnlockHint() {
 	const blocking = blockingKanaOf(progress, threshold);
 	if (isRevision) {
 		return (
-			<p className="h-5 truncate text-sm text-muted-foreground">
+			<p
+				className="h-5 truncate text-sm text-muted-foreground"
+				data-tour="unlock"
+			>
 				{translate('kanaTable.revision')}
 			</p>
 		);
 	}
 	return (
-		<p className="h-5 truncate text-sm text-muted-foreground">
+		<p
+			className="h-5 truncate text-sm text-muted-foreground"
+			data-tour="unlock"
+		>
 			{next && blocking.length > 0 && (
 				<>
 					{translate('kanaTable.unlockHint', { next })}{' '}

@@ -274,6 +274,7 @@ features/
   layout/           header, download menu, window buttons
   notices/          floating update and save notices
   splash/           launch animation
+  tour/             guided tour and its offer at the first launch
 components/         shared components · ui/ for shadcn
 lib/                small helpers without React
 vocab/              JSON loading and index

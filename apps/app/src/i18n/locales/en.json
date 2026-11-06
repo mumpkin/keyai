@@ -34,6 +34,37 @@
 	"splash": {
 		"meaning": "fast"
 	},
+	"tour": {
+		"offerTitle": "First time here?",
+		"offerDescription": "Shall I show you around KeyAI in 2 minutes? You can also restart the tour in the settings.",
+		"accept": "Yes, let’s go",
+		"decline": "No thanks",
+		"skip": "Skip",
+		"back": "Back",
+		"next": "Next",
+		"done": "Finish",
+		"replay": "Restart the tour",
+		"steps": {
+			"welcome": "Welcome! Here you learn to read Japanese by typing. It is written with two alphabets among others, hiragana and katakana, and you will learn both side by side.",
+			"line": "Read each word and type how it sounds in Latin letters: か is typed ka. No need for a space, just keep going.",
+			"lookup": "Don’t know a kana? Look it up here: its reading is written just below. That’s what it’s for.",
+			"tabs": "“My kana” shows the ones you unlocked, the most recent first. Hiragana and Katakana show the full charts.",
+			"mastery": "The colour goes from red to green with your mastery, which depends on your speed and accuracy.",
+			"unlock": "When your latest kana are mastered, a new one unlocks. Here you see what is left to master.",
+			"bar": "Your speed, accuracy and errors, live. On the right, you choose the length of the series.",
+			"stuck": "Stuck on a word? Space skips it, but the series will unlock nothing. Escape starts a new series.",
+			"quotes": "Want some real Japanese? This mode offers 100 literary extracts. It does not count for your progress, so no pressure.",
+			"display": "Pick your level: all kana, kanji with their reading above, or kanji alone for the brave.",
+			"result": "At the end, you find the translation, the author and the work here. Enter for the next one, Tab to replay.",
+			"lastSeries": "After each series, you will find your speed, errors and the words you met here.",
+			"progress": "Your progress in each script, and soon how it evolves over time.",
+			"anki": "Do you use Anki? Add words from their card, then export them here in one click.",
+			"speed": "Too hard or too easy? Adjust the speed needed to master a kana here.",
+			"session": "You can revise hiragana or katakana alone, and choose how you type.",
+			"end": "Theme, kana size, save: it’s all in the settings. You can restart this tour here whenever you like. Enjoy your training!",
+			"wordCards": "Hover a word to see its full card and add it to your Anki list."
+		}
+	},
 	"support": {
 		"button": "Buy me a coffee",
 		"hint": "Can be turned off in the settings"

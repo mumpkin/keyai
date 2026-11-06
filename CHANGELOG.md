@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- A guided tour of the app, offered at the first launch and available in the
+  settings
+
 ## [0.4.0] - 2026-11-05
 
 ### Added

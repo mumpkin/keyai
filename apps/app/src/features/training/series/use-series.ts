@@ -10,6 +10,7 @@ import {
 } from '@keyai/core/session';
 import { type RefObject, useEffect, useRef, useState } from 'react';
 import { seriesSummaryOf } from '@/features/statistics/model/series-summary.ts';
+import { isDesktopSize } from '@/lib/utils.ts';
 import { useProgressStore, useVocabulary } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
@@ -109,6 +110,9 @@ export function useSeries() {
 			wordCount: current.entries.length,
 		});
 		showSeriesResult(seriesSummaryOf(result, current.entries, finished));
+		if (store.getState().save.history.length === 1 && isDesktopSize()) {
+			useUiStore.getState().startTour('wordCards');
+		}
 	}
 
 	function dispatch(action: SeriesAction) {

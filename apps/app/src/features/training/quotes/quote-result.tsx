@@ -33,7 +33,7 @@ export function QuoteResult({
 	const translation = quote[locale];
 	// Always there, so that nothing moves when the quote ends.
 	return (
-		<div className="flex min-h-40 flex-col gap-2">
+		<div className="flex min-h-40 flex-col gap-2" data-tour="result">
 			{isFinished && (
 				<>
 					<p lang="ja" className="font-kana text-lg">

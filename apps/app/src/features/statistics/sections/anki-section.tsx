@@ -91,7 +91,10 @@ export function AnkiSection() {
 	const { t: translate } = useTranslation();
 	const entries = useAnkiEntries();
 	return (
-		<StatisticsSection title={translate('statistics.anki.title')}>
+		<StatisticsSection
+			title={translate('statistics.anki.title')}
+			tourZone="anki"
+		>
 			{entries.length > 0 ? (
 				<>
 					<ul className="max-h-60 scroll-y">

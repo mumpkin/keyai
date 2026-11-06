@@ -1,6 +1,6 @@
 import type { SeriesState } from '@keyai/core/session';
 import { withWordsPerSession } from '@keyai/core/settings';
-import type { MouseEvent, ReactNode } from 'react';
+import { type MouseEvent, type ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KanaFocusList } from '@/features/kana-table/kana-focus-list.tsx';
 import { KanaTable } from '@/features/kana-table/kana-table.tsx';
@@ -81,6 +81,14 @@ interface TrainingShellProps {
 /** What the two modes share: the input, the bar, the line and the table. */
 function TrainingShell({ typing, bar, line, below }: TrainingShellProps) {
 	const { inputRef, isComposing, isFocusLost, focus } = typing;
+	const focusRequests = useUiStore((state) => state.typingFocusRequests);
+
+	useEffect(() => {
+		if (focusRequests > 0) {
+			inputRef.current?.focus();
+		}
+	}, [focusRequests, inputRef]);
+
 	return (
 		<TypingFocusContext.Provider value={inputRef}>
 			{/* biome-ignore lint/a11y/noStaticElementInteractions: clicks only restore the focus of the typing input */}
@@ -92,7 +100,7 @@ function TrainingShell({ typing, bar, line, below }: TrainingShellProps) {
 				<TypingInput inputRef={inputRef} />
 				{bar}
 				<div className="relative flex flex-1 flex-col gap-4 md:justify-center md:py-6">
-					<div className="relative">
+					<div className="relative" data-tour="line">
 						{line}
 						<FocusLostHint isVisible={isFocusLost} />
 					</div>

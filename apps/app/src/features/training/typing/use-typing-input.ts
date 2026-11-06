@@ -6,9 +6,15 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { useUiStore } from '@/stores/ui-store.ts';
 
 /** Kept in the input so that mobile keyboards always have something to delete. */
 export const SENTINEL = '​';
+
+/** A tour sits above the series: keys typed meanwhile must not reach it. */
+function isTourRunning(): boolean {
+	return useUiStore.getState().tour !== null;
+}
 
 function actionsOf(text: string, at: number): SeriesAction[] {
 	return [...text].map((character) =>
@@ -95,13 +101,16 @@ export function useTypingInput(
 		}
 		const handleBeforeInput = (event: InputEvent) => {
 			event.preventDefault();
-			if (!event.isComposing) {
+			if (!(event.isComposing || isTourRunning())) {
 				for (const action of actionsOfInput(event)) {
 					emit(action);
 				}
 			}
 		};
 		const handleKeyDown = (event: KeyboardEvent) => {
+			if (isTourRunning()) {
+				return;
+			}
 			const isAbort = event.key === 'Escape';
 			if (isAbort) {
 				emit({ type: 'abort' });

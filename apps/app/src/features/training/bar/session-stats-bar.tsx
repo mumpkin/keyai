@@ -129,7 +129,7 @@ export function SessionStatsBar({
 	const live = liveMeasurementsOf(series, performance.now());
 	const hasStarted = series.startedAt !== null;
 	return (
-		<div className="flex flex-col gap-1 text-sm">
+		<div className="flex flex-col gap-1 text-sm" data-tour="bar">
 			<div className="flex flex-wrap items-center gap-x-4 gap-y-1 tabular-nums">
 				<SeriesProgress
 					completed={finishedWordCount(series)}

@@ -5,6 +5,8 @@ import { UpdateNotice } from '@/features/notices/update-notice.tsx';
 import { SettingsScreen } from '@/features/settings/settings-screen.tsx';
 import { SplashScreen } from '@/features/splash/splash-screen.tsx';
 import { FloatingSupport } from '@/features/support/support-link.tsx';
+import { GuidedTour } from '@/features/tour/guided-tour.tsx';
+import { TourOffer } from '@/features/tour/tour-offer.tsx';
 import { TrainingScreen } from '@/features/training/training-screen.tsx';
 import { applyLocale } from '@/i18n/index.ts';
 import { applyTheme, isDarkTheme } from '@/lib/theme.ts';
@@ -83,9 +85,12 @@ export function App() {
 
 	return (
 		<div className="flex h-dvh flex-col">
-			{isSplashVisible && (
+			{isSplashVisible ? (
 				<SplashScreen onDone={() => setIsSplashVisible(false)} />
+			) : (
+				<TourOffer />
 			)}
+			<GuidedTour />
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<SaveIssueNotice />
 			<UpdateNotice />

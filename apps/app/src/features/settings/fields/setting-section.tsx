@@ -2,13 +2,19 @@ import type { ReactNode } from 'react';
 
 export function SettingSection({
 	title,
+	tourZone,
 	children,
 }: {
 	readonly title: string;
+	/** Where the guided tour can point. */
+	readonly tourZone?: string;
 	readonly children: ReactNode;
 }) {
 	return (
-		<section className="flex flex-col gap-3 rounded-lg border p-4">
+		<section
+			className="flex flex-col gap-3 rounded-lg border p-4"
+			data-tour={tourZone}
+		>
 			<h2 className="font-medium">{title}</h2>
 			{children}
 		</section>

@@ -27,7 +27,10 @@ export function SpeedSetting() {
 	const label = translate('settings.speed.label');
 	const threshold = translate('settings.speed.threshold');
 	return (
-		<SettingSection title={translate('settings.speed.title')}>
+		<SettingSection
+			title={translate('settings.speed.title')}
+			tourZone="speed"
+		>
 			<SettingRow label={label}>
 				<ChoiceField
 					label={label}

@@ -2,12 +2,20 @@ import { toHepburn, tokenize } from '@keyai/core/input';
 import type { Page } from '@playwright/test';
 
 const SAVE_KEY = 'keyai.save';
+const DESKTOP_WIDTH = 768;
+const BUBBLE_WAIT_MS = 1500;
 
 export async function openApp(page: Page): Promise<void> {
 	await page.goto('/');
 	await page.locator('header').waitFor();
 	await page.keyboard.press('Escape');
 	await page.locator('button.fixed').waitFor({ state: 'detached' });
+	if ((page.viewportSize()?.width ?? 0) >= DESKTOP_WIDTH) {
+		await page.getByRole('button', { name: 'Non merci' }).click();
+		await page
+			.locator('input[aria-label="Zone de frappe"]:focus')
+			.waitFor({ state: 'attached' });
+	}
 }
 
 export function openScreen(page: Page, position: number) {
@@ -53,6 +61,16 @@ export async function typeCurrentWord(page: Page): Promise<void> {
 	await page.keyboard.press('Space');
 }
 
+/** The bubble that follows the very first series, on a desktop only. */
+export async function closeWordCardBubble(page: Page): Promise<void> {
+	if ((page.viewportSize()?.width ?? 0) >= DESKTOP_WIDTH) {
+		await page
+			.getByRole('button', { name: 'Terminer' })
+			.click({ timeout: BUBBLE_WAIT_MS })
+			.catch(() => undefined);
+	}
+}
+
 export async function playSeries(page: Page): Promise<void> {
 	const words = await page.locator('[data-word-index]').allTextContents();
 	for (const [index, word] of words.entries()) {
@@ -61,6 +79,7 @@ export async function playSeries(page: Page): Promise<void> {
 			await page.keyboard.press('Space');
 		}
 	}
+	await closeWordCardBubble(page);
 }
 
 /** Types every word one after the other, without any space. */
