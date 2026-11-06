@@ -17,6 +17,10 @@ and this project adheres to
 - The app is called keyai everywhere, including the Anki deck
 - The settings are grouped into general, training, quotes, data and about
 
+### Fixed
+
+- A bubble of the guided tour no longer goes off a small screen
+
 ## [0.5.0] - 2026-11-06
 
 ### Added

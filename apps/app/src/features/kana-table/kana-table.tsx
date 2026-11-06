@@ -121,7 +121,7 @@ function ScriptChart({
 }) {
 	const layout = kanaLayoutOf(script);
 	return (
-		<div className="flex items-start gap-6">
+		<div className="flex items-start gap-6" data-tour="kana">
 			<SlotGrid
 				slots={layout.base}
 				states={states}
@@ -151,7 +151,10 @@ function RecentKana({ states }: { readonly states: KanaStates }) {
 	const progress = useProgress((state) => state.save.progress);
 	const { initialUnlocked } = useVocabulary().file;
 	return (
-		<div className="grid grid-cols-[repeat(auto-fill,2.75rem)] gap-1">
+		<div
+			className="grid grid-cols-[repeat(auto-fill,2.75rem)] gap-1"
+			data-tour="kana"
+		>
 			{recentKanaOf(progress, initialUnlocked).map((kana) => (
 				<KanaCell
 					key={kana}

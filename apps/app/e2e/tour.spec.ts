@@ -16,7 +16,9 @@ test.describe('once in the app', () => {
 		await page.keyboard.type('abc');
 		for (let step = 2; step <= 17; step += 1) {
 			await page.getByRole('button', { name: 'Suivant' }).click();
-			await expect(page.getByText(`${step}/17`)).toBeVisible();
+			await expect(page.getByText(`${step}/17`)).toBeInViewport({
+				ratio: 1,
+			});
 		}
 		await page.getByRole('button', { name: 'Terminer' }).click();
 		await expect(
