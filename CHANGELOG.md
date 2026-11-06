@@ -16,6 +16,7 @@ and this project adheres to
 ### Changed
 
 - The web app moves to keyai.cat, where its progress starts anew
+- The French interface says « tu » everywhere
 
 ## [0.4.0] - 2026-11-05
 

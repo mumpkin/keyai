@@ -74,7 +74,7 @@ test('says when the keys go nowhere', async ({ page }) => {
 });
 
 test('guides the first series only', async ({ page }) => {
-	const guide = page.getByText(/^Tapez les mots/);
+	const guide = page.getByText(/^Tape les mots/);
 	await expect(guide).toBeVisible();
 
 	await page.getByRole('button', { name: '10', exact: true }).click();
@@ -295,7 +295,7 @@ test('opens the card of a word of a finished quote', async ({ page }) => {
 test('offers a support link that can be turned off, except in About', async ({
 	page,
 }) => {
-	const links = page.getByRole('link', { name: 'Offrez-moi un café' });
+	const links = page.getByRole('link', { name: 'Offre-moi un café' });
 	await expect(links).toHaveCount(1);
 	await expect(links.first()).toHaveAttribute(
 		'href',
