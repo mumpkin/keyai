@@ -253,11 +253,18 @@ test('types a quote, then replays it or goes to the next one', async ({
 
 test('shows furigana, and types the same reading', async ({ page }) => {
 	await page.getByRole('button', { name: 'Citations' }).click();
+	const furigana = page.getByRole('button', { name: 'Kanji + furigana' });
+	await furigana.click();
+	const ruby = page.locator('ruby').first();
+	// A few quotes are in kana only.
+	while ((await ruby.count()) === 0) {
+		await page.keyboard.press('Escape');
+	}
+	await page.getByRole('button', { name: 'Kana', exact: true }).click();
 	const kana = (
 		await page.locator('[data-word-index]').allTextContents()
 	).join('');
-	await page.getByRole('button', { name: 'Kanji + furigana' }).click();
-	const ruby = page.locator('ruby').first();
+	await furigana.click();
 	await expect(ruby.locator('rt')).toBeVisible();
 	await page.keyboard.type(toHepburn(tokenize(kana)).slice(0, -1));
 	await expect(
