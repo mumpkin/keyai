@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-06
+
 ### Added
 
 - A guided tour of the app, offered at the first launch and available in the
@@ -116,7 +118,8 @@ and this project adheres to
 - Biome configuration with Clean Code rules and a single-letter identifier
   check
 
-[Unreleased]: https://github.com/mumpkin/keyai/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/mumpkin/keyai/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/mumpkin/keyai/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/mumpkin/keyai/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/mumpkin/keyai/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/mumpkin/keyai/compare/v0.1.0...v0.2.0
