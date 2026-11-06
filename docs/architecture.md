@@ -193,7 +193,7 @@ interface Settings {
 
 interface SaveFile {
 	format: 'keyai-save';
-	schemaVersion: 1;
+	schemaVersion: 2;
 	appVersion: string;
 	savedAt: string;
 	settings: Settings;
@@ -214,6 +214,9 @@ interface SessionRecord {
 - Unlocked kana are stored as an explicit list so that a new unlock order in
   a later vocabulary release never changes what a user has already unlocked.
 - The same `SaveFile` format is used for local storage and for export/import.
+- A new optional field gets a default in the schema rather than a new version:
+  the web deploys on every merge, and an older desktop app can still read the
+  save. A version number only changes for what a default cannot express.
 - `parseSave` never throws: it reports `invalidJson`, `notASave`,
   `unsupportedVersion` or `invalidContent`, after migrating older versions
   through a registry of one migration per version (`core/save`).
@@ -247,8 +250,6 @@ wrong key count and elapsed time to `core/stats` and `core/progression`.
 
 - Timer starts on the first key. Unit time runs from the previous unit's
   completion; the first unit of a session only counts for accuracy.
-- Gaps longer than a pause threshold (value set during design) are excluded
-  from speed.
 - Error feedback: a short horizontal shake of the word; replaced by a colour
   flash under `prefers-reduced-motion`. Optional error sound (off by default),
   synthesised with the Web Audio API and throttled.
@@ -282,12 +283,12 @@ i18n/               configuration and locales
 styles/app.css      Tailwind and theme
 ```
 
-| State                       | Location                     | Notes                                                |
-| --------------------------- | ---------------------------- | ---------------------------------------------------- |
-| Settings, progress          | `progress-store` (Zustand)   | Actions call `core`, then save immediately           |
-| Current screen, last series | `ui-store` (Zustand)         | Replaces a router                                    |
-| Running session             | `useReducer(sessionReducer)` | Result handed to `progress-store.applySessionResult` |
-| Vocabulary and index        | Loaded once at startup       | Read-only                                            |
+| State                       | Location                      | Notes                                              |
+| --------------------------- | ----------------------------- | -------------------------------------------------- |
+| Settings, progress          | `progress-store` (Zustand)    | Actions call `core`, then save immediately         |
+| Current screen, last series | `ui-store` (Zustand)          | Replaces a router                                  |
+| Running series              | `useSeries`, `useQuoteSeries` | Pure reducer; result handed to `applySeriesResult` |
+| Vocabulary and index        | Loaded once at startup        | Read-only                                          |
 
 - The platform is selected **at build time** (`VITE_PLATFORM=web|tauri`): the
   web build contains no Tauri code, the Tauri build contains no service
@@ -352,11 +353,11 @@ tsconfig.base.json    strict, erasableSyntaxOnly, verbatimModuleSyntax,
 | `pnpm vocab:fetch` · `build` · `check` | Vocabulary pipeline         |
 | `pnpm preview:web`                     | Web build on the network    |
 
-| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                                      |
-| ------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright (phone and desktop formats), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
-| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names  |
-| `pages.yml`   | CI green on `main`, or by hand | Web build, deploy to GitHub Pages on keyai.cat                                                                                                                                                                                             |
+| Workflow      | Trigger                        | Steps                                                                                                                                                                                                                                                                                                       |
+| ------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ci.yml`      | push, pull request             | Commit and branch checks, changelog check, `biome ci`, typecheck, Vitest with coverage, `vocab:check`, web build, Playwright in its official image, which follows the version in the lockfile (phone and desktop formats), duplicate detection (`jscpd`); Rust `fmt` and `clippy` when `src-tauri/` changes |
+| `release.yml` | tag `v*`                       | Version consistency (tag, `package.json`, changelog), `vocab:check`, `tauri-action` on `ubuntu-22.04` and `windows-latest`, draft GitHub Release with notes extracted from the changelog, and copies of the installers under stable names                                                                   |
+| `pages.yml`   | CI green on `main`, or by hand | Web build, deploy to GitHub Pages on keyai.cat                                                                                                                                                                                                                                                              |
 
 CI tuning: parallel jobs, pnpm and Cargo caches, `concurrency` with
 `cancel-in-progress`, path filters, actions pinned by commit SHA (updated by

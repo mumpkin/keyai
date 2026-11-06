@@ -66,19 +66,6 @@ Git conventions (typed branches, commits without prefix, linear history, Keep a 
 
 - **Code:** MIT.
 - **Vocabulary data:** CC BY-SA 4.0 (derived from JMdict/EDRDG and wordfreq), stored in a file separate from the code, with attribution in the application ("About" page).
+- **Quotes:** public domain texts from Aozora Bunko, with translations and readings under CC BY-SA 4.0.
 
-## Planned repository layout
-
-```
-packages/core     → pure TS engine (romaji input, selection, statistics, Zod schemas)
-packages/vocab    → pipeline + YAML corrections + generated JSON
-apps/app          → React + Vite interface, and Tauri (src-tauri)
-```
-
-To be detailed in the architecture step.
-
-## Content decisions postponed to the design
-
-- Romaji variants: `xtsu`/`ltu`, input of `ー`, particles は/へ/を read `wa`/`e`/`o`.
-- Unlock thresholds, definition of accuracy, values of the speed presets.
-- Size of the V1 corpus (order of magnitude: 1,500 to 3,000 words).
+The repository layout is described in the [architecture](./architecture.md).
