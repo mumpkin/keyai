@@ -4,7 +4,7 @@ export const LOCALES = ['fr', 'en'] as const;
 export const THEMES = ['system', 'dark', 'light'] as const;
 export const KANA_TABLE_TABS = ['mine', 'hiragana', 'katakana'] as const;
 export const TRAINING_MODES = ['words', 'quotes'] as const;
-export const QUOTE_LENGTH_CHOICES = ['all', 'short', 'medium', 'long'] as const;
+export const QUOTE_LENGTHS = ['all', 'short', 'medium', 'long'] as const;
 export const QUOTE_DISPLAYS = ['kana', 'furigana', 'kanji'] as const;
 export const WORD_SCRIPTS = ['both', 'hiragana', 'katakana'] as const;
 /** Wrong keys before a reading shows; 0 means never. */
@@ -44,7 +44,7 @@ export const SettingsSchema = zod.object({
 	trainingMode: zod.enum(TRAINING_MODES).default('words'),
 	quote: zod
 		.object({
-			length: zod.enum(QUOTE_LENGTH_CHOICES).default('all'),
+			length: zod.enum(QUOTE_LENGTHS).default('all'),
 			/** Real Japanese has no spaces, unlike the words of a series. */
 			keepsSpaces: zod.boolean().default(false),
 			display: zod.enum(QUOTE_DISPLAYS).default('kana'),
@@ -75,6 +75,7 @@ export type Locale = (typeof LOCALES)[number];
 export type Theme = (typeof THEMES)[number];
 export type KanaTableTab = (typeof KANA_TABLE_TABS)[number];
 export type TrainingMode = (typeof TRAINING_MODES)[number];
+export type QuoteLength = (typeof QUOTE_LENGTHS)[number];
 export type QuoteDisplay = (typeof QUOTE_DISPLAYS)[number];
 export type WordScript = (typeof WORD_SCRIPTS)[number];
 export type SpeedPresetName = (typeof SPEED_PRESET_NAMES)[number];

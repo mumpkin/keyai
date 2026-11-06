@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ConfirmDialog } from '@/components/confirm-dialog.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { ConfirmDialog } from '@/features/settings/fields/confirm-dialog.tsx';
 import { SettingSection } from '@/features/settings/fields/setting-section.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
 import { useUiStore } from '@/stores/ui-store.ts';

@@ -1,11 +1,11 @@
 import { toHepburn, tokenize } from '@keyai/core/input';
 import type { VocabEntry } from '@keyai/core/vocab';
 import { useTranslation } from 'react-i18next';
-import type { SummaryWord } from '@/features/statistics/model/series-summary.ts';
 import { GlossText } from '@/features/word-card/gloss-text.tsx';
 import { glossOf } from '@/features/word-card/glosses.ts';
 import { WordCard } from '@/features/word-card/word-card.tsx';
 import { useProgress } from '@/stores/app-context.tsx';
+import type { SummaryWord } from '@/stores/series-types.ts';
 import { EmptyNote, StatisticsBlock } from './statistics-section.tsx';
 
 export function WordRow({

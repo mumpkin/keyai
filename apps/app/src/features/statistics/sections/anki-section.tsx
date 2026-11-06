@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ConfirmDialog } from '@/components/confirm-dialog.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { ankiFileNameOf, ankiFileOf } from '@/features/anki/anki-file.ts';
-import { ConfirmDialog } from '@/features/settings/fields/confirm-dialog.tsx';
 import { TEXT_EXPORT } from '@/platform/types.ts';
 import {
 	useExportFile,

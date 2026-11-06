@@ -13,12 +13,12 @@ import { TypingLine } from '@/features/training/words/word-line.tsx';
 import { WordView } from '@/features/training/words/word-view.tsx';
 import { cn } from '@/lib/utils.ts';
 import { useProgress, useVocabulary } from '@/stores/app-context.tsx';
+import type { QuoteSeries } from '@/stores/series-types.ts';
 import {
 	type PieceView,
 	pieceStateOf,
 	pieceViewsOf,
 	type QuoteGroup,
-	type QuoteSeries,
 	quoteGroupsOf,
 } from './quote-view.ts';
 

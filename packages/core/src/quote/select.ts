@@ -1,10 +1,8 @@
 import type { Random } from '../random/random.ts';
 import { pickWeighted } from '../random/random.ts';
+import type { QuoteLength } from '../settings/schema.ts';
 import type { QuoteToken } from './parse.ts';
 import { quoteKanaCountOf } from './parse.ts';
-
-export const QUOTE_LENGTHS = ['all', 'short', 'medium', 'long'] as const;
-export type QuoteLength = (typeof QUOTE_LENGTHS)[number];
 
 const SHORT_MAXIMUM = 20;
 const MEDIUM_MAXIMUM = 35;

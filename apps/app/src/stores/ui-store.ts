@@ -1,7 +1,5 @@
 import { create } from 'zustand';
-import type { SeriesSummary } from '@/features/statistics/model/series-summary.ts';
-import type { QuoteSeries } from '@/features/training/quotes/quote-view.ts';
-import type { Series } from '@/features/training/series/series-view.ts';
+import type { QuoteSeries, Series, SeriesSummary } from './series-types.ts';
 
 /** A series left for another screen, taken back on return. */
 export type Screen = 'training' | 'statistics' | 'settings';

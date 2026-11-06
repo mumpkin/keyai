@@ -20,7 +20,7 @@ interface ConfirmDialogProps {
 	readonly onClose: () => void;
 }
 
-/** Asks before an action that erases the progress. */
+/** Asks before an action that erases something. */
 export function ConfirmDialog({
 	isOpen,
 	title,

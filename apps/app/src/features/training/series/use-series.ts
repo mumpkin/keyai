@@ -13,10 +13,10 @@ import { seriesSummaryOf } from '@/features/statistics/model/series-summary.ts';
 import { isDesktopSize } from '@/lib/utils.ts';
 import { useProgressStore, useVocabulary } from '@/stores/app-context.tsx';
 import type { ProgressStore } from '@/stores/progress-store.ts';
+import type { Series, SeriesWords } from '@/stores/series-types.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
 import type { Vocabulary } from '@/vocab/vocabulary.ts';
 import { createErrorSound } from './error-sound.ts';
-import type { Series, SeriesWords } from './series-view.ts';
 
 let seriesCount = 0;
 
