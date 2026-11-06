@@ -101,11 +101,9 @@ function RunningTour({ steps }: { readonly steps: readonly TourStep[] }) {
 	);
 }
 
+/** Loaded with the first tour: most launches never need it. */
 export function GuidedTour() {
 	const tour = useUiStore((state) => state.tour);
-	if (tour === null) {
-		return null;
-	}
 	return (
 		<RunningTour
 			key={tour}

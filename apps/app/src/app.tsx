@@ -5,7 +5,6 @@ import { UpdateNotice } from '@/features/notices/update-notice.tsx';
 import { SettingsScreen } from '@/features/settings/settings-screen.tsx';
 import { SplashScreen } from '@/features/splash/splash-screen.tsx';
 import { FloatingSupport } from '@/features/support/support-link.tsx';
-import { GuidedTour } from '@/features/tour/guided-tour.tsx';
 import { TourOffer } from '@/features/tour/tour-offer.tsx';
 import { TrainingScreen } from '@/features/training/training-screen.tsx';
 import { applyLocale } from '@/i18n/index.ts';
@@ -17,6 +16,11 @@ import { type Screen, useUiStore } from '@/stores/ui-store.ts';
 const StatisticsScreen = lazy(async () => {
 	const module = await import('@/features/statistics/statistics-screen.tsx');
 	return { default: module.StatisticsScreen };
+});
+
+const GuidedTour = lazy(async () => {
+	const module = await import('@/features/tour/guided-tour.tsx');
+	return { default: module.GuidedTour };
 });
 
 function CurrentScreen({
@@ -76,6 +80,7 @@ function useInterfaceLanguage() {
 export function App() {
 	const screen = useUiStore((state) => state.screen);
 	const navigate = useUiStore((state) => state.navigate);
+	const isTourRunning = useUiStore((state) => state.tour !== null);
 	const [isSplashVisible, setIsSplashVisible] = useState(
 		useStartsWithSplash(),
 	);
@@ -90,7 +95,11 @@ export function App() {
 			) : (
 				<TourOffer />
 			)}
-			<GuidedTour />
+			{isTourRunning && (
+				<Suspense fallback={null}>
+					<GuidedTour />
+				</Suspense>
+			)}
 			<AppHeader currentScreen={screen} onNavigate={navigate} />
 			<SaveIssueNotice />
 			<UpdateNotice />
