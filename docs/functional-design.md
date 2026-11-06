@@ -511,6 +511,22 @@ everyone from the start.
 - **Progress**: a quote changes neither mastery nor unlocking. It goes in the
   history and the statistics like a series.
 
+### Guided tour
+
+At the first launch, after the splash, a dialog offers a visit of the app. It can
+be declined, and started again from the About section. It only exists from a
+desktop-sized screen, as it needs the full table and a mouse.
+
+- 17 steps go through the word mode, the quote mode, the statistics and the
+  settings, moving between them by themselves. It starts by saying what the two
+  scripts are, and that the table is there to look up an unknown kana.
+- Its texts say « tu », unlike the rest of the interface.
+- At its end, the mode comes back and the keys go to typing again. A series in
+  progress is kept.
+- One more bubble follows the very first series, once there are words to hover.
+- Built on react-joyride, whose `tooltipComponent` makes the bubbles out of the
+  components of the app; driver.js only offers its own HTML to restyle.
+
 ### Support
 
 A link to Buy Me a Coffee sits at the bottom left of every screen from a

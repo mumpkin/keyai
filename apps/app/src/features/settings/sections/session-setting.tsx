@@ -44,7 +44,10 @@ export function SessionSetting() {
 	const naturalLabel = translate('settings.session.naturalWriting');
 	const spacesLabel = translate('settings.session.keepWordSpaces');
 	return (
-		<SettingSection title={translate('settings.session.title')}>
+		<SettingSection
+			title={translate('settings.session.title')}
+			tourZone="session"
+		>
 			<SettingRow label={label}>
 				<NumberField
 					label={label}

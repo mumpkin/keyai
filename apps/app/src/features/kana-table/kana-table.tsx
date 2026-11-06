@@ -59,7 +59,12 @@ function KanaTabs({
 	}
 
 	return (
-		<div className="flex gap-1" role="tablist" onKeyDown={moveWithArrows}>
+		<div
+			className="flex gap-1"
+			role="tablist"
+			data-tour="tabs"
+			onKeyDown={moveWithArrows}
+		>
 			{KANA_TABLE_TABS.map((tab) => (
 				<button
 					key={tab}
@@ -183,7 +188,7 @@ export function KanaTable() {
 	const panelId = useId();
 	const states = useKanaStates();
 	return (
-		<div className="flex flex-col gap-3">
+		<div className="flex flex-col gap-3" data-tour="table">
 			<div className="flex items-center justify-between gap-4">
 				<KanaTabs
 					current={tab}

@@ -17,6 +17,7 @@ export function TrainingModePicker() {
 			aria-label={translate('training.quote.mode')}
 			className="flex h-6 items-center gap-1 text-xs pointer-coarse:h-8"
 			data-keeps-focus
+			data-tour="mode"
 		>
 			{TRAINING_MODES.map((choice) => (
 				<button

@@ -34,6 +34,37 @@
 	"splash": {
 		"meaning": "rapide"
 	},
+	"tour": {
+		"offerTitle": "Première fois ici ?",
+		"offerDescription": "Je te fais visiter KeyAI en 2 minutes ? Tu pourras aussi relancer la visite dans les réglages.",
+		"accept": "Oui, c’est parti",
+		"decline": "Non merci",
+		"skip": "Passer",
+		"back": "Retour",
+		"next": "Suivant",
+		"done": "Terminer",
+		"replay": "Relancer la visite",
+		"steps": {
+			"welcome": "Bienvenue ! Ici, tu apprends à lire le japonais en tapant. Il s’écrit notamment avec deux alphabets, les hiragana et les katakana, et tu vas apprendre les deux en parallèle.",
+			"line": "Lis chaque mot et tape sa prononciation en lettres latines : か se tape ka. Pas besoin d’espace, tu enchaînes.",
+			"lookup": "Tu ne connais pas un kana ? Cherche-le ici : sa prononciation est écrite juste en dessous. C’est fait pour ça.",
+			"tabs": "« Mes kana » montre ceux que tu as débloqués, du plus récent au plus ancien. Hiragana et Katakana montrent les tableaux complets.",
+			"mastery": "La couleur va du rouge au vert selon ta maîtrise, qui dépend de ta vitesse et de ta précision.",
+			"unlock": "Quand tes derniers kana sont maîtrisés, un nouveau se débloque. Ici, tu vois ce qu’il te reste à maîtriser.",
+			"bar": "Ta vitesse, ta précision et tes erreurs en direct. À droite, tu choisis la longueur de la série.",
+			"stuck": "Bloqué sur un mot ? Espace le passe, mais la série ne débloquera rien. Échap relance une nouvelle série.",
+			"quotes": "Envie de vrai japonais ? Ce mode propose 100 extraits de littérature. Il ne compte pas pour ta progression, alors lance-toi sans pression.",
+			"display": "Choisis ton niveau : tout en kana, kanji avec leur lecture au-dessus, ou kanji seuls pour les plus courageux.",
+			"result": "À la fin, tu découvres ici la traduction, l’auteur et l’œuvre. Entrée pour la suivante, Tab pour rejouer.",
+			"lastSeries": "Après chaque série, tu retrouveras ici ta vitesse, tes erreurs et les mots rencontrés.",
+			"progress": "Ta progression pour chaque écriture, et bientôt ton évolution dans le temps.",
+			"anki": "Tu utilises Anki ? Ajoute des mots depuis leur fiche, puis exporte-les ici en un clic.",
+			"speed": "Trop dur ou trop facile ? Ajuste ici la vitesse demandée pour maîtriser un kana.",
+			"session": "Tu peux réviser uniquement les hiragana ou les katakana, et choisir ta façon de taper.",
+			"end": "Thème, taille des kana, sauvegarde : tout est dans les réglages. Tu peux relancer cette visite ici quand tu veux. Bon entraînement !",
+			"wordCards": "Survole un mot pour voir sa fiche complète et l’ajouter à ta liste Anki."
+		}
+	},
 	"support": {
 		"button": "Offrez-moi un café",
 		"hint": "Désactivable dans les réglages"

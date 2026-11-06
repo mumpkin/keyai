@@ -27,6 +27,7 @@ export function QuoteDisplayPicker({
 			aria-label={translate('training.quote.display')}
 			className="flex h-6 items-center gap-1 text-xs pointer-coarse:h-8"
 			data-keeps-focus
+			data-tour="display"
 		>
 			{QUOTE_DISPLAYS.map((choice) => (
 				<button

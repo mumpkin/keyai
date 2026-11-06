@@ -64,7 +64,10 @@ export function ProgressSection() {
 		thresholdKanaPerMinute,
 	});
 	return (
-		<StatisticsSection title={translate('statistics.progress')}>
+		<StatisticsSection
+			title={translate('statistics.progress')}
+			tourZone="progress"
+		>
 			<div className="grid gap-4 md:grid-cols-2">
 				{breakdowns.map((breakdown) => (
 					<ScriptBar key={breakdown.script} breakdown={breakdown} />

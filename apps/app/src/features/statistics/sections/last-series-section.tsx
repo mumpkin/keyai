@@ -123,7 +123,10 @@ export function LastSeriesSection() {
 	const { t: translate } = useTranslation();
 	const summary = useUiStore((state) => state.lastSeries);
 	return (
-		<StatisticsSection title={translate('statistics.lastSeries')}>
+		<StatisticsSection
+			title={translate('statistics.lastSeries')}
+			tourZone="last-series"
+		>
 			{summary ? (
 				<>
 					<SeriesFigures summary={summary} />

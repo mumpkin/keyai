@@ -2,13 +2,19 @@ import type { ReactNode } from 'react';
 
 export function StatisticsSection({
 	title,
+	tourZone,
 	children,
 }: {
 	readonly title: string;
+	/** Where the guided tour can point. */
+	readonly tourZone?: string;
 	readonly children: ReactNode;
 }) {
 	return (
-		<section className="flex flex-col gap-4 rounded-lg border p-4">
+		<section
+			className="flex flex-col gap-4 rounded-lg border p-4"
+			data-tour={tourZone}
+		>
 			<h2 className="text-lg font-semibold">{title}</h2>
 			{children}
 		</section>

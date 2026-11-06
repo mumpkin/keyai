@@ -89,6 +89,7 @@ export function SeriesWordsRecap({
 	return (
 		<ul
 			ref={listRef}
+			data-tour="recap"
 			className="grid h-[4.25rem] scroll-y grid-cols-1 gap-1 [overflow-anchor:none] sm:grid-cols-2 lg:grid-cols-4"
 		>
 			{indexes.map((index, position) => {

@@ -6,6 +6,8 @@ import type { Series } from '@/features/training/series/series-view.ts';
 /** A series left for another screen, taken back on return. */
 export type Screen = 'training' | 'statistics' | 'settings';
 
+export type Tour = 'visit' | 'wordCards';
+
 export interface PausedSeries {
 	readonly series: Series;
 	readonly pausedAt: number;
@@ -26,6 +28,13 @@ export interface UiState {
 	readonly pauseQuote: (paused: QuoteSeries | null) => void;
 	/** Quotes already drawn, so that none comes back too soon. */
 	readonly seenQuotes: ReadonlySet<string>;
+	/** The running tour: the visit, or the bubble about word cards. */
+	readonly tour: Tour | null;
+	readonly startTour: (tour: Tour) => void;
+	readonly endTour: () => void;
+	/** Grows when the keys must go back to typing, after a dialog or a tour. */
+	readonly typingFocusRequests: number;
+	readonly requestTypingFocus: () => void;
 	readonly markQuoteSeen: (id: string) => void;
 	/** Applies the new version that is ready, if there is one. */
 	readonly applyUpdate: (() => Promise<void>) | null;
@@ -45,6 +54,18 @@ export const useUiStore = create<UiState>()((set) => ({
 	pausedQuote: null,
 	pauseQuote: (pausedQuote) => set({ pausedQuote }),
 	seenQuotes: new Set(),
+	tour: null,
+	startTour: (tour) => set({ tour }),
+	endTour: () =>
+		set(({ typingFocusRequests }) => ({
+			tour: null,
+			typingFocusRequests: typingFocusRequests + 1,
+		})),
+	typingFocusRequests: 0,
+	requestTypingFocus: () =>
+		set(({ typingFocusRequests }) => ({
+			typingFocusRequests: typingFocusRequests + 1,
+		})),
 	markQuoteSeen: (id) =>
 		set(({ seenQuotes }) => ({ seenQuotes: new Set(seenQuotes).add(id) })),
 	applyUpdate: null,
