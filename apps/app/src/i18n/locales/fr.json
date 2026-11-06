@@ -15,8 +15,8 @@
 		"close": "Fermer"
 	},
 	"saveIssue": {
-		"unreadable": "Votre sauvegarde n’a pas pu être lue : keyai repart de zéro. Une copie est conservée.",
-		"newerVersion": "Votre sauvegarde vient d’une version plus récente de keyai : celle-ci repart de zéro. Une copie est conservée.",
+		"unreadable": "Ta sauvegarde n’a pas pu être lue : keyai repart de zéro. Une copie est conservée.",
+		"newerVersion": "Ta sauvegarde vient d’une version plus récente de keyai : celle-ci repart de zéro. Une copie est conservée.",
 		"exportCopy": "Exporter la copie de la sauvegarde",
 		"dismiss": "Fermer"
 	},
@@ -27,7 +27,7 @@
 	"update": {
 		"offered": "Une nouvelle version de keyai est prête.",
 		"applying": "Téléchargement de la nouvelle version…",
-		"failed": "La mise à jour a échoué. Vous pouvez réessayer.",
+		"failed": "La mise à jour a échoué. Tu peux réessayer.",
 		"apply": "Mettre à jour",
 		"later": "Plus tard"
 	},
@@ -66,7 +66,7 @@
 		}
 	},
 	"support": {
-		"button": "Offrez-moi un café",
+		"button": "Offre-moi un café",
 		"hint": "Désactivable dans les réglages"
 	},
 	"training": {
@@ -88,7 +88,7 @@
 			"mode": "Mode d’entraînement",
 			"length": "Longueur des citations"
 		},
-		"japaneseInputWarning": "Saisie japonaise active : désactivez-la pour taper en romaji.",
+		"japaneseInputWarning": "Saisie japonaise active : désactive-la pour taper en romaji.",
 		"errors_one": "{{count}} erreur",
 		"errors_other": "{{count}} erreurs",
 		"previousSeries": "précédente : {{speed}} · {{accuracy}}",
@@ -96,10 +96,10 @@
 		"customLength": "perso",
 		"seriesDone": "Série terminée : {{speed}} kana par minute, {{accuracy}} % de précision.",
 		"kanaUnlocked": "Nouveau kana débloqué : {{kana}}.",
-		"focusLost": "Cliquez ou touchez ici pour reprendre la frappe",
-		"guideKeyboard": "Tapez chaque mot en romaji (か = ka), espace pour valider.",
-		"guideNatural": "Tapez les mots à la suite en romaji (か = ka), sans espace.",
-		"guideTouch": "Touchez ici pour ouvrir le clavier, puis tapez en romaji.",
+		"focusLost": "Clique ou touche ici pour reprendre la frappe",
+		"guideKeyboard": "Tape chaque mot en romaji (か = ka), espace pour valider.",
+		"guideNatural": "Tape les mots à la suite en romaji (か = ka), sans espace.",
+		"guideTouch": "Touche ici pour ouvrir le clavier, puis tape en romaji.",
 		"typingArea": "Zone de frappe",
 		"skipped": "passé"
 	},
@@ -138,7 +138,7 @@
 		"mine": "Mes kana",
 		"focusTitle": "Kana à travailler",
 		"locked": "verrouillé",
-		"unlockHint": "Pour débloquer {{next}}, maîtrisez :",
+		"unlockHint": "Pour débloquer {{next}}, maîtrise :",
 		"masteredCount_one": "{{count}} maîtrisé",
 		"masteredCount_other": "{{count}} maîtrisés",
 		"latest": "nouveau",
@@ -147,7 +147,7 @@
 	"statistics": {
 		"anki": {
 			"title": "Liste Anki",
-			"empty": "Ajoutez des mots depuis leur fiche pour les retrouver ici.",
+			"empty": "Ajoute des mots depuis leur fiche pour les retrouver ici.",
 			"export": "Exporter pour Anki",
 			"done": "Fichier enregistré. Dans Anki : Fichier, puis Importer.",
 			"failed": "L’export a échoué.",
@@ -158,7 +158,7 @@
 		"lastSeries": "Dernière série",
 		"progress": "Progression",
 		"history": "Évolution",
-		"noLastSeries": "Terminez une série pour voir son détail ici. Ce détail n’est gardé que jusqu’à la fermeture de l’application.",
+		"noLastSeries": "Termine une série pour voir son détail ici. Ce détail n’est gardé que jusqu’à la fermeture de l’application.",
 		"noHistory": "Il faut au moins deux séries pour voir une évolution.",
 		"speed": "Vitesse",
 		"accuracy": "Précision",
@@ -240,7 +240,7 @@
 			"importUnlocked_other": "{{count}} kana débloqués",
 			"importSeries_one": "{{count}} série dans l’historique",
 			"importSeries_other": "{{count}} séries dans l’historique",
-			"importWarning": "Ce fichier remplacera entièrement votre progression et vos réglages actuels.",
+			"importWarning": "Ce fichier remplacera entièrement ta progression et tes réglages actuels.",
 			"importConfirm": "Remplacer",
 			"importErrors": {
 				"invalidJson": "Ce fichier n’est pas lisible.",

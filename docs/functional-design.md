@@ -520,7 +520,7 @@ desktop-sized screen, as it needs the full table and a mouse.
 - 17 steps go through the word mode, the quote mode, the statistics and the
   settings, moving between them by themselves. It starts by saying what the two
   scripts are, and that the table is there to look up an unknown kana.
-- Its texts say « tu », unlike the rest of the interface.
+- Its texts say « tu », like the rest of the French interface.
 - At its end, the mode comes back and the keys go to typing again. A series in
   progress is kept.
 - One more bubble follows the very first series, once there are words to hover.
