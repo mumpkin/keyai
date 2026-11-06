@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '@/components/external-link.tsx';
 import { SettingSection } from '@/features/settings/fields/setting-section.tsx';
 import { SupportLink } from '@/features/support/support-link.tsx';
+import { bugReportUrl } from '@/lib/bug-report.ts';
 import { translationReportUrl } from '@/lib/translation-report.ts';
 import { useUiStore } from '@/stores/ui-store.ts';
 
@@ -57,6 +58,17 @@ export function AboutSection({
 				<p>
 					<ExternalLink href={translationReportUrl()}>
 						{translate('settings.about.reportTranslation')}
+					</ExternalLink>
+				</p>
+				<p>
+					<ExternalLink
+						href={bugReportUrl({
+							version: __APP_VERSION__,
+							platform: import.meta.env.VITE_PLATFORM,
+							userAgent: navigator.userAgent,
+						})}
+					>
+						{translate('settings.about.reportBug')}
 					</ExternalLink>
 				</p>
 				<p className="mt-2">

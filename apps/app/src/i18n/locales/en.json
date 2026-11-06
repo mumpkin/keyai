@@ -36,7 +36,7 @@
 	},
 	"tour": {
 		"offerTitle": "First time here?",
-		"offerDescription": "Shall I show you around KeyAI in 2 minutes? You can also restart the tour in the settings.",
+		"offerDescription": "Shall I show you around keyai in 2 minutes? You can also restart the tour in the settings.",
 		"accept": "Yes, let’s go",
 		"decline": "No thanks",
 		"skip": "Skip",
@@ -261,7 +261,8 @@
 			"vocabulary": "Vocabulary under the CC BY-SA 4.0 license, based on:",
 			"quotes": "quotes",
 			"replaySplash": "Replay the launch animation",
-			"reportTranslation": "Report a translation error (GitHub account needed)"
+			"reportTranslation": "Report a translation error (GitHub account needed)",
+			"reportBug": "Report a bug (GitHub account needed)"
 		}
 	}
 }

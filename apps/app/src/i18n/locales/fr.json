@@ -36,7 +36,7 @@
 	},
 	"tour": {
 		"offerTitle": "Première fois ici ?",
-		"offerDescription": "Je te fais visiter KeyAI en 2 minutes ? Tu pourras aussi relancer la visite dans les réglages.",
+		"offerDescription": "Je te fais visiter keyai en 2 minutes ? Tu pourras aussi relancer la visite dans les réglages.",
 		"accept": "Oui, c’est parti",
 		"decline": "Non merci",
 		"skip": "Passer",
@@ -261,7 +261,8 @@
 			"vocabulary": "Vocabulaire sous licence CC BY-SA 4.0, issu de :",
 			"quotes": "citations",
 			"replaySplash": "Rejouer l’animation de lancement",
-			"reportTranslation": "Signaler une erreur de traduction (compte GitHub requis)"
+			"reportTranslation": "Signaler une erreur de traduction (compte GitHub requis)",
+			"reportBug": "Signaler un bug (compte GitHub requis)"
 		}
 	}
 }

@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- A link in the About section to report a bug, with the version filled in
+
+### Changed
+
+- The app is called keyai everywhere, including the Anki deck
+
 ## [0.5.0] - 2026-11-06
 
 ### Added

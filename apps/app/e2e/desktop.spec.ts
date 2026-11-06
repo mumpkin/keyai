@@ -314,3 +314,10 @@ test('offers a support link that can be turned off, except in About', async ({
 	await expect(links).toHaveCount(1);
 	await expect(page.getByText('Désactivable dans les réglages')).toBeHidden();
 });
+
+test('offers to report a bug with the version filled in', async ({ page }) => {
+	await openScreen(page, SETTINGS).click();
+	const link = page.getByRole('link', { name: /Signaler un bug/ });
+	await expect(link).toHaveAttribute('href', /template=bug\.yml/);
+	await expect(link).toHaveAttribute('href', /version=\d/);
+});
