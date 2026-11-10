@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 4173;
 const PHONE_TESTS = /(phone|accessibility)\.spec\.ts/;
-const DESKTOP_TESTS = /(desktop|tour|accessibility)\.spec\.ts/;
+const DESKTOP_TESTS = /(desktop|tour|offline|accessibility)\.spec\.ts/;
 
 export default defineConfig({
 	testDir: './e2e',
