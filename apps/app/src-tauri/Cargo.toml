@@ -1,6 +1,6 @@
 [package]
 name = "keyai"
-version = "0.5.0"
+version = "0.6.0"
 description = "Learn to read Japanese kana by typing them"
 authors = ["mumpkin"]
 license = "MIT"
