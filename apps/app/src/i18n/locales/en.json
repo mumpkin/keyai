@@ -101,7 +101,27 @@
 		"guideNatural": "Type the words one after the other in romaji (か = ka), without spaces.",
 		"guideTouch": "Touch here to open the keyboard, then type in romaji.",
 		"typingArea": "Typing area",
-		"skipped": "skipped"
+		"skipped": "skipped",
+		"input": {
+			"label": "Input",
+			"keyboard": "Keyboard",
+			"voice": "Microphone"
+		},
+		"voice": {
+			"preparing": "Get ready…",
+			"listening": "Read the word aloud.",
+			"hearing": "Hearing you…",
+			"heardWrong": "Heard: {{text}}. Say it again, or Space to skip.",
+			"heardNothing": "I did not understand. Say it again, or Space to skip.",
+			"failed": "The microphone stopped: {{message}}",
+			"firstTryCount_one": "{{count}} at the first try",
+			"firstTryCount_other": "{{count}} at the first try",
+			"previous": "Previous series: {{percent}}% at the first try · {{speed}} kana/min",
+			"unlocked": "new kana: {{kana}}",
+			"guide": "Read each word aloud: I move on when I hear it. Space skips a word, Escape starts again.",
+			"needsModel": "To read aloud, download the speech recognition model first ({{megabytes}} MB). It runs on your device: your voice is never sent anywhere.",
+			"loading": "Loading speech recognition…"
+		}
 	},
 	"wordCard": {
 		"otherSenses": "Other meanings",
@@ -180,6 +200,11 @@
 		"locked": "locked",
 		"speedOverTime": "Speed per series",
 		"accuracyOverTime": "Accuracy per series",
+		"spokenHistory": "History read aloud",
+		"readingSpeed": "Reading speed",
+		"firstTry": "Heard at the first try",
+		"readingSpeedOverTime": "Reading speed per series",
+		"firstTryOverTime": "Heard at the first try per series",
 		"showData": "Show the data",
 		"date": "Date"
 	},

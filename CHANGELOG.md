@@ -13,6 +13,11 @@ and this project adheres to
 - A Micro section in the settings: it downloads the speech recognition model
   once (160 MB), tests the microphone and deletes the model; the voice never
   leaves the device
+- The word mode can be read aloud into the microphone instead of typed: a word
+  ends when it is heard, can be said again, and Space skips it
+- Speaking also unlocks kana: a kana counts as mastered when it is, by typing
+  or by speaking
+- The statistics show the series read aloud apart, with their reading speed
 
 ## [0.6.0] - 2026-11-10
 

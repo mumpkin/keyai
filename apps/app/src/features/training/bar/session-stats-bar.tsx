@@ -117,6 +117,8 @@ interface SessionStatsBarProps {
 	readonly previous: SeriesResult | null;
 	/** How long the next series will be, which depends on the mode. */
 	readonly lengthPicker: ReactNode;
+	/** Keyboard or microphone: the word mode only, for now (C9). */
+	readonly inputPicker?: ReactNode;
 }
 
 /** Live figures of the current series and the previous one (C8). */
@@ -124,6 +126,7 @@ export function SessionStatsBar({
 	series,
 	previous,
 	lengthPicker,
+	inputPicker,
 }: SessionStatsBarProps) {
 	const { t: translate } = useTranslation();
 	const live = liveMeasurementsOf(series, performance.now());
@@ -159,6 +162,7 @@ export function SessionStatsBar({
 					{translate('training.errors', { count: live.errorCount })}
 				</span>
 				<span className="ml-auto flex flex-wrap items-center gap-3">
+					{inputPicker}
 					<TrainingModePicker />
 					{lengthPicker}
 				</span>

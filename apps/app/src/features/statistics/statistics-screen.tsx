@@ -8,7 +8,8 @@ export function StatisticsScreen() {
 		<div className="flex flex-col gap-4">
 			<LastSeriesSection />
 			<ProgressSection />
-			<HistorySection />
+			<HistorySection input="keyboard" />
+			<HistorySection input="voice" />
 			<AnkiSection />
 		</div>
 	);

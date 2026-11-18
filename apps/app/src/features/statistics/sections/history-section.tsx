@@ -1,4 +1,5 @@
 import type { SessionRecord } from '@keyai/core/save';
+import type { InputMode } from '@keyai/core/settings';
 import { useTranslation } from 'react-i18next';
 import { DataDetails } from '@/features/statistics/charts/data-details.tsx';
 import { TrendChart } from '@/features/statistics/charts/trend-chart.tsx';
@@ -14,6 +15,30 @@ const PERCENT = 100;
 const MAXIMUM_SHOWN_POINTS = 20;
 /** A line needs two points to show anything. */
 const MINIMUM_SERIES = 2;
+
+/** Typed and spoken series are measured apart (C9). */
+const LABELS = {
+	keyboard: {
+		title: 'statistics.history',
+		speed: 'statistics.speed',
+		accuracy: 'statistics.accuracy',
+		speedOverTime: 'statistics.speedOverTime',
+		accuracyOverTime: 'statistics.accuracyOverTime',
+	},
+	voice: {
+		title: 'statistics.spokenHistory',
+		speed: 'statistics.readingSpeed',
+		accuracy: 'statistics.firstTry',
+		speedOverTime: 'statistics.readingSpeedOverTime',
+		accuracyOverTime: 'statistics.firstTryOverTime',
+	},
+} as const;
+
+type Labels = (typeof LABELS)[InputMode];
+
+function inputOf(record: SessionRecord): InputMode {
+	return record.input ?? 'keyboard';
+}
 
 function useValueFormats() {
 	const { t: translate } = useTranslation();
@@ -34,8 +59,10 @@ function useValueFormats() {
 
 function HistoryTable({
 	history,
+	labels,
 }: {
 	readonly history: readonly SessionRecord[];
+	readonly labels: Labels;
 }) {
 	const { t: translate } = useTranslation();
 	const format = useValueFormats();
@@ -43,8 +70,8 @@ function HistoryTable({
 		<DataDetails
 			headers={[
 				translate('statistics.date'),
-				translate('statistics.speed'),
-				translate('statistics.accuracy'),
+				translate(labels.speed),
+				translate(labels.accuracy),
 				translate('statistics.wordCount'),
 			]}
 			rows={history.toReversed().map((record) => ({
@@ -62,8 +89,13 @@ function HistoryTable({
 
 function HistoryCharts({
 	history,
+	labels,
+	showsThreshold,
 }: {
 	readonly history: readonly SessionRecord[];
+	readonly labels: Labels;
+	/** The reading speed has no threshold yet. */
+	readonly showsThreshold: boolean;
 }) {
 	const { t: translate } = useTranslation();
 	const format = useValueFormats();
@@ -77,8 +109,8 @@ function HistoryCharts({
 			title: format.date(record),
 		}));
 	const showsPoints = history.length <= MAXIMUM_SHOWN_POINTS;
-	const speedLabel = translate('statistics.speedOverTime');
-	const accuracyLabel = translate('statistics.accuracyOverTime');
+	const speedLabel = translate(labels.speedOverTime);
+	const accuracyLabel = translate(labels.accuracyOverTime);
 	return (
 		<div className="grid gap-4 md:grid-cols-2">
 			<StatisticsBlock title={speedLabel}>
@@ -87,12 +119,14 @@ function HistoryCharts({
 					showsPoints={showsPoints}
 					points={pointsOf((record) => record.kanaPerMinute)}
 					formatValue={format.speed}
-					threshold={{
-						value: threshold,
-						label: translate('statistics.threshold', {
+					{...(showsThreshold && {
+						threshold: {
 							value: threshold,
-						}),
-					}}
+							label: translate('statistics.threshold', {
+								value: threshold,
+							}),
+						},
+					})}
 				/>
 			</StatisticsBlock>
 			<StatisticsBlock title={accuracyLabel}>
@@ -108,15 +142,25 @@ function HistoryCharts({
 	);
 }
 
-export function HistorySection() {
+/** The series typed, or those read aloud, which only show once there are some. */
+export function HistorySection({ input }: { readonly input: InputMode }) {
 	const { t: translate } = useTranslation();
-	const history = useProgress((state) => state.save.history);
+	const allHistory = useProgress((state) => state.save.history);
+	const history = allHistory.filter((record) => inputOf(record) === input);
+	const labels = LABELS[input];
+	if (input === 'voice' && history.length === 0) {
+		return null;
+	}
 	return (
-		<StatisticsSection title={translate('statistics.history')}>
+		<StatisticsSection title={translate(labels.title)}>
 			{history.length >= MINIMUM_SERIES ? (
 				<>
-					<HistoryCharts history={history} />
-					<HistoryTable history={history} />
+					<HistoryCharts
+						history={history}
+						labels={labels}
+						showsThreshold={input === 'keyboard'}
+					/>
+					<HistoryTable history={history} labels={labels} />
 				</>
 			) : (
 				<EmptyNote>{translate('statistics.noHistory')}</EmptyNote>

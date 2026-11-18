@@ -14,6 +14,11 @@ export const SessionRecordSchema = zod.object({
 	wordCount: zod.number().int().nonnegative(),
 	/** Kana unlocked at the end of this series. */
 	unlocked: zod.array(zod.string().min(1)),
+	/**
+	 * Read aloud: the speed is a reading speed and the accuracy the share of
+	 * words heard at the first try (C9). Absent from typed series.
+	 */
+	input: zod.literal('voice').optional(),
 });
 
 export const SaveFileSchema = zod.object({

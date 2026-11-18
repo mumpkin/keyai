@@ -603,12 +603,18 @@ Commons) and 109 attempts of the user:
 | 3 kana and more | 96 %                 | 89 %               |
 | 1 or 2 kana     | 83 %                 |                    |
 
-Words of three kana or more are therefore preferred, without leaving out the
-shorter ones while few kana are unlocked.
+Words of three kana or more are therefore preferred: a spoken series keeps
+only them once at least 40 of them can be said with the unlocked kana, and
+keeps the shorter ones before that.
 
 ### In the series and quotes
 
-- **An option of the word mode and of the quote mode**, not a mode of its own.
+- **An option of the word mode and of the quote mode**, not a mode of its own:
+  Keyboard or Microphone in the bar. The first time, the training screen
+  offers to download the model.
+- **One word at a time**: the recognizer gets ready for it (about a second),
+  then listens; the word ends when it is heard. The featured kana are the
+  weakest by speaking.
 - **Refused word**: the app shows what it heard; the user says it again as many
   times as they want, or skips it with Space as usual.
 - **Quotes** are read word by word, particles included, with the same
@@ -616,12 +622,17 @@ shorter ones while few kana are unlocked.
 
 ### Progress
 
-- **Separate statistics** for speaking and typing.
+- **Separate statistics** for speaking and typing: the statistics screen has
+  its own history of the series read aloud, with the reading speed and the
+  share of words heard at the first try. A spoken series records its words in
+  the speaking statistics of their kana, never in the typing ones.
+- **Reading time** of a word: from the recognizer being ready to the end of
+  the voice, on the first try only, shared among its kana.
 - **Speaking also unlocks kana.** A kana is mastered by speaking when, over the
   last 10 words said that contain it (at least 5), 80 % were heard at the first
   try and the reading speed reaches a threshold of its own. 80 % rather than
   90 %, as the recognizer refuses one word said right in ten.
 - **A kana counts as mastered for unlocking when it is mastered by typing or by
   speaking.** Someone without a microphone is never held back.
-- The reading speed and its threshold are settled with the word mode, on
-  measurements.
+- **The reading speed threshold is measured first**: until it is set, only the
+  80 % rule applies.

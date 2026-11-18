@@ -101,7 +101,27 @@
 		"guideNatural": "Tape les mots à la suite en romaji (か = ka), sans espace.",
 		"guideTouch": "Touche ici pour ouvrir le clavier, puis tape en romaji.",
 		"typingArea": "Zone de frappe",
-		"skipped": "passé"
+		"skipped": "passé",
+		"input": {
+			"label": "Saisie",
+			"keyboard": "Clavier",
+			"voice": "Micro"
+		},
+		"voice": {
+			"preparing": "Prépare-toi…",
+			"listening": "Lis le mot à voix haute.",
+			"hearing": "J’entends…",
+			"heardWrong": "Entendu : {{text}}. Redis-le, ou Espace pour passer.",
+			"heardNothing": "Je n’ai rien compris. Redis-le, ou Espace pour passer.",
+			"failed": "Le micro s’est arrêté : {{message}}",
+			"firstTryCount_one": "{{count}} du premier coup",
+			"firstTryCount_other": "{{count}} du premier coup",
+			"previous": "Série précédente : {{percent}} % du premier coup · {{speed}} kana/min",
+			"unlocked": "nouveau kana : {{kana}}",
+			"guide": "Lis chaque mot à voix haute : je passe au suivant quand je l’entends. Espace passe un mot, Échap recommence.",
+			"needsModel": "Pour lire à voix haute, il faut d’abord télécharger le modèle de reconnaissance vocale ({{megabytes}} Mo). Il tourne sur ton appareil : ta voix n’est jamais envoyée.",
+			"loading": "Chargement de la reconnaissance vocale…"
+		}
 	},
 	"wordCard": {
 		"otherSenses": "Autres sens",
@@ -180,6 +200,11 @@
 		"locked": "verrouillés",
 		"speedOverTime": "Vitesse par série",
 		"accuracyOverTime": "Précision par série",
+		"spokenHistory": "Évolution à voix haute",
+		"readingSpeed": "Vitesse de lecture",
+		"firstTry": "Reconnus du premier coup",
+		"readingSpeedOverTime": "Vitesse de lecture par série",
+		"firstTryOverTime": "Reconnus du premier coup par série",
 		"showData": "Voir les données",
 		"date": "Date"
 	},

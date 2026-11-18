@@ -1,5 +1,6 @@
 import {
 	DEFAULT_QUOTE_HINT,
+	type InputMode,
 	KANA_SIZE_LIMITS,
 	type KanaTableTab,
 	LOCALES,
@@ -38,6 +39,7 @@ export function defaultSettings(locale: Locale): Settings {
 		keepsWordSpaces: true,
 		wordScript: 'both',
 		trainingMode: 'words',
+		inputMode: 'keyboard',
 		quote: {
 			length: 'all',
 			keepsSpaces: false,
@@ -82,6 +84,13 @@ export function withTrainingMode(
 	trainingMode: TrainingMode,
 ): Settings {
 	return { ...settings, trainingMode };
+}
+
+export function withInputMode(
+	settings: Settings,
+	inputMode: InputMode,
+): Settings {
+	return { ...settings, inputMode };
 }
 
 export function withWordScript(
