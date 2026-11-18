@@ -192,6 +192,27 @@
 			"punctuation": "Taper la ponctuation",
 			"spaces": "Garder des espaces entre les mots"
 		},
+		"speech": {
+			"title": "Micro",
+			"description": "La reconnaissance vocale tourne sur ton appareil : ta voix n’est jamais envoyée. Son modèle ({{megabytes}} Mo) se télécharge une seule fois, puis marche hors ligne.",
+			"absent": "Modèle de reconnaissance vocale pas encore téléchargé.",
+			"download": "Télécharger ({{megabytes}} Mo)",
+			"loading": "Chargement du modèle… {{percent}} %",
+			"downloaded": "Modèle de reconnaissance vocale téléchargé.",
+			"failed": "Le chargement a échoué : {{message}}",
+			"delete": "Supprimer le modèle",
+			"deleteTitle": "Supprimer le modèle ?",
+			"deleteDescription": "Il faudra le télécharger à nouveau ({{megabytes}} Mo) pour te servir du micro.",
+			"deleteConfirm": "Supprimer",
+			"test": "Tester le micro",
+			"testStop": "Arrêter le test",
+			"testPreparing": "Préparation…",
+			"testListening": "Dis un mot, je t’écoute.",
+			"testHearing": "J’entends…",
+			"testHeard": "Entendu : {{text}}",
+			"testNothing": "Je n’ai rien compris.",
+			"microphoneFailed": "Le micro n’a pas pu s’ouvrir : {{message}}"
+		},
 		"language": {
 			"label": "Langue de l’interface et des traductions"
 		},

@@ -25,7 +25,7 @@ The application focuses on hiragana and katakana. Kanji only appear in the quote
 3. Words are displayed in kana; the user types their reading in romaji.
 4. An error must be corrected before the user can continue.
 5. At the end of each word, its short translation appears below the exercise.
-6. There is no audio pronunciation.
+6. Words and quotes can also be read aloud into the microphone instead of typed (see the functional design, C9). The app does not play any sound of the words yet.
 
 Words must not repeat during a session as long as enough eligible words remain. If the available vocabulary is too small, repetitions are allowed.
 
@@ -74,13 +74,13 @@ Hepburn is the displayed reference form, but common variants must be accepted. F
 - No user account is planned.
 - Progress is kept on the device.
 - The user can export and import their progress manually, notably to transfer it between the browser and the installed application.
-- Exercises must not depend on an API and must be usable offline.
+- Exercises must not depend on an API and must be usable offline. The speech recognition model is downloaded once, on demand, then works offline; the voice never leaves the device.
 
 ## 10. Out of scope
 
 - Kanji exercises, apart from reading them in the quote mode.
-- Audio pronunciation.
+- Playing the sound of words or kana (listening practice).
 - Accounts and automatic synchronisation.
 - Detailed session history.
 
-Kanji exercises and audio may come after version 1.0.
+Kanji exercises and listening practice may come after version 1.0.

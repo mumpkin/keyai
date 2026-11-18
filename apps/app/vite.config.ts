@@ -16,6 +16,13 @@ const appVersion: string = JSON.parse(
 /** Everything is cached at install: the app must work offline (spec 9). */
 const PRECACHED_FILES = '**/*.{js,css,html,svg,png,woff2}';
 
+/**
+ * The speech engine (12 MB) is cached on first use only, so that people who
+ * never turn the microphone on never download it. The name carries the
+ * engine version: a new engine gets a new cache.
+ */
+const SPEECH_ENGINE_CACHE = 'keyai-speech-engine-1.12.36';
+
 const WEB_APP_MANIFEST: Partial<ManifestOptions> = {
 	name: 'keyai',
 	// biome-ignore lint/style/useNamingConvention: name set by the manifest format
@@ -55,7 +62,16 @@ export default defineConfig(({ mode }) => ({
 			manifest: WEB_APP_MANIFEST,
 			workbox: {
 				globPatterns: [PRECACHED_FILES],
+				globIgnores: ['speech/**'],
 				cleanupOutdatedCaches: true,
+				runtimeCaching: [
+					{
+						urlPattern: ({ url }) =>
+							url.pathname.includes('/speech/'),
+						handler: 'CacheFirst',
+						options: { cacheName: SPEECH_ENGINE_CACHE },
+					},
+				],
 			},
 		}),
 	],

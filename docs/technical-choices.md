@@ -31,6 +31,7 @@ All the domain logic (romaji input, word selection, statistics, progression) liv
 | 10  | Data pipeline         | **TypeScript scripts run by Node 24** (`erasableSyntaxOnly`), corrections in **YAML**, final JSON versioned; **pnpm monorepo**                                                                                                                                    | Python                                                                                                                                     |
 | 11  | Tests                 | **Vitest 5**, **fast-check**, **Playwright** (phone and desktop formats); later: **Vitest Browser Mode** (`vitest-browser-react`), **WebdriverIO + `@wdio/tauri-service`**                                                                                        | jsdom                                                                                                                                      |
 | 12  | CI / distribution     | **GitHub + GitHub Actions**, **GitHub Pages** (`*.github.io`), **tauri-action** (NSIS `.exe`, AppImage, `.deb`), signed **`plugin-updater`**; installers unsigned for Windows for now, application to **SignPath Foundation**; duplicate detection with **jscpd** | Cloudflare Workers, Azure Artifact Signing (US/Canada only), SonarQube Cloud (redundant with Biome/TS/Vitest, free plan limited to `main`) |
+| 13  | Speech recognition    | **sherpa-onnx 1.12.36** in WebAssembly (single thread), **ReazonSpeech Zipformer** int8 downloaded from Hugging Face at a pinned revision and kept in Cache Storage, **Silero VAD**; microphone through an AudioWorklet                                           | Web Speech API (Chrome only, online), Whisper (hallucinates on short words, too heavy), Vosk (79 % against 91 %), Azure (online, paid)     |
 
 **Addition (design C3):** statistics charts with **Recharts 3** (SVG, compatible with React 19), used directly because the `chart` component of shadcn/ui breaks the Biome rules; rejected: ECharts, Chart.js, visx.
 
@@ -44,6 +45,7 @@ All the domain logic (romaji input, word selection, statistics, progression) liv
 - **French vocabulary:** JMdict only provides a French translation for ~15,300 entries. Missing French translations are completed with drafts, always reviewed before publication. Kana homographs (e.g. はし) must be settled.
 - **Linux build:** compile on Ubuntu 22.04 for glibc compatibility.
 - **Updates:** Linux auto-update only concerns the AppImage. Updates (PWA and Tauri) are offered, never forced during a session.
+- **Speech recognition:** sherpa-onnx 1.13 and later run on threads, which need COOP and COEP headers that GitHub Pages cannot send: stay on 1.12.36 (`apps/app/public/speech/NOTICE.md`). In wasm, the hint of the expected word is only read from a file when the recognizer is created (`setConfig` and `hotwordsBuf` are ignored), so the recognizer is rebuilt for each word, in about a second. The encoder (155 MB) exceeds the 100 MB limit of GitHub Pages, and GitHub release files have no CORS: the model comes from Hugging Face. WebKitGTK ships with media streams off: the desktop app turns them on and allows the microphone (`allow_microphone` in `src-tauri/src/lib.rs`).
 - **GitHub Pages:** served on keyai.cat, so the base path stays `/`. A save lives at its address: changing it again would leave the progress of web users behind.
 
 ## Code conventions
@@ -67,5 +69,6 @@ Git conventions (typed branches, commits without prefix, linear history, Keep a 
 - **Code:** MIT.
 - **Vocabulary data:** CC BY-SA 4.0 (derived from JMdict/EDRDG and wordfreq), stored in a file separate from the code, with attribution in the application ("About" page).
 - **Quotes:** public domain texts from Aozora Bunko, with translations and readings under CC BY-SA 4.0.
+- **Speech recognition:** sherpa-onnx (Apache-2.0) and Silero VAD (MIT) ship with the app; the ReazonSpeech model (Apache-2.0) is downloaded from Hugging Face and not redistributed.
 
 The repository layout is described in the [architecture](./architecture.md).

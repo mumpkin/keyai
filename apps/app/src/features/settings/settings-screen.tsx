@@ -7,6 +7,7 @@ import { FeedbackSetting } from '@/features/settings/sections/feedback-setting.t
 import { LanguageSetting } from '@/features/settings/sections/language-setting.tsx';
 import { QuoteSetting } from '@/features/settings/sections/quote-setting.tsx';
 import { SessionSetting } from '@/features/settings/sections/session-setting.tsx';
+import { SpeechSetting } from '@/features/settings/sections/speech-setting.tsx';
 import { SpeedSetting } from '@/features/settings/sections/speed-setting.tsx';
 
 interface SettingsScreenProps {
@@ -27,6 +28,7 @@ export function SettingsScreen({ onReplaySplash }: SettingsScreenProps) {
 				<FeedbackSetting />
 			</SettingSection>
 			<QuoteSetting />
+			<SpeechSetting />
 			<DataSetting />
 			<AboutSection onReplaySplash={onReplaySplash} />
 		</div>

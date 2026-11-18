@@ -14,7 +14,8 @@
 		"**/*.test.ts",
 		"**/*.test.tsx",
 		"pnpm-lock.yaml",
-		"**/vocab/data/**"
+		"**/vocab/data/**",
+		"**/public/speech/**"
 	],
 	"format": ["typescript", "tsx", "javascript", "css", "rust"]
 }
