@@ -28,6 +28,7 @@ describe('settings', () => {
 			keepsWordSpaces: true,
 			wordScript: 'both',
 			trainingMode: 'words',
+			inputMode: 'keyboard',
 			quote: {
 				length: 'all',
 				keepsSpaces: false,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Progress } from '../progression/schema.ts';
 import { entryOf } from '../vocab/entries.ts';
-import { selectionContextOf } from './context.ts';
+import { SPOKEN_MINIMUM_LONG_WORDS, selectionContextOf } from './context.ts';
 
 const FAST = { ms: 1000, error: false };
 const RULES = { thresholdKanaPerMinute: 30 };
@@ -88,4 +88,61 @@ describe('selectionContextOf', () => {
 		});
 		expect(context.entries).toHaveLength(1);
 	});
+
+	it('keeps long words for a spoken series while there are enough', () => {
+		const kana = ['い', 'の', 'に'];
+		const long = Array.from(
+			{ length: SPOKEN_MINIMUM_LONG_WORDS },
+			(_, index) =>
+				wordOf(`いのに${'い'.repeat(index % 3)}${index}`, 'いのに'),
+		);
+		const short = [wordOf('いの-short', 'いの')];
+		const progress: Progress = { unlocked: kana, kana: {} };
+		const spoken = selectionContextOf([...long, ...short], progress, {
+			...RULES,
+			input: 'voice',
+		});
+		expect(spoken.entries).toHaveLength(SPOKEN_MINIMUM_LONG_WORDS);
+		const typed = selectionContextOf([...long, ...short], progress, RULES);
+		expect(typed.entries).toHaveLength(SPOKEN_MINIMUM_LONG_WORDS + 1);
+	});
+
+	it('keeps the short words while few long ones can be said', () => {
+		const progress: Progress = { unlocked: ['い', 'の'], kana: {} };
+		const words = [wordOf('a', 'いの'), wordOf('b', 'いのの')];
+		const context = selectionContextOf(words, progress, {
+			...RULES,
+			input: 'voice',
+		});
+		expect(context.entries).toHaveLength(2);
+	});
+
+	it('features the kana weakest by speaking in a spoken series', () => {
+		const heard = { firstTry: true, ms: 400 };
+		const progress: Progress = {
+			unlocked: ['い', 'の'],
+			kana: {},
+			spoken: Object.fromEntries([
+				['い', { seen: 5, misses: 0, recent: Array(5).fill(heard) }],
+			]),
+		};
+		const context = selectionContextOf([], progress, {
+			...RULES,
+			input: 'voice',
+		});
+		expect(context.weakKana).toEqual(['の']);
+	});
 });
+
+function wordOf(id: string, kana: string) {
+	const entry = entryOf({
+		id,
+		kana,
+		rank: 1,
+		senses: [{ gloss: { en: id }, pos: ['noun'] }],
+	});
+	if (!entry) {
+		throw new Error(`${kana} cannot be typed`);
+	}
+	return entry;
+}

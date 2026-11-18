@@ -2,6 +2,11 @@ import type { UnitAttempt } from '../stats/types.ts';
 import { masteryOf } from './mastery.ts';
 import { recordAttempts } from './record.ts';
 import type { Progress } from './schema.ts';
+import {
+	recordSpokenWords,
+	type SpokenWord,
+	spokenMasteryOf,
+} from './spoken.ts';
 
 /** How many of the last unlocked kana must be mastered to unlock one more. */
 export const RECENT_KANA_TO_MASTER = 5;
@@ -29,6 +34,21 @@ export function createProgress(
 }
 
 /**
+ * Mastered for unlocking: by typing or by speaking. Someone without a
+ * microphone is never held back (C9).
+ */
+export function isMasteredForUnlock(
+	progress: Progress,
+	kana: string,
+	thresholdKanaPerMinute: number,
+): boolean {
+	return (
+		masteryOf(progress.kana[kana], thresholdKanaPerMinute).isMastered ||
+		spokenMasteryOf(progress.spoken?.[kana]).isMastered
+	);
+}
+
+/**
  * The last unlocked kana not mastered yet: they hold the next one back. Older
  * kana do not, as the series keep bringing the weakest one back (C4, C5).
  */
@@ -40,8 +60,7 @@ export function blockingKanaOf(
 		.slice(-RECENT_KANA_TO_MASTER)
 		.filter(
 			(kana) =>
-				!masteryOf(progress.kana[kana], thresholdKanaPerMinute)
-					.isMastered,
+				!isMasteredForUnlock(progress, kana, thresholdKanaPerMinute),
 		);
 }
 
@@ -81,9 +100,32 @@ export function applySeries(
 	attempts: readonly UnitAttempt[],
 	rules: UnlockRules,
 ): SeriesOutcome {
-	const recorded = recordAttempts(progress, attempts);
+	return withUnlock(
+		recordAttempts(progress, attempts),
+		attempts.some((attempt) => attempt.skipped),
+		rules,
+	);
+}
+
+/** Same as `applySeries`, for a series read aloud (C9). */
+export function applySpokenSeries(
+	progress: Progress,
+	words: readonly SpokenWord[],
+	rules: UnlockRules,
+): SeriesOutcome {
+	return withUnlock(
+		recordSpokenWords(progress, words),
+		words.some((word) => word.skipped),
+		rules,
+	);
+}
+
+function withUnlock(
+	recorded: Progress,
+	hasSkippedWord: boolean,
+	rules: UnlockRules,
+): SeriesOutcome {
 	const nextKana = nextKanaOf(recorded, rules.unlockOrder);
-	const hasSkippedWord = attempts.some((attempt) => attempt.skipped);
 	const canUnlock =
 		nextKana !== undefined &&
 		!rules.isRevision &&

@@ -16,12 +16,25 @@ export {
 	ProgressSchema,
 	type Sample,
 	SampleSchema,
+	type SpokenSample,
+	SpokenSampleSchema,
+	type SpokenStats,
+	SpokenStatsSchema,
 } from './schema.ts';
+export {
+	recordSpokenWords,
+	SPOKEN_REQUIRED_RATIO,
+	type SpokenMastery,
+	type SpokenWord,
+	spokenMasteryOf,
+} from './spoken.ts';
 export {
 	alignProgress,
 	applySeries,
+	applySpokenSeries,
 	blockingKanaOf,
 	createProgress,
+	isMasteredForUnlock,
 	nextKanaOf,
 	RECENT_KANA_TO_MASTER,
 	type SeriesOutcome,

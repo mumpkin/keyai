@@ -1,4 +1,6 @@
 export {
+	INPUT_MODES,
+	type InputMode,
 	KANA_SIZE_LIMITS,
 	KANA_TABLE_TABS,
 	type KanaTableTab,
@@ -27,6 +29,7 @@ export {
 	defaultSettings,
 	preferredLocale,
 	withErrorSound,
+	withInputMode,
 	withKanaPerMinute,
 	withKanaSize,
 	withKanaTableTab,

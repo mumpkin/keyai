@@ -7,6 +7,8 @@ export const TRAINING_MODES = ['words', 'quotes'] as const;
 export const QUOTE_LENGTHS = ['all', 'short', 'medium', 'long'] as const;
 export const QUOTE_DISPLAYS = ['kana', 'furigana', 'kanji'] as const;
 export const WORD_SCRIPTS = ['both', 'hiragana', 'katakana'] as const;
+/** Typing, or reading aloud into the microphone (C9). */
+export const INPUT_MODES = ['keyboard', 'voice'] as const;
 /** Wrong keys before a reading shows; 0 means never. */
 export const QUOTE_HINT_LIMITS = { min: 0, max: 10 } as const;
 export const DEFAULT_QUOTE_HINT = 2;
@@ -42,6 +44,7 @@ export const SettingsSchema = zod.object({
 	/** One script alone is a revision: it unlocks nothing. */
 	wordScript: zod.enum(WORD_SCRIPTS).default('both'),
 	trainingMode: zod.enum(TRAINING_MODES).default('words'),
+	inputMode: zod.enum(INPUT_MODES).default('keyboard'),
 	quote: zod
 		.object({
 			length: zod.enum(QUOTE_LENGTHS).default('all'),
@@ -78,5 +81,6 @@ export type TrainingMode = (typeof TRAINING_MODES)[number];
 export type QuoteLength = (typeof QUOTE_LENGTHS)[number];
 export type QuoteDisplay = (typeof QUOTE_DISPLAYS)[number];
 export type WordScript = (typeof WORD_SCRIPTS)[number];
+export type InputMode = (typeof INPUT_MODES)[number];
 export type SpeedPresetName = (typeof SPEED_PRESET_NAMES)[number];
 export type Settings = zod.infer<typeof SettingsSchema>;

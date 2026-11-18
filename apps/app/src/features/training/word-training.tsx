@@ -1,5 +1,6 @@
 import type { SeriesState } from '@keyai/core/session';
 import { withWordsPerSession } from '@keyai/core/settings';
+import { InputModePicker } from '@/features/training/bar/input-mode-picker.tsx';
 import { SeriesLengthPicker } from '@/features/training/bar/series-length-picker.tsx';
 import { SessionStatsBar } from '@/features/training/bar/session-stats-bar.tsx';
 import {
@@ -36,6 +37,7 @@ function WordBar({
 		<SessionStatsBar
 			series={series}
 			previous={previous}
+			inputPicker={<InputModePicker />}
 			lengthPicker={
 				<SeriesLengthPicker
 					length={series.words.length}

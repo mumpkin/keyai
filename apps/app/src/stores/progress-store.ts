@@ -1,3 +1,4 @@
+import type { SpokenWord } from '@keyai/core/progression';
 import type { SaveError, SaveFile } from '@keyai/core/save';
 import { parseSave, serializeSave } from '@keyai/core/save';
 import type { Settings } from '@keyai/core/settings';
@@ -10,8 +11,10 @@ import {
 	loadedSaveOf,
 	type SaveContext,
 	type SeriesResult,
+	type SpokenSeriesResult,
 	saveAfterReset,
 	saveAfterSeries,
+	saveAfterSpokenSeries,
 	saveWithAnkiWords,
 	saveWithSettings,
 } from './progress-logic.ts';
@@ -31,6 +34,9 @@ export interface ProgressState {
 	/** Copy of a save that could not be read, as it was stored. */
 	readonly unreadableCopy: string | null;
 	readonly applySeriesResult: (series: FinishedSeries) => SeriesResult;
+	readonly applySpokenSeriesResult: (
+		words: readonly SpokenWord[],
+	) => SpokenSeriesResult;
 	readonly updateSettings: (update: (settings: Settings) => Settings) => void;
 	readonly updateAnkiWords: (
 		update: (words: readonly string[]) => readonly string[],
@@ -116,6 +122,15 @@ export async function createProgressStore(
 		unreadableCopy,
 		applySeriesResult: (series) => {
 			const update = saveAfterSeries(get().save, series, contextOf());
+			set({ save: update.save });
+			return update.result;
+		},
+		applySpokenSeriesResult: (words) => {
+			const update = saveAfterSpokenSeries(
+				get().save,
+				words,
+				contextOf(),
+			);
 			set({ save: update.save });
 			return update.result;
 		},

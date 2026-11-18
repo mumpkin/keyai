@@ -1,7 +1,9 @@
 import {
 	alignProgress,
 	applySeries,
+	applySpokenSeries,
 	createProgress,
+	type SpokenWord,
 } from '@keyai/core/progression';
 import {
 	createSave,
@@ -147,6 +149,67 @@ export function saveAfterSeries(
 		save: updated,
 		result: { measurements, unlockedKana: outcome.unlockedKana },
 	};
+}
+
+export interface SpokenSeriesResult {
+	readonly unlockedKana: string | undefined;
+	/** Reading speed: kana of the words heard, over their reading time. */
+	readonly kanaPerMinute: number;
+	/** Share of the words heard at the first try. */
+	readonly firstTryRatio: number;
+}
+
+const MILLISECONDS_PER_MINUTE = 60_000;
+
+function readingSpeedOf(words: readonly SpokenWord[]): number {
+	let units = 0;
+	let milliseconds = 0;
+	for (const word of words) {
+		if (word.readingMs !== null && !word.skipped) {
+			units += word.units.length;
+			milliseconds += word.readingMs;
+		}
+	}
+	return milliseconds === 0
+		? 0
+		: (units * MILLISECONDS_PER_MINUTE) / milliseconds;
+}
+
+/** Records a series read aloud: speaking statistics, unlocking, history (C9). */
+export function saveAfterSpokenSeries(
+	save: SaveFile,
+	words: readonly SpokenWord[],
+	context: SaveContext,
+): { readonly save: SaveFile; readonly result: SpokenSeriesResult } {
+	const outcome = applySpokenSeries(save.progress, words, {
+		unlockOrder: context.vocabulary.file.unlockOrder,
+		thresholdKanaPerMinute: save.settings.speed.kanaPerMinute,
+		isRevision: save.settings.wordScript !== 'both',
+	});
+	const firstTry = words.filter(
+		(word) => word.heardFirstTry && !word.skipped,
+	);
+	const result: SpokenSeriesResult = {
+		unlockedKana: outcome.unlockedKana,
+		kanaPerMinute: readingSpeedOf(words),
+		firstTryRatio: words.length === 0 ? 0 : firstTry.length / words.length,
+	};
+	const updated = withSessionRecord(
+		{
+			...save,
+			progress: outcome.progress,
+			savedAt: context.now.toISOString(),
+		},
+		{
+			date: context.now.toISOString(),
+			kanaPerMinute: result.kanaPerMinute,
+			accuracy: result.firstTryRatio,
+			wordCount: words.length,
+			unlocked: outcome.unlockedKana ? [outcome.unlockedKana] : [],
+			input: 'voice',
+		},
+	);
+	return { save: updated, result };
 }
 
 export function saveWithSettings(
