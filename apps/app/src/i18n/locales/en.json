@@ -192,6 +192,27 @@
 			"punctuation": "Type the punctuation",
 			"spaces": "Keep spaces between words"
 		},
+		"speech": {
+			"title": "Microphone",
+			"description": "Speech recognition runs on your device: your voice is never sent anywhere. Its model ({{megabytes}} MB) is downloaded once, then works offline.",
+			"absent": "The speech recognition model is not downloaded yet.",
+			"download": "Download ({{megabytes}} MB)",
+			"loading": "Loading the model… {{percent}}%",
+			"downloaded": "The speech recognition model is downloaded.",
+			"failed": "Loading failed: {{message}}",
+			"delete": "Delete the model",
+			"deleteTitle": "Delete the model?",
+			"deleteDescription": "You will have to download it again ({{megabytes}} MB) to use the microphone.",
+			"deleteConfirm": "Delete",
+			"test": "Test the microphone",
+			"testStop": "Stop the test",
+			"testPreparing": "Getting ready…",
+			"testListening": "Say a word, I am listening.",
+			"testHearing": "Hearing you…",
+			"testHeard": "Heard: {{text}}",
+			"testNothing": "I did not understand anything.",
+			"microphoneFailed": "The microphone could not open: {{message}}"
+		},
 		"language": {
 			"label": "Language of the interface and translations"
 		},

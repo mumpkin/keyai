@@ -27,3 +27,8 @@ tauri-plugin-fs = "2.7.1"
 tauri-plugin-updater = "2.14.1"
 tauri-plugin-process = "2.4.0"
 tauri-plugin-opener = "2.7.2"
+
+# The WebKitGTK webview needs media streams turned on for the
+# microphone. Same version as the one used by wry.
+[target.'cfg(target_os = "linux")'.dependencies]
+webkit2gtk = "=2.0.2"

@@ -17,6 +17,7 @@ validated one at a time:
 | C6  | Settings: speed presets, default session length | Approved |
 | C7  | V1 corpus: size, filters, katakana introduction | Approved |
 | C8  | Screens and series flow                         | Approved |
+| C9  | Speaking practice                               | Approved |
 
 ## C1 — Romaji tables
 
@@ -565,3 +566,62 @@ The words sit at the top of the screen, as the virtual keyboard covers the
 bottom. The full kana table does not fit a phone, so it gives way to the kana
 to work on, with the number of mastered kana: unlocked kana that are not
 mastered, the most recent first, then the next one. The word line wraps.
+
+## C9 — Speaking practice
+
+Approved on 2026-11-18. The microphone replaces the keyboard: the user reads
+the word aloud and the app checks that it heard that word. It never grades a
+pronunciation: the recognizer is wrong about one time in ten, in both
+directions.
+
+### Recognizer
+
+- **On the device only.** sherpa-onnx in WebAssembly with the ReazonSpeech
+  Zipformer model; see the technical choices. The voice is never sent.
+- **Downloaded on demand**, about 160 MB, the first time the microphone is
+  turned on, on the web and on the desktop alike; the installer stays small.
+  The Micro section of the settings downloads it, tests the microphone and
+  deletes it.
+- **The expected word is given as a hint**, with its kanji spellings: on the
+  recordings of the user, 79 % → 88 % of words said right are accepted, and
+  90 % of mispronounced ones are still refused. A stronger hint accepts the
+  mistakes. Without a hint, the recognizer guesses among all words.
+- **A word is heard** when the answer is one of its spellings, or sounds the
+  same once written in katakana with every long vowel as ー (えいが and 映画
+  both give エーガ). おばさん and おばあさん, きて and きって stay apart.
+- **The end of a word is found alone**, by a voice activity detector (Silero):
+  0.4 s of silence ends it, and the word is cut from 0.4 s before the detected
+  start, which comes late. Measured on 108 recordings.
+
+### Measured reliability
+
+On 1,291 words of the vocabulary recorded by a person (Lingua Libre, Wikimedia
+Commons) and 109 attempts of the user:
+
+| Words           | Said right, accepted | Close word refused |
+| --------------- | -------------------- | ------------------ |
+| 3 kana and more | 96 %                 | 89 %               |
+| 1 or 2 kana     | 83 %                 |                    |
+
+Words of three kana or more are therefore preferred, without leaving out the
+shorter ones while few kana are unlocked.
+
+### In the series and quotes
+
+- **An option of the word mode and of the quote mode**, not a mode of its own.
+- **Refused word**: the app shows what it heard; the user says it again as many
+  times as they want, or skips it with Space as usual.
+- **Quotes** are read word by word, particles included, with the same
+  recognizer.
+
+### Progress
+
+- **Separate statistics** for speaking and typing.
+- **Speaking also unlocks kana.** A kana is mastered by speaking when, over the
+  last 10 words said that contain it (at least 5), 80 % were heard at the first
+  try and the reading speed reaches a threshold of its own. 80 % rather than
+  90 %, as the recognizer refuses one word said right in ten.
+- **A kana counts as mastered for unlocking when it is mastered by typing or by
+  speaking.** Someone without a microphone is never held back.
+- The reading speed and its threshold are settled with the word mode, on
+  measurements.

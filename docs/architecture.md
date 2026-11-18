@@ -54,6 +54,7 @@ progression/   per-kana mastery, unlocking, unlock order algorithm
 session/       session state machine (combines input + stats)
 quote/         quote schema, tokens and readings, choice of the next quote
 settings/      settings schema, defaults, speed presets
+speech/        whether the recognizer heard the expected word
 save/          versioned save format, migrations, import parsing
 random/        seeded random generator, weighted draw, shuffle
 ```
@@ -68,6 +69,7 @@ random/        seeded random generator, weighted draw, shuffle
 | `progression` | Mastery from recent samples, unlocking, unlock order                                                                      | `stats`, `settings`       |
 | `session`     | Session reducer                                                                                                           | `input`, `stats`          |
 | `settings`    | Settings schema and defaults                                                                                              | —                         |
+| `speech`      | `isHeard`: a known spelling, or the same sound with long vowels folded (C9)                                               | —                         |
 | `save`        | `parseSave` (validate + migrate), `serializeSave`                                                                         | `settings`, `progression` |
 
 Dependencies only point downwards; there are no cycles.
@@ -276,6 +278,7 @@ features/
   notices/          floating update and save notices
   splash/           launch animation
   tour/             guided tour and its offer at the first launch
+  speech/           speech worker, model download, microphone (C9)
 components/         shared components · ui/ for shadcn
 lib/                small helpers without React
 vocab/              JSON loading and index

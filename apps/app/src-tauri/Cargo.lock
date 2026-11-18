@@ -2016,6 +2016,7 @@ dependencies = [
  "tauri-plugin-process",
  "tauri-plugin-store",
  "tauri-plugin-updater",
+ "webkit2gtk",
 ]
 
 [[package]]

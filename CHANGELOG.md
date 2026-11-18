@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- A Micro section in the settings: it downloads the speech recognition model
+  once (160 MB), tests the microphone and deletes the model; the voice never
+  leaves the device
+
 ## [0.6.0] - 2026-11-10
 
 ### Added

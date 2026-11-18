@@ -8,7 +8,12 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**", "!packages/vocab/data", "!packages/vocab/report.md"]
+		"includes": [
+			"**",
+			"!packages/vocab/data",
+			"!packages/vocab/report.md",
+			"!apps/app/public/speech"
+		]
 	},
 	"formatter": {
 		"enabled": true,
